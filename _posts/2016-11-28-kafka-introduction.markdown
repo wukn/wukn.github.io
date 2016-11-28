@@ -156,4 +156,4 @@ listeners=PLAINTEXT://<ip>:<port>
 
 参考资料：
 
-[《Learing Apache Kafka-Second Edition》](http://www.cnblogs.com/w1991/p/5080918.html)
+[《Learing Apache Kafka-Second Edition》]()
