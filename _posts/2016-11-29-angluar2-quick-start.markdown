@@ -108,4 +108,6 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 
 参考资料：
 
-[Angular2 Documentation]()
+[Angular2 Documentation - Quick Start](https://angular.io/docs/ts/latest/quickstart.html)
+
+[Angular2 Documentation - Setup](https://angular.io/docs/ts/latest/guide/setup.html)
