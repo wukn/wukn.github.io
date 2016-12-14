@@ -54,7 +54,7 @@ Angular模块将一些整合的功能分散成很多更小的单元。很多Angu
 
 注意，只有组件、指令和管道可以被添加到`declarations`数组。`NgModule`类、service类、model类都是不能放进去的。
 
-### `bootstrap`数组中列出的组件并添加到浏览器的DOM中。
+### `bootstrap`数组
 
 应用的启动是通过启动根模块`AppModule`来启动的。bootstrapping进程会创建`bootstrap`数组中列出的组件并添加到浏览器的DOM中。
 
