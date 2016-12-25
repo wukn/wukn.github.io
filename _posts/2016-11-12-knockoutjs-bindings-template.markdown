@@ -153,6 +153,7 @@ Here are the participants:
 
 使用jQuery.tmpl时，需要引用jQuery和jQuery.tmpl。目前jQuery.tmpl已停止更新，不建议使用。
 
+{% raw %}
 ```html
 <h1>People</h1>
 <div data-bind="template: 'peopleList'"></div>
@@ -175,6 +176,7 @@ Here are the participants:
     ko.applyBindings(viewModel);
 </script>
 ```
+{% endraw %}
 
 例6：使用模板引擎Underscore
 
