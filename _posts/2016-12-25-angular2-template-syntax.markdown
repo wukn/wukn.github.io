@@ -74,7 +74,7 @@ Angular首先计算双括号内的表达式的值，然后将结果转换成字�
 
 模板表达式能计算出一个值。Angular执行表达式并将它赋给属性绑定的目标上，这个绑定目标可以是HTML元素、组件或指令。
 
-我们将模板表达式放在插值绑定的双大括号内，就像`{{1+1}}`；或者在属性绑定中等号右边的引号内，`[property]="expression"`。
+我们将模板表达式放在插值绑定的双大括号内，就像`{% raw %}{{1+1}}{% endraw %}`；或者在属性绑定中等号右边的引号内，`[property]="expression"`。
 
 模板表达式看起来像是JavaScript表达式，但并不是所有的JavaScript表达式都是合法的模板表达式。具有副作用的JavaScript表达式是被禁止的，包括：
 * 赋值表达式（`=`、`+=`、`-=`）
@@ -92,7 +92,7 @@ Angular首先计算双括号内的表达式的值，然后将结果转换成字�
 
 表达式的上下文是组件实例，也就是绑定值的来源。
 
-当我们看到`{{title}}`和`[disabled]="isUnchanged"`，我们就知道`title`和`isUnchanged`是数据绑定组件的属性。
+当我们看到`{% raw %}{{title}}{% endraw %}`和`[disabled]="isUnchanged"`，我们就知道`title`和`isUnchanged`是数据绑定组件的属性。
 
 组件自身通常就是表达式的上下文，也就是模板表达式中通常引用的就是这个组件。
 
@@ -163,11 +163,15 @@ Angular会经常计算模板表达式，比我们想象的更频繁。
 数据绑定分为三种：
 
 * 从数据源到目标视图的单向数据绑定，绑定类型有Interpolation、Property、Attribute、Class、Style。
+
+{% raw %}
 ```js
 {{expression}}
 [target] = "expression"
 bind-target = "expression"
 ```
+{% endraw %}
+
 * 从目标视图数据源到数据源的单向数据绑定，绑定类型有Event。
 ```js
 (target) = "statement"
@@ -381,8 +385,8 @@ Style绑定
 
 {% raw %}
 ```html
-<p><img src="{{heroImageUrl}}"> is the <i>interpolated</i> image.</p>
-<p><img [src]="heroImageUrl"> is the <i>property bound</i> image.</p>
+<p><img src="{{userImageUrl}}"> is the <i>interpolated</i> image.</p>
+<p><img [src]="userImageUrl"> is the <i>property bound</i> image.</p>
 
 <p><span>"{{title}}" is the <i>interpolated</i> title.</span></p>
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
@@ -401,10 +405,12 @@ evilTitle = 'Template <script>alert("evil never sleeps")</script>Syntax';
 
 Angular在数据绑定的时候会对危险的HTML发出告警。它会在显示值之前进行处理，不会让script标签泄露到HTML中，无论是插值绑定还是属性绑定都不会。
 
+{% raw %}
 ```html
 <p><span>"{{evilTitle}}" is the <i>interpolated</i> evil title.</span></p>
 <p>"<span [innerHTML]="evilTitle"></span>" is the <i>property bound</i> evil title.</p>
 ```
+{% endraw %}
 
 ![](/img/post/angular2/template-syntax/evil-title.png)
 
@@ -567,6 +573,7 @@ style绑定也是跟property绑定相似的。中括号内是加了前缀`style.
 
 `UserDetailComponent`的部分代码如下：
 
+{% raw %}
 ```html
 template: `
 <div>
@@ -577,6 +584,7 @@ template: `
   <button (click)="delete()">Delete</button>
 </div>`
 ```
+{% endraw %}
 
 ```js
 // This component make a request but it can't actually delete a user.
@@ -595,6 +603,575 @@ delete() {
 
 当发起`deleteRequest`时，Angular调用父组件的`deleteUser`方法，使用`$event`变量传递要删除的user。
 
+### 双向数据绑定
+
+通常我们希望既显示数据属性又接受用户对数据的修改。从元素的角度来看就是将设置属性值和监听元素变化事件结合起来。
+
+Angular提供了一个特殊的双向数据绑定语法，`[(x)]`。就是将属性绑定和中括号和事件绑定的小括号结合起来了。
+
+当元素有一个可设置的属性x和对应的事件xChange时，这个语法很容易理解。
+
+假设`SizerComponent`有一个`size`属性和`sizeChange`事件：
+
+{% raw %}
+```js
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+@Component({
+  selector: 'my-sizer',
+  template: `
+  <div>
+    <button (click)="dec()" title="smaller">-</button>
+    <button (click)="inc()" title="bigger">+</button>
+    <label [style.font-size.px]="size">FontSize: {{size}}px</label>
+  </div>`
+})
+export class SizerComponent {
+  @Input()  size: number | string;
+  @Output() sizeChange = new EventEmitter<number>();
+  dec() { this.resize(-1); }
+  inc() { this.resize(+1); }
+  resize(delta: number) {
+    this.size = Math.min(40, Math.max(8, +this.size + delta));
+    this.sizeChange.emit(this.size);
+  }
+}
+```
+{% endraw %}
+
+初始`size`值是来自属性绑定。点击按钮调整`size`的值，在最大值最小值的限制内，并在调整值的时候触发`sizeChange`事件。
+
+下面的`AppComponent.fontSizePx`是`SizerComponent`的双向数据绑定：
+
+```html
+<my-sizer [(size)]="fontSizePx"></my-sizer>
+<div [style.font-size.px]="fontSizePx">Resizable Text</div>
+```
+
+在最开始`AppComponent.fontSizePx`会作为`SizerComponent.size`的初始值。点击按钮可以通过双向数据绑定更新`AppComponent.fontSizePx`的值。而`AppComponent.fontSizePx`又通过Style绑定作用到div。
+
+双向数据绑定只是属性绑定加事件绑定的一个语法糖。去掉语法糖就是这个样子：
+
+```html
+<my-sizer [size]="fontSizePx" (sizeChange)="fontSizePx=$event"></my-sizer>
+```
+
+`$event`包含`SizerComponent.sizeChange`事件。当点击按钮时Angular会将`$event`值赋给`AppComponent.fontSizePx`。
+
+我们希望在input或select这样的HTML元素上使用双向数据绑定。但是很不幸，HTML元素不遵循`x`值和`xChange`这样的范式。
+
+好消息是我们可以使用NgModel指令。
+
+### NgModel双向数据绑定
+
+NgModel属性用于双向数据绑定，既显示数据属性又接受用户的改变：
+
+```html
+<input [(ngModel)]="currentUser.firstName">
+```
+
+也可以使用前缀方式：
+
+```html
+<input bindon-ngModel="currentUser.firstName">
+```
+
+在使用`ngModel`之前，我们要引入`FormsModule`并添加到模块的`imports`列表中。
+
+```js
+// app/app.module.ts
+
+import { NgModule } from '@angular/core';
+import { BrowserModule }  from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+
+import { AppComponent } from './app.component';
+
+@NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule
+  ],
+  declarations: [
+    AppComponent
+  ],
+  bootstrap: [ AppComponent ]
+})
+export class AppModule { }
+```
+
+其实我们可以使用`<input>`元素的`value`属性和`input`事件实现跟`ngModel`相同的效果：
+
+```html
+<input [value]="currentUser.firstName"
+       (input)="currentUser.firstName=$event.target.value" >
+```
+
+这样子太繁琐了。我们需要记住元素要设置的属性和监听的事件。`ngModel`指令隐藏了这些细节。`ngModel`包装了元素的`value`属性，监听`input`事件，并且提供了自己的`ngModel`输入属性和`ngModelChange`输出属性。
+
+```html
+<input
+  [ngModel]="currentUser.firstName"
+  (ngModelChange)="currentUser.firstName=$event">
+```
+
+`ngModel`数据属性设置元素的value属性，`ngModelChange`事件属性监听元素value的变化。
+
+具体的实现各个元素不相同。因此`NgModel`指令只适用于特定的元素，例如input。
+
+自定义组件是不能使用`[(ngModel)]`的，除非我们为它写了合适的值存取器（value accessor）。
+
+这个还有改进的地方。为什么我们要绑定两次呢？Angular应该能做到用一个声明来读取和设置组件书数据属性，那就是`[(ngModel)]`：
+
+```html
+<input [(ngModel)]="currentUser.firstName">
+```
+
+在内部，Angular会将`ngModel`映射为`ngModel`输入属性和`ngModelChange`输出属性。
+
+当然，在一些场景下还是有理由将`[(ngModel)]`拆成两个绑定的。例如，强制将用户的输入转换成大写：
+
+```html
+<input
+  [ngModel]="currentUser.firstName"
+  (ngModelChange)="setUpperCaseFirstName($event)">
+```
+
+### 内建指令
+
+下面是一些常见的内建指令。
+
+#### NgClass
+
+我们通常通过添加或移除CSS类来控制元素的外观。我们可以绑定`NgClass`来同时添加或移除多个CSS类。
+
+之前提到过使用class绑定来添加或移除单个CSS类：
+
+```html
+<!-- toggle the "special" class on/off with a property -->
+<div [class.special]="isSpecial">The class binding is special</div>
+```
+
+而`NgClass`指令可以一次添加或移除多个CSS类。使用`NgClass`的方式是为它绑定一个key-value对象。对象的key是CSS类名；value为true时添加该类，为false时移除该类。
+
+假设组件提供了`setClasses`方法管理CSS类的状态：
+
+```js
+setClasses() {
+  let classes =  {
+    saveable: this.canSave,      // true
+    modified: !this.isUnchanged, // false
+    special: this.isSpecial,     // true
+  }
+  return classes;
+}
+```
+
+将`NgClass`属性绑定到`setClasses`方法：
+
+```html
+<div [ngClass]="setClasses()">This div is saveable and special</div>
+```
+
+#### NgStyle
+
+之前提到过使用style绑定来添加或移除单个样式：
+
+```html
+<div [style.fontSize]="isSpecial ? 'x-large' : 'smaller'" >
+  This div is x-large
+</div>
+```
+
+而`NgStyle`指令可以一次添加或移除多个内联样式。使用`NgStyle`的方式是为它绑定一个key-value对象。对象的key是样式名称；value就是样式的值。
+
+假设组件提供了`setStyles`方法管理样式：
+
+```js
+setStyles() {
+  let styles = {
+    // CSS property names
+    'font-style':  this.canSave      ? 'italic' : 'normal',  // italic
+    'font-weight': !this.isUnchanged ? 'bold'   : 'normal',  // normal
+    'font-size':   this.isSpecial    ? '24px'   : '8px',     // 24px
+  }
+  return styles;
+}
+```
+
+将`NgStyle`属性绑定到`setStyles`方法：
+
+```html
+<div [ngStyle]="setStyles()">
+  This div is italic, normal weight, and extra large (24px)
+</div>
+```
+
+#### NgIf
+
+NgIf指令可以控制是否向DOM添加或移除一个元素。绑定的表达式值为真值时添加元素，为假值时移除元素。
+
+{% raw %}
+```html
+<div *ngIf="currentUser">Hello, {{currentUser.firstName}}</div>
+```
+{% endraw %}
+
+{% raw %}
+```html
+<!-- not displayed because nullUser is falsey.
+    `nullUser.firstName` never has a chance to fail -->
+<div *ngIf="nullUser">Hello, {{nullUser.firstName}}</div>
+
+<!-- User Detail is not in the DOM because isActive is false-->
+<user-detail *ngIf="isActive"></user-detail>
+```
+{% endraw %}
+
+我们可以也使用class绑定或style绑定控制显示或隐藏DOM元素：
+
+```html
+<!-- isSpecial is true -->
+<div [class.hidden]="!isSpecial">Show with class</div>
+<div [class.hidden]="isSpecial">Hide with class</div>
+
+<!-- UserDetail is in the DOM but hidden -->
+<user-detail [class.hidden]="isSpecial"></user-detail>
+
+<div [style.display]="isSpecial ? 'block' : 'none'">Show with style</div>
+<div [style.display]="isSpecial ? 'none'  : 'block'">Hide with style</div>
+```
+
+但是隐藏DOM元素跟使用`NgIf`移除是不一样的。当我们隐藏DOM元素时，元素仍然在DOM中。相应的组件都是存在的，保留着它们的状态，仍然消耗着内存，Angular可能会继续检查它的属性的变化。而`NgIf`值为false时，Angular会将元素中DOM中移除，释放掉组件，不再占用资源。
+
+#### NgSwitch
+
+我们使用`NgSwitch`指令来显示多个元素中的一个。
+
+```html
+<span [ngSwitch]="toeChoice">
+  <span *ngSwitchWhen="'Eenie'">Eenie</span>
+  <span *ngSwitchWhen="'Meanie'">Meanie</span>
+  <span *ngSwitchWhen="'Miney'">Miney</span>
+  <span *ngSwitchWhen="'Moe'">Moe</span>
+  <span *ngSwitchDefault>other</span>
+</span>
+```
+
+注意，`ngSwitch`用的是属性绑定，不用加`*`，而`ngSwitchWhen`和`ngSwitchDefault`前面是加了`*`的。
+
+`ngSwitch`跟`ngIf`类似，最多只会在DOM中显示一个span，其它的会被移除掉，而不是隐藏起来。
+
+#### NgFor
+
+`NgFor`是一个repeater指令。
+
+我们的目标是现实一个列表，我们用一个HTML片段定义单个列表项如何显示，然后告诉Angular用这个HTML片段作为模板来渲染列表中的每一项。
+
+例如，对`<div>`使用`NgFor`：
+
+{% raw %}
+```html
+<div *ngFor="#user of useres">{{user.fullName}}</div>
+```
+{% endraw %}
+
+也可以对组件元素使用`NgFor`：
+
+```html
+<user-detail *ngFor="let user of useres" [user]="user"></user-detail>
+```
+
+##### NgFor微语法
+
+赋值给`*ngFor`的字符串不是模板表达式，而是一个微语法（microsyntax）。
+
+例子中的`let user of useres`的意思是：对`useres`数组中的每一项，将它赋值给本地变量`user`，`user`在每次迭代的HTML中可访问。Angular会将该绑定转换成一系列的元素和绑定。
+
+`let`关键字会创建一个名为`user`的模板输入变量（跟模板引用变量不同）。
+
+##### NgFor索引
+
+`ngFor`指令有个索引`index`，从0开始。我们可以用一个模板输入变量来捕获索引并在模板中使用。
+
+{% raw %}
+```html
+<div *ngFor="let user of useres; let i=index">{{i + 1}} - {{user.fullName}}</div>
+```
+{% endraw %}
+
+还有一些值如`last`、`even`、`odd`。
+
+
+`NgFor`指令在列表很大时性能可能并不是很好。例如，我们从服务器更新useres数组，新的数组中可能大部分都是之前显示的，我们可以根据id来判断每个user是否改变。但是Angular只会看到新的数组引用，它会移除掉之前的所有元素，根据新数组重新构建并插入元素。
+
+我们可以提供一个tracking函数来告诉Angular如何识别数组项是否一样：具有相同的`user.id`的user是相同的。
+
+```js
+trackByUseres(index: number, user: User) { return user.id; }
+```
+
+设置`NgForTrackBy`指令为定义的tracking函数，Angular提供了好几种绑定语法，例如：
+
+{% raw %}
+```html
+<div *ngFor="let user of useres; trackBy:trackByUseres">({{user.id}}) {{user.fullName}}</div>
+```
+{% endraw %}
+
+tracking函数不能消除所有的DOM更新。如果同一个对象的属性有变化，那Angular还是会更新它的。
+
+#### `*`和`<template>`
+
+我们注意到在使用`NgFor`、`NgIf`、`NgSwitch`时，用到了一个很奇怪的语法，在指令名前加前缀`*`。
+
+`*`是个语法糖，让指令的阅读和编写更加简单。`NgFor`、`NgIf`和`NgSwitch`指令添加和移除的元素都包装在`<template>`中。但是我们并没有看到`<template>`，因为`*`前缀语法让我们可以忽略它，从而更多地关注我们要添加、移除或者重复的HTML元素。
+
+##### 展开`*ngIf`
+
+我们可以将`*`前缀语法展开成模板语法。例如使用`*ngIf`时：
+
+```html
+<user-detail *ngIf="currentUser" [user]="currentUser"></user-detail>
+```
+
+第一步，将`ngIf`（没有星号的）和它的内容转换成赋给`template`指令的表达式：
+
+```html
+<user-detail template="ngIf:currentUser" [user]="currentUser"></user-detail>
+```
+
+第二步（也是最后一步），将HTML 放到`<template>`标签内，并添加`ngIf`属性绑定：
+
+```html
+<template [ngIf]="currentUser">
+  <user-detail [user]="currentUser"></user-detail>
+</template>
+```
+
+##### 展开`*ngSwitch`
+
+`*ngSwitch`的转换也是类似的：
+
+```html
+<span [ngSwitch]="toeChoice">
+
+  <!-- with *NgSwitch -->
+  <span *ngSwitchWhen="'Eenie'">Eenie</span>
+  <span *ngSwitchWhen="'Meanie'">Meanie</span>
+  <span *ngSwitchWhen="'Miney'">Miney</span>
+  <span *ngSwitchWhen="'Moe'">Moe</span>
+  <span *ngSwitchDefault>other</span>
+
+  <!-- with <template> -->
+  <template [ngSwitchWhen]="'Eenie'"><span>Eenie</span></template>
+  <template [ngSwitchWhen]="'Meanie'"><span>Meanie</span></template>
+  <template [ngSwitchWhen]="'Miney'"><span>Miney</span></template>
+  <template [ngSwitchWhen]="'Moe'"><span>Moe</span></template>
+  <template ngSwitchDefault><span>other</span></template>
+
+</span>
+```
+
+##### 展开`*ngFor`
+
+`*ngFor`转换也是类似的。转换之前：
+
+```html
+<user-detail *ngFor="let user of useres; trackBy:trackByUseres" [user]="user"></user-detail>
+```
+
+将`ngFor`转换成`template`指令：
+
+```html
+<user-detail template="ngFor let user of useres; trackBy:trackByUseres" [user]="user"></user-detail>
+```
+
+进一步转换成`<template>`元素：
+
+```html
+<template ngFor let-user [ngForOf]="useres" [ngForTrackBy]="trackByUseres">
+  <user-detail [user]="user"></user-detail>
+</template>
+```
+
+### Template reference variable（模板引用变量）
+
+模板引用变量是模板内的一个DOM元素或指令的引用。它可以在DOM元素中或组件中使用。
+
+#### 引用模板引用变量
+
+我们可以在当前模板的任何位置使用模板引用变量。
+
+```html
+<<!-- phone refers to the input element; pass its `value` to an event handler -->
+<input #phone placeholder="phone number">
+<button (click)="callPhone(phone.value)">Call</button>
+
+<!-- fax refers to the input element; pass its `value` to an event handler -->
+<input ref-fax placeholder="fax number">
+<button (click)="callFax(fax.value)">Fax</button>
+```
+
+`#`开头的`phone`意思就是我们定义了一个`phone`变量。
+
+不喜欢使用`#`的同学可以使用`ref-`前缀。
+
+这个变量是如何获取值的？
+
+Angular将该变量所在的元素赋值给这个变量。我们在`input`元素上定义了变量`phone`，那么我们就可以在`button`元素这个使用这个变量来访问对应的`input`。
+
+#### NgForm和模板引用变量
+
+看这个HTML表单：
+
+```html
+<form (ngSubmit)="onSubmit(theForm)" #theForm="ngForm">
+  <div class="form-group">
+    <label for="name">Name</label>
+    <input class="form-control" name="name" required [(ngModel)]="currentUser.firstName">
+  </div>
+  <button type="submit" [disabled]="!theForm.form.valid">Submit</button>
+</form>
+```
+
+这个本地变量`theForm`的值到底是什么呢？
+
+如果没有Angular，表单是一个HTMLFormElement。而在Angular中，它实际上是`ngForm`，Angular内建指令`NgForm`的引用，它包装了HTMLFormElement，并提供了一些额外的特性。
+
+### Input and output property（输入属性和输出属性）
+
+之前我们关注的都是绑定声明右侧的模板表达式和模板声明，也就是数据绑定源。接下来再看一下绑定目标，绑定声明左侧的指令属性。这些指令属性必须声明为输入还是输出。
+
+绑定目标就是绑定符号（`[]`、`()`、`[()]`）内的属性或事件，绑定源就是引号（`""`）或这插值绑定（`{}`）内的内容。
+
+只有显式标识为inputs或outputs的属性才能作为绑定目标。
+
+例如`UserDetailComponent`中：
+
+```html
+<user-detail [user]="currentUser" (deleteRequest)="deleteUser($event)">
+</user-detail>
+```
+
+`UserDetailComponent.user`和`UserDetailComponent.deleteRequest`都是绑定目标。`UserDetailComponent.user`在小括号内，它是个属性绑定的目标；`UserDetailComponent.deleteRequest`在中括号内，它是个事件绑定的目标。
+
+#### 声明输入属性和输出属性
+
+目标属性必须被显式地声明为输入或者输出：
+
+```js
+@Input()  user: User;
+@Output() deleteRequest = new EventEmitter<User>();
+```
+
+或者在指令元数据的`inputs`和`outputs`数组中指定：
+
+```js
+@Component({
+  inputs: ['user'],
+  outputs: ['deleteRequest'],
+})
+```
+
+输入属性通常接收数据值。输出属性暴露出事件生产者，例如`EventEmitter`对象。
+
+`UserDetailComponent.user`是个输入属性，因为数据从模板绑定表达式流向属性。`UserDetailComponent.deleteRequest`是一个输出属性，因为事件从该属性发出，指向模板声明的处理者。
+
+#### 输入/输出属性的别名
+
+有时候我们希望为输入/输出属性提供一个对外的名称。
+
+这在attribute指令中很常见。指令使用者希望绑定到指令的名称上。例如，我们想绑定一个selector为`myClick`的指令到`<div>`标签上，我们下网绑定的目标属性也叫`myClick`：
+
+```html
+<div (myClick)="clickMessage=$event">click with myClick</div>
+```
+
+然而指令的名称没有具体的指令类里属性的名字那样带有那么多含义。指令的名称很少会描述属性到底是干嘛的。
+
+将组件的`clicks`事件属性起个别名`myClick`。
+
+```js
+@Output('myClick') clicks = new EventEmitter<string>(); //  @Output(alias) propertyName = ...
+```
+
+或者实在元数据中指定：
+
+```js
+@Directive({
+  outputs:['clicks:myClick']  // propertyName:alias
+})
+```
+
+`myClick`在指令内部实际上是`clicks`属性。
+
+### Template expression operator（模板表达式运算符）
+
+模板表达式扩展了一些JavaScript没有的操作符： pipe和Elvis。
+
+#### pipe operator ( | )
+
+有时候表达式的值在绑定前需要做一些转换。例如，将数字转换成货币格式、将字符串转成大写、对数组进行过滤或者排序。
+
+管道（Pipe）是个简单的函数，接收出入值，返回转换后的值。例如：
+
+{% raw %}
+```html
+<div>Title through uppercase pipe: {{title | uppercase}}</div>
+```
+{% endraw %}
+
+管道运算符将左侧表达式的值传递给右侧的管道函数。
+
+我们可以将多个管道函数链接起来：
+
+{% raw %}
+```html
+<!-- Pipe chaining: convert title to uppercase, then to lowercase -->
+<div>
+  Title through a pipe chain:
+  {{title | uppercase | lowercase}}
+</div>
+```
+{% endraw %}
+
+也可以对管道函数添加参数：
+
+{% raw %}
+```html
+<!-- pipe with configuration argument => "February 25, 1970" -->
+<div>Birthdate: {{currentUser?.birthdate | date:'longDate'}}</div>
+```
+{% endraw %}
+
+`json`是个很有用的调试工具：
+
+{% raw %}
+```html
+<div>{{currentUser | json}}</div>
+
+<!-- Output:
+  { "firstName": "Hercules", "lastName": "Son of Zeus",
+    "birthdate": "1970-02-25T08:00:00.000Z",
+    "url": "http://www.imdb.com/title/tt0065832/",
+    "rate": 325, "id": 1 }
+-->
+```
+{% endraw %}
+
+#### Safe navigation operator ( ?. )
+
+这个操作符是为了保证属性路径中有null或undefined值时不会出错：
+
+{% raw %}
+```html
+The current user's name is {{currentUser?.firstName}}
+```
+{% endraw %}
+
+这样，即使`currentUser`为null，Angular也不会报错了。
+
+这在长属性调用中也可以，例如`a?.b?.c?.d`。
 
 ---
 
