@@ -747,6 +747,7 @@ Angular内部就是使用OpaqueToken的，例如HTTP_PROVIDERS 。实际上Provi
 
 ### 直接使用injector（罕见的情况）
 
+{% raw %}
 ```js
 // app/injector.component.ts
 
@@ -771,6 +772,7 @@ export class InjectorComponent {
   }
 }
 ```
+{% endraw %}
 
 `Injector`自身也是可注入的。
 
