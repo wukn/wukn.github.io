@@ -292,6 +292,310 @@ Style绑定
 <button [style.color] = "isSpecial ? 'red' : 'green'">
 ```
 
+### Property binding（属性绑定）
+
+当我们需要将一个视图元素的属性设置为一个模板表达式的值时，我们使用属性绑定。
+
+最常见的属性绑定就是将元素的属性设置为组件的属性值：
+
+```html
+<img [src]="userImageUrl">
+```
+
+另一个例子是禁用按钮：
+
+```html
+<button [disabled]="isUnchanged">Cancel is disabled</button>
+```
+
+或者是设置指令的属性：
+
+```html
+<div [ngClass]="classes">[ngClass] binding to the classes property</div>
+```
+
+或者是自定义组件的模型属性（也是父子组件交互的一种方式）：
+
+```js
+<user-detail [user]="currentUser"></user-detail>
+```
+
+人们通常将属性绑定称为单向数据绑定，因为数据是从组件的属性流向目标元素的属性。我们无法通过属性绑定来读取一个目标元素的值。
+
+同样我们也无法通过属性绑定来调用目标元素的事件。如果元素触发了事件，我们可以用事件绑定来处理它。如果我们必须读取一个目标元素的属性或调用它的方法，需要借助一些其它的手段，例如[ViewChild](https://angular.io/docs/ts/latest/api/core/index/ViewChild-decorator.html)和[ContentChild](https://angular.io/docs/ts/latest/api/core/index/ContentChild-decorator.html)。
+
+#### 绑定目标
+
+中括号内的名称指定了绑定的目标属性，例如设置img的src属性：
+
+```html
+<img [src]="userImageUrl">
+```
+
+除了中括号，还可以使用`bind-`前缀，这是标准模式：
+
+```html
+<img bind-src="userImageUrl">
+```
+
+目标名称总是property名称。我们看到`src`会认为它是attribute名称，实际上是img元素property的名称。
+
+元素属性是最常见的目标，但是Angular会先在已知的指令中查找是否有该名称的属性。如果在已知指令或元素的属性都没有找到该名称的属性，Angular会返回一个`unknown directive`错误。
+
+记得避免使用有副作用的模板表达式。如果我们在模板表达式中使用了`getFoo()`，我们自己需要知道这个方法里面到底做了什么，如果这个方法里修改了其它绑定项的值，那这就不好了。
+
+使用属性绑定时，要注意模板表达式返回正确的数据类型，也就是说模板表达式计算得到的值的类型应该和目标属性值类型一样。
+
+例如。`UserDetail`的`user`属性，期望的是一个`User`对象，而我们属性绑定的正好是：
+
+```html
+<user-detail [user]="currentUser"></user-detail>
+```
+
+别忘了属性绑定的中括号。如果忘记了中括号，Angular会把字符串作为常量，并且用该字符串初始化目标属性，而不是计算字符串的值。
+
+```html
+<!--
+  BAD!
+  UserDetailComponent.User expects a User object,
+  not the string "currentUser"
+ -->
+<user-detail user="currentUser"></user-detail>
+```
+
+如果我们想要的是这样的效果，那么去掉中括号是完全可以的：
+
+* 目标寺属性接受的值是字符串类型
+* 这个字符串值是我们想在模板里使用的一个固定值
+* 这个初始值永远不会改变
+
+这种属性初始化方式对组件或指令也是适用的。例如将`UserDetailComponent`组件的`prefix`属性初始化为一个固定的字符串：
+
+```html
+<user-detail prefix="The name is " [user]="currentUser"></user-detail>
+```
+
+#### 选择属性绑定还是插值绑定
+
+通常我们在属性绑定和插值绑定之间二选一，它们俩的作用是一样的：
+
+{% raw %}
+```html
+<p><img src="{{heroImageUrl}}"> is the <i>interpolated</i> image.</p>
+<p><img [src]="heroImageUrl"> is the <i>property bound</i> image.</p>
+
+<p><span>"{{title}}" is the <i>interpolated</i> title.</span></p>
+<p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
+```
+{% endraw %}
+
+事实上Angular在渲染视图之前会吧插值绑定转换成属性绑定。
+
+#### 内容安全问题
+
+假设有这样个变量：
+
+```javascript
+evilTitle = 'Template <script>alert("evil never sleeps")</script>Syntax';
+```
+
+Angular在数据绑定的时候会对危险的HTML发出告警。它会在显示值之前进行处理，不会让script标签泄露到HTML中，无论是插值绑定还是属性绑定都不会。
+
+```html
+<p><span>"{{evilTitle}}" is the <i>interpolated</i> evil title.</span></p>
+<p>"<span [innerHTML]="evilTitle"></span>" is the <i>property bound</i> evil title.</p>
+```
+
+![](/img/post/angular2/template-syntax/evil-title.png)
+
+### Attribute, class, and style binding
+
+模板语法还提供了一些特殊的单向绑定。
+
+#### Attribute binding
+
+我们可以使用attribute绑定来设置attribute的值。(前面说到绑定的目标是property，这里是唯一一个例外。)
+
+上一篇已经说了attribute和property的区别。为什么Angular还要提供attribute绑定呢？因为有的attribute没有对应的property。例如aria，svg，table的span，它们是纯attribute，没有对应的元素属性。
+
+如果我们这样做：
+
+{% raw %}
+```html
+<tr><td colspan="{{1 + 1}}">Three-Four</td></tr>
+```
+{% endraw %}
+
+会得到这样的错误：
+```
+Template parse errors:
+Can't bind to 'colspan' since it isn't a known native property
+```
+
+因为`<td>`元素没有名为`colspan`的property。它有`colspan`attribute，但是插值绑定和property绑定只会设置property，而不是attribute。
+
+因此，我们需要attribute绑定。
+
+attribute绑定跟property绑定是相似的。只是中括号内不是property名称，而是加了前缀`attr.`的attribute名称。
+
+```html
+<tr><td [attr.colspan]="1 + 1">One-Two</td></tr>
+```
+
+最主要的使用场景就是设置ARIA属性：
+
+{% raw %}
+```html
+<table border=1>
+  <!--  expression calculates colspan=2 -->
+  <tr><td [attr.colspan]="1 + 1">One-Two</td></tr>
+
+  <!-- ERROR: There is no `colspan` property to set!
+    <tr><td colspan="{{1 + 1}}">Three-Four</td></tr>
+  -->
+
+  <tr><td>Five</td><td>Six</td></tr>
+</table>
+```
+{% endraw %}
+
+最主要的一个应用场景是绑定ARIA的attribute：
+
+{% raw %}
+```html
+<!-- create and set an aria attribute for assistive technology -->
+<button [attr.aria-label]="actionName">{{actionName}} with Aria</button>
+```
+{% endraw %}
+
+### Class binding
+
+我们使用class绑定来为元素的class属性添加或移除CSS类。
+
+class绑定也是跟property绑定相似的。中括号内是`class`或者是加了前缀`class.`的CSS类名称：`[class]`、`[class.class-name]`。
+
+`[class]`这种方式是根据模板表达式的值添加或者移除所有的CSS类。
+
+```html
+<!-- reset/override all class names with a binding  -->
+<div class="bad curly special"
+     [class]="badCurly">Bad curly</div>
+```
+
+也可以指定类名：
+
+```html
+<!-- toggle the "special" class on/off with a property -->
+<div [class.special]="isSpecial">The class binding is special</div>
+
+<!-- binding to `class.special` trumps the class attribute -->
+<div class="special"
+     [class.special]="!isSpecial">This one is not so special</div>
+```
+
+如果要同时管理多个CSS类，更好的做法是使用`NgClass`指令。
+
+#### Style binding
+
+我们可以使用style绑定来设置内联样式。
+
+style绑定也是跟property绑定相似的。中括号内是加了前缀`style.`的CSS样式属性名称：`[style.style-property]`。
+
+```html
+<button [style.color] = "isSpecial ? 'red' : 'green'">Red</button>
+<button [style.background-color]="canSave ?'cyan' : 'grey'" >Save</button>
+```
+
+有的style绑定有单位。
+
+```html
+<button [style.fontSize.em]="isSpecial ? 3 : 1" >Big</button>
+<button [style.fontSize.%]="!isSpecial ? 150 : 50" >Small</button>
+```
+
+如果要同时管理多个内联样式，更好的做法是使用`NgStyle`指令。
+
+### Event binding（事件绑定）
+
+事件绑定是从视图到组件的单向数据绑定。
+
+事件绑定语法由等号左边的放在小括号内的目标事件和等号右边的放在引号内的模板声明两部分组成组成。例如将按钮的点击事件绑定到组件的`onSave()`方法：
+
+```html
+<button (click)="onSave()">Save</button>
+```
+
+#### 目标事件
+
+小括号内的名称表明目标事件。也可以使用`on-`前缀，这是标准形式：
+
+```html
+<button on-click="onSave()">On Save</button>
+```
+
+元素的事件是最常见的绑定目标，但是Angular会先查找已知的指令是否有该名称的事件属性。
+
+```html
+<!-- `myClick` is an event on the custom `ClickDirective` -->
+<div (myClick)="clickMessage=$event">click with myClick</div>
+```
+
+如果没有匹配的元素事件或已知指令的事件属性，Angular会返回`unknown directive`错误。
+
+#### $event和事件处理声明
+
+在事件绑定中，Angular为目标事件设置事件处理器。当事件触发了，事件处理器会执行模板声明。
+
+事件绑定使用一个名为`$event`的对象承载事件的相关信息，包括数据值。`$event`对象的类型取决于目标事件。如果目标事件是DOM元素事件，那`$event`就是DOM事件对象，有诸如`target`和`target.value`这样的属性。
+
+例如：
+
+```html
+<input [value]="currentUser.firstName"
+       (input)="currentUser.firstName=$event.target.value" >
+```
+
+这段代码将input的`value`属性绑定到`firstName`属性。为了监听值的变化，代码里绑定了input的`input`事件。当用户做出修改操作时，`input`事件被触发，绑定的声明会在包含DOM事件对象的上下文中执行，也就是`$event`。
+
+如果绑定事件属于指令（记住，组件也是指令哦），那么`$event`取决于指令。
+
+#### 使用EventEmitter自定义事件
+
+指令通常使用EventEmitter来触发自定义事件。每个指令会创建一个`EventEmitter`并将它作为属性暴露出来。组件调用`EventEmitter.emit(payload)`来发起一个事件，并传入一个消息。父指令通过绑定该属性监听该事件，并通过`$event`对象访问传递的参数`payload`。
+
+例如，`UserDetailComponent`展示user的信息并响应用户的操作。尽管`UserDetailComponent`有个删除按钮，但是它不知道如何删除一个user。最好的做法是它发起一个事件来处理用户的删除请求。
+
+`UserDetailComponent`的部分代码如下：
+
+```html
+template: `
+<div>
+  <img src="{{userImageUrl}}">
+  <span [style.text-decoration]="lineThrough">
+    {{prefix}} {{user?.fullName}}
+  </span>
+  <button (click)="delete()">Delete</button>
+</div>`
+```
+
+```js
+// This component make a request but it can't actually delete a user.
+deleteRequest = new EventEmitter<User>();
+
+delete() {
+  this.deleteRequest.emit(this.user);
+}
+```
+
+假设一个托管父组件绑定了`UserDetailComponent`的`deleteRequest`事件：
+
+```html
+<user-detail (deleteRequest)="deleteUser($event)" [user]="currentUser"></user-detail>
+```
+
+当发起`deleteRequest`时，Angular调用父组件的`deleteUser`方法，使用`$event`变量传递要删除的user。
+
+
 ---
 
 参考资料：
