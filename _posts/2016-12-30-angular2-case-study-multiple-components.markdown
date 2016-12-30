@@ -31,7 +31,7 @@ export class HeroDetailComponent {
 }
 ```
 
-注意看下命名规范。组件`AppComponent`对应的文件名为`app.component.ts`，`HeroDetailComponent`对应的文件名为`hero-detail.component.ts`。也就是说组件的名字以`Component`结尾，对应的文件名后缀为`.component.ts`。组件的名字中各单词的首字母大写；而文件名中全部小写，单词之间用`-`相连。
+注意看下命名规范。组件`AppComponent`对应的文件名为`app.component.ts`，`HeroDetailComponent`对应的文件名为`hero-detail.component.ts`。也就是说组件的名字以`Component`结尾，对应的文件名后缀为`.component.ts`。组件的名字中各单词的首字母大写；而文件名中全部小写，单词之间用`-`相连，称为lower dash-case。
 
 目前，Heroes和HeroDetail的视图都在`AppComponent`的模板中。我们将HeroDetail的视图拆到新的组件`HeroDetailComponent`中。
 
@@ -138,7 +138,175 @@ template: `
 
 ### 服务
 
+目前`AppComponent`中直接定义了模拟数据用于展示。这里有两个问题：一这些数据的获取不是组件的事儿，二这些数据无法与其它组件和视图共享。
 
+So, 接下来我们将数据处理重构到一个单独的服务中。
+
+数据服务毫无疑问是异步的，所以我们将要完成的是一个基于Promise的数据服务。
+
+在`app`文件夹下创建`hero.service.ts`：
+
+```js
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class HeroService {
+}
+```
+
+这里的命名还是文件名为lower dash-case，以`.service.ts`结尾。例如`SpecialSuperHeroService`对应的文件名应为`special-super-hero.service.ts`。
+
+注意这里的`@Injectable()`装饰器。TypeScript遇到`@Injectable()`装饰器就会带上该service的元数据，以及该service的依赖的元数据。
+
+添加一个`getHeroes`空方法：
+
+```js
+@Injectable()
+export class HeroService {
+  getHeroes(): void {} // stub
+}
+```
+
+我们将数据的获取交给service去做，这样service的消费者，也就是组件，就不需要知道怎样去获取数据了。
+
+之前我们在`AppComponent`定义的模拟数据。他不应该在那里，也不应该在service中，我们也将它放到一个单独的文件中。
+
+将`app.component.ts`中的`HEROES`数组剪切出来，放到`app`文件夹下新创建的`mock-heroes.ts`中：
+
+```js
+// app/mock-heroes.ts
+
+import { Hero } from './hero';
+export const HEROES: Hero[] = [
+  {id: 11, name: 'Mr. Nice'},
+  {id: 12, name: 'Narco'},
+  {id: 13, name: 'Bombasto'},
+  {id: 14, name: 'Celeritas'},
+  {id: 15, name: 'Magneta'},
+  {id: 16, name: 'RubberMan'},
+  {id: 17, name: 'Dynama'},
+  {id: 18, name: 'Dr IQ'},
+  {id: 19, name: 'Magma'},
+  {id: 20, name: 'Tornado'}
+];
+```
+
+由于`app.component.ts`中没有`HEROES`了，我们暂时将`heroes`置为未初始化的状态：
+
+```js
+heroes: Hero[];
+```
+
+回到`HeroService`中，我们引入`HEROES`，然后在`getHeroes`中返回它：
+
+```js
+// app/hero.service.ts
+
+import { Injectable } from '@angular/core';
+
+import { Hero } from './hero';
+import { HEROES } from './mock-heroes';
+
+@Injectable()
+export class HeroService {
+  getHeroes(): Hero[] {
+    return HEROES;
+  }
+}
+```
+
+现在就可以在`AppComponent`中使用`HeroService`了：
+
+```js
+import { HeroService } from './hero.service';
+```
+
+我们需要自己实例化`HeroService`吗？像这样：
+
+```js
+heroService = new HeroService(); // don't do this
+```
+
+依赖注入会帮我们完成这样的工作。我们需要在构造函数中定义一个似有属性，并在组件的`providers`元数据中添加依赖的这个类：
+
+```js
+constructor(private heroService: HeroService) { }
+```
+
+```js
+providers: [HeroService]
+```
+
+在`AppComponent`中创建`getHeroes`方法，从service中获取数据：
+
+```js
+getHeroes(): void {
+  this.heroes = this.heroService.getHeroes();
+}
+```
+
+现在问题来了，我们应该在那里调用这个方法呢？构造函数中？
+
+经验告诉我们，不要在构造函数中写复杂的业务逻辑，特别是那些调用service获取数据的。构造函数应该只是简单的处理一些属性的初始化工作。
+
+不是在构造函数中，那是在哪里调用`getHeroes`呢？
+
+我们可以实现Angular的ngOnInit钩子（Lifecycle Hook）。Angular提供了一些接口能让我们在组件的生命周期的几个关键的点插入业务逻辑。每个接口对应一个方法。只要实现了接口，Angular就会在相应的时间点调用它。
+
+在`AppComponent`组件中实现`OnInit`接口，调用`getHeroes`方法：
+
+```js
+import { OnInit } from '@angular/core';
+
+export class AppComponent implements OnInit {
+  ngOnInit(): void {
+    this.getHeroes();
+  }
+}
+```
+
+现在运行起来效果和之前还是一样的。
+
+#### 异步Service和Promise
+
+`HeroService`中立刻返回了模拟数据，它的`getHeroes`方法是同步的：
+
+```js
+this.heroes = this.heroService.getHeroes();
+```
+
+真实的情况是，我们从远程服务器获取数据。所以需要将`getHeroes`改成异步模式：
+
+```js
+getHeroes(): Promise<Hero[]> {
+  return Promise.resolve(HEROES);
+}
+```
+
+对应的`app.component.ts`中调用service的地方也要修改：
+
+```js
+// app/app.component.ts
+
+getHeroes(): void {
+  this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+}
+```
+
+程序运行起来效果还是和之前一样的。
+
+附：
+
+我们可以模拟远程请求，让数据获取的慢一些：
+
+```js
+getHeroesSlowly(): Promise<Hero[]> {
+  return new Promise(resolve => {
+    // Simulate server latency with 2 second delay
+    setTimeout(() => resolve(this.getHeroes()), 2000);
+  });
+}
+```
 
 ---
 
