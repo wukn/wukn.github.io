@@ -655,23 +655,496 @@ export class AppModule { }
 
 ### 通过路由器延迟加载模块
 
+现在应用包括两个模块了，Hero和Contact。我们想再加一个模块Crisis。然后在应用启动的时候加载`ContactComponent`。也就是说`ContactModule`保持贪婪式加载，而`HeroModule`和`CrisisModule`改为延迟加载。
 
+修改下`AppComponent`的模板：一个标题、三个链接、一个`<router-outlet>`：
+
+```js
+// app/app.component.ts (v3 - Template)
+
+template: `
+  <app-title [subtitle]="subtitle"></app-title>
+  <nav>
+    <a routerLink="contact" routerLinkActive="active">Contact</a>
+    <a routerLink="crisis"  routerLinkActive="active">Crisis Center</a>
+    <a routerLink="heroes"  routerLinkActive="active">Heroes</a>
+  </nav>
+  <router-outlet></router-outlet>
+`
+```
+
+#### 应用的路由
+
+相应地修改`AppModule`：
+
+```js
+// app/app.module.ts (v3)
+
+import { NgModule }           from '@angular/core';
+import { BrowserModule }      from '@angular/platform-browser';
+/* App Root */
+import { AppComponent }       from './app.component.3';
+import { HighlightDirective } from './highlight.directive';
+import { TitleComponent }     from './title.component';
+import { UserService }        from './user.service';
+/* Feature Modules */
+import { ContactModule }      from './contact/contact.module.3';
+/* Routing Module */
+import { AppRoutingModule }   from './app-routing.module.3';
+@NgModule({
+  imports:      [
+    BrowserModule,
+    ContactModule,
+    AppRoutingModule
+  ],
+  providers:    [ UserService ],
+  declarations: [ AppComponent, HighlightDirective, TitleComponent ],
+  bootstrap:    [ AppComponent ]
+})
+export class AppModule { }
+```
+
+该模块仍然引入了`ContactModulE`，因为它的路由和组件要在应用启动的时候加载。
+
+注意这里没有引入`HeroModule`和`CrisisModule`。它们将会在用户导航到它们的路由时动态地获取和加载。
+
+这里还引入了`AppRoutingModule`，它是一个处理路由的模块：
+
+```js
+// app/app-routing.module.ts
+
+import { NgModule }             from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+
+export const routes: Routes = [
+  { path: '', redirectTo: 'contact', pathMatch: 'full'},
+  { path: 'crisis', loadChildren: 'app/crisis/crisis.module#CrisisModule' },
+  { path: 'heroes', loadChildren: 'app/hero/hero.module#HeroModule' }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule {}
+```
+
+这个文件中定义了三个路由。
+
+第一个路由是将空URL（例如`https://host.com`）重定向到`contact`(`https://host.com/contact`)。`contact`路由没有在这里定义，它是定义在Contact特性的自己的路由模块中（`contact-routing.module.ts`）。为拥有路由组件的特性模块定义一个它自己的路由文件可以说是一个最佳实践。
+
+另外两个路由使用了延迟加载语法来告诉路由器去哪里找对应的模块。延迟加载模块的路径是一个字符串，也就是`#`后面的部分。
+
+#### RouterModule.forRoot
+
+`RouterModule`类的静态方法`forRoot`接收路由配置，将它添加到`imports`表明该模块是用来处理路由的。
+
+返回的类`AppRoutingModule`就是一个路由模块，它包含`RouterModule`指令和可以产生配置好的`Router`的依赖注入provider。`AppRoutingModule`只是做为应用的根模块。
+
+注：千万不要在特性路由模块中调用`RouterModule.forRoot`。
+
+回到`AppModule`中，将`AppRoutingModule`添加到imports列表。这样应用就可以启动了。
+
+```js
+imports:      [
+  BrowserModule,
+  ContactModule,
+  AppRoutingModule
+],
+```
+
+#### 路由到特性模块
+
+创建文件`app/contact/contact-routing.module.ts`，在这个文件里定义上面提到的`contact`路由以及提供`ContactRoutingModule`：
+
+```js
+// app/contact/contact-routing.module.ts (routing)
+
+@NgModule({
+  imports: [RouterModule.forChild([
+    { path: 'contact', component: ContactComponent }
+  ])],
+  exports: [RouterModule]
+})
+export class ContactRoutingModule {}
+```
+
+这次是将路由配置清单传递给`RouterModule`的`forChild`方法。它是专门为特性模块设计的，只是为了提供额外的路由。
+
+`ContactModule`中有两处细微但很重要的变化，它引入了`ContactRoutingModule`，并且不再导出`ContactComponent`：
+
+```js
+// app/contact/contact.module.3.ts
+
+@NgModule({
+  imports:      [ CommonModule, FormsModule, ContactRoutingModule ],
+  declarations: [ ContactComponent, HighlightDirective, AwesomePipe ],
+  providers:    [ ContactService ]
+})
+export class ContactModule { }
+```
+
+现在是通过路由导航到`ContactComponent`，所以没有理由再将它设置为公共的。它甚至都不需要selector了，因为没有模板引用它了。
+
+#### 路由延迟加载的模块
+
+延迟加载的`HeroModule`和`CrisisModule`同样遵循特性模块的相关原则，它们跟`ContactModule`其实看起来没有什么区别。
+
+`HeroModule`的结构比`CrisisModule`稍微复杂一些，如下：
+
+```
+hero
+|-hero-detail.component.ts
+|-hero-list.component.ts
+|-hero.component.ts
+|-hero.module.ts
+|-hero-routing.module.ts
+|-hero.service.ts
+|-highlight.directive.ts
+```
+
+这就是前面提到过的子路由的场景。`HeroComponent`是该特性的顶部组件并负责路由。它的模板中有个`<router-outlet>`来显示`HeroList`或`HeroDetail`。组件中数据的获取和保存都是代理给`HeroService`处理的。这里还加了一个`HighlightDirective`为元素设置一个不同背景色。等会会在共享模块中提到重复和不一致的问题。
+
+`HeroModule`：
+
+```js
+// app/hero/hero.module.ts (class)
+
+@NgModule({
+  imports: [ CommonModule, FormsModule, HeroRoutingModule ],
+  declarations: [
+    HeroComponent, HeroDetailComponent, HeroListComponent,
+    HighlightDirective
+  ]
+})
+export class HeroModule { }
+```
+
+它引入了`FormsModule`，因为`HeroDetailComponent`模板中用到了`[(ngModel)]`。跟`ContactModule`和`CrisisModule`一样，它引入了`HeroRoutingModule`。
+
+`CrisisModule`是类似的，不再细说。
+
+```js
+// app/crisis/crisis-detail.component.ts
+
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute }    from '@angular/router';
+
+@Component({
+  template: `
+    <h3 highlight>Crisis Detail</h3>
+    <div>Crisis id: {{id}}</div>
+    <br>
+    <a routerLink="../list">Crisis List</a>
+  `
+})
+export class CrisisDetailComponent implements OnInit {
+  id: number;
+  constructor(private route: ActivatedRoute) {  }
+
+  ngOnInit() {
+    this.id = parseInt(this.route.snapshot.params['id'], 10);
+  }
+}
+```
+
+```js
+// app/crisis/crisis-list.component.ts
+
+import { Component, OnInit } from '@angular/core';
+
+import { Crisis,
+         CrisisService }     from './crisis.service';
+
+@Component({
+  template: `
+    <h3 highlight>Crisis List</h3>
+    <div *ngFor='let crisis of crisises | async'>
+      <a routerLink="{{'../' + crisis.id}}">{{crisis.id}} - {{crisis.name}}</a>
+    </div>
+  `
+})
+export class CrisisListComponent implements OnInit {
+  crisises: Promise<Crisis[]>;
+
+  constructor(private crisisService: CrisisService) { }
+
+  ngOnInit() {
+    this.crisises = this.crisisService.getCrises();
+  }
+}
+```
+
+```js
+// app/crisis/crisis-routing.modlue.ts
+
+import { NgModule }            from '@angular/core';
+import { Routes,
+         RouterModule }        from '@angular/router';
+
+import { CrisisListComponent }    from './crisis-list.component';
+import { CrisisDetailComponent }  from './crisis-detail.component';
+
+const routes: Routes = [
+  { path: '', redirectTo: 'list', pathMatch: 'full'},
+  { path: 'list',    component: CrisisListComponent },
+  { path: ':id', component: CrisisDetailComponent }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class CrisisRoutingModule {}
+```
+
+```js
+// app/crisis/crisis.modlue.ts
+
+import { NgModule }      from '@angular/core';
+import { CommonModule }  from '@angular/common';
+
+import { CrisisListComponent }    from './crisis-list.component';
+import { CrisisDetailComponent }  from './crisis-detail.component';
+import { CrisisService }          from './crisis.service';
+import { CrisisRoutingModule }    from './crisis-routing.module';
+
+@NgModule({
+  imports:      [ CommonModule, CrisisRoutingModule ],
+  declarations: [ CrisisDetailComponent, CrisisListComponent ],
+  providers:    [ CrisisService ]
+})
+export class CrisisModule {}
+```
+
+```js
+// app/crisis/crisis.service.ts
+
+import { Injectable } from '@angular/core';
+
+export class Crisis {
+  constructor(public id: number, public name: string) { }
+}
+
+const CRISES: Crisis[] = [
+  new Crisis(1, 'Dragon Burning Cities'),
+  new Crisis(2, 'Sky Rains Great White Sharks'),
+  new Crisis(3, 'Giant Asteroid Heading For Earth'),
+  new Crisis(4, 'Procrastinators Meeting Delayed Again'),
+];
+
+const FETCH_LATENCY = 500;
+
+@Injectable()
+export class CrisisService {
+
+  getCrises() {
+    return new Promise<Crisis[]>(resolve => {
+      setTimeout(() => { resolve(CRISES); }, FETCH_LATENCY);
+    });
+  }
+
+  getCrisis(id: number | string) {
+    return this.getCrises()
+      .then(heroes => heroes.find(hero => hero.id === +id));
+  }
+
+}
+```
 
 ### 共享模块
 
+前面遗留了一个问题，我们一共实现了三个版本的`HighlightDirective`。让我们添加一个共享模块来放这些常用的组件、指令和管道，然后将它们共享给所需要的模块。
 
+创建`app/shared`文件夹，将`app/contact`中的`AwesomePipe`和`HighlightDirective`移过来，删掉`app/`和`app/hero`中的`HighlightDirective`。创建`SharedModule`来管理这些共享的东西：
+
+```js
+// app/app/shared/shared.module.ts
+
+import { NgModule }            from '@angular/core';
+import { CommonModule }        from '@angular/common';
+import { FormsModule }         from '@angular/forms';
+import { AwesomePipe }         from './awesome.pipe';
+import { HighlightDirective }  from './highlight.directive';
+@NgModule({
+  imports:      [ CommonModule ],
+  declarations: [ AwesomePipe, HighlightDirective ],
+  exports:      [ AwesomePipe, HighlightDirective,
+                  CommonModule, FormsModule ]
+})
+export class SharedModule { }
+```
+
+要注意的是：
+* 这里引入了`CommonModule`，因为它的组件中需要用到一些常用指令
+* 它声明并导出了工具性质的管道、指令和组件，正如我们所期望的
+* 它还重新导出了`CommonModule`和`FormsModule`
+
+#### 重新导出常用模块
+
+回顾整个应用，当很多组件需要`SharedModule`中的指令时同时也用到`CommonModule`中的`NgIf`或`NgFor`以及`FormsModule`中的`[(ngModel)]`。这些组件的声明中必须引入`CommonModule`、`FormsModule`和`SharedModule`。
+
+我们可以通过在`SharedModule`重新导出那两个模块来减少这个重复。
+
+目前`SharedModule`中的组件没有使用`[(ngModel)]`。因此从技术上它不需要引入`FormsModule`。但是它还是可以导出`FormsModule`的。
+
+#### 为什么UserService不共享
+
+尽管很多组件会共享同一个服务实例，但是这是靠依赖注入来实现的一种共享，而不是模块系统。
+
+在我们的例子中有好几个组件注入了`UserService`。它们应该是整个应用的同一个服务实例。也就是说，`UserService`是一个应用级别的单例。我们不希望每个模块都有它自己的一个实例。
+
+如果`SharedModule`提供`UserService`就会导致延迟加载的模块注入它自己的`UserService`实例。
 
 ### 核心模块
 
+现在在根文件夹比较杂乱，有`UserService`和只在`AppComponent`中出现的`TitleComponent`。而他们又不适合放到`SharedModule`中。
 
+因此我们将它们放到一个单独的模块`CoreModule`中，在这里面放那些只在应用启动的时候会import一次而其它任何地方都不会再用到的组件。
+
+创建文件夹`app/core`。将`UserService`和`TitleComponent`从`app/`移到`app/core`中。创建`CoreModule`。更新`AppRoot`模块，引入`CoreModule`。
+
+```js
+// app/app/core/core.module.ts
+
+import {
+  ModuleWithProviders, NgModule,
+  Optional, SkipSelf }       from '@angular/core';
+import { CommonModule }      from '@angular/common';
+import { TitleComponent }    from './title.component';
+import { UserService }       from './user.service';
+@NgModule({
+  imports:      [ CommonModule ],
+  declarations: [ TitleComponent ],
+  exports:      [ TitleComponent ],
+  providers:    [ UserService ]
+})
+export class CoreModule {
+}
+```
+
+重构了`CoreModule`和`SharedModule`之后，其它的模块也要做一些清理。
+
+更新后的`AppModule`：
+
+```js
+// app/app.module.ts (v4)
+
+import { NgModule }       from '@angular/core';
+import { BrowserModule }  from '@angular/platform-browser';
+/* App Root */
+import { AppComponent }   from './app.component';
+/* Feature Modules */
+import { ContactModule }    from './contact/contact.module';
+import { CoreModule }       from './core/core.module';
+/* Routing Module */
+import { AppRoutingModule } from './app-routing.module';
+@NgModule({
+  imports: [
+    BrowserModule,
+    ContactModule,
+    CoreModule,
+    AppRoutingModule
+  ],
+  declarations: [ AppComponent ],
+  bootstrap:    [ AppComponent ]
+})
+export class AppModule { }
+```
+
+更新后的`ContactModule`：
+
+```js
+// app/contact/contact.module.ts (v4)
+
+import { NgModule }           from '@angular/core';
+import { SharedModule }       from '../shared/shared.module';
+import { ContactComponent }     from './contact.component';
+import { ContactService }       from './contact.service';
+import { ContactRoutingModule } from './contact-routing.module';
+@NgModule({
+  imports:      [ SharedModule, ContactRoutingModule ],
+  declarations: [ ContactComponent ],
+  providers:    [ ContactService ]
+})
+export class ContactModule { }
+```
 
 ### 使用CoreModule.forRoot配置核心服务
 
+一个向应用添加provider的模块也可以提供配置这些provider的东西。
 
+根据约定，静态方法`forRoot`可以同时提供和配置服务，它接收一个服务配置对象，返回一个`ModuleWithProviders`，这个对象有两个属性：
+
+* `ngModule`：`CoreModule`类
+* `providers`：配置好的provider
+
+根模块`AppModule`引入`CoreModule`并将`providers`添加到`AppModule`的providers中。准确的说，Angular在附加`@NgModule.providers`列表中的项之前会累积所有引入的provider。这个顺序确保了我们显式添加到`AppModule`的providers中的优先于引入的模块的provider。
+
+现在添加一个`CoreModule.forRoot`方法来配置`UserService`。
+
+将`UserService`扩展成注入一个可选的`UserServiceConfig`。如果`UserServiceConfig`存在，那么`UserService`就从这个配置中获取并设置用户名：
+
+```js
+// app/core/user.service.ts (constructor)
+
+constructor(@Optional() config: UserServiceConfig) {
+  if (config) { this._userName = config.userName; }
+}
+```
+
+这里是接收`UserServiceConfig`对象的`CoreModule.forRoot`：
+
+```js
+// app/core/core.module.ts (forRoot)
+
+static forRoot(config: UserServiceConfig): ModuleWithProviders {
+  return {
+    ngModule: CoreModule,
+    providers: [
+      {provide: UserServiceConfig, useValue: config }
+    ]
+  };
+}
+```
+
+最后，在`AppModule`的`imports`中调用它：
+
+```js
+// app//app.module.ts (imports)
+
+  imports: [
+    BrowserModule,
+    ContactModule,
+    CoreModule.forRoot({userName: 'Miss Marple'}),
+    AppRoutingModule
+  ],
+```
 
 ### 阻止CoreModule的重复引入
 
+只有根模块`AppModule`应该引入`CoreModule`。延迟加载的模块引用它会出现一些奇怪的问题。
 
+我们可以寄希望与开发者不犯这个错误。或者我们通过添加`CoreModule`构造函数让发现问题快速暴露出来。
+
+```js
+constructor (@Optional() @SkipSelf() parentModule: CoreModule) {
+  if (parentModule) {
+    throw new Error(
+      'CoreModule is already loaded. Import it in the AppModule only');
+  }
+}
+```
+
+构造函数中将自己注入给了自己。这看起来是个很奇怪的循环。
+
+如果Angular实在当前的注入器中查找`CoreModule`，那么这的确是个死循环。装饰器`@SkipSelf`意思是“在父层级的注入器中查找`for CoreModule`”。
+
+如果这个构造函数实在我们所期望的`AppModule`中执行的，那么是没有父注入器可以提供`CoreModule`的。这样构造函数就不会注入了。
+
+默认注入器在找不到所需要的provider时会报错。而装饰器`@Optional`则表示这不到也没问题，就注入null。
+
+如果我们在延迟加载的模块中（例如`HeroModule`）引入了`CoreModule`。Angular会为延迟加载的模块创建一个注入器，它是根注入器的子节点。`@SkipSelf`会让Angular在根注入器中查找`CoreModule`，当然它能找到，那么`parentModule`就不会null，这时构造函数就抛出错误。
 
 {% endraw %}
 
