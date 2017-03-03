@@ -338,7 +338,7 @@ if (someCondition) {
 
 尽管很少用到结构指令的模板属性或模板元素形式，了解下有助于我们自己编写结构指令。
 
-### <template>元素
+### `<template>`元素
 
 HTML5中的`<template>`是用来渲染HTML的。它不会被直接显示。事实上，Angular在渲染 它之前会把它和它的内容放到注释中。
 
