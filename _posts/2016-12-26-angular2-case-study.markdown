@@ -467,7 +467,7 @@ onSelect(hero: Hero): void {
 现在点击一个hero之后我们很难看出来选中的是哪个，所以为点击选中的hero添加个样式。
 
 {% raw %}
-```html
+```
 <li *ngFor="let hero of heroes"
   [class.selected]="hero === selectedHero"
   (click)="onSelect(hero)">
