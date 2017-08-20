@@ -466,7 +466,15 @@ onSelect(hero: Hero): void {
 
 现在点击一个hero之后我们很难看出来选中的是哪个，所以为点击选中的hero添加个样式。
 
-
+{% raw %}
+```
+<li *ngFor="let hero of heroes"
+  [class.selected]="hero === selectedHero"
+  (click)="onSelect(hero)">
+  <span class="badge">{{hero.id}}</span> {{hero.name}}
+</li>
+```
+{% endraw %}
 
 ![](/img/post/angular2/case-study/6.png)
 
@@ -580,6 +588,7 @@ export class AppComponent {
   }
 }
 ```
+{% endraw %}
 
 ---
 
