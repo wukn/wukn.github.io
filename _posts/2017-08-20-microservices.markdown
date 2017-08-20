@@ -14,7 +14,7 @@ tags:
 > 微服务文集
 
 
-![](/img/post/properly-architecture/properly-architecture.png)
+![](/img/post/microservices/microservices.png)
 
 ---
 
