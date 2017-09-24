@@ -1,4 +1,4 @@
-baseURL = "https://wukn.github.io/"
+baseURL = "http://localhost:1313/"
 languageCode = "en"
 title = "wukn blog"
 theme = "hugo-nuo"
