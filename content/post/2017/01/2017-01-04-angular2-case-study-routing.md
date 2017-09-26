@@ -367,7 +367,6 @@ export class DashboardComponent implements OnInit {
 
 目前的`hero-detail.component.ts`是这样的：
 
-{% raw %}
 ```js
 import { Component, Input } from '@angular/core';
 import { Hero } from './hero';
@@ -390,7 +389,6 @@ export class HeroDetailComponent {
   @Input() hero: Hero;
 }
 ```
-{% endraw %}
 
 新的`HeroDetailComponent`应该不再接受Hero对象作为参数，而是从`ActivatedRoute`的`params`中得到的参数`id`，然后使用`HeroService`获取对应id的hero。
 
@@ -474,7 +472,6 @@ goBack(): void {
 
 这里我们顺便做一下重构，将模板放到独立的文件中：
 
-{% raw %}
 ```html
 <!-- app/hero-detail.component.html -->
 
@@ -489,7 +486,6 @@ goBack(): void {
   <button (click)="goBack()">Back</button>
 </div>
 ```
-{% endraw %}
 
 配置组件元数据中的`moduleId`和`templateUrl`：
 
@@ -585,7 +581,6 @@ export class AppModule { }
 
 目前`HeroesComponent`的模板是master/detail样式的。
 
-{% raw %}
 ```js
 template: `
   <h1>{{title}}</h1>
@@ -600,8 +595,6 @@ template: `
   <my-hero-detail [hero]="selectedHero"></my-hero-detail>
 `,
 ```
-{% endraw %}
-
 
 我们的目标是当用户决定要编辑选中的hero时跳转到详细视图。
 
@@ -609,7 +602,6 @@ template: `
 
 我们将这个视图里的detail改成一个mini的只读的视图。将之前`<my-hero-detail>`的地方替换成下面的内容：
 
-{% raw %}
 ```html
 <div *ngIf="selectedHero">
   <h2>
@@ -618,7 +610,6 @@ template: `
   <button (click)="gotoDetail()">View Details</button>
 </div>
 ```
-{% endraw %}
 
 现在点击后的效果如下：
 

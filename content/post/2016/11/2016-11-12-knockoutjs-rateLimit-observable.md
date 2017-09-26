@@ -56,7 +56,7 @@ name('The New Bert');
 ```
 
 这时upperCaseName会立即更新。而如果使用了rateLimit：
-```javascipt
+```javascript
 var name = ko.observable('Bert').extend({ rateLimit: 500 });
 ```
 

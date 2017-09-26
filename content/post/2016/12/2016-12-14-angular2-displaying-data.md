@@ -22,7 +22,6 @@ Angular通过将HTML模板中的标签与组件的属性绑定的方式来在UI�
 
 显示组件属性最简单的方法就是使用插值法（interpolation）。插值方法就是将组件属性直接放在双层大括号里：
 
-{% raw %}
 ```js
 import { Component } from '@angular/core';
 @Component({
@@ -37,7 +36,6 @@ export class AppComponent {
   myHero = 'Windstorm';
 }
 ```
-{% endraw %}
 
 我们为组件添加了两个属性：`title`和`myHero`。同时在模板中添加了这两个属性的显示。
 
@@ -69,7 +67,6 @@ export class AppCtorComponent {
 
 我们为组件添加一个数组属性`heroes`，然后将`myHero`重定义为数组的第一个元素。在模板中使用`NgFor`指令显示数组中的每一项数据。
 
-{% raw %}
 ```js
 import { Component } from '@angular/core';
 @Component({
@@ -91,7 +88,6 @@ export class AppComponent {
   myHero = this.heroes[0];
 }
 ```
-{% endraw %}
 
 在`<li>`标签上使用了`*ngFor`，意思是将`<li>`元素（以及它的子元素）作为迭代模板。
 
@@ -125,7 +121,6 @@ export class Hero {
 
 修改`app.component.ts`，使用`Hero`对象，并更新模板中的绑定为对象的属性：
 
-{% raw %}
 ```js
 import { Component } from '@angular/core';
 import { Hero } from './hero';
@@ -154,7 +149,6 @@ export class AppComponent {
   myHero = this.heroes[0];
 }
 ```
-{% endraw %}
 
 显示效果与上面是一样的。
 

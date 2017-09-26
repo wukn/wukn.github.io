@@ -30,40 +30,32 @@ HTML是Angular模板的语言。几乎所有的HTML语法都是有效的模板�
 
 插值绑定是单向数据绑定方式。可以在元素内或者元素的属性内绑定：
 
-{% raw %}
 ```html
 <p>My name is {{currentUser.firstName}}</p>
 ```
-{% endraw %}
 
-{% raw %}
 ```html
 <h3>
   {{title}}
   <img src="{{userImageUrl}}" style="height:30px">
 </h3>
 ```
-{% endraw %}
 
 双括号内通常是组件属性的名称。Angular会使用对应的组件属性值来替换双括号内的名称。
 
 事实上，双括号内是模板表达式（template expression），Angular会先计算它再转换成字符串。
 
-{% raw %}
 ```html
 <!-- "The sum of 1 + 1 is 2" -->
 <p>The sum of 1 + 1 is {{1 + 1}}</p>
 ```
-{% endraw %}
 
 表达式中还可以调用组件的方法：
 
-{% raw %}
 ```html
 <!-- "The sum of 1 + 1 is not 4" -->
 <p>The sum of 1 + 1 is not {{1 + 1 + getVal()}}</p>
 ```
-{% endraw %}
 
 Angular首先计算双括号内的表达式的值，然后将结果转换成字符串，将它连接到相邻的字面量字符串中。最后，将组成的插值结果赋给一个元素或指令属性。
 
@@ -163,13 +155,11 @@ Angular会经常计算模板表达式，比我们想象的更频繁。
 
 * 从数据源到目标视图的单向数据绑定，绑定类型有Interpolation、Property、Attribute、Class、Style。
 
-{% raw %}
 ```js
 {{expression}}
 [target] = "expression"
 bind-target = "expression"
 ```
-{% endraw %}
 
 * 从目标视图数据源到数据源的单向数据绑定，绑定类型有Event。
 ```js
@@ -382,7 +372,6 @@ Style绑定
 
 通常我们在属性绑定和插值绑定之间二选一，它们俩的作用是一样的：
 
-{% raw %}
 ```html
 <p><img src="{{userImageUrl}}"> is the <i>interpolated</i> image.</p>
 <p><img [src]="userImageUrl"> is the <i>property bound</i> image.</p>
@@ -390,7 +379,6 @@ Style绑定
 <p><span>"{{title}}" is the <i>interpolated</i> title.</span></p>
 <p>"<span [innerHTML]="title"></span>" is the <i>property bound</i> title.</p>
 ```
-{% endraw %}
 
 事实上Angular在渲染视图之前会吧插值绑定转换成属性绑定。
 
@@ -404,12 +392,10 @@ evilTitle = 'Template <script>alert("evil never sleeps")</script>Syntax';
 
 Angular在数据绑定的时候会对危险的HTML发出告警。它会在显示值之前进行处理，不会让script标签泄露到HTML中，无论是插值绑定还是属性绑定都不会。
 
-{% raw %}
 ```html
 <p><span>"{{evilTitle}}" is the <i>interpolated</i> evil title.</span></p>
 <p>"<span [innerHTML]="evilTitle"></span>" is the <i>property bound</i> evil title.</p>
 ```
-{% endraw %}
 
 ![](/img/post/angular2/template-syntax/evil-title.png)
 
@@ -425,11 +411,9 @@ Angular在数据绑定的时候会对危险的HTML发出告警。它会在显示
 
 如果我们这样做：
 
-{% raw %}
 ```html
 <tr><td colspan="{{1 + 1}}">Three-Four</td></tr>
 ```
-{% endraw %}
 
 会得到这样的错误：
 ```
@@ -449,7 +433,6 @@ attribute绑定跟property绑定是相似的。只是中括号内不是property�
 
 最主要的使用场景就是设置ARIA属性：
 
-{% raw %}
 ```html
 <table border=1>
   <!--  expression calculates colspan=2 -->
@@ -462,16 +445,13 @@ attribute绑定跟property绑定是相似的。只是中括号内不是property�
   <tr><td>Five</td><td>Six</td></tr>
 </table>
 ```
-{% endraw %}
 
 最主要的一个应用场景是绑定ARIA的attribute：
 
-{% raw %}
 ```html
 <!-- create and set an aria attribute for assistive technology -->
 <button [attr.aria-label]="actionName">{{actionName}} with Aria</button>
 ```
-{% endraw %}
 
 ### Class binding
 
@@ -572,7 +552,6 @@ style绑定也是跟property绑定相似的。中括号内是加了前缀`style.
 
 `UserDetailComponent`的部分代码如下：
 
-{% raw %}
 ```html
 template: `
 <div>
@@ -583,7 +562,6 @@ template: `
   <button (click)="delete()">Delete</button>
 </div>`
 ```
-{% endraw %}
 
 ```js
 // This component make a request but it can't actually delete a user.
@@ -612,7 +590,6 @@ Angular提供了一个特殊的双向数据绑定语法，`[(x)]`。就是将属
 
 假设`SizerComponent`有一个`size`属性和`sizeChange`事件：
 
-{% raw %}
 ```js
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 @Component({
@@ -635,7 +612,6 @@ export class SizerComponent {
   }
 }
 ```
-{% endraw %}
 
 初始`size`值是来自属性绑定。点击按钮调整`size`的值，在最大值最小值的限制内，并在调整值的时候触发`sizeChange`事件。
 
@@ -809,13 +785,10 @@ setStyles() {
 
 NgIf指令可以控制是否向DOM添加或移除一个元素。绑定的表达式值为真值时添加元素，为假值时移除元素。
 
-{% raw %}
 ```html
 <div *ngIf="currentUser">Hello, {{currentUser.firstName}}</div>
 ```
-{% endraw %}
 
-{% raw %}
 ```html
 <!-- not displayed because nullUser is falsey.
     `nullUser.firstName` never has a chance to fail -->
@@ -824,7 +797,6 @@ NgIf指令可以控制是否向DOM添加或移除一个元素。绑定的表达�
 <!-- User Detail is not in the DOM because isActive is false-->
 <user-detail *ngIf="isActive"></user-detail>
 ```
-{% endraw %}
 
 我们可以也使用class绑定或style绑定控制显示或隐藏DOM元素：
 
@@ -868,11 +840,9 @@ NgIf指令可以控制是否向DOM添加或移除一个元素。绑定的表达�
 
 例如，对`<div>`使用`NgFor`：
 
-{% raw %}
 ```html
 <div *ngFor="#user of useres">{{user.fullName}}</div>
 ```
-{% endraw %}
 
 也可以对组件元素使用`NgFor`：
 
@@ -892,11 +862,9 @@ NgIf指令可以控制是否向DOM添加或移除一个元素。绑定的表达�
 
 `ngFor`指令有个索引`index`，从0开始。我们可以用一个模板输入变量来捕获索引并在模板中使用。
 
-{% raw %}
 ```html
 <div *ngFor="let user of useres; let i=index">{{i + 1}} - {{user.fullName}}</div>
 ```
-{% endraw %}
 
 还有一些值如`last`、`even`、`odd`。
 
@@ -911,11 +879,9 @@ trackByUseres(index: number, user: User) { return user.id; }
 
 设置`NgForTrackBy`指令为定义的tracking函数，Angular提供了好几种绑定语法，例如：
 
-{% raw %}
 ```html
 <div *ngFor="let user of useres; trackBy:trackByUseres">({{user.id}}) {{user.fullName}}</div>
 ```
-{% endraw %}
 
 tracking函数不能消除所有的DOM更新。如果同一个对象的属性有变化，那Angular还是会更新它的。
 
@@ -1114,17 +1080,14 @@ Angular将该变量所在的元素赋值给这个变量。我们在`input`元素
 
 管道（Pipe）是个简单的函数，接收出入值，返回转换后的值。例如：
 
-{% raw %}
 ```html
 <div>Title through uppercase pipe: {{title | uppercase}}</div>
 ```
-{% endraw %}
 
 管道运算符将左侧表达式的值传递给右侧的管道函数。
 
 我们可以将多个管道函数链接起来：
 
-{% raw %}
 ```html
 <!-- Pipe chaining: convert title to uppercase, then to lowercase -->
 <div>
@@ -1132,20 +1095,16 @@ Angular将该变量所在的元素赋值给这个变量。我们在`input`元素
   {{title | uppercase | lowercase}}
 </div>
 ```
-{% endraw %}
 
 也可以对管道函数添加参数：
 
-{% raw %}
 ```html
 <!-- pipe with configuration argument => "February 25, 1970" -->
 <div>Birthdate: {{currentUser?.birthdate | date:'longDate'}}</div>
 ```
-{% endraw %}
 
 `json`是个很有用的调试工具：
 
-{% raw %}
 ```html
 <div>{{currentUser | json}}</div>
 
@@ -1156,17 +1115,14 @@ Angular将该变量所在的元素赋值给这个变量。我们在`input`元素
     "rate": 325, "id": 1 }
 -->
 ```
-{% endraw %}
 
 #### Safe navigation operator ( ?. )
 
 这个操作符是为了保证属性路径中有null或undefined值时不会出错：
 
-{% raw %}
 ```html
 The current user's name is {{currentUser?.firstName}}
 ```
-{% endraw %}
 
 这样，即使`currentUser`为null，Angular也不会报错了。
 

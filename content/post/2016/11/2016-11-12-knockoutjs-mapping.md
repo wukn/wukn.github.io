@@ -44,7 +44,7 @@ var data = getDataUsingAjax();          // Gets the data from the server
 
 服务器返回的数据类似这样：
 
-```javasvript
+```javascript
 {
     serverTime: '2010-01-07',
     numUsers: 3
@@ -53,7 +53,7 @@ var data = getDataUsingAjax();          // Gets the data from the server
 
 将数据更新到视图模型：
 
-```javasvript
+```javascript
 // Every time data is received from the server:
 viewModel.serverTime(data.serverTime);
 viewModel.numUsers(data.numUsers);
@@ -228,7 +228,7 @@ alert(viewModel.name());
 
 如果在映射时需要忽略一些属性，那么指定一个忽略属性名称数组：
 
-```javasvript
+```javascript
 var mapping = {
     'ignore': ["propertyToIgnore", "alsoIgnoreThis"]
 }

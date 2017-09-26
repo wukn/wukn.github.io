@@ -35,11 +35,9 @@ export class AppComponent {
 
 并更新模板：
 
-{% raw %}
 ```js
 template: '<h1>{{title}}</h1><h2>{{hero}} details!</h2>'
 ```
-{% endraw %}
 
 现在效果如下：
 
@@ -67,15 +65,12 @@ hero: Hero = {
 
 同时修改下模板中的绑定：
 
-{% raw %}
 ```js
 template: '<h1>{{title}}</h1><h2>{{hero.name}} details!</h2>'
 ```
-{% endraw %}
 
 现在`app.component.ts`代码是这样的：
 
-{% raw %}
 ```js
 import { Component } from '@angular/core';
 
@@ -96,17 +91,14 @@ export class AppComponent {
   };
 }
 ```
-{% endraw %}
 
 浏览器中显示的效果很上面还是一样的。
 
 让我们来显示更多的数据。修改模板：
 
-{% raw %}
 ```js
 template: '<h1>{{title}}</h1><h2>{{hero.name}} details!</h2><div><label>id: </label>{{hero.id}}</div><div><label>name: </label>{{hero.name}}</div>'
 ```
-{% endraw %}
 
 显示效果如下：
 
@@ -114,7 +106,6 @@ template: '<h1>{{title}}</h1><h2>{{hero.name}} details!</h2><div><label>id: </la
 
 为了让模板更具有可读性，我们将模板改成多行模式：
 
-{% raw %}
 ```js
 template:`
   <h1>{{title}}</h1>
@@ -123,13 +114,11 @@ template:`
   <div><label>name: </label>{{hero.name}}</div>
   `
 ```
-{% endraw %}
 
 注意，模板的值用的是反引号。
 
 接下来我们希望可以编辑hero的name。因此在模板中将name的绑定换成input：
 
-{% raw %}
 ```js
 template:`
   <h1>{{title}}</h1>
@@ -141,7 +130,6 @@ template:`
   </div>
   `
 ```
-{% endraw %}
 
 现在name就显示在文本框里了：
 
@@ -181,7 +169,6 @@ export class AppModule { }
 
 完整的`app.component.ts`如下：
 
-{% raw %}
 ```js
 import { Component } from '@angular/core';
 export class Hero {
@@ -208,7 +195,6 @@ export class AppComponent {
   };
 }
 ```
-{% endraw %}
 
 ### 列表
 
@@ -308,7 +294,6 @@ styles: [`
 
 完整的`app.component.ts`如下：
 
-{% raw %}
 ```js
 import { Component } from '@angular/core';
 
@@ -406,17 +391,14 @@ export class AppComponent {
   heroes = HEROES;
 }
 ```
-{% endraw %}
 
 现在列表和上面的详细信息视图是没有关系的。我们希望点击列表里的某一个hero时将他显示到详细信息视图中。这就需要绑定click事件，绑定到组件的`onSelect`方法。
 
-{% raw %}
 ```js
 <li *ngFor="let hero of heroes" (click)="onSelect(hero)">
   <span class="badge">{{hero.id}}</span> {{hero.name}}
 </li>
 ```
-{% endraw  %}
 
 接下来创建组件的`onSelect`方法。在这之前我们要先为组件加一个属性`selectedHero`：
 
@@ -434,7 +416,6 @@ onSelect(hero: Hero): void {
 
 同时更新详细信息视图模板里的input绑定：
 
-{% raw %}
 ```html
 <h2>{{selectedHero.name}} details!</h2>
 <div><label>id: </label>{{selectedHero.id}}</div>
@@ -443,11 +424,9 @@ onSelect(hero: Hero): void {
     <input [(ngModel)]="selectedHero.name" placeholder="name"/>
 </div>
 ```
-{% endraw %}
 
 如果我们现在页面会报错，因为`selectedHero`没有初始值，也就是null，而页面在初始加载时的绑定会读取null的name属性，从而就报错了。我们修改为，如果`selectedHero`不为null才显示详细信息视图。
 
-{% raw %}
 ```html
 <div *ngIf="selectedHero">
   <h2>{{selectedHero.name}} details!</h2>
@@ -458,13 +437,11 @@ onSelect(hero: Hero): void {
   </div>
 </div>
 ```
-{% endraw %}
 
 现在页面就正常啦。初始加载时只显示列表，点击一个hero之后才会显示详细信息视图。
 
 现在点击一个hero之后我们很难看出来选中的是哪个，所以为点击选中的hero添加个样式。
 
-{% raw %}
 ```
 <li *ngFor="let hero of heroes"
   [class.selected]="hero === selectedHero"
@@ -472,13 +449,11 @@ onSelect(hero: Hero): void {
   <span class="badge">{{hero.id}}</span> {{hero.name}}
 </li>
 ```
-{% endraw %}
 
 ![](/img/post/angular2/case-study/6.png)
 
 完整的`app.component.ts`如下：
 
-{% raw %}
 ```js
 import { Component } from '@angular/core';
 
@@ -586,7 +561,6 @@ export class AppComponent {
   }
 }
 ```
-{% endraw %}
 
 ---
 

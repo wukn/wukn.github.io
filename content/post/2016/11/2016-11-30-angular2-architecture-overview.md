@@ -149,7 +149,6 @@ Angular会根据用户的操作创建、更新以及销毁组件。可以使用�
 
 模板看起来根标准的HTML有些相似，但是也有些区别。
 
-{% raw %}
 ```js
 // app/hero-list.component.html
 
@@ -162,7 +161,6 @@ Angular会根据用户的操作创建、更新以及销毁组件。可以使用�
 </ul>
 <hero-detail *ngIf="selectedHero" [hero]="selectedHero"></hero-detail>
 ```
-{% endraw %}
 
 代码中的`*ngFor`、`{{hero.name}}`、`(click)`、`[hero]`和`<hero-detail>`这些都是Angular的[模板语法](https://angular.io/docs/ts/latest/guide/template-syntax.html)。
 
@@ -217,7 +215,6 @@ Angular提供了数据绑定机制，用于协调视图和组件之间的对应�
 
 例如，`HeroListComponent`的模板包括三个元素：
 
-<% raw %>
 ```js
 // app/hero-list.component.html (binding)
 
@@ -225,9 +222,8 @@ Angular提供了数据绑定机制，用于协调视图和组件之间的对应�
 <hero-detail [hero]="selectedHero"></hero-detail>
 <li (click)="selectHero(hero)"></li>
 ```
-<% endraw %>
 
-`<% raw %>{{hero.name}}<% endraw %>`插值表达式，将组件的`hero.name`属性值显示在`<li>`标签内。
+`{{hero.name}}`插值表达式，将组件的`hero.name`属性值显示在`<li>`标签内。
 
 `[hero]`属性绑定，将父组件`HeroListComponent`的`selectedHero`赋给子组件`HeroDetailComponent`的`hero`属性。
 

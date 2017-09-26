@@ -186,7 +186,6 @@ npm install bootstrap --save
 
 用户在表单中使用下拉列表来选择城市，使用`NgFor`来绑定数组：
 
-{% raw %}
 ```js
 <div class="form-group">
   <label for="city">City</label>
@@ -195,7 +194,6 @@ npm install bootstrap --save
   </select>
 </div>
 ```
-{% endraw %}
 
 这里将对`cities`数组中的每个`city`重复生成`<options>`标签。
 

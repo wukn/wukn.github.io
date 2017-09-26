@@ -36,7 +36,6 @@ export class HeroDetailComponent {
 
 在`AppComponent`我们绑定了`selectedHero.name`属性。但是在`HeroDetailComponent`我们定义的属性是`hero`，所以这里要替换下。
 
-{% raw %}
 ```js
 // app/hero-detail.component.ts(template)
 
@@ -51,7 +50,6 @@ template: `
   </div>
   `
 ```
-{% endraw %}
 
 为`HeroDetailComponent`添加`hero`属性：
 
@@ -116,7 +114,6 @@ export class AppModule { }
 
 更新`AppComponent`的模板：
 
-{% raw %}
 ```js
 template: `
   <h1>{{title}}</h1>
@@ -131,7 +128,6 @@ template: `
   <my-hero-detail [hero]="selectedHero"></my-hero-detail>
 `,
 ```
-{% endraw %}
 
 现在运行起来效果和之前是一样的。
 

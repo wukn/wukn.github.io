@@ -12,8 +12,6 @@ url: /2017/01/03/angular2-structural-directives/
 
 <!--more-->
 
-{% raw %}
-
 ### 什么是结构指令
 
 结构指令使用来构造HTML布局的。它通过添加、移除或操作元素来形成或改变DOM结构。
@@ -453,8 +451,6 @@ export class UnlessDirective {
 效果如下：
 
 ![](/img/post/angular2/structural-directives/unless-anim.gif)
-
-{% endraw %}
 
 ---
 

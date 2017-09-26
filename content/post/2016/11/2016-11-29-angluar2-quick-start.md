@@ -16,7 +16,6 @@ url: /2016/11/29/angluar2-quick-start/
 
 Angular2的应用是由组件（component）组成的。一个组件包括HTML模板和控制显示的组件类两部分。例如：
 
-{% raw %}
 ```js
 // app/app.component.ts
 
@@ -28,7 +27,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent { name = 'Angular'; }
 ```
-{% endraw %}
 
 每一个组件以一个装饰器函数`@Component`为开始，这个装饰器函数接受一个元数据对象，这个元数据对象描述了HTML模板和组件类是如何工作的。
 
@@ -55,7 +53,6 @@ npm start
 
 先看下`/app`文件夹下的三个TypeScript文件：
 
-{% raw %}
 ```js
 // app/app.component.ts
 
@@ -67,7 +64,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent { name = 'Angular'; }
 ```
-{% endraw %}
 
 ```js
 // app/app.module.ts

@@ -121,7 +121,7 @@ ko.components.register('some-component-name', {
 
 #### 构造器函数
 
-```javascriot
+```javascript
 function SomeComponentViewModel(params) {
     // 'params' is an object whose key/value pairs are the parameters
     // passed from the component binding or custom element.

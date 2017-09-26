@@ -28,7 +28,6 @@ Angular事件绑定与DOM事件是对应的。将事件名称放在小括号内�
 
 使用绑定时需要注意模板表达式的执行上下文（execution context）。表达式内出现的标识符是属于一个特殊的上下文对象，通常是该模板对应的组件。
 
-{% raw %}
 ```js
 @Component({
   selector: 'my-app',
@@ -44,7 +43,6 @@ export class AppComponent {
   }
 }
 ```
-{% endraw %}
 
 当用户点击按钮，Angular调用组件的`onClickMe`方法。
 
@@ -54,7 +52,6 @@ export class AppComponent {
 
 DOM事件会携带一些对组件有用的信息。接下来我们为`input`绑定`keyup`事件来获取用户每次按键后的输入：
 
-{% raw %}
 ```js
 @Component({
   selector: 'my-app',
@@ -71,7 +68,6 @@ export class AppComponent {
   }
 }
 ```
-{% endraw %}
 
 当用户按下按键并释放后，`keyup`事件就触发了，Angular会在内`$event`变量里提供一个DOM事件对象，并传递给组件的`onKey()`方法。
 
@@ -101,7 +97,6 @@ export class AppComponent {
 
 Angular有一个称为本地模板变量（template reference variable）的语法特性。这种变量可以让我们在模板中直接访问一个元素。模板引用变量的声明是在标识符前加一个`#`前缀。
 
-{% raw %}
 ```js
 @Component({
   selector: 'my-app',
@@ -112,7 +107,6 @@ Angular有一个称为本地模板变量（template reference variable）的语�
 })
 export class AppComponent { }
 ```
-{% endraw %}
 
 上面的代码中，为`<input>`元素声明了一个模板引用变量`box`。它就是`<input>`元素的引用，因此可以在模板的其他地方访问这个变量。
 
@@ -124,7 +118,6 @@ export class AppComponent { }
 
 使用模板引用变量代替上面的`$event`来获取文本框的值，这样可以使得组件中从视图获取数据的代码更加整洁，不再需要知道`$event`以及它的结构了。
 
-{% raw %}
 ```js
 @Component({
   selector: 'my-app',
@@ -140,7 +133,6 @@ export class AppComponent {
   }
 }
 ```
-{% endraw %}
 
 ### 按键事件过滤（使用`key.enter`）
 
@@ -148,7 +140,6 @@ export class AppComponent {
 
 还有一种更简单的办法。绑定Angular的伪事件`keyup.enter`。Angular会在用户每次按下Enter键调用该事件处理方法。
 
-{% raw %}
 ```js
 @Component({
   selector: 'my-app',
@@ -162,13 +153,11 @@ export class AppComponent {
   onEnter(value: string) { this.value = value; }
 }
 ```
-{% endraw %}
 
 ### blur事件
 
 上面的例子没有考虑用户把鼠标移到页面其它地方使input失去焦点的情况。接下来为文本框添加`blur`事件的监听。
 
-{% raw %}
 ```js
 @Component({
   selector: 'my-app',
@@ -185,11 +174,9 @@ export class AppComponent {
   update(value: string) { this.value = value; }
 }
 ```
-{% endraw %}
 
 ### 案例
 
-{% raw %}
 ```js
 @Component({
   selector: 'my-app',
@@ -212,7 +199,6 @@ export class AppComponent {
   }
 }
 ```
-{% endraw %}
 
 ![](/img/post/angular2/user-input/list-example.png)
 

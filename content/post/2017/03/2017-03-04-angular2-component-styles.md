@@ -12,8 +12,6 @@ url: /2017/03/04/angular2-component-styles/
 
 <!--more-->
 
-{% raw %}
-
 Angular应用中的样式用的就是标准的CSS。也就是说可以直接为组件应用CSS样式表、选择器、规则和媒体查询。
 
 除此之外，Angular还可以为组件绑定组件样式（component style），这是比常规样式表更加模块化的设计。
@@ -280,8 +278,6 @@ quest-summary.component.css
 })
 export class QuestSummaryComponent { }
 ```
-
-{% endraw %}
 
 ---
 
