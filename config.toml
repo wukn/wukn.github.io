@@ -14,7 +14,7 @@ canonifyurls = true
 googleAnalytics = "UA-XXXXXXXX-X"
 
 # Copyright of your post
-copyright = "© Creative Commons Attribution-NonCommercial 4.0 International License"
+copyright = "© Creative Commons Attribution-NonCommercial 4.0 International License."
 
 # Initial site menu, you can extend menu with content.
 [[menu.main]]
@@ -28,6 +28,12 @@ copyright = "© Creative Commons Attribution-NonCommercial 4.0 International Lic
   weight = 20
   identifier = "works"
   url = "https://github.com/wukn"
+
+[[menu.main]]
+  name = "Tags"
+  weight = 30
+  identifier = "tagss"
+  url = "/tags"
 
 # Add your own params here
 [params]
