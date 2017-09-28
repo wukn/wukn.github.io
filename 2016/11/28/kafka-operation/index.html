@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Kafka]Kafka运维</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 《Learing Apache Kafka-Second Edition》
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Kafka]Kafka运维" />
+    <meta name="twitter:description" content=" 《Learing Apache Kafka-Second Edition》
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/11/28/kafka-operation/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Kafka]Kafka运维</h1>
+      <p class="post-meta">@wukn · Nov 28, 2016 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>《Learing Apache Kafka-Second Edition》</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="kafka管理工具">Kafka管理工具</h3>
+
+<h4 id="kafka集群管理工具">Kafka集群管理工具</h4>
+
+<p>Kafka集群管理内容包括服务器启停、leader均衡、复制、集群镜像、集群扩展等。</p>
+
+<h4 id="添加服务器">添加服务器</h4>
+
+<p>向Kafka集群中添加服务器时，需要分配一个唯一的broker ID给新服务器。这时添加新服务器不会自动分配数据分区。重分配工具kafka-reassign-partitions.sh用于在broker之间移动partition。Kafka将新服务器当成待迁移的partition的follower，这样新服务器可以完全复制该partition内的所有数据。一旦复制完成，新服务器成为in-sync replica之一，之前的副本中的某一个将会删除该partition数据。</p>
+
+<p>kafka-reassign-partitions.sh有三种模式：
+* &ndash;generate：生成候选的重分配方案
+* &ndash;execute：执行重分配计划
+* &ndash;verify：验证最后一次&ndash;execute的结果</p>
+
+<p>partition重分配工具可用于将topic从当前broker集中移到新添加的broker中。使用时指定需要移动的topic清单和目标broker的ID清单。该工具会平均地将toipc分配到新的broker中，同时将topic的副本也带过去。</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span><span class="c1">#topics-for-new-server.json</span>
+<span class="o">{</span><span class="s2">&quot;partitions&quot;</span>:
+    <span class="o">[{</span><span class="s2">&quot;topic&quot;</span>: <span class="s2">&quot;kafkatopic&quot;</span>,
+     <span class="o">{</span><span class="s2">&quot;topic&quot;</span>: <span class="s2">&quot;kafkatopic1&quot;</span><span class="o">}]</span>,
+ <span class="s2">&quot;version&quot;</span>:1
+<span class="o">}</span>
+</code></pre></div>
+
+<p>生成topic重分配计划文件：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-reassign-partitions.sh --zookeeper localhost:2181 --topics-to-move-json-file topics-for-new-server.json --broker-list <span class="s2">&quot;4,5&quot;</span> -–generate new-topic-reassignment.json
+</code></pre></div>
+
+<p>执行topic重分配：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-reassign-partitions.sh --zookeeper localhost:2181 --reassignment-json-file new-topic-reassignment.json --execute
+</code></pre></div>
+
+<p>也可以可选地移动分区：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span><span class="c1">#partitions-reassignment.json</span>
+<span class="o">{</span><span class="s2">&quot;partitions&quot;</span>:
+    <span class="o">[{</span><span class="s2">&quot;topic&quot;</span>: <span class="s2">&quot;kafkatopic&quot;</span>,
+      <span class="s2">&quot;partition&quot;</span>: <span class="m">1</span>,
+      <span class="s2">&quot;replicas&quot;</span>: <span class="o">[</span><span class="m">1</span>,2,4<span class="o">]</span> <span class="o">}]</span>,
+      <span class="o">}]</span>,
+  <span class="s2">&quot;version&quot;</span>:1
+<span class="o">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-reassign-partitions.sh --zookeeper localhost:2181 --reassignment-json-file partitions-reassignment.json --execute
+</code></pre></div>
+
+<p>重分配完成后，可以验证一下操作：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-reassign-partitions.sh --zookeeper localhost:2181 --reassignment-json-file new-topic-reassignment.json --verify
+
+<span class="c1"># output like this：</span>
+Status of partition reassignment:
+Reassignment of partition <span class="o">[</span>kafkatopic,0<span class="o">]</span> completed successfully
+Reassignment of partition <span class="o">[</span>kafkatopic,1<span class="o">]</span> is in progress
+Reassignment of partition <span class="o">[</span>kafkatopic,2<span class="o">]</span> completed successfully
+Reassignment of partition <span class="o">[</span>kafkatopic1,0<span class="o">]</span> completed successfully
+Reassignment of partition <span class="o">[</span>kafkatopic1,1<span class="o">]</span> completed successfully
+Reassignment of partition <span class="o">[</span>kafkatopic1,2<span class="o">]</span> is in progress
+</code></pre></div>
+
+<p>从集群中移除服务器时，需要先将该服务器（broker）上所有分区的副本移除，均匀地分配到剩下的broker中。</p>
+
+<p>增加复制因子：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span><span class="c1">#increase-replication-factor.json</span>
+<span class="o">{</span><span class="s2">&quot;partitions&quot;</span>:<span class="o">[{</span><span class="s2">&quot;topic&quot;</span>:<span class="s2">&quot;kafkatopic&quot;</span>,<span class="s2">&quot;partition&quot;</span>:0,<span class="s2">&quot;replicas&quot;</span>:<span class="o">[</span><span class="m">2</span>,3<span class="o">]}]</span>,
+ <span class="s2">&quot;version&quot;</span>:1
+<span class="o">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-reassign-partitions.sh --zookeeper localhost:2181 --reassignment-json-file increase-replication-factor.json --execute
+</code></pre></div>
+
+<h4 id="管理topic">管理topic</h4>
+
+<p>创建topic，指定复制因子和分区数量：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-topics.sh --create --zookeeper localhost:2181/chroot --replication-factor <span class="m">3</span> --partitions <span class="m">10</span> --topic kafkatopic
+</code></pre></div>
+
+<p>复制因子指定每个消息保存副本的数量，复制因子为3表示有两台服务器失效时仍不会丢失消息。分区数量指定topic分片的数量。一个分区只能在一个单独的服务器上。分区数量为10表示所有的数据会被除了副本服务器外的不超过10台服务器处理。</p>
+
+<p>kafka-topics.sh还可以修改topic。目前不支持减少分区数量。例如，将分区数量增加到20：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-topics.sh --alter --zookeeper localhost:2181/chroot --partitions <span class="m">20</span> --topic kafkatopic
+</code></pre></div>
+
+<p>删除topic：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-topics.sh --delete --zookeeper localhost:2181/chroot --topic kafkatopic
+</code></pre></div>
+
+<p>添加topic配置：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-topics.sh --alter --zookeeper localhost:2181/chroot --topic kafkatopic --config &lt;key&gt;<span class="o">=</span>&lt;value&gt;
+</code></pre></div>
+
+<p>删除topic配置：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-topics.sh --alter --zookeeper localhost:2181/chroot --topic kafkatopic --deleteconfig &lt;key&gt;<span class="o">=</span>&lt;value&gt;
+</code></pre></div>
+
+<p>列出所有topic信息。可选参数有under-replicated-partitions和unavailable-partitions：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-topics.sh --list --zookeeper localhost:2181
+</code></pre></div>
+
+<h3 id="kafka集群镜像">Kafka集群镜像</h3>
+
+<p>Kafka提供了将现有集群镜像到一个新集群的工具。</p>
+
+<p><img src="https://wukn.github.io/img/post/kafka/operation/cluster-mirror.png" alt="" /></p>
+
+<p>如图中所示，镜像工具的任务是从源集群消费消息，使用内嵌的producer重新发布到目标集群。</p>
+
+<p>镜像源集群时，需要构建好目标集群，并启动MirrorMaker：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-run-class.sh kafka.tools.MirrorMaker --consumer.config sourceClusterConsumer.config --num.streams <span class="m">2</span> --producer.config targetClusterProducer.config --whitelist<span class="o">=</span><span class="s2">&quot;.*&quot;</span>
+</code></pre></div>
+
+<p>启动MirrorMaker的最少参数有：一个或多个consumer配置文件、一个producer配置文件、基于标准Java正则表达式的白名单或黑名单。例如，镜像名为A和B的topic使用<code>--whitelist 'A|B'</code>，镜像所有topic使用<code>--whitelist '*'</code>。同时还需要MirrorMaker的consumer连接到源集群的ZooKeeper，producer连接到目标集群的ZooKeeper或broker.list参数。</p>
+
+<p>出于高吞吐量的考虑，内嵌的异步producer使用阻塞模式，这确保了消息不会丢失producer在队列满了的情况下会等待所有的消息写入目标集群。如果producer的队列始终是满的则说明MirrorMaker是集群镜像的瓶颈。<code>--num.producers</code>选项可用于指定MirrorMaker中producer pool中consumer的数量来增加吞吐量，<code>--num.streams</code>指定consumer线程的数量。</p>
+
+<p>通常，MirrorMaker的consumer配置中的socket.buffersize和目标集群broker配置中的socket.send.buffer配置为很大的值，而且MirrorMaker的consumer配置中的fetch.size大于socket.buffersize。如果producer配置中指定了broker.list且使用了硬件负载均衡，可以配置一个producer失效时的重试次数。</p>
+
+<p>Kafka还提供了检查consumer位置的工具。该工具可查询一个consumer group中所有consumer的位置。参数<code>--zkconnect</code>指向目标集群的ZooKeeper，参数<code>--topic</code>是可选的，不指定时将输出指定consumer group下所有topic信息。</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-run-class.sh kafka.tools.ConsumerOffsetChecker --group MirrorGroup --zkconnect localhost:2181 --topic kafkatopic
+
+<span class="c1">#输出结果</span>
+Group        Topic       Pid  Offset  logSize    Lag    Owner
+MirrorGroup  kafkatopic  <span class="m">0</span>    <span class="m">5</span>       <span class="m">5</span>	         <span class="m">0</span>      none
+MirrorGroup  kafkatopic  <span class="m">1</span>    <span class="m">3</span>	      <span class="m">4</span>	         <span class="m">1</span>      none
+MirrorGroup  kafkatopic  <span class="m">2</span>    <span class="m">6</span>	      <span class="m">9</span>	         <span class="m">3</span>      none
+</code></pre></div>
+
+<h3 id="与其他工具集成">与其他工具集成</h3>
+
+<p><a href="https://github.com/linkedin/camus">Camus：provides  a pipeline from Kafka to HDFS</a></p>
+
+<p><a href="https://github.com/nathanmarz/kafka-deploy">Automated deployment and configuration of Kafka and ZooKeeper on Amazon</a></p>
+
+<p><a href="https://github.com/leandrosilva/klogd2">A logging utility</a></p>
+
+<p><a href="https://github.com/mozilla-metrics/bagheera">A REST service for Mozilla Metrics</a></p>
+
+<p><a href="https://github.com/BreizhBeans/camel-kafka/wiki">Apache Camel-Kafka integration</a></p>
+
+<p><a href="https://cwiki.apache.org/confluence/display/KAFKA/Ecosystem">Kafka ecosystem tools</a></p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>[《Learing Apache Kafka-Second Edition》]()</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/kafka"><span class="tag">Kafka</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>304</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

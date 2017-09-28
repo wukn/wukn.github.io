@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Angular2] Structural Directives</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" Angular提供了一个强大的模板引擎供去我们来操作DOM结构中的元素。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Angular2] Structural Directives" />
+    <meta name="twitter:description" content=" Angular提供了一个强大的模板引擎供去我们来操作DOM结构中的元素。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2017/01/03/angular2-structural-directives/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Angular2] Structural Directives</h1>
+      <p class="post-meta">@wukn · Jan 3, 2017 · 3 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>Angular提供了一个强大的模板引擎供去我们来操作DOM结构中的元素。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="什么是结构指令">什么是结构指令</h3>
+
+<p>结构指令使用来构造HTML布局的。它通过添加、移除或操作元素来形成或改变DOM结构。</p>
+
+<p>跟其他指令一样，结构指令使用在宿主元素上，它会操作该元素以及它的子元素。</p>
+
+<p>结构指令很好识别，通常指令属性名有个星号前缀，例如：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&quot;hero&quot;</span> <span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>没有中括号，也没有小括号，就是一个字符串<code>*ngIf</code>。</p>
+
+<p>待会儿会说到，星号是一种简记法，相对通常的模板语法来说，这个字符串是一种微语法，这是Angular提供的语法糖。Angular会将这种写法还原成用<code>&lt;template&gt;</code>包装宿主元素及其子元素的形式。</p>
+
+<p>最常见的内建结构指令是<code>NgIf</code>、<code>NgFor</code>和<code>NgSwitch</code>。例如：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&quot;hero&quot;</span> <span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&quot;let hero of heroes&quot;</span><span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">ngSwitch</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">?.</span><span class="na">emotion</span><span class="err">&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">happy-hero</span>    <span class="err">*</span><span class="na">ngSwitchCase</span><span class="o">=</span><span class="s">&quot;&#39;happy&#39;&quot;</span>    <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">happy-hero</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">sad-hero</span>      <span class="err">*</span><span class="na">ngSwitchCase</span><span class="o">=</span><span class="s">&quot;&#39;sad&#39;&quot;</span>      <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">sad-hero</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">confused-hero</span> <span class="err">*</span><span class="na">ngSwitchCase</span><span class="o">=</span><span class="s">&quot;&#39;confused&#39;&quot;</span> <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">confused-hero</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">unknown-hero</span>  <span class="err">*</span><span class="na">ngSwitchDefault</span>           <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">unknown-hero</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>也许你注意到了，指令既有UpperCamelCase拼写方式，也有lowerCamelCase方式，就像<code>NgIf</code>和<code>ngIf</code>。它们的区别在于，<code>NgIf</code>指的是指令类，<code>ngIf</code>指的是指令的属性名。这是约定的命名规范。</p>
+
+<p>一个宿主元素上可以使用多个属性指令，但是只能使用一个结构指令。</p>
+
+<h3 id="ngif">NgIf</h3>
+
+<p><code>NgIf</code>是最简单的也是最容易理解的结构指令了。它接收一个布尔值来控制显示或隐藏一个DOM块。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&quot;true&quot;</span><span class="p">&gt;</span>
+  Expression is true and ngIf is true.
+  This paragraph is in the DOM.
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&quot;false&quot;</span><span class="p">&gt;</span>
+  Expression is false and ngIf is false.
+  This paragraph is not in the DOM.
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p><code>ngIf</code>指令不是通过CSS来隐藏元素的，而是直接在DOM中添加或移除它。可以用浏览器的开发者工具看一下：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/structural-directives/element-not-in-dom.png" alt="" /></p>
+
+<p>为什么是移除而不是隐藏呢？</p>
+
+<p>通过设置元素的<code>display</code>为<code>none</code>可以隐藏元素：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="err">[</span><span class="na">style</span><span class="err">.</span><span class="na">display</span><span class="err">]=&quot;&#39;</span><span class="na">block</span><span class="err">&#39;&quot;</span><span class="p">&gt;</span>
+  Expression sets display to &quot;block&quot;&quot; .
+  This paragraph is visible.
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="err">[</span><span class="na">style</span><span class="err">.</span><span class="na">display</span><span class="err">]=&quot;&#39;</span><span class="na">none</span><span class="err">&#39;&quot;</span><span class="p">&gt;</span>
+  Expression sets display to &quot;none&quot; .
+  This paragraph is hidden but still in the DOM.
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>虽然隐藏了，但是这个元素还是在DOM中的：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/structural-directives/element-display-in-dom.png" alt="" /></p>
+
+<p>对于上面的例子中的段落来说，用移除还是隐藏关系并不大。但如果宿主元素是个比较占用资源的组件，那么即使它隐藏了，它的一些行为还是可用的，例如监听事件。Angular还要继续检查那些可能会影响它的数据绑定。这样即使是隐藏的，它和它的子组件仍然占用着资源。</p>
+
+<p>使用隐藏的方式有一个好处，就是再次显示它的时候就很快，因为组件的状态都是保留的，而且不需要重新初始化。初始化是很消耗资源的。因此有的时候适合选择隐藏这种方式。</p>
+
+<p>但是当我们没有足够的理由保留组件时，我们应该选择把它从DOM中移除，以释放相关的资源。</p>
+
+<h3 id="使用-ng-container-为兄弟元素分组">使用<ng-container>为兄弟元素分组</h3>
+
+<p>通常我们是在一个根元素上使用结构指令。<code>&lt;li&gt;</code>是个典型的<code>NgFor</code>的宿主元素：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">li</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&quot;let hero of heroes&quot;</span><span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>当没有宿主元素可用时，我们可以使用原生的HTML容器元素，例如<code>&lt;div&gt;</code>：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&quot;hero&quot;</span> <span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>通常，用<code>&lt;span&gt;</code>或<code>&lt;div&gt;</code>来为一些元素分组也是可以的。但是有时这并不是最好的办法，可能会影响CSS样式。例如：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+  I turned the corner
+  <span class="p">&lt;</span><span class="nt">span</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&quot;hero&quot;</span><span class="p">&gt;</span>
+    and saw {{hero.name}}. I waved
+  <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+  and continued on my way.
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>假设样式设置如下：</p>
+
+<pre><code>p span { color: red; font-size: 70%; }
+</code></pre>
+
+<p>那么渲染出来的效果就不对了：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/structural-directives/bad-paragraph.png" alt="" /></p>
+
+<p>另外，有的HTML元素的子元素是特定类型的，例如<code>&lt;select&gt;</code>标签需要<code>&lt;option&gt;</code>子标签，然而并不能用<code>&lt;span&gt;</code>或<code>&lt;div&gt;</code>来包装<code>&lt;option&gt;</code>。</p>
+
+<p>如果我们像下面这样写，那么下拉框将是空的：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+  Pick your favorite hero
+  (<span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">checked</span> <span class="err">(</span><span class="na">change</span><span class="err">)=&quot;</span><span class="na">showSad </span><span class="o">=</span> <span class="s">!showSad&quot;</span><span class="p">&gt;</span>show sad<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>)
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">select</span> <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">span</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&quot;let h of heroes&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&quot;showSad || h.emotion !== &#39;sad&#39;&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">option</span> <span class="err">[</span><span class="na">ngValue</span><span class="err">]=&quot;</span><span class="na">h</span><span class="err">&quot;</span><span class="p">&gt;</span>{{h.name}} ({{h.emotion}})<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p><img src="https://wukn.github.io/img/post/angular2/structural-directives/bad-select.png" alt="" /></p>
+
+<p>这就是<code>&lt;ng-container&gt;</code>存在的理由。<code>&lt;ng-container&gt;</code>是一个分组元素，它不会干扰样式或布局。Angular不会把它放到DOM中。</p>
+
+<p>例如：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+  I turned the corner
+  <span class="p">&lt;</span><span class="nt">ng-container</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&quot;hero&quot;</span><span class="p">&gt;</span>
+    and saw {{hero.name}}. I waved
+  <span class="p">&lt;/</span><span class="nt">ng-container</span><span class="p">&gt;</span>
+  and continued on my way.
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>现在就能正常显示了：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/structural-directives/good-paragraph.png" alt="" /></p>
+
+<p>使用<code>&lt;ng-container&gt;</code>来排除<code>&lt;select&gt;</code>：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+  Pick your favorite hero
+  (<span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">checked</span> <span class="err">(</span><span class="na">change</span><span class="err">)=&quot;</span><span class="na">showSad </span><span class="o">=</span> <span class="s">!showSad&quot;</span><span class="p">&gt;</span>show sad<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>)
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">select</span> <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">ng-container</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&quot;let h of heroes&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ng-container</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&quot;showSad || h.emotion !== &#39;sad&#39;&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">option</span> <span class="err">[</span><span class="na">ngValue</span><span class="err">]=&quot;</span><span class="na">h</span><span class="err">&quot;</span><span class="p">&gt;</span>{{h.name}} ({{h.emotion}})<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">ng-container</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">ng-container</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>下拉框正常了：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/structural-directives/select-ngcontainer-anim.gif" alt="" /></p>
+
+<p><code>&lt;ng-container&gt;</code>是一个Angluar解析器能识别的一个语法元素。它不是指令、组件、类或者接口。它很像JavaScript中If块的花括号：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="k">if</span> <span class="p">(</span><span class="nx">someCondition</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">statement1</span><span class="p">;</span>
+  <span class="nx">statement2</span><span class="p">;</span>
+  <span class="nx">statement3</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>没有花括号的话，JavaScript只会将第一个表达式作为if的内容，而实际上我们想吧三个表达式作为一个代码块。<code>&lt;ng-container&gt;</code>为Angular语法实现了类似的需求。</p>
+
+<h3 id="星号前缀">星号前缀</h3>
+
+<p>注意指令名称前面的星号前缀：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&quot;hero&quot;</span> <span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>这是一个语法糖。Angular会通过两步将他解开。第一步，将<code>*ngIf=&quot;...&quot;</code>翻译成模板属性<code>template=&quot;ngIf ...&quot;</code>，就像这样：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">template</span><span class="o">=</span><span class="s">&quot;ngIf hero&quot;</span><span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>然后将模板属性翻译成模板元素，将宿主元素包装在里面：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">template</span> <span class="err">[</span><span class="na">ngIf</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<ul>
+<li><code>*ngIf</code>指令移到<code>&lt;template&gt;</code>标签上变成了属性绑定<code>[ngIf]</code>。</li>
+<li><code>&lt;div&gt;</code>余下的部分，包括它的类属性，全部移到<code>&lt;template&gt;</code>标签内。</li>
+</ul>
+
+<p>转换的过程不会被渲染，DOM中渲染的只是最终的结果：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/structural-directives/hero-div-in-dom.png" alt="" /></p>
+
+<p><code>NgFor</code>和<code>NgSwitch</code>跟这个是类似的。</p>
+
+<h3 id="ngfor">NgFor</h3>
+
+<p><code>NgFor</code>的三种写法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&quot;let hero of heroes; let i=index; let odd=odd; trackBy: trackById&quot;</span> <span class="err">[</span><span class="na">class</span><span class="err">.</span><span class="na">odd</span><span class="err">]=&quot;</span><span class="na">odd</span><span class="err">&quot;</span><span class="p">&gt;</span>
+  ({{i}}) {{hero.name}}
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">template</span><span class="o">=</span><span class="s">&quot;ngFor let hero of heroes; let i=index; let odd=odd; trackBy: trackById&quot;</span> <span class="err">[</span><span class="na">class</span><span class="err">.</span><span class="na">odd</span><span class="err">]=&quot;</span><span class="na">odd</span><span class="err">&quot;</span><span class="p">&gt;</span>
+  ({{i}}) {{hero.name}}
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">template</span> <span class="na">ngFor</span> <span class="na">let-hero</span> <span class="err">[</span><span class="na">ngForOf</span><span class="err">]=&quot;</span><span class="na">heroes</span><span class="err">&quot;</span> <span class="na">let-i</span><span class="o">=</span><span class="s">&quot;index&quot;</span> <span class="na">let-odd</span><span class="o">=</span><span class="s">&quot;odd&quot;</span> <span class="err">[</span><span class="na">ngForTrackBy</span><span class="err">]=&quot;</span><span class="na">trackById</span><span class="err">&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">class</span><span class="err">.</span><span class="na">odd</span><span class="err">]=&quot;</span><span class="na">odd</span><span class="err">&quot;</span><span class="p">&gt;</span>({{i}}) {{hero.name}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p><code>NgFor</code>比<code>NgIf</code>稍微复杂点。<code>NgFor</code>的必需属性和可选属性更多。它至少需要一个循环变量（<code>let hero</code>）和一个列表（<code>heroes</code>）。</p>
+
+<p>把宿主元素移到<code>&lt;template&gt;</code>中时，<code>ngFor</code>字符串之外的东西仍然留在宿主元素上。上面的<code>[ngClass]=&quot;odd&quot;</code>就仍然在<code>&lt;div
+&gt;</code>上。</p>
+
+<h4 id="微语法">微语法</h4>
+
+<p><code>*ngFor=&quot;let hero of heroes; let i=index; let odd=odd; trackBy: trackById&quot;</code>，右侧的字符串就是微语法。它让我们可以通过一个简洁的字符串来配置指令。微语法解析器会把这个字符串转换为<code>&lt;template&gt;</code>的属性。</p>
+
+<ul>
+<li><code>let</code>关键字声明了一个模板输入变量，我们可以在模板中引用它。例子中的输入变量是<code>hero</code>、<code>i</code>和<code>odd</code>。解析器将<code>let hero</code>、<code>let i</code>和<code>let odd</code>转换成了变量<code>let-hero</code>、<code>let-i</code>和<code>let-odd</code>。</li>
+<li>对于<code>of</code>和<code>trackby</code>，先将它们的首字母大写，然后加上指令的属性名作为前缀，形成<code>ngForOf</code>和<code>ngForTrackBy</code>。这两个就是<code>NgFor</code>输入属性的名称。</li>
+<li><code>NgFor</code>对列表进行循环时，它会设置和重置它的上下文对象的属性。这些属性包括<code>index</code>、<code>odd</code>和一个特殊的属性<code>$implicit</code>。</li>
+<li>变量<code>let-i</code>和<code>let-odd</code>被定义为<code>let i=index</code>和<code>let odd=odd</code>。Angular将他们赋值给当前上下文的<code>index</code>和<code>odd</code>属性。</li>
+<li><code>let-hero</code>对应的上下文属性没有被指定。它是隐式的。Angular在这次迭代中将<code>let-hero</code>赋值给上下文的<code>$implicit</code>属性，来初始化hero。</li>
+</ul>
+
+<h4 id="模板输入变量">模板输入变量</h4>
+
+<p>模板输入变量（template input variable）就是在模板的单实例内可以引用的变量。例如上面的<code>hero</code>、<code>li</code>和<code>odd</code>，它们前面都加了个关键字<code>let</code>。</p>
+
+<p>不管从语义上还是语法上来说，模板输入变量和模板引用变量（template reference variable）都是不一样的。</p>
+
+<p>模板输入变量是用关键字<code>let</code>定义的（<code>let hero</code>），它的生命周期是被重复的模板的单个实例中。你可以在其它指令的定义中使用同样的变量名。</p>
+
+<p>模板引用变量的定义是在变量名前加<code>#</code>（<code>#var</code>）。引用变量只想它被附加的元素、组件或指令。它可以在整个模板的任意地方被引用。</p>
+
+<p>模板输入变量和引用变量各有它们自己的作用域。<code>let hero</code>和<code>#hero</code>中的这两个<code>hero</code>是不一样的。</p>
+
+<h4 id="不能在一个元素上使用多个结构指令">不能在一个元素上使用多个结构指令</h4>
+
+<p>再次说明，每个元素最多只能应用一个结构指令。假如在一个元素上同时使用<code>NgIf</code>和<code>NgFor</code>，它们之间可能的冲突或让Angular不知所措。所以不允许在一个元素上使用多个结构指令。我们可以将<code>*ngIf</code>应用在包装了<code>*ngFor</code>元素的容器元素上。</p>
+
+<h3 id="ngswitch">NgSwitch</h3>
+
+<p><code>NgSwitch</code>实际上是一组相关的指令：<code>NgSwitch</code>、<code>NgSwitchCase</code>和<code>NgSwitchDefault</code>。</p>
+
+<p>举个栗子：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">ngSwitch</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">?.</span><span class="na">emotion</span><span class="err">&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">happy-hero</span>    <span class="err">*</span><span class="na">ngSwitchCase</span><span class="o">=</span><span class="s">&quot;&#39;happy&#39;&quot;</span>    <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">happy-hero</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">sad-hero</span>      <span class="err">*</span><span class="na">ngSwitchCase</span><span class="o">=</span><span class="s">&quot;&#39;sad&#39;&quot;</span>      <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">sad-hero</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">confused-hero</span> <span class="err">*</span><span class="na">ngSwitchCase</span><span class="o">=</span><span class="s">&quot;&#39;confused&#39;&quot;</span> <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">confused-hero</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">unknown-hero</span>  <span class="err">*</span><span class="na">ngSwitchDefault</span>           <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">unknown-hero</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p><code>NgSwitch</code>本身不是结构指令，它是一个属性指令，用来控制那两个switch指令的行为的。这就是为什么写的是<code>[ngSwitch]</code>，而不是<code>*ngSwitch</code>。</p>
+
+<p><code>NgSwitchCase</code>和<code>NgSwitchDefault</code>是结构指令。它们前面是有星号前缀的。<code>NgSwitchCase</code>会在它的值跟switch值匹配时显示宿主元素。当没有<code>NgSwitchCase</code>匹配时，<code>NgSwitchDefault</code>显示它的宿主元素。</p>
+
+<p>将语法糖解开成模板属性形式：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">ngSwitch</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">?.</span><span class="na">emotion</span><span class="err">&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">happy-hero</span>    <span class="na">template</span><span class="o">=</span><span class="s">&quot;ngSwitchCase &#39;happy&#39;&quot;</span>    <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">happy-hero</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">sad-hero</span>      <span class="na">template</span><span class="o">=</span><span class="s">&quot;ngSwitchCase &#39;sad&#39;&quot;</span>      <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">sad-hero</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">confused-hero</span> <span class="na">template</span><span class="o">=</span><span class="s">&quot;ngSwitchCase &#39;confused&#39;&quot;</span> <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">confused-hero</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">unknown-hero</span>  <span class="na">template</span><span class="o">=</span><span class="s">&quot;ngSwitchDefault&quot;</span>         <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">unknown-hero</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>进一步解成模板元素形式：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">ngSwitch</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">?.</span><span class="na">emotion</span><span class="err">&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">template</span> <span class="err">[</span><span class="na">ngSwitchCase</span><span class="err">]=&quot;&#39;</span><span class="na">happy</span><span class="err">&#39;&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">happy-hero</span> <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">happy-hero</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">template</span> <span class="err">[</span><span class="na">ngSwitchCase</span><span class="err">]=&quot;&#39;</span><span class="na">sad</span><span class="err">&#39;&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">sad-hero</span> <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">sad-hero</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">template</span> <span class="err">[</span><span class="na">ngSwitchCase</span><span class="err">]=&quot;&#39;</span><span class="na">confused</span><span class="err">&#39;&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">confused-hero</span> <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">confused-hero</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">template</span> <span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">template</span> <span class="na">ngSwitchDefault</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">unknown-hero</span> <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">hero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">unknown-hero</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<h3 id="使用星号前缀方式">使用星号前缀方式</h3>
+
+<p>尽量始终选择星号前缀这种方式。星号前缀方式相对更简洁。如果没有元素作为指令的宿主，那么就用<code>&lt;ng-container&gt;</code>。</p>
+
+<p>尽管很少用到结构指令的模板属性或模板元素形式，了解下有助于我们自己编写结构指令。</p>
+
+<h3 id="template-元素"><code>&lt;template&gt;</code>元素</h3>
+
+<p>HTML5中的<code>&lt;template&gt;</code>是用来渲染HTML的。它不会被直接显示。事实上，Angular在渲染 它之前会把它和它的内容放到注释中。</p>
+
+<p>如果我们不使用结构指令而把一些内容放到<code>&lt;template&gt;</code>中时，这些元素会消失。例如：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hip!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">template</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hip!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Hooray!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p><img src="https://wukn.github.io/img/post/angular2/structural-directives/template-rendering.png" alt="" /></p>
+
+<h3 id="写一个结构指令">写一个结构指令</h3>
+
+<p>让我们自己动手写一个结构指令。写一个跟<code>NgIf</code>相反的<code>UnlessDirective</code>吧。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="err">*</span><span class="na">myUnless</span><span class="o">=</span><span class="s">&quot;condition&quot;</span><span class="p">&gt;</span>Show this sentence unless the condition is true.<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>创建指令和创建组件是类似的：</p>
+
+<ul>
+<li>引入<code>Directive</code>装饰器</li>
+<li>引入<code>Input</code>、<code>TemplateRef</code>和<code>ViewContainerRef</code>，这在任何结构指令中都是必需的</li>
+<li>为指令类应用装饰器</li>
+<li>设置CSS属性选择器</li>
+</ul>
+
+<p>开始写吧：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// unless.directive.ts (skeleton)</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Directive</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">TemplateRef</span><span class="p">,</span> <span class="nx">ViewContainerRef</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Directive</span><span class="p">({</span> <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;[myUnless]&#39;</span><span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">UnlessDirective</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>指令属性名称应该使用lowerCamelCase拼写方式，且带个前缀。不要使用<code>ng</code>作为前缀，它是Angular用的。</p>
+
+<p>指令的类名以<code>Directive</code>结尾。Angular自己的指令并不是这样的。</p>
+
+<p>这个简单的指令会从Angular生成的<code>&lt;template&gt;</code>生成一个嵌入的视图，并将它添加到邻近指令宿主元素的视图容器中。</p>
+
+<p>你可以通过<code>TemplateRef</code>来获得<code>&lt;template&gt;</code>，通过<code>ViewContainerRef</code>来访问视图容器。</p>
+
+<p>在指令的构造函数中注入它们：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">constructor</span><span class="p">(</span>
+  <span class="kr">private</span> <span class="nx">templateRef</span><span class="o">:</span> <span class="nx">TemplateRef</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">,</span>
+  <span class="kr">private</span> <span class="nx">viewContainer</span><span class="o">:</span> <span class="nx">ViewContainerRef</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>这个指令的用法是希望绑定一个布尔结果的表达式给<code>[myUnless]</code>，这意味着指令需要一个<code>myUnless</code>输入属性：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">set</span> <span class="nx">myUnless</span><span class="p">(</span><span class="nx">condition</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">condition</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">hasView</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">viewContainer</span><span class="p">.</span><span class="nx">createEmbeddedView</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">templateRef</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">hasView</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">condition</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">hasView</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">viewContainer</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">hasView</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>完整的代码如下：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// unless.directive.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Directive</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">TemplateRef</span><span class="p">,</span> <span class="nx">ViewContainerRef</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="cm">/**</span>
+<span class="cm"> * Add the template content to the DOM unless the condition is true.</span>
+<span class="cm"> */</span>
+<span class="err">@</span><span class="nx">Directive</span><span class="p">({</span> <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;[myUnless]&#39;</span><span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">UnlessDirective</span> <span class="p">{</span>
+  <span class="kr">private</span> <span class="nx">hasView</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="nx">constructor</span><span class="p">(</span>
+    <span class="kr">private</span> <span class="nx">templateRef</span><span class="o">:</span> <span class="nx">TemplateRef</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="kr">private</span> <span class="nx">viewContainer</span><span class="o">:</span> <span class="nx">ViewContainerRef</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+  <span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">set</span> <span class="nx">myUnless</span><span class="p">(</span><span class="nx">condition</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">condition</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">hasView</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">viewContainer</span><span class="p">.</span><span class="nx">createEmbeddedView</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">templateRef</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">hasView</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">condition</span> <span class="o">&amp;&amp;</span> <span class="k">this</span><span class="p">.</span><span class="nx">hasView</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">viewContainer</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">hasView</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>使用的时候把这个指令添加到应用的模块的<code>declarations</code>数组中，然后在模板中使用它。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="err">*</span><span class="na">myUnless</span><span class="o">=</span><span class="s">&quot;condition&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;unless a&quot;</span><span class="p">&gt;</span>
+  (A) This paragraph is displayed because the condition is false.
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">p</span> <span class="err">*</span><span class="na">myUnless</span><span class="o">=</span><span class="s">&quot;!condition&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;unless b&quot;</span><span class="p">&gt;</span>
+  (B) Although the condition is true,
+  this paragraph is displayed because myUnless is set to false.
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>效果如下：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/structural-directives/unless-anim.gif" alt="" /></p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://angular.io/docs/ts/latest/guide/structural-directives.html">Angular2 Documentation - Structural Directives</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>268</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

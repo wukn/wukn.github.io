@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][RabbitMQ] Introduction</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" RabbitMQ是一个messaging broker，一个消息传递的中介。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][RabbitMQ] Introduction" />
+    <meta name="twitter:description" content=" RabbitMQ是一个messaging broker，一个消息传递的中介。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/10/24/rabbitmq-introduction/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][RabbitMQ] Introduction</h1>
+      <p class="post-meta">@wukn · Oct 24, 2016 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>RabbitMQ是一个messaging broker，一个消息传递的中介。</p>
+</blockquote>
+
+<p></p>
+
+<h2 id="特性">特性</h2>
+
+<ul>
+<li>可靠性：RabbitMQ提供了一些特性可以提高可靠性，但会损失一些性能。如消息持久化、消息传递反馈、发布确认、高可用（High Availability）。</li>
+<li>灵活的路由：消息在到达队列之前经过exchange进行路由。</li>
+<li>集群：本地网络内的多个RabbitMQ服务器可以组成集群，形成一个逻辑broker。</li>
+<li>联邦模式：对于需要比集群更松散和更不可靠连接的服务器，RabbitMQ提供了联邦模式。</li>
+<li>高可用队列：队列可以在集群的多个服务器建立镜像，确保硬件故障时消息也不会丢失。</li>
+<li>多协议：RabbitMQ支持多种消息协议。</li>
+<li>管理工具：RabbitMQ提供了管理工具用于监控和控制broker。</li>
+<li>跟踪：RabbitMQ提供了firehose特性，用于跟踪系统的运行情况，例如查看发布的消息、查看未反馈的消息等。</li>
+<li>插件系统：RabbitMQ提供了一系列插件来扩展功能，也可以自己编写插件。</li>
+</ul>
+
+<h2 id="安装">安装</h2>
+
+<p>0.安装Erlang</p>
+
+<p>RabbitMQ使用Erlang开发，因此运行RabbitMQ之前需要安装Erlang环境。</p>
+
+<p>1.下载RabbitMQ</p>
+
+<pre><code>wget http://www.rabbitmq.com/releases/rabbitmq-server/v3.6.0/rabbitmq-server-generic-unix-3.6.0.tar.xz
+xz -d rabbitmq-server-generic-unix-3.6.0.tar.xz
+tar -xvf rabbitmq-server-generic-unix-3.6.0.tar
+cd rabbitmq_server-3.6.0/
+</code></pre>
+
+<p>2.配置RabbitMQ</p>
+
+<p>RabbitMQ默认使用的端口为：</p>
+
+<ul>
+<li>4369 (epmd), 25672 (Erlang distribution)</li>
+<li>5672, 5671 (AMQP 0-9-1 without and with TLS)</li>
+<li>15672 (启用管理插件时)</li>
+<li>61613, 61614 (启用STOMP时)</li>
+<li>1883, 8883 (启用MQTT时)</li>
+</ul>
+
+<p>RabbitMQ提供了三种配置方式：</p>
+
+<ul>
+<li>环境变量：定义端口号、文件位置和名称。在shell指定或者在$RABBITMQ_HOME/etc/rabbitmq/rabbitmq-env.conf文件中设置。</li>
+<li>配置文件：定义服务组件配置，如权限、集群、插件设置等。通常在$RABBITMQ_HOME/etc/rabbitmq/rabbitmq.config文件中。</li>
+<li>运行时参数：在运行时动态修改集群相关的参数。</li>
+</ul>
+
+<p>3.启动RabbitMQ服务器</p>
+
+<pre><code>sbin/rabbitmq-server
+</code></pre>
+
+<p>broker会创建一个默认用户，用户名为guest，密码为guest。未配置的客户端将会使用该用户凭证。默认情况下，该用户凭证时能在本机连接broker时使用。可以创建心用户或者允许guest用户远程访问。</p>
+
+<p>4.管理broker</p>
+
+<p>查看状态：</p>
+
+<pre><code>sbin/rabbitmqctl status
+</code></pre>
+
+<p>停止服务：</p>
+
+<pre><code>sbin/rabbitmqctl stop
+</code></pre>
+
+<p>5.配置系统限制</p>
+
+<p>在生产环境中使用RabbitMQ可能需要调整系统限制和内核参数来处理并发连接和队列。最主要的参数就是最大打开文件数量，也就是ulimit -n。Linux下默认值是1024，对于messaging broker是远远不够的。建议生产环境的rabbitmq用户允许至少65536个文件描述符。开发环境下4096应该就足够了。</p>
+
+<hr />
+
+<p>参考资料</p>
+
+<p><a href="http://www.rabbitmq.com/install-generic-unix.html">www.rabbitmq.com</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/rabbitmq"><span class="tag">RabbitMQ</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>339</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

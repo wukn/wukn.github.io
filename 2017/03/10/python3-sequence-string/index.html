@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Python3] 序列（字符串）</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" Python3 序列——字符串。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Python3] 序列（字符串）" />
+    <meta name="twitter:description" content=" Python3 序列——字符串。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2017/03/10/python3-sequence-string/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Python3] 序列（字符串）</h1>
+      <p class="post-meta">@wukn · Mar 10, 2017 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>Python3 序列——字符串。</p>
+</blockquote>
+
+<p></p>
+
+<p>字符串有几种方法来表示：用单引号(&lsquo;&hellip;&rsquo;)或双引号(&ldquo;&hellip;&rdquo;)括起来。</p>
+
+<p>常规字符串中可以使用<code>\</code>转义字符。原始字符串为在字符串开始的引号之前加上<code>r</code>，可以取消<code>\</code>转义。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="s1">&#39;C:\some</span><span class="se">\n</span><span class="s1">ame&#39;</span><span class="p">)</span>  <span class="c1"># here \n means newline!</span>
+<span class="n">C</span><span class="p">:</span>\<span class="n">some</span>
+<span class="n">ame</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\some\name&#39;</span><span class="p">)</span>  <span class="c1"># note the r before the quote</span>
+<span class="n">C</span><span class="p">:</span>\<span class="n">some</span>\<span class="n">name</span>
+</code></pre></div>
+
+<p>字符串可以跨多行。一种方法是使用三引号：&rdquo;&ldquo;&rdquo;&hellip;&ldquo;&rdquo;&ldquo;或者&rdquo;&lsquo;&hellip;&ldquo;&lsquo;。行尾换行符会被自动包含到字符串中，但是可以在行尾加上<code>\</code>(续行符)来避免这个行为。</p>
+
+<p>字符串可以用 + 操作符联接，也可以用 * 操作符重复多次：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">3</span> <span class="o">*</span> <span class="s1">&#39;un&#39;</span> <span class="o">+</span> <span class="s1">&#39;ium&#39;</span>
+<span class="s1">&#39;unununium&#39;</span>
+</code></pre></div>
+
+<p>相邻的两个或多个字符串字面量（用引号引起来的）会自动连接。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;Py&#39;</span> <span class="s1">&#39;thon&#39;</span>
+<span class="s1">&#39;Python&#39;</span>
+</code></pre></div>
+
+<p>这种方式只能用于两个字符串的连接，变量或者表达式是不行的。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;Py&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">prefix</span> <span class="s1">&#39;thon&#39;</span>  <span class="c1"># can&#39;t concatenate a variable and a string literal</span>
+  <span class="o">...</span>
+<span class="ne">SyntaxError</span><span class="p">:</span> <span class="n">invalid</span> <span class="n">syntax</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="s1">&#39;un&#39;</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="s1">&#39;ium&#39;</span>
+  <span class="o">...</span>
+<span class="ne">SyntaxError</span><span class="p">:</span> <span class="n">invalid</span> <span class="n">syntax</span>
+</code></pre></div>
+
+<p>除了序列所支持的那些操作，字符串还支持以下字符串操作：</p>
+
+<ul>
+<li><code>str.capitalize()</code>：返回字符串的一个副本，该副本的首字母大写而其他字母小写</li>
+<li><code>str.casefold()</code>：返回字符串的一个副本，该副本的所有字母小写</li>
+<li><code>str.center(width[, fillchar])</code>：居中str（返回长度为width的字符串：str居中、以fillchar填充两侧）。fillchar默认为空格。width小于len(str)时返回原字符串</li>
+<li><code>str.count(sub[, start[, end]])</code>：返回sub子串在str[start:end]中出现的次数（非重叠）</li>
+<li><code>str.encode([encoding[, errors]])</code>：返回编码格式encoding的str</li>
+<li><code>str.endswith(suffix[, start[, end]])</code>：如果str[start:end]以suffix子串结尾，返回True；否则，返回False。suffix可以是一个元组</li>
+<li><code>str.expandtabs([tabsize])</code>：返回字符串的一个副本，其中所有的tab字符用空格替换并补齐，使得每一个tab字符后的子串位于第tabsize*n列（n=0,1,2,&hellip;）</li>
+<li><code>str.find(sub[, start[, end]])</code>：返回sub子串在str[start:end]中的最小索引，不存在则返回-1</li>
+<li><code>str.format(*args, **kwargs)</code>：字符串格式化。将字符串中使用大括号{}定义的替换域（Replacement Field）替换为相应索引的位置参数（Positional Argument）的或者相应名称的关键字参数Keyword Argument）。在替换域中，支持访问参数的属性或成员</li>
+</ul>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;The result of 1 + 2 is {}, 1 * 2 is {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+<span class="s1">&#39;The result of 1 + 2 is 3, 1 * 2 is 2&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;The result of 1 + 2 is {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
+<span class="s1">&#39;The result of 1 + 2 is 3&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;The result of 1 + 2 is {result1}, 1 * 2 is {result1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result1</span><span class="o">=</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="n">result2</span><span class="o">=</span><span class="mi">1</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
+<span class="s1">&#39;The result of 1 + 2 is 3, 1 * 2 is 2&#39;</span>
+</code></pre></div>
+
+<ul>
+<li><code>str.format_map(mapping)</code>：跟<code>str.format(**mapping)</code>相似</li>
+<li><code>str.index(sub[, start[, end]])</code>：返回sub子串在str[start:end]中的最小索引，不存在则抛出ValueError异常</li>
+<li><code>str.isalnum()</code>：如果str不为空且其中仅含有字母或数字，返回True；否则，返回False</li>
+<li><code>str.isalpha()</code>：如果str不为空且其中仅含有字母，返回True；否则，返回False</li>
+<li><code>str.isdigit()</code>：如果str不为空且其中仅含有数字（Digit Character），返回True；否则，返回False</li>
+<li><code>str.isidentifier()</code>：如果根据语言定义str是一个有效的identifier，返回True</li>
+<li><code>str.islower()</code>：如果str至少包含一个字符，且所有字符全部为小写，返回True；否则，返回False</li>
+<li><code>str.isnumeric()</code>：如果str不为空且所有字符都是数字字符（Numeric character），返回True；否则，返回False。数字字符（Numeric character）包含数字（Digit Character）和Unicode数字值属性（Unicode numeric value property），如U+2155, VULGAR FRACTION ONE FIFTH。</li>
+<li><code>str.isprintable()</code>：如果str为空或者所有字符都是可打印的，返回True；否则，返回False</li>
+<li><code>str.isspace()</code>：如果str不为空且其中仅含有空白符，返回True；否则，返回False</li>
+<li><code>str.istitle()</code>：如果str不为空且是标题化的，返回True；否则，返回False</li>
+<li><code>str.isupper()</code>：如果str不为空且所有字符都是大写字母，返回True；否则，返回False</li>
+<li><code>str.join(iterable)</code>：串联迭代对象iterable生成的字符串序列，并以str分隔</li>
+<li><code>str.ljust(width[, fillchar])</code>：类似center()，但左对齐str，以fillchar填充右侧。fillchar默认为空格。如果width小于len(str)，则返回原字符串</li>
+<li><code>str.lower()</code>：将str中的字母全部小写</li>
+<li><code>str.lstrip([chars])</code>：返回字符串的一个副本，该副本中删除开始处、位于chars中的字符（默认为空白符）</li>
+<li><code>str.maketrans(x[, y[, z]])</code>：该静态方法返回一个用于<code>str.translate()</code>的翻译表（translation table）</li>
+<li><code>str.partition(sep)</code>：如果str中存在sep，以第一个sep的下标为分界，返回元组 (sep之前的子串, sep, sep之后的子串)；否则，返回元组 (str, &ldquo;, &ldquo;)</li>
+<li><code>str.replace(old, new[, count])</code>：将str中的old子串替换为new子串，只替换前count个（省略count则全部替换）</li>
+<li><code>str.rfind(sub[, start[, end]])</code>：逆序版find()：返回最大下标，找不到则返回-1</li>
+<li><code>str.rindex(sub[, start[, end]])</code>：逆序版index()：返回最大下标，找不到则抛出ValueError异常</li>
+<li><code>str.rjust(width[, fillchar])</code>：类似center()，但右对齐str，以fillchar填充左侧</li>
+<li><code>str.rpartition(sep)</code>：逆序版partition()：存在则以最后一个sep的下标为分界，返回元组（sep之前的子串, sep, sep之后的子串)；否则返回 (&ldquo;, &ldquo;, str)</li>
+<li><code>str.rsplit([sep[, maxsplit]])</code>：从右向左分割str，以sep为分割符（省略时，sep默认为空白符），只执行maxsplit次分割（省略则全部分割）</li>
+<li><code>str.rstrip([chars])</code>：删除str结尾处、位于chars中的字符（默认为空白符）</li>
+<li><code>str.split([sep[, maxsplit]])</code>：逆序版rsplit()：从左向右分割str</li>
+<li><code>str.splitlines([keepends])</code>：以换行符（universal newlines）为分割符，分割str；如果指定keepends且为True，则分割后保留换行符</li>
+<li><code>str.startswith(prefix[, start[, end]])</code>：逆序版endswith()：判断str[start:end]是否以prefix子串开始</li>
+<li><code>str.strip([chars])</code>：综合lstrip()和rstrip()的功能：同时删除str开始和结尾处的空白符（或指定字符）</li>
+<li><code>str.swapcase()</code>：将str中的所有字母的大小写翻转：大写变小写，小写变大写</li>
+<li><code>str.title()</code>：标题化str：使得str中非字母字符之后的字母（或首字母）大写，字母字符之后的字母小写</li>
+<li><code>str.translate(table)</code>：返回字符串的一个副本，该副本中根据table中的转换关系对字符进行转换</li>
+<li><code>str.upper()</code>：返回字符串的一个副本，该副本中的所有小写字母变为大写</li>
+<li><code>str.zfill(width)</code>：返回字符串的一个副本，该副本的长度为width，左侧补&rsquo;0&rsquo;</li>
+</ul>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;42&#39;</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="s1">&#39;00042&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;-42&#39;</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="s1">&#39;-0042&#39;</span>
+</code></pre></div>
+
+<h3 id="相关模块">相关模块</h3>
+
+<p>Python标准库中跟字符串相关的<a href="https://docs.python.org/3.5/library/text.html">模块</a>有：</p>
+
+<ul>
+<li>string：通用字符串操作</li>
+<li>re：正则表达式操作</li>
+<li>difflib：比较序列之间的差异</li>
+<li>textwrap：文本包装和填充</li>
+<li>unicodedata：Unicode字符库</li>
+<li>stringprep：提供用于互联网协议的Unicode字符串</li>
+<li>readline：GNU的readline接口</li>
+<li>rlcompleter：GNU的readline的补齐函数</li>
+</ul>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://docs.python.org/3.5/library/stdtypes.html#text-sequence-type-str">Python3 Documentation</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/python3"><span class="tag">Python3</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>202</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

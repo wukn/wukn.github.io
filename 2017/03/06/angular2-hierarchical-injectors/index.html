@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Angular2] Hierarchical Injectors</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" Angular的层级依赖注入系统支持与组件树并行的嵌套注入。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Angular2] Hierarchical Injectors" />
+    <meta name="twitter:description" content=" Angular的层级依赖注入系统支持与组件树并行的嵌套注入。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2017/03/06/angular2-hierarchical-injectors/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Angular2] Hierarchical Injectors</h1>
+      <p class="post-meta">@wukn · Mar 6, 2017 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>Angular的层级依赖注入系统支持与组件树并行的嵌套注入。</p>
+</blockquote>
+
+<p></p>
+
+<p>Angular提供了一个层级依赖注入系统。实际上注入器也是树结构，跟组件树并行的。</p>
+
+<h3 id="注入树">注入树</h3>
+
+<p>在<a href="https://wukn.github.io/2016/12/24/angular2-dependency-injection/">依赖注入</a>已经学习了如何配置依赖注入。</p>
+
+<p>事实上并没有一个injector这样的东西存在。一个应用可能有多个注入器。Angular应用是一个组件树。每个组件实例都有它自己的注入器。组件树与注入器树是并行的。</p>
+
+<p>组件的注入器可以代理更高层的注入器。这是为了提高效率。我们不需要关注具体实现的差异，只要记住每个组件有它自己的注入器就行了。</p>
+
+<p>在之前的案例中，顶部的<code>AppComponent</code>拥有几个子组件，其中一个是<code>HeroesListComponent</code>。<code>HeroesListComponent</code>又包含并管理多个<code>HeroTaxReturnComponent</code>的实例。当同时有三个实例时，组件树就像下图所示：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/hierarchical-injectors/component-hierarchy.png" alt="" /></p>
+
+<h4 id="注入器冒泡">注入器冒泡</h4>
+
+<p>当一个组件请求一个依赖时，angular会尝试用组件自身的注入器注册的提供者来满足依赖。如果组件的注入器缺少这个提供者，那么就把这个请求向上传递给父组件的注入器。如果父组件的注入器仍不能解缺，那么再向上层传递。请求会一直向上冒泡，知道Angular找到可满足依赖的注入器，或者超出根注入器。如果一直到根都没找到，Angular会抛出错误。</p>
+
+<p>冒泡是可以被取消的。一个中间组件可以被声明为<code>host</code>组件。那么请求冒泡到它之后将不会再往上层冒泡。</p>
+
+<h4 id="在不同的层级重复提供一个服务">在不同的层级重复提供一个服务</h4>
+
+<p>可以在注入器树的多个层级重复注册一个特定依赖的提供者。其实不需要重复注册，但是真想这样做也是可以的。</p>
+
+<p>根据上面描述的解决依赖的逻辑过程，第一个遇到的注入器将完成依赖注入，并中断底层的请求。</p>
+
+<p>我们可以只在顶层（通常是<code>AppModule</code>）指定提供者，但这样依赖树将比较扁平，所有的请求都会冒泡到在<code>bootstrapModule</code>方法中配置的根<code>NgModule</code>注入器中。</p>
+
+<h3 id="组件注入器">组件注入器</h3>
+
+<p>在不同的层级配置不同的提供者是有很多作用的。</p>
+
+<h4 id="服务隔离">服务隔离</h4>
+
+<p>架构因素可能要求我们需要将服务限制在应用的某些领域中。</p>
+
+<p>假设<code>VillainsListComponent</code>用来显示一个坏蛋列表。它从<code>VillainsService</code>获取数据。</p>
+
+<p>我们可以在根<code>AppModule</code>中提供<code>VillainsService</code>，但是会让它在应用的任何地方都可以调用。例如Hero模块。</p>
+
+<p>因此，我们应该把<code>VillainsService</code>配置在<code>VillainsListComponent</code>的<code>providers</code>元数据中：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;villains-list&#39;</span><span class="p">,</span>
+  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;./villains-list.component.html&#39;</span><span class="p">,</span>
+  <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">VillainsService</span> <span class="p">]</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<p>这样<code>VillainsService</code>只在<code>VillainsListComponent</code>和它的子组件中可访问。它仍然是一个单例，只不过它是villain领域的一个单例。</p>
+
+<h4 id="多个编辑会话">多个编辑会话</h4>
+
+<p>很多应用允许用户同时打开多个处理多个任务。</p>
+
+<p>假设<code>HeroListComponent</code>显示一个hero列表。现在要计算每个hero的税收。工作人员点击一个hero的名字，打开一个编辑计税的组件。每个选中的hero都会打开一个它自己的计税组件，这样就有多个计税组件同时运行。每个计税组件有它自己的编辑会话，修改它们将不会相互影响。</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/hierarchical-injectors/hid-heroes-anim.gif" alt="" /></p>
+
+<p><code>HeroTaxReturnService</code>如下，它调用一个<code>HeroTaxReturn</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// src/app/hero-tax-return.service.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span>    <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroTaxReturn</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroesService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./heroes.service&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroTaxReturnService</span> <span class="p">{</span>
+  <span class="kr">private</span> <span class="nx">currentTaxReturn</span><span class="o">:</span> <span class="nx">HeroTaxReturn</span><span class="p">;</span>
+  <span class="kr">private</span> <span class="nx">originalTaxReturn</span><span class="o">:</span> <span class="nx">HeroTaxReturn</span><span class="p">;</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">heroService</span><span class="o">:</span> <span class="nx">HeroesService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+  <span class="nx">set</span> <span class="nx">taxReturn</span> <span class="p">(</span><span class="nx">htr</span><span class="o">:</span> <span class="nx">HeroTaxReturn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">originalTaxReturn</span> <span class="o">=</span> <span class="nx">htr</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">currentTaxReturn</span>  <span class="o">=</span> <span class="nx">htr</span><span class="p">.</span><span class="nx">clone</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="nx">get</span> <span class="nx">taxReturn</span> <span class="p">()</span><span class="o">:</span> <span class="nx">HeroTaxReturn</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentTaxReturn</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">restoreTaxReturn</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">taxReturn</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">originalTaxReturn</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">saveTaxReturn</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">taxReturn</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentTaxReturn</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">saveTaxReturn</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">currentTaxReturn</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><code>HeroTaxReturnComponent</code>如下：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// src/app/hero-tax-return.component.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">EventEmitter</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">Output</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroTaxReturn</span> <span class="p">}</span>        <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroTaxReturnService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero-tax-return.service&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-tax-return&#39;</span><span class="p">,</span>
+  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;./hero-tax-return.component.html&#39;</span><span class="p">,</span>
+  <span class="nx">styleUrls</span><span class="o">:</span> <span class="p">[</span> <span class="s1">&#39;./hero-tax-return.component.css&#39;</span> <span class="p">],</span>
+  <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">HeroTaxReturnService</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroTaxReturnComponent</span> <span class="p">{</span>
+  <span class="nx">message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+  <span class="err">@</span><span class="nx">Output</span><span class="p">()</span> <span class="nx">close</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">();</span>
+  <span class="err">@</span><span class="nx">Input</span><span class="p">()</span>
+  <span class="nx">get</span> <span class="nx">taxReturn</span><span class="p">()</span><span class="o">:</span> <span class="nx">HeroTaxReturn</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroTaxReturnService</span><span class="p">.</span><span class="nx">taxReturn</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">set</span> <span class="nx">taxReturn</span> <span class="p">(</span><span class="nx">htr</span><span class="o">:</span> <span class="nx">HeroTaxReturn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heroTaxReturnService</span><span class="p">.</span><span class="nx">taxReturn</span> <span class="o">=</span> <span class="nx">htr</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">heroTaxReturnService</span><span class="o">:</span> <span class="nx">HeroTaxReturnService</span> <span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+  <span class="nx">onCanceled</span><span class="p">()</span>  <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">flashMessage</span><span class="p">(</span><span class="s1">&#39;Canceled&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heroTaxReturnService</span><span class="p">.</span><span class="nx">restoreTaxReturn</span><span class="p">();</span>
+  <span class="p">};</span>
+  <span class="nx">onClose</span><span class="p">()</span>  <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">close</span><span class="p">.</span><span class="nx">emit</span><span class="p">();</span> <span class="p">};</span>
+  <span class="nx">onSaved</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">flashMessage</span><span class="p">(</span><span class="s1">&#39;Saved&#39;</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heroTaxReturnService</span><span class="p">.</span><span class="nx">saveTaxReturn</span><span class="p">();</span>
+  <span class="p">}</span>
+  <span class="nx">flashMessage</span><span class="p">(</span><span class="nx">msg</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">;</span>
+    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>如果<code>HeroTaxReturnService</code>这个服务是应用级别的单例，那就有大问题了。每个组件实例共享同一个服务实例。每个组件将会覆盖其它组件的数据。</p>
+
+<p>所以代码中是将它放在<code>HeroTaxReturnComponent</code>的提供者里。由于每个组件实例有它自己的注入器，每个组件将有一个它自己的似有的服务实例。从而避免了冲突。</p>
+
+<h4 id="特殊提供者">特殊提供者</h4>
+
+<p>另一种场景需要重注册服务的场景是，在组件树的低层提供一个服务的特定实现。</p>
+
+<p>还是以Car为例，我们在根注入器中指定了泛化的<code>CarService</code>，<code>EngineService</code>和<code>TiresService</code>。</p>
+
+<p>假设我们创建一个名为A的car组件来显示由上面三个泛化的服务组成的car。接着，创建一个子组件B时，使用的是<code>CarService</code>和<code>EngineService</code>的一个具体实现。组件B又有个子组件C，C又使用了一个它所特有的CarService实现。</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/hierarchical-injectors/car-components.png" alt="" /></p>
+
+<p>这时就需要为每个组件的注入器注册不同的提供者：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/hierarchical-injectors/injector-tree.png" alt="" /></p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://angular.io/docs/ts/latest/guide/hierarchical-dependency-injection.html">Angular2 Documentation - Hierarchical Injectors</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>206</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

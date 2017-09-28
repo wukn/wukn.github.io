@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][KnockoutJS] Deferred update</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][KnockoutJS] Deferred update" />
+    <meta name="twitter:description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-deferred-update/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][KnockoutJS] Deferred update</h1>
+      <p class="post-meta">@wukn · Nov 12, 2016 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>&ldquo;KnockoutJS文档官网：<a href="http://knockoutjs.com/documentation/introduction.html&quot;">http://knockoutjs.com/documentation/introduction.html&quot;</a></p>
+</blockquote>
+
+<p></p>
+
+<p>复杂的应用通常包含着大量错综复杂的依赖，更新一个监控属性可能会级联触发很多计算监控属性、手动的订阅、UI绑定更新。这些更新可能是代价昂贵的，一些不必要的中间值被推送给视图，或者导致额外的计算监控属性评估，严重影响效率。即使在简单的应用里，更新关联的多个属性或一个属性更新多次（如填充监控数组）也会导致类似的问题。</p>
+
+<p>为此，可以使用deferred延迟更新来确保计算监控属性和UI绑定只在它们的依赖稳定下来后才更新。即使监控属性会经历多次中间值，只有最后一次值被用于更新它的依赖。为了促进这一点，使用[microtask]()来是所有通知成为异步的、调度的。听起来很像[rate-limiting]()，另一种阻止额外通知的方法，但是延迟更新可以不用添加延迟在整个应用里提供该功能。</p>
+
+<p>标准模式、deferred和rate-limit的通知调度的区别为：
+* 标准模式：通知是实时地、同步地发生。一些依赖经常收到中间值得通知。
+* deferred：通知是异步发生的，在当前任务结束后通常也是UI重绘之前立刻发生。
+* rate-limit：通知在指定的时间后发生（根据浏览器的不同，最小时间为2~10毫秒）。</p>
+
+<h2 id="启用deferred更新">启用deferred更新</h2>
+
+<p>默认deferred更新是关闭的。要使用它，必须在初始化视图模型前启用：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">deferUpdates</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</code></pre></div>
+
+<p>当deferUpdates启用了，所有的监控属性、计算监控属性和绑定都被设置为延迟更新和通知。在创建基于ko的应用之前启用该特性可以不用担心中间值更新问题了。但是，要注意的是，在已有的应用中启用延迟更新可能会破坏原代码中依赖的同步更新或中间值通知。</p>
+
+<h3 id="例-避免ui多次更新">例：避免UI多次更新</h3>
+
+<p>下面的例子是刻意地为了演示deferred更新的功能和对性能的提高。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!--ko foreach: $root--&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;example&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">tbody</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;foreach: data&#39;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: name&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: position&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: location&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">tbody</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;click: flipData, text: &#39;Flip &#39; + type&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;time&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: (data(), timing() + &#39; ms&#39;)&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="c">&lt;!--/ko--&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">AppViewModel</span><span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">type</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span>
+        <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Alfred&#39;</span><span class="p">,</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;Butler&#39;</span><span class="p">,</span> <span class="nx">location</span><span class="o">:</span> <span class="s1">&#39;London&#39;</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Bruce&#39;</span><span class="p">,</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;Chairman&#39;</span><span class="p">,</span> <span class="nx">location</span><span class="o">:</span> <span class="s1">&#39;New York&#39;</span> <span class="p">}</span>
+    <span class="p">]);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">flipData</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">starttime</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
+        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">();</span>
+        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">999</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">([]);</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">reverse</span><span class="p">());</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">timing</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">starttime</span> <span class="o">?</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">starttime</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">deferUpdates</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">vmDeferred</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppViewModel</span><span class="p">(</span><span class="s1">&#39;deferred&#39;</span><span class="p">);</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">deferUpdates</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">vmStandard</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppViewModel</span><span class="p">(</span><span class="s1">&#39;standard&#39;</span><span class="p">);</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">([</span><span class="nx">vmStandard</span><span class="p">,</span> <span class="nx">vmDeferred</span><span class="p">]);</span>
+</code></pre></div>
+
+<h2 id="为指定监控属性使用deferred更新">为指定监控属性使用deferred更新</h2>
+
+<p>不希望对整个应用使用deferred更新时，也可以为指定监控属性使用，通过使用<code>deferred</code>扩展器（对监控属性、计算监控属性和监控数组都适用）：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">().</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">deferred</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+</code></pre></div>
+
+<h3 id="例-避免多次ajax请求">例：避免多次ajax请求</h3>
+
+<p>下面的模型表示一个可以渲染成分页列表的数据：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">GridViewModel</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">pageSize</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">pageIndex</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">currentPageData</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">();</span>
+
+    <span class="c1">// Query /Some/Json/Service whenever pageIndex or pageSize changes,</span>
+    <span class="c1">// and use the results to update currentPageData</span>
+    <span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">page</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">pageIndex</span><span class="p">(),</span> <span class="nx">size</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">pageSize</span><span class="p">()</span> <span class="p">};</span>
+        <span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s1">&#39;/Some/Json/Service&#39;</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentPageData</span><span class="p">);</span>
+    <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>可以看到，计算监控属性同时依赖于<code>pageIndex</code>和<code>pageSize</code>，因此在模型第一次实例化和以后<code>pageIndex</code>或<code>pageSize</code>更新时，代码会使用getJSON来重新加载<code>currentPageData</code>。</p>
+
+<p>这时有个潜在的效率问题，例如同时改变<code>pageIndex</code>和<code>pageSize</code>的值时，会触发两次ajax请求：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="k">this</span><span class="p">.</span><span class="nx">setPageSize</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">newPageSize</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Whenever you change the page size, we always reset the page index to 1</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">pageSize</span><span class="p">(</span><span class="nx">newPageSize</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">pageIndex</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>这会浪费带宽和服务器资源，并且导致不可预知的竞态条件。</p>
+
+<p>对计算监控属性使用deferred更新可以保证当前任务中的依赖多次改变时只出发一次更新。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// This evaluation logic is exactly the same as before</span>
+    <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">page</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">pageIndex</span><span class="p">(),</span> <span class="nx">size</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">pageSize</span><span class="p">()</span> <span class="p">};</span>
+    <span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s1">&#39;/Some/Json/Service&#39;</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentPageData</span><span class="p">);</span>
+<span class="p">},</span> <span class="k">this</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">deferred</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+</code></pre></div>
+
+<h3 id="强制deferred更新提前发生">强制deferred更新提前发生</h3>
+
+<p>尽管可以延迟更新，更少的UI更新让异步通知看起来更好，但是如果想立刻更新UI怎么办？这种情况下可以使用<code>ko.tasks.runEarly method</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// remove an item from an array</span>
+<span class="kd">var</span> <span class="nx">items</span> <span class="o">=</span> <span class="nx">myArray</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">sourceIndex</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+
+<span class="c1">// force updates so the UI will see a delete/add rather than a move</span>
+<span class="nx">ko</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">runEarly</span><span class="p">();</span>
+
+<span class="c1">// add the item in a new location</span>
+<span class="nx">myArray</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">targetIndex</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</code></pre></div>
+
+<h3 id="强制延迟更新的监控属性始终通知订阅者">强制延迟更新的监控属性始终通知订阅者</h3>
+
+<p>当监控属性的值是原始类型时（数字、字符串、bool值、null），监控属性只会在设置的值与之前的值不一样时才通知依赖者。因此，原始值得监控属性延迟更新时，只会在当前任务结束前，值的确不一样了才发出通知。也就是说如果原始类型监控属性延迟更新，当值变化了又变回原来的值，是不会通知更新的。</p>
+
+<p>为了保证订阅者始终能收更新到通知，即使值一样，可以使用<code>notify</code>扩展器：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">deferUpdates</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="nx">myViewModel</span><span class="p">.</span><span class="nx">fullName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">pureComputed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">myViewModel</span><span class="p">.</span><span class="nx">firstName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nx">myViewModel</span><span class="p">.</span><span class="nx">lastName</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">notify</span><span class="o">:</span> <span class="s1">&#39;always&#39;</span> <span class="p">});</span>
+</code></pre></div>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="http://knockoutjs.com/documentation/deferred-updates.html">KnockoutJS documentation</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/knockoutjs"><span class="tag">KnockoutJS</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>320</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

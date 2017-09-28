@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Angular2] Quick Start</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 使用TypeScript构建Angular2应用。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Angular2] Quick Start" />
+    <meta name="twitter:description" content=" 使用TypeScript构建Angular2应用。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/11/29/angluar2-quick-start/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Angular2] Quick Start</h1>
+      <p class="post-meta">@wukn · Nov 29, 2016 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>使用TypeScript构建Angular2应用。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="组件基本介绍">组件基本介绍</h3>
+
+<p>Angular2的应用是由组件（component）组成的。一个组件包括HTML模板和控制显示的组件类两部分。例如：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.component.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`&lt;h1&gt;Hello {{name}}&lt;/h1&gt;`</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="p">{</span> <span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Angular&#39;</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>每一个组件以一个装饰器函数<code>@Component</code>为开始，这个装饰器函数接受一个元数据对象，这个元数据对象描述了HTML模板和组件类是如何工作的。</p>
+
+<p>元数据对象的selector属性告诉Angular在index.html文件的自定义标签<code>&lt;my-app&gt;</code>内部显示该组件。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- index.html --&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">my-app</span><span class="p">&gt;</span>Loading AppComponent content here ...<span class="p">&lt;/</span><span class="nt">my-app</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>元数据对象的template属性指定了组件对应的模板。模板使用了插值绑定表达式来进行数据绑定。Angular会用组件的name属性值来替换<code>{{name}}</code>。</p>
+
+<h3 id="搭建开发环境">搭建开发环境</h3>
+
+<p>最便捷的搭建开发环境的办法是，从github上clone一个基础代码到本地，然后安装npm包并运行<code>npm start</code>来运行样例程序。</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>git clone https://github.com/angular/quickstart.git quickstart
+<span class="nb">cd</span> quickstart
+npm install
+npm start
+</code></pre></div>
+
+<p>先看下<code>/app</code>文件夹下的三个TypeScript文件：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.component.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`&lt;h1&gt;Hello {{name}}&lt;/h1&gt;`</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="p">{</span> <span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Angular&#39;</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="nx">imports</span><span class="o">:</span>      <span class="p">[</span> <span class="nx">BrowserModule</span> <span class="p">],</span>
+  <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">],</span>
+  <span class="nx">bootstrap</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/main.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">platformBrowserDynamic</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser-dynamic&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppModule</span> <span class="p">}</span>              <span class="nx">from</span> <span class="s1">&#39;./app.module&#39;</span><span class="p">;</span>
+
+<span class="nx">platformBrowserDynamic</span><span class="p">().</span><span class="nx">bootstrapModule</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span>
+</code></pre></div>
+
+<p><code>app.component.ts</code>文件定义了一个名为<code>AppComponent</code>的组件，它是应用的根组件。</p>
+
+<p><code>app.module.ts</code>文件定义了一个名为<code>AppModule</code>的模块，它用来告诉Angular如何组装应用。</p>
+
+<p><code>main.ts</code>文件使用JiT编译器编译整个应用，并启动应用，运行在浏览器中。后续会看到其它的编译和部署方式。</p>
+
+<p>在浏览器中访问<a href="http://localhost:3000，结果如下：">http://localhost:3000，结果如下：</a></p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/quick-start/angular2-quick-start.png" alt="" /></p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://angular.io/docs/ts/latest/quickstart.html">Angular2 Documentation - Quick Start</a></p>
+
+<p><a href="https://angular.io/docs/ts/latest/guide/setup.html">Angular2 Documentation - Setup</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>303</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][RabbitMQ] Publish/Subscribe、Routing、Topic</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 发布订阅模式下，一个消息会被传递给多个consumer。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][RabbitMQ] Publish/Subscribe、Routing、Topic" />
+    <meta name="twitter:description" content=" 发布订阅模式下，一个消息会被传递给多个consumer。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/10/24/rabbitmq-publish-subscribe-routing-topic/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][RabbitMQ] Publish/Subscribe、Routing、Topic</h1>
+      <p class="post-meta">@wukn · Oct 24, 2016 · 5 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>发布订阅模式下，一个消息会被传递给多个consumer。</p>
+</blockquote>
+
+<p></p>
+
+<h2 id="publish-subscribe">publish/subscribe</h2>
+
+<h3 id="exchange">exchange</h3>
+
+<p>首先看一下RabbitMQ完整的消息模型。RabbitMQ的核心是producer不直接向producer发送消息，而是只向exchange发送。exchange接收来自producer的消息，再将消息推送到queue中。exchange必须知道如何处理消息，例如，是将消息推到某个特定的queue还是多个queue中，或者直接丢弃？消息的处理规则通过exchange type指定。exchange type有四种：direct，topic，headers和fanout。</p>
+
+<p><img src="https://wukn.github.io/img/post/rabbitmq/publish-subscribe/publish-subscribe.png" alt="" /></p>
+
+<p>fanout exchange就是将所有消息广播给所有它所知道的queue。</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">channel</span><span class="o">.</span><span class="na">exchangeDeclare</span><span class="o">(</span><span class="s">&quot;logs&quot;</span><span class="o">,</span> <span class="s">&quot;fanout&quot;</span><span class="o">);</span>
+</code></pre></div>
+
+<p>PS：查看exchange列表的命令为rabbitmqctl list_exchanges。</p>
+
+<p>在之前的队列模式中，我们并没有指定exchange：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">,</span> <span class="s">&quot;hello&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+</code></pre></div>
+
+<p>其中第一个参数就是exchange名称，为空表示使用默认的无名称的exchange：将消息路由到名称为参数routingKey的queue。</p>
+
+<p>现在可以使用excahnge：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span> <span class="s">&quot;logs&quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+</code></pre></div>
+
+<h3 id="temporary-queue">temporary queue</h3>
+
+<p>在队列模式中，我们为queue指定了名称。这样consumer可以连接指定的queue，而且producer和consumer可以共享同一个queue。这样创建的队列在服务器重启后仍然存在。</p>
+
+<p>如果每当连接到RabbitMQ时，需要的是新的空队列，在consumer断开连接时自动删除队列，那么可以使用临时队列。临时队列的名称是随机生成的，它是非持久化的、排他的、自动删除的：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">String</span> <span class="n">queueName</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">().</span><span class="na">getQueue</span><span class="o">();</span>
+</code></pre></div>
+
+<h3 id="binding">binding</h3>
+
+<p>exchange和queue之间的关系成为绑定（binding）。查看binding列表的命令是<code>rabbitmqctl list_bindings</code>。</p>
+
+<p>建立绑定的方法为：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">channel</span><span class="o">.</span><span class="na">queueBind</span><span class="o">(</span><span class="n">queueName</span><span class="o">,</span> <span class="s">&quot;logs&quot;</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">);</span>
+</code></pre></div>
+
+<p>完整代码如下：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="c1">// EmitLog.java</span>
+
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.ConnectionFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Channel</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EmitLog</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">EXCHANGE_NAME</span> <span class="o">=</span> <span class="s">&quot;logs&quot;</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">exchangeDeclare</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="s">&quot;fanout&quot;</span><span class="o">);</span>
+
+    <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">argv</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">));</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [x] Sent &#39;&quot;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span><span class="o">);</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="c1">// ReceiveLogs.java</span>
+
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReceiveLogs</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">EXCHANGE_NAME</span> <span class="o">=</span> <span class="s">&quot;logs&quot;</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">exchangeDeclare</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="s">&quot;fanout&quot;</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">queueName</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">().</span><span class="na">getQueue</span><span class="o">();</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">queueBind</span><span class="o">(</span><span class="n">queueName</span><span class="o">,</span> <span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="s">&quot;&quot;</span><span class="o">);</span>
+
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [*] Waiting for messages. To exit press CTRL+C&quot;</span><span class="o">);</span>
+
+    <span class="n">Consumer</span> <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleDelivery</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerTag</span><span class="o">,</span> <span class="n">Envelope</span> <span class="n">envelope</span><span class="o">,</span>
+                                 <span class="n">AMQP</span><span class="o">.</span><span class="na">BasicProperties</span> <span class="n">properties</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">body</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">body</span><span class="o">,</span> <span class="s">&quot;UTF-8&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [x] Received &#39;&quot;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">};</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicConsume</span><span class="o">(</span><span class="n">queueName</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">consumer</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>编译代码并运行：</p>
+
+<pre><code>javac -cp .:rabbitmq-client.jar EmitLog.java ReceiveLogs.java
+
+java -cp .:rabbitmq-client.jar EmitLog log1
+</code></pre>
+
+<p>运行结果如下：</p>
+
+<pre><code>[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar EmitLog log1
+ [x] Sent 'log1'
+[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar EmitLog log2
+ [x] Sent 'log2'
+</code></pre>
+
+<pre><code>[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar ReceiveLogs
+ [*] Waiting for messages. To exit press CTRL+C
+ [x] Received 'log1'
+ [x] Received 'log2'
+</code></pre>
+
+<h2 id="routing">routing</h2>
+
+<p>在上面的例子中，消息会广播给所有的consumer。有些情况下，我们希望订阅部分消息。如记录日志，只将关键的错误消息写入文件，同时将所有消息输出到console。</p>
+
+<h3 id="binding-key">binding key</h3>
+
+<p>创建绑定的时侯，可以指定参数routingKey。该参数的作用取决于exchange type。如fanout exchange会忽略该参数。</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">String</span> <span class="n">routingKey</span> <span class="o">=</span> <span class="s">&quot;black&quot;</span><span class="o">;</span>
+<span class="n">channel</span><span class="o">.</span><span class="na">queueBind</span><span class="o">(</span><span class="n">queueName</span><span class="o">,</span> <span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="n">routingKey</span><span class="o">);</span>
+</code></pre></div>
+
+<h3 id="direct-exchange">direct exchange</h3>
+
+<p>direct exchange的路由算法很简单：一个消息的routing key与队列的binding key匹配时，就将该消息推送到这些队列中。可以有多个队列绑定同一个route key。</p>
+
+<p><img src="https://wukn.github.io/img/post/rabbitmq/publish-subscribe/direct-exchange.png" alt="" /></p>
+
+<p>完整代码如下：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="c1">// EmitLogDirect.java</span>
+
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.ConnectionFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Channel</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EmitLogDirect</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">EXCHANGE_NAME</span> <span class="o">=</span> <span class="s">&quot;direct_logs&quot;</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">exchangeDeclare</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="s">&quot;direct&quot;</span><span class="o">);</span>
+
+    <span class="n">String</span> <span class="n">severity</span> <span class="o">=</span> <span class="n">argv</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+    <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">argv</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="n">severity</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">));</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [x] Sent &#39;&quot;</span> <span class="o">+</span> <span class="n">severity</span> <span class="o">+</span> <span class="s">&quot;&#39;:&#39;&quot;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span><span class="o">);</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getSeverity</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">strings</span><span class="o">){</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">strings</span><span class="o">.</span><span class="na">length</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">)</span>
+            <span class="k">return</span> <span class="s">&quot;info&quot;</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">strings</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+  <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="c1">// ReceiveLogsDirect.java</span>
+
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReceiveLogsDirect</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">EXCHANGE_NAME</span> <span class="o">=</span> <span class="s">&quot;direct_logs&quot;</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">exchangeDeclare</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="s">&quot;direct&quot;</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">queueName</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">().</span><span class="na">getQueue</span><span class="o">();</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">argv</span><span class="o">.</span><span class="na">length</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">){</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Usage: ReceiveLogsDirect [info] [warning] [error]&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="k">for</span><span class="o">(</span><span class="n">String</span> <span class="n">severity</span> <span class="o">:</span> <span class="n">argv</span><span class="o">){</span>
+      <span class="n">channel</span><span class="o">.</span><span class="na">queueBind</span><span class="o">(</span><span class="n">queueName</span><span class="o">,</span> <span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="n">severity</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [*] Waiting for messages. To exit press CTRL+C&quot;</span><span class="o">);</span>
+
+    <span class="n">Consumer</span> <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleDelivery</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerTag</span><span class="o">,</span> <span class="n">Envelope</span> <span class="n">envelope</span><span class="o">,</span>
+                                 <span class="n">AMQP</span><span class="o">.</span><span class="na">BasicProperties</span> <span class="n">properties</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">body</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">body</span><span class="o">,</span> <span class="s">&quot;UTF-8&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [x] Received &#39;&quot;</span> <span class="o">+</span> <span class="n">envelope</span><span class="o">.</span><span class="na">getRoutingKey</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;&#39;:&#39;&quot;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">};</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicConsume</span><span class="o">(</span><span class="n">queueName</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">consumer</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>编译并运行，结果如下：</p>
+
+<pre><code>[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar EmitLogDirect warning log1
+ [x] Sent 'log1'
+[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar EmitLogDirect error log2
+ [x] Sent 'log2'
+[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar EmitLogDirect info log3
+ [x] Sent 'log3'
+</code></pre>
+
+<pre><code>[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar ReceiveLogsDirect warning error
+ [*] Waiting for messages. To exit press CTRL+C
+ [x] Received 'warning':'log1'
+ [x] Received 'error':'log2'
+</code></pre>
+
+<h2 id="topic">topic</h2>
+
+<p>direct exchange有个限制，就是不能根据多个条件进行路由。</p>
+
+<p>例如，在日志系统中，我们只将来自某工具的错误日志写入文件，同时所有日志输出到console。</p>
+
+<h3 id="topic-exchange">topic exchange</h3>
+
+<p>发送到topic exchange的消息的routing key不能是一个单词，而是由.分隔的多个词，如&rsquo;quick.orange.rabbit&rsquo;。routing key中的单词数量是任意的，但是总长度不能超过255个字符。binding key也是同样的格式。其中，<code>*</code>可以匹配一个单词，#可以匹配0个或多个单词。</p>
+
+<p>例如，我们使用<speed>.<colour>.<species>来描述动物：</p>
+
+<p><img src="https://wukn.github.io/img/post/rabbitmq/publish-subscribe/topic-exchange-example.png" alt="" /></p>
+
+<p>route key为&rdquo;quick.orange.rabbit&rdquo;或&rdquo;lazy.orange.elephant&rdquo;的消息将会被发送到两个队列中。&rdquo;quick.orange.fox&rdquo;只会发送到quque1。&rdquo;lazy.brown.fox&rdquo;只会发送到quque2。&rdquo;lazy.pink.rabbit&rdquo;只会发送到queue2中一次，尽管它匹配了两个绑定。&rdquo;quick.brown.fox&rdquo;不跟任何绑定匹配，该消息会被丢弃。&rdquo;orange&rdquo;或&rdquo;quick.orange.male.rabbit&rdquo;也会因为不匹配任何绑定而被丢弃。&rdquo;lazy.orange.male.rabbit&rdquo;虽然有四个单词，但是与&rdquo;lazy.#&ldquo;匹配，会被发送到queue2.</p>
+
+<p>如果一个队列绑定的是<code>#</code>，那么它会收到所有消息，就跟fanout exchange一样。
+如果绑定中没有使用<code>*</code>和<code>#</code>，那么这时topic exchange就跟direct exchange一样。</p>
+
+<p>接下来将日志系统改为topic exchange模式，routing key为<facility>.<severity>。</p>
+
+<p>完整代码如下：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="c1">// EmitLogTopic.java</span>
+
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.ConnectionFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Channel</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EmitLogTopic</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">EXCHANGE_NAME</span> <span class="o">=</span> <span class="s">&quot;topic_logs&quot;</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+      <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+
+      <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+      <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+      <span class="n">channel</span><span class="o">.</span><span class="na">exchangeDeclare</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="s">&quot;topic&quot;</span><span class="o">);</span>
+
+      <span class="n">String</span> <span class="n">routingKey</span> <span class="o">=</span> <span class="n">argv</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+      <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">argv</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+
+      <span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="n">routingKey</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">));</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [x] Sent &#39;&quot;</span> <span class="o">+</span> <span class="n">routingKey</span> <span class="o">+</span> <span class="s">&quot;&#39;:&#39;&quot;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">catch</span>  <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">finally</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">connection</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+          <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">ignore</span><span class="o">)</span> <span class="o">{}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="c1">// ReceiveLogsTopic.java</span>
+
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ReceiveLogsTopic</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">EXCHANGE_NAME</span> <span class="o">=</span> <span class="s">&quot;topic_logs&quot;</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">exchangeDeclare</span><span class="o">(</span><span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="s">&quot;topic&quot;</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">queueName</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">().</span><span class="na">getQueue</span><span class="o">();</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">argv</span><span class="o">.</span><span class="na">length</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">err</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Usage: ReceiveLogsTopic [binding_key]...&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">bindingKey</span> <span class="o">:</span> <span class="n">argv</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">channel</span><span class="o">.</span><span class="na">queueBind</span><span class="o">(</span><span class="n">queueName</span><span class="o">,</span> <span class="n">EXCHANGE_NAME</span><span class="o">,</span> <span class="n">bindingKey</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [*] Waiting for messages. To exit press CTRL+C&quot;</span><span class="o">);</span>
+
+    <span class="n">Consumer</span> <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleDelivery</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerTag</span><span class="o">,</span> <span class="n">Envelope</span> <span class="n">envelope</span><span class="o">,</span>
+                                 <span class="n">AMQP</span><span class="o">.</span><span class="na">BasicProperties</span> <span class="n">properties</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">body</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">body</span><span class="o">,</span> <span class="s">&quot;UTF-8&quot;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [x] Received &#39;&quot;</span> <span class="o">+</span> <span class="n">envelope</span><span class="o">.</span><span class="na">getRoutingKey</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;&#39;:&#39;&quot;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">};</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicConsume</span><span class="o">(</span><span class="n">queueName</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">consumer</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>编译后运行结果如下：</p>
+
+<pre><code>[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar EmitLogTopic &quot;kern.critical&quot; &quot;A critical kernel error&quot;
+ [x] Sent 'kern.critical':'A critical kernel error'
+[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar EmitLogTopic &quot;kern.warning&quot; &quot;A kernel warning&quot;
+ [x] Sent 'kern.warning':'A kernel warning'
+[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar EmitLogTopic &quot;power.warning&quot; &quot;A power warning&quot;
+ [x] Sent 'power.warning':'A power warning'
+</code></pre>
+
+<pre><code>[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar ReceiveLogsTopic &quot;#&quot;
+ [*] Waiting for messages. To exit press CTRL+C
+ [x] Received 'kern.critical':'A critical kernel error'
+ [x] Received 'kern.warning':'A kernel warning'
+ [x] Received 'power.warning':'A power warning'
+</code></pre>
+
+<pre><code>[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar ReceiveLogsTopic &quot;kern.*&quot;
+ [*] Waiting for messages. To exit press CTRL+C
+ [x] Received 'kern.critical':'A critical kernel error'
+ [x] Received 'kern.warning':'A kernel warning'
+</code></pre>
+
+<pre><code>[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar ReceiveLogsTopic &quot;kern.*&quot; &quot;*.critical&quot;
+ [*] Waiting for messages. To exit press CTRL+C
+ [x] Received 'kern.critical':'A critical kernel error'
+ [x] Received 'kern.warning':'A kernel warning'
+</code></pre>
+
+<hr />
+
+<p>参考资料</p>
+
+<p><a href="https://www.rabbitmq.com/tutorials/tutorial-three-java.html">RabbitMQ-Publish/Subscribe</a></p>
+
+<p><a href="https://www.rabbitmq.com/tutorials/tutorial-four-java.html">RabbitMQ-Routing</a></p>
+
+<p><a href="https://www.rabbitmq.com/tutorials/tutorial-five-java.html">RabbitMQ-Topic</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/rabbitmq"><span class="tag">RabbitMQ</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>339</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

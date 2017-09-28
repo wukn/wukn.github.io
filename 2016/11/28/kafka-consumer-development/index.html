@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Kafka]开发Consumer</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 《Learing Apache Kafka-Second Edition》
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Kafka]开发Consumer" />
+    <meta name="twitter:description" content=" 《Learing Apache Kafka-Second Edition》
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/11/28/kafka-consumer-development/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Kafka]开发Consumer</h1>
+      <p class="post-meta">@wukn · Nov 28, 2016 · 4 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>《Learing Apache Kafka-Second Edition》</p>
+</blockquote>
+
+<p></p>
+
+<p>consumer就是接收producer发布的消息进行处理的应用。</p>
+
+<p><img src="https://wukn.github.io/img/post/kafka/consumer-development/kafka-consumer.png" alt="" /></p>
+
+<p>上图描述了consumer消费消息的high-level层工作原理。consumer从broker内的topic订阅消息；然后consumer向lead broker发起请求，指定消息的offset。consumer使用这样的拉取模式，每次始终拉取它记录在日志中当前位置之后的所有消息。
+在订阅时，consumer连接到任意活动的节点，请求关于topic的partition所在的leader的元数据。这样consumer直接和lead broker通信并接收消息。topic被分割为一系列有序的partition，每个partition只能被一个consumer消费。一旦被消费后，consumer将消息offset移到下一个待消费的消息。这样记录了消费的状态，同时又提供了倒回到之前的offset或重新消费partition的柔性。</p>
+
+<h3 id="kafka-consumer-api">Kafka consumer API</h3>
+
+<h4 id="high-level-consumer-api">high-level consumer API</h4>
+
+<p>如果只需要数据而不需要考虑消息offset相关的处理时，使用high-level API就够了。</p>
+
+<p>接口<code>kafka.javaapi.consumer.ConsumerConnector</code>和它的实现类<code>kafka.javaapi.consumer.ZookeeperConsumerConnector</code>。该类负责consumer和ZooKeeper的所有交互。
+* <code>createMessageStreams(Map&lt;String,Integer&gt;,Decoder&lt;K&gt;,Decoder&lt;V&gt;):Map&lt;String,List&lt;KafkaStream&lt;K,V&gt;&gt;&gt;</code>
+* <code>createMessageStreams(Map&lt;String,Integer&gt;):Map&lt;String,List&lt;KafkaStream&lt;byte[],byte[]&gt;&gt;&gt;</code>
+* <code>createMessageStreamsByFilter(TopicFilter,int,Decoder&lt;K&gt;,Decoder&lt;V&gt;):List&lt;KafkaStream&lt;K,V&gt;&gt;</code>
+* <code>createMessageStreamsByFilter(TopicFilter,int):List&lt;KafkaStream&lt;byte[],byte[]&gt;&gt;</code>
+* <code>createMessageStreamsByFilter(TopicFilter):List&lt;KafkaStream&lt;byte[],byte[]&gt;&gt;</code>
+* <code>commitOffsets():void</code>
+* <code>shutdown:void</code></p>
+
+<p>类<code>kafka.consumer.KafkaStream</code>的K和V分别指定partition key和message value的类型。</p>
+
+<p>类<code>kafka.consumer.ConsumerConfig</code>封装了与ZooKeeper连接所需要的参数。</p>
+
+<h4 id="low-level-consumer-api">low-level consumer API</h4>
+
+<p>high-level consumer API隐藏了consumer与broker通信的细节。而low-level consumer API（也称simple consumer API）提供了consumer与broker通信的方法，它是无状态的。使用low-level consumer API时需要自己处理offset的跟踪、寻找topic和partition的lead broker、lead broker变更等。</p>
+
+<p>类<code>kafka.javaapi.consumer.SimpleConsumer</code>包含的方法如下：
+* <code>SimpleConsumer()</code>：构造函数。
+* <code>SimpleConsumer(String, int, int, int, String):void</code>：构造函数，参数分别为lead broker、broker port、connection timeout、buffer size、client ID。
+* <code>fetch(FetchRequest)</code>：该方法返回topic中的消息集。参数<code>kafka.api.FetchRequest</code>指定topic名称、partition、起始offset、最大字节数。
+* <code>send(TopicMetadataRequest)</code>：该方法返回topic序列的元数据。参数<code>kafka.javaapi.TopicMetadataRequest</code>指定version ID、client ID、topic序列。
+* <code>getOffsetsBefore(OffsetRequest)</code>：返回给定时间之前的有效的offset集。参数<code>kafka.javaapi.OffsetRequest</code>。
+* <code>commitOffsets(OffsetCommitRequest)</code>：向topic提交offset。参数<code>kafka.javaapi.OffsetFetchRequest</code>指定topic。
+* <code>fetchOffsets(OffsetFetchRequest)</code>：返回topic中的offset。参数<code>kafka.javaapi.OffsetFetchRequest</code>指定topic。
+* <code>close():void</code>；关闭与lead broker的连接。</p>
+
+<p><a href="https://cwiki.apache.org/confluence/display/KAFKA/0.8.0+SimpleConsumer+Example">关于low-level API的例子看这里。</a></p>
+
+<h3 id="一个简单的java-consumer">一个简单的Java consumer</h3>
+
+<p>接下来写个使用high-level API的单线程consumer。<code>SimpleHLConsumer</code>从指定的topic拉取消息进行消费（假定topic内只有一个partition）。</p>
+
+<p>1.引入以下类：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kn">import</span> <span class="nn">kafka.consumer.ConsumerConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.consumer.ConsumerIterator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.consumer.KafkaStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.javaapi.consumer.ConsumerConnector</span><span class="o">;</span>
+</code></pre></div>
+
+<p>2.定义属性：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;zookeeper.connect&quot;</span><span class="o">,</span> <span class="s">&quot;localhost:2181&quot;</span><span class="o">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;group.id&quot;</span><span class="o">,</span> <span class="s">&quot;testgroup&quot;</span><span class="o">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;zookeeper.session.timeout.ms&quot;</span><span class="o">,</span> <span class="s">&quot;500&quot;</span><span class="o">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;zookeeper.sync.time.ms&quot;</span><span class="o">,</span> <span class="s">&quot;250&quot;</span><span class="o">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;auto.commit.interval.ms&quot;</span><span class="o">,</span> <span class="s">&quot;1000&quot;</span><span class="o">);</span>
+<span class="n">ConsumerConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConsumerConfig</span><span class="o">(</span><span class="n">props</span><span class="o">);</span>
+</code></pre></div>
+
+<p>看一下代码中提到的属性：
+* <code>zookeeper.connect</code>：
+* <code>group.id</code>：
+* <code>zookeeper.session.timeout.ms</code>：
+* <code>zookeeper.sync.time.ms</code>：
+* <code>auto.commit.interval.ms</code>：</p>
+
+<p>3.从topic中读取消息：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">topicMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;();</span>
+<span class="c1">// 1 represents the single thread</span>
+<span class="n">topicCount</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">topic</span><span class="o">,</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+<span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">KafkaStream</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[],</span> <span class="kt">byte</span><span class="o">[]&gt;&gt;&gt;</span> <span class="n">consumerStreamsMap</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">createMessageStreams</span><span class="o">(</span><span class="n">topicMap</span><span class="o">);</span>
+<span class="c1">// Get the list of message streams for each topic, using the default decoder.</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">KafkaStream</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[],</span> <span class="kt">byte</span><span class="o">[]&gt;&gt;</span><span class="n">streamList</span> <span class="o">=</span> <span class="n">consumerStreamsMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">topic</span><span class="o">);</span>
+<span class="k">for</span> <span class="o">(</span><span class="kd">final</span> <span class="n">KafkaStream</span> <span class="o">&lt;</span><span class="kt">byte</span><span class="o">[],</span> <span class="kt">byte</span><span class="o">[]&gt;</span> <span class="n">stream</span> <span class="o">:</span> <span class="n">streamList</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">ConsumerIterator</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[],</span> <span class="kt">byte</span><span class="o">[]&gt;</span> <span class="n">consumerIte</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">consumerIte</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Message from Single Topic :: &quot;</span> <span class="o">+</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">consumerIte</span><span class="o">.</span><span class="na">next</span><span class="o">().</span><span class="na">message</span><span class="o">()));</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>完整代码如下：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kn">package</span> <span class="nn">kafka.examples.consumer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.consumer.ConsumerConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.consumer.ConsumerIterator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.consumer.KafkaStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.javaapi.consumer.ConsumerConnector</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleHLConsumer</span> <span class="o">{</span>
+     <span class="kd">private</span> <span class="kd">final</span> <span class="n">ConsumerConnector</span> <span class="n">consumer</span><span class="o">;</span>
+     <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">topic</span><span class="o">;</span>
+     <span class="kd">public</span> <span class="nf">SimpleHLConsumer</span><span class="o">(</span><span class="n">String</span> <span class="n">zookeeper</span><span class="o">,</span> <span class="n">String</span> <span class="n">groupId</span><span class="o">,</span> <span class="n">String</span> <span class="n">topic</span><span class="o">)</span> <span class="o">{</span>
+         <span class="n">consumer</span> <span class="o">=</span> <span class="n">kafka</span><span class="o">.</span><span class="na">consumer</span><span class="o">.</span><span class="na">Consumer</span><span class="o">.</span><span class="na">createJavaConsumerConnector</span><span class="o">(</span><span class="n">createConsumerConfig</span><span class="o">(</span><span class="n">zookeeper</span><span class="o">,</span> <span class="n">groupId</span><span class="o">));</span>
+         <span class="k">this</span><span class="o">.</span><span class="na">topic</span> <span class="o">=</span> <span class="n">topic</span><span class="o">;</span>
+     <span class="o">}</span>
+     <span class="kd">private</span> <span class="kd">static</span> <span class="n">ConsumerConfig</span> <span class="nf">createConsumerConfig</span><span class="o">(</span><span class="n">String</span> <span class="n">zookeeper</span><span class="o">,</span> <span class="n">String</span> <span class="n">groupId</span><span class="o">)</span> <span class="o">{</span>
+         <span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+         <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;zookeeper.connect&quot;</span><span class="o">,</span> <span class="n">zookeeper</span><span class="o">);</span>
+         <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;group.id&quot;</span><span class="o">,</span> <span class="n">groupId</span><span class="o">);</span>
+         <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;zookeeper.session.timeout.ms&quot;</span><span class="o">,</span> <span class="s">&quot;500&quot;</span><span class="o">);</span>
+         <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;zookeeper.sync.time.ms&quot;</span><span class="o">,</span> <span class="s">&quot;250&quot;</span><span class="o">);</span>
+         <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;auto.commit.interval.ms&quot;</span><span class="o">,</span> <span class="s">&quot;1000&quot;</span><span class="o">);</span>
+         <span class="k">return</span> <span class="k">new</span> <span class="n">ConsumerConfig</span><span class="o">(</span><span class="n">props</span><span class="o">);</span>
+     <span class="o">}</span>
+     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testConsumer</span><span class="o">()</span> <span class="o">{</span>
+         <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">topicMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;();</span>
+         <span class="c1">// Define single thread for topic</span>
+         <span class="n">topicMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">topic</span><span class="o">,</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="mi">1</span><span class="o">));</span>
+         <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">KafkaStream</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[],</span> <span class="kt">byte</span><span class="o">[]&gt;&gt;&gt;</span> <span class="n">consumerStreamsMap</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">createMessageStreams</span><span class="o">(</span><span class="n">topicMap</span><span class="o">);</span>
+         <span class="n">List</span><span class="o">&lt;</span><span class="n">KafkaStream</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[],</span> <span class="kt">byte</span><span class="o">[]&gt;&gt;</span> <span class="n">streamList</span> <span class="o">=</span> <span class="n">consumerStreamsMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">topic</span><span class="o">);</span>
+         <span class="k">for</span> <span class="o">(</span><span class="kd">final</span> <span class="n">KafkaStream</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[],</span> <span class="kt">byte</span><span class="o">[]&gt;</span> <span class="n">stream</span> <span class="o">:</span> <span class="n">streamList</span><span class="o">)</span> <span class="o">{</span>
+              <span class="n">ConsumerIterator</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[],</span> <span class="kt">byte</span><span class="o">[]&gt;</span> <span class="n">consumerIte</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+              <span class="k">while</span> <span class="o">(</span><span class="n">consumerIte</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span>
+                  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Message from Single Topic :: &quot;</span>     <span class="o">+</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">consumerIte</span><span class="o">.</span><span class="na">next</span><span class="o">().</span><span class="na">message</span><span class="o">()));</span>
+          <span class="o">}</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">consumer</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+              <span class="n">consumer</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+     <span class="o">}</span>
+     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+         <span class="n">String</span> <span class="n">zooKeeper</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+         <span class="n">String</span> <span class="n">groupId</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+         <span class="n">String</span> <span class="n">topic</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+         <span class="n">SimpleHLConsumer</span> <span class="n">simpleHLConsumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleHLConsumer</span><span class="o">(</span><span class="n">zooKeeper</span><span class="o">,</span> <span class="n">groupId</span><span class="o">,</span> <span class="n">topic</span><span class="o">);</span>
+         <span class="n">simpleHLConsumer</span><span class="o">.</span><span class="na">testConsumer</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>在运行上面的代码之前，确保已经创建了名为<code>kafkatopic</code>的topic：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">3</span> --topic kafkatopic
+</code></pre></div>
+
+<p>添加环境变量<code>KAFKA_LIB</code>指向Kafka的lib文件夹路径，并将lib文件夹下的jar包添加到<code>classpath</code>。</p>
+
+<p>运行上一章的SimpleProducer：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>java kafka.examples.ch4.SimpleProducer kafkatopic <span class="m">100</span>
+</code></pre></div>
+
+<p>编译SimpleHLConsumer：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>javac -d . kafka/examples/consumer/SimpleHLConsumer.java
+</code></pre></div>
+
+<p>运行SimpleHLConsumer，三个参数分别为ZooKeeper连接字符串、唯一的group ID、topic名称：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>java kafka.examples.consumer.SimpleHLConsumer localhost:2181 testgroup kafkatopic
+</code></pre></div>
+
+<h3 id="多线程java-consumer">多线程Java consumer</h3>
+
+<p>上个例子是个很简单的从单broker且topic只有一个分区消费消息的场景。接下来考虑多topic且有多个分区的场景。
+通常topic内有几个partition就使用几个线程，这样可以简化线程与partition之间的关系，避免一些冲突。</p>
+
+<p>1.引入以下类：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kn">import</span> <span class="nn">kafka.consumer.ConsumerConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.consumer.ConsumerIterator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.consumer.KafkaStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.javaapi.consumer.ConsumerConnector</span><span class="o">;</span>
+</code></pre></div>
+
+<p>2.定义属性：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;zookeeper.connect&quot;</span><span class="o">,</span> <span class="s">&quot;localhost:2181&quot;</span><span class="o">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;group.id&quot;</span><span class="o">,</span> <span class="s">&quot;testgroup&quot;</span><span class="o">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;zookeeper.session.timeout.ms&quot;</span><span class="o">,</span> <span class="s">&quot;500&quot;</span><span class="o">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;zookeeper.sync.time.ms&quot;</span><span class="o">,</span> <span class="s">&quot;250&quot;</span><span class="o">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;auto.commit.interval.ms&quot;</span><span class="o">,</span> <span class="s">&quot;1000&quot;</span><span class="o">);</span>
+<span class="n">ConsumerConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConsumerConfig</span><span class="o">(</span><span class="n">props</span><span class="o">);</span>
+</code></pre></div>
+
+<p>3.从线程读取消息</p>
+
+<p>首先创建一个线程池：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="c1">// Define thread count for each topic</span>
+<span class="n">topicMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">topic</span><span class="o">,</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">threadCount</span><span class="o">));</span>
+<span class="c1">// Here we have used a single topic but we can also add multiple topics to topicCount MAP</span>
+<span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">KafkaStream</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[],</span> <span class="kt">byte</span><span class="o">[]&gt;&gt;&gt;</span> <span class="n">consumerStreamsMap</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">createMessageStreams</span><span class="o">(</span><span class="n">topicMap</span><span class="o">);</span>
+<span class="n">List</span><span class="o">&lt;</span><span class="n">KafkaStream</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[],</span> <span class="kt">byte</span><span class="o">[]&gt;&gt;</span> <span class="n">streamList</span> <span class="o">=</span> <span class="n">consumerStreamsMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">topic</span><span class="o">);</span>
+<span class="c1">// Launching the thread pool</span>
+<span class="n">executor</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="n">threadCount</span><span class="o">);</span>
+</code></pre></div>
+
+<p>完整代码如下：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kn">package</span> <span class="nn">kafka.examples.consumer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.HashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.concurrent.ExecutorService</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.concurrent.Executors</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.consumer.ConsumerConfig</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.consumer.ConsumerIterator</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.consumer.KafkaStream</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.javaapi.consumer.ConsumerConnector</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MultiThreadHLConsumer</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">ExecutorService</span> <span class="n">executor</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ConsumerConnector</span> <span class="n">consumer</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">topic</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">MultiThreadHLConsumer</span><span class="o">(</span><span class="n">String</span> <span class="n">zookeeper</span><span class="o">,</span> <span class="n">String</span> <span class="n">groupId</span><span class="o">,</span> <span class="n">String</span> <span class="n">topic</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">consumer</span> <span class="o">=</span> <span class="n">kafka</span><span class="o">.</span><span class="na">consumer</span><span class="o">.</span><span class="na">Consumer</span><span class="o">.</span><span class="na">createJavaConsumerConnector</span><span class="o">(</span><span class="n">createConsumerConfig</span><span class="o">(</span><span class="n">zookeeper</span><span class="o">,</span> <span class="n">groupId</span><span class="o">));</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">topic</span> <span class="o">=</span> <span class="n">topic</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">ConsumerConfig</span> <span class="nf">createConsumerConfig</span><span class="o">(</span><span class="n">String</span> <span class="n">zookeeper</span><span class="o">,</span> <span class="n">String</span> <span class="n">groupId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+        <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;zookeeper.connect&quot;</span><span class="o">,</span> <span class="n">zookeeper</span><span class="o">);</span>
+        <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;group.id&quot;</span><span class="o">,</span> <span class="n">groupId</span><span class="o">);</span>
+        <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;zookeeper.session.timeout.ms&quot;</span><span class="o">,</span> <span class="s">&quot;500&quot;</span><span class="o">);</span>
+        <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;zookeeper.sync.time.ms&quot;</span><span class="o">,</span> <span class="s">&quot;250&quot;</span><span class="o">);</span>
+        <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&quot;auto.commit.interval.ms&quot;</span><span class="o">,</span> <span class="s">&quot;1000&quot;</span><span class="o">);</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="n">ConsumerConfig</span><span class="o">(</span><span class="n">props</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">shutdown</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">consumer</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="n">consumer</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">executor</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="n">executor</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">testMultiThreadConsumer</span><span class="o">(</span><span class="kt">int</span> <span class="n">threadCount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">topicMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;();</span>
+        <span class="c1">// Define thread count for each topic</span>
+        <span class="n">topicMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">topic</span><span class="o">,</span> <span class="k">new</span> <span class="n">Integer</span><span class="o">(</span><span class="n">threadCount</span><span class="o">));</span>
+        <span class="c1">// Here we have used a single topic but we can also add multiple topics to topicCount MAP</span>
+        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">KafkaStream</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[],</span> <span class="kt">byte</span><span class="o">[]&gt;&gt;&gt;</span> <span class="n">consumerStreamsMap</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">createMessageStreams</span><span class="o">(</span><span class="n">topicMap</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">KafkaStream</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[],</span> <span class="kt">byte</span><span class="o">[]&gt;&gt;</span> <span class="n">streamList</span> <span class="o">=</span> <span class="n">consumerStreamsMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">topic</span><span class="o">);</span>
+        <span class="c1">// Launching the thread pool</span>
+        <span class="n">executor</span> <span class="o">=</span> <span class="n">Executors</span><span class="o">.</span><span class="na">newFixedThreadPool</span><span class="o">(</span><span class="n">threadCount</span><span class="o">);</span>
+        <span class="c1">// Creating an object messages consumption</span>
+        <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kd">final</span> <span class="n">KafkaStream</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[],</span> <span class="kt">byte</span><span class="o">[]&gt;</span> <span class="n">stream</span> <span class="o">:</span> <span class="n">streamList</span><span class="o">)</span> <span class="o">{</span>
+            <span class="kd">final</span> <span class="kt">int</span> <span class="n">threadNumber</span> <span class="o">=</span> <span class="n">count</span><span class="o">;</span>
+            <span class="n">executor</span><span class="o">.</span><span class="na">submit</span><span class="o">(</span><span class="k">new</span> <span class="n">Runnable</span><span class="o">()</span> <span class="o">{</span>
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+                    <span class="n">ConsumerIterator</span><span class="o">&lt;</span><span class="kt">byte</span><span class="o">[],</span> <span class="kt">byte</span><span class="o">[]&gt;</span> <span class="n">consumerIte</span> <span class="o">=</span> <span class="n">stream</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span>
+                    <span class="k">while</span> <span class="o">(</span><span class="n">consumerIte</span><span class="o">.</span><span class="na">hasNext</span><span class="o">())</span> <span class="o">{</span>
+                      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Thread Number &quot;</span> <span class="o">+</span> <span class="n">threadNumber</span> <span class="o">+</span> <span class="s">&quot;: &quot;</span> <span class="o">+</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">consumerIte</span><span class="o">.</span><span class="na">next</span><span class="o">().</span><span class="na">message</span><span class="o">()));</span>
+                      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Shutting down Thread Number: &quot;</span> <span class="o">+</span> <span class="n">threadNumber</span><span class="o">);</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">});</span>
+            <span class="n">count</span><span class="o">++;</span>
+      <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">consumer</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="n">consumer</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">executor</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+            <span class="n">executor</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">zooKeeper</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
+        <span class="n">String</span> <span class="n">groupId</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
+        <span class="n">String</span> <span class="n">topic</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">threadCount</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="mi">3</span><span class="o">]);</span>
+        <span class="n">MultiThreadHLConsumer</span> <span class="n">multiThreadHLConsumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MultiThreadHLConsumer</span><span class="o">(</span><span class="n">zooKeeper</span><span class="o">,</span> <span class="n">groupId</span><span class="o">,</span> <span class="n">topic</span><span class="o">);</span>
+        <span class="n">multiThreadHLConsumer</span><span class="o">.</span><span class="na">testMultiThreadConsumer</span><span class="o">(</span><span class="n">threadCount</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">10000</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">ie</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span>
+        <span class="n">multiThreadHLConsumer</span><span class="o">.</span><span class="na">shutdown</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>运行代码前，先构建一个多broker集群，并创建topic：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/kafka-topics.sh --zookeeper localhost:2181 --create --topic kafkatopic --partitions <span class="m">4</span> --replication-factor <span class="m">2</span>
+</code></pre></div>
+
+<p>运行SimpleProducer：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>java kafka.examples.producer.SimpleProducer kafkatopic <span class="m">100</span>
+</code></pre></div>
+
+<p>编译MultiThreadHLConsumer：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>javac -d . kafka/examples/consumer/MultiThreadHLConsumer.java
+</code></pre></div>
+
+<p>运行MultiThreadHLConsumer：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>java kafka.examples.consumer.MultiThreadHLConsumer localhost:2181 testgroup kafkatopic <span class="m">4</span>
+</code></pre></div>
+
+<h3 id="consumer属性">consumer属性</h3>
+
+<ul>
+<li><code>group.id</code>：指定consumer group的唯一标识。</li>
+<li><code>consumer.id</code>：唯一标识consumer。默认值为<code>null</code>，不指定时会自动生成。</li>
+<li><code>zookeeper.connect</code>：指定ZooKeeper的连接字符串，格式为<code>&lt;hostname:port/chroot/path&gt;</code>。<code>/chroot/path</code>为全局ZooKeeper命名空间内的数据位置。</li>
+<li><code>client.id</code>：标识发起请求的客户端。默认值为<code>${group.id}</code>。</li>
+<li><code>zookeeper.session.timeout.ms</code>：指定一个时间（毫秒）用于consumer等待ZooKeeper声明失效或重新均衡。默认值为<code>6000</code>。</li>
+<li><code>zookeeper.connection.timeout.ms</code>：指定客户端建立ZooKeeper连接的最大等待时间（毫秒）。默认值为<code>6000</code>。</li>
+<li><code>zookeeper.sync.time.ms</code>：指定ZooKeeper follower同步leader的时间（毫秒）。默认值为<code>2000</code>。</li>
+<li><code>auto.commit.enable</code>：该属性为true时，已经被consumer获取的消息offset会被阶段性提交ZooKeeper中。在consumer失效时新consumer将以提交的offset作为起始位置。默认值为<code>true</code>。</li>
+<li><code>auto.commit.interval.ms</code>：指定已被消费的offset提交到ZooKeeper的频率（毫秒）。默认值为<code>60*1000</code>。</li>
+<li><code>auto.offset.reset</code>：指定offset值，如果ZooKeeper中有初始offset或者offset超出范围。可选值有：<code>largest</code>重新设置为最大的offset；<code>smallest</code>重新设置为最小的offset；其他任意值抛出异常。默认值为<code>largest</code>。</li>
+<li><code>consumer.timeout.ms</code>：在指定的消息间隔后没有可被消费的消息时向consumer抛出一个异常。默认值为<code>-1</code>。</li>
+</ul>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>[《Learing Apache Kafka-Second Edition》]()</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/kafka"><span class="tag">Kafka</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>304</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

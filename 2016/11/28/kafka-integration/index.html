@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Kafka]集成Kafka</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 《Learing Apache Kafka-Second Edition》
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Kafka]集成Kafka" />
+    <meta name="twitter:description" content=" 《Learing Apache Kafka-Second Edition》
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/11/28/kafka-integration/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Kafka]集成Kafka</h1>
+      <p class="post-meta">@wukn · Nov 28, 2016 · 3 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>《Learing Apache Kafka-Second Edition》</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="storm集成kafka">Storm集成Kafka</h3>
+
+<h4 id="storm简介">Storm简介</h4>
+
+<p>少量数据的实时处理可以使用JMS（Java Messaging Service）这类技术，但是数据量很大时便会出现性能瓶颈。而且这些方案不适合横向扩展。</p>
+
+<p><a href="http://storm.apache.org/">Storm</a>是开源的分布式实时数据处理系统。它可用于很多场景，如实时分析（real-time analytics）、在线机器学习（online machine learning）、连续计算（continuous computation）、数据抽取转换加载（ETL:Extract Transformation Load）。</p>
+
+<p>Storm中流数据处理相关的组件：
+* Spout：源源不断的数据流。
+* Bolt：spout将数据传递给bolt。所有的数据处理都是由bolt完成，如数据的过滤、聚合、计算、存储等。</p>
+
+<p><img src="https://wukn.github.io/img/post/kafka/integration/storm.png" alt="" /></p>
+
+<p>我们可以将Storm看成很多bolt组成的链，每个bolt对spout提供的数据流进行一些处理。</p>
+
+<ul>
+<li>Tuple：Storm所使用的数据结构。</li>
+<li>Stream：代表一个tuple序列。</li>
+<li>Workers：代表Storm process。</li>
+<li>Executers：worker发起的Storm线程。worker可以运行一个或多个executer，每个executer又可以运行一个或多个job。</li>
+</ul>
+
+<h4 id="storm集成kafka-1">Storm集成Kafka</h4>
+
+<p>集成Storm与Kafka集群需要使用<a href="https://github.com/apache/storm/tree/master/external/storm-kafka">storm-kafka spout</a>。它提供了一些特性，如动态发现Kafka broker、“exactly once” tuple processing。除了常规的针对Kafka的Storm spout，它还提供了针对kafka的Trident spout实现。</p>
+
+<blockquote>
+<p><a href="https://storm.apache.org/documentation/Trident-tutorial.html">Trident</a> is a high-level abstraction for doing realtime computing on top of Storm. It allows you to seamlessly intermix high throughput (millions of messages per second), stateful stream processing with low latency distributed querying.</p>
+</blockquote>
+
+<p>两种spout的实现都使用<code>BrokerHost</code>接口来跟踪Kafka broker host-to-partition 映射和<code>KafkaConfig</code>参数。<code>BrokerHost</code>接口有两个实现：<code>ZkHosts</code>和<code>StaticHosts</code>。</p>
+
+<p><code>ZkHosts</code>用于动态跟踪Kafka broker host-to-partition 映射：
+* <code>public ZkHosts(String brokerZkStr, String brokerZkPath)</code>
+* <code>public ZkHosts(String brokerZkStr)</code>
+参数<code>brokerZkStr</code>可以是<code>localhost:9092</code>；参数<code>brokerZkPath</code>是topic和partition信息存储的根目录，默认值是<code>/brokers</code>。</p>
+
+<p><code>StaticHosts</code>用于静态分区信息：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="c1">//localhost:9092. Uses default port as 9092.</span>
+<span class="n">Broker</span> <span class="n">brokerPartition0</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Broker</span><span class="o">(</span><span class="s">&quot;localhost&quot;</span><span class="o">);</span>
+<span class="c1">//localhost:9092. Takes the port explicitly</span>
+<span class="n">Broker</span> <span class="n">brokerPartition1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Broker</span><span class="o">(</span><span class="s">&quot;localhost&quot;</span><span class="o">,</span> <span class="mi">9092</span><span class="o">);</span>
+<span class="c1">//localhost:9092 specified as one string.</span>
+<span class="n">Broker</span> <span class="n">brokerPartition2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Broker</span><span class="o">(</span><span class="s">&quot;localhost:9092&quot;</span><span class="o">);</span>
+<span class="n">GlobalPartitionInformation</span> <span class="n">partitionInfo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GlobalPartitionInformation</span><span class="o">();</span>
+<span class="c1">//mapping form partition 0 to brokerPartition0</span>
+<span class="n">partitionInfo</span><span class="o">.</span><span class="na">addPartition</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">brokerPartition0</span><span class="o">);</span>
+<span class="c1">//mapping form partition 1 to brokerPartition1</span>
+<span class="n">partitionInfo</span><span class="o">.</span><span class="na">addPartition</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">brokerPartition1</span><span class="o">);</span>
+<span class="c1">//mapping form partition 2 to brokerPartition2</span>
+<span class="n">partitionInfo</span><span class="o">.</span><span class="na">addPartition</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">brokerPartition2</span><span class="o">);</span>
+<span class="n">StaticHosts</span> <span class="n">hosts</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StaticHosts</span><span class="o">(</span><span class="n">partitionInfo</span><span class="o">);</span>
+</code></pre></div>
+
+<p>创建StaticHosts实例时，首先要创建GlobalPartitionInformation实例，其次是KafkaConfig实例用来构造Kafka spout：
+* <code>public KafkaConfig(BrokerHosts hosts, String topic)</code>
+* <code>public KafkaConfig(BrokerHosts hosts, String topic, String clientId)</code>
+参数<code>BrokerHosts</code>为Kafka broker列表；参数<code>topic</code>为topic名称；参数<code>clientId</code>被用做ZooKeeper路径的一部分，spout作为consumer在ZooKeeper中存储当前消费的offset。</p>
+
+<p><code>KafkaConfig</code>类还有一些public类型的变量，用于控制应用的行为和spout从Kafka集群获取消息的方式：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kd">public</span> <span class="kt">int</span> <span class="n">fetchSizeBytes</span> <span class="o">=</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="n">socketTimeoutMs</span> <span class="o">=</span> <span class="mi">10000</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="n">fetchMaxWait</span> <span class="o">=</span> <span class="mi">10000</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="n">bufferSizeBytes</span> <span class="o">=</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span><span class="o">;</span>
+<span class="kd">public</span> <span class="n">MultiScheme</span> <span class="n">scheme</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RawMultiScheme</span><span class="o">();</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="n">forceFromStart</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kt">long</span> <span class="n">startOffsetTime</span> <span class="o">=</span> <span class="n">kafka</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">OffsetRequest</span><span class="o">.</span><span class="na">EarliestTime</span><span class="o">();</span>
+<span class="kd">public</span> <span class="kt">long</span> <span class="n">maxOffsetBehind</span> <span class="o">=</span> <span class="n">Long</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="n">useStartOffsetTimeIfOffsetOutOfRange</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="n">metricsTimeBucketSizeInSecs</span> <span class="o">=</span> <span class="mi">60</span><span class="o">;</span>
+</code></pre></div>
+
+<p><code>Spoutconfig</code>类扩展了<code>KafkaConfig</code>类：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="kd">public</span> <span class="nf">SpoutConfig</span><span class="o">(</span><span class="n">BrokerHosts</span> <span class="n">hosts</span><span class="o">,</span> <span class="n">String</span> <span class="n">topic</span><span class="o">,</span> <span class="n">String</span> <span class="n">zkRoot</span><span class="o">,</span> <span class="n">String</span> <span class="n">id</span><span class="o">);</span>
+</code></pre></div>
+
+<p>参数<code>zkRoot</code>为ZooKeeper的根路径；参数<code>id</code>为spout的唯一标识。</p>
+
+<p>初始化<code>KafkaSpout</code>实例的代码如下：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="c1">// Creating instance for BrokerHosts interface implementation</span>
+<span class="n">BrokerHosts</span> <span class="n">hosts</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZkHosts</span><span class="o">(</span><span class="n">brokerZkConnString</span><span class="o">);</span>
+<span class="o">/</span> <span class="n">Creating</span> <span class="n">instance</span> <span class="n">of</span> <span class="n">SpoutConfig</span>
+<span class="n">SpoutConfig</span> <span class="n">spoutConfig</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SpoutConfig</span><span class="o">(</span><span class="n">brokerHosts</span><span class="o">,</span> <span class="n">topicName</span><span class="o">,</span> <span class="s">&quot;/&quot;</span> <span class="o">+</span> <span class="n">topicName</span><span class="o">,</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+<span class="c1">// Defines how the byte[] consumed from kafka gets transformed into a storm tuple</span>
+<span class="n">spoutConfig</span><span class="o">.</span><span class="na">scheme</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SchemeAsMultiScheme</span><span class="o">(</span><span class="k">new</span> <span class="n">StringScheme</span><span class="o">());</span>
+<span class="c1">// Creating instance of KafkaSpout</span>
+<span class="n">KafkaSpout</span> <span class="n">kafkaSpout</span> <span class="o">=</span> <span class="k">new</span> <span class="n">KafkaSpout</span><span class="o">(</span><span class="n">spoutConfig</span><span class="o">);</span>
+</code></pre></div>
+
+<p><img src="https://wukn.github.io/img/post/kafka/integration/storm-integrate-kafka.png" alt="" /></p>
+
+<p>Kafka spout与Storm使用同一个ZooKeeper实例，来存储offset的状态和记录已经消费的segment。这些offset被存储在ZooKeeper指定的根路径下。kafka spout在下游故障或超时时使用这些offset来重新处理tuple。spout可以倒回到之前的offset而不是从最后保存的offset开始，Kafka根据指定的时间戳来选择offset：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">spoutConfig</span><span class="o">.</span><span class="na">forceStartOffsetTime</span><span class="o">(</span><span class="n">TIMESTAMP</span><span class="o">);</span>
+</code></pre></div>
+
+<p>这里，值<code>-1</code>强制spout从最新的offset重启；值<code>-2</code>强制spout从最早的offset重启。</p>
+
+<h3 id="hadoop集成kafka">Hadoop集成Kafka</h3>
+
+<p>资源共享、稳定性、可用性、可伸缩性是分布式计算的挑战。现如今有多了一个：TB或PB级数据的处理。</p>
+
+<h4 id="hadoop简介">Hadoop简介</h4>
+
+<p>Hadoop是个大规模分布式批处理框架，通过很多节点并行处理数据。</p>
+
+<p>Hadoop基于MapReduce框架，MapReduce提供了并行分布式大规模计算借口。Hadoop有它自己的分布式文件系统HDFS（Hadoop Distributed File System）。在典型的Hadoop集群中，HDFS将数据分成很小的块（称为block）分布到所有的节点中，同时也会为每个block建立副本以确保有节点失效时仍能从其他节点读取到数据。</p>
+
+<p><img src="https://wukn.github.io/img/post/kafka/integration/hadoop.png" alt="" /></p>
+
+<p>Hadoop有以下组件：
+* Name Node：这是一个与HDFS交互的单点。name node中存储数据block在节点中的分布信息。
+* Second Name Node：该节点存储日志，在name node故障时使用这些日志将HDFS恢复到最后更新的状态。
+* Data Node：这些节点存储由name node分配的数据block，以及其他节点中数据的副本。
+* Job Tracker：负责将MapReduce job分割成更小的task。
+* Task Tracker：负责执行job tracker分割的task。</p>
+
+<p>data node和task tracker共享同一台机器，task的执行需要name node提供数据存储位置信息。</p>
+
+<p>Hadoop集群有三种：
+* 本地模式（local mode）
+* 伪分布式模式（pseudo distributed mode）
+* 完全分布式模式（fully distributed mode）</p>
+
+<p>本地模式和伪分布式模式工作于单节点集群。本地模式中所有的Hadoop主要组件运行在同一个JVM实例中；而伪分布式模式中每个组件运行在一个单独的JVM实例中。伪分布式模式主要用于开发环境。完全分布式模式中则是每个组件运行在单独的节点中。</p>
+
+<p>伪分布式集群搭建步骤如下：</p>
+
+<ol>
+<li>安装和配置JDK</li>
+<li>下载<a href="http://mirrors.hust.edu.cn/apache/hadoop/common/">Hadoop Common</a></li>
+<li>解压缩后，bin文件夹添加到<code>PATH</code>中</li>
+</ol>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span><span class="c1">#Assuming your installation directory is /opt/Hadoop</span>
+<span class="nb">export</span> <span class="nv">HADOOP_HOME</span><span class="o">=</span>/opt/hadoop
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HADOOP</span> HOME/bin
+</code></pre></div>
+
+<ol>
+<li>配置文件<code>etc/hadoop/core-site.xml</code>：
+<code>xml
+&lt;configuration&gt;
+&lt;property&gt;
+    &lt;name&gt;fs.defaultFS&lt;/name&gt;
+    &lt;value&gt;hdfs://localhost:9000&lt;/value&gt;
+&lt;/property&gt;
+&lt;/configuration&gt;
+</code>
+配置文件<code>etc/hadoop/hdfs-site.xml</code>：</li>
+</ol>
+<div class="highlight"><pre><code class="language-xml" data-lang="xml"><span></span><span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>dfs.replication<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>1<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div>
+
+<ol>
+<li>ssh无密码连接到localhost：</li>
+</ol>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>ssh localhost
+</code></pre></div>
+
+<p>如果ssh不能无密码连接localhost，执行以下命令：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>ssh-keygen -t dsa -P <span class="s1">&#39;&#39;</span> -f ~/.ssh/id_dsa
+cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys
+</code></pre></div>
+
+<ol>
+<li>格式化文件系统</li>
+</ol>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>bin/hdfs namenode -format
+</code></pre></div>
+
+<ol>
+<li>启动守护进程NameNode和DataNode：</li>
+</ol>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>sbin/start-dfs.sh
+</code></pre></div>
+
+<ol>
+<li>Hadoop集群设置完毕，所在Web浏览器中通过<code>http://localhost:50070/</code>访问NameNode。</li>
+</ol>
+
+<h4 id="hadoop集成kafka-1">Hadoop集成Kafka</h4>
+
+<p>Kafka的源码的contrib文件夹中包含Hadoop producer和consumer的示例。</p>
+
+<h5 id="hadoop-producer">Hadoop producer</h5>
+
+<p>Hadoop producer提供了从Hadoop集群向Kafka发布数据的桥梁：</p>
+
+<p><img src="https://wukn.github.io/img/post/kafka/integration/hadoop-integrate-kafka-producer.png" alt="" /></p>
+
+<p>Kafka中topic可看作URI，连接到指定Kafka broker的URI格式为：</p>
+
+<pre><code>kafka://&lt;kafka-broker&gt;/&lt;kafka-topic&gt;
+</code></pre>
+
+<p>Hadoop consumer有两种从Hadoop获取数据的方式：</p>
+
+<ul>
+<li>使用Pig脚本和Avro格式的消息：这种方式中，Kafka producer使用Pig脚本将数据写成二进制Avro格式，每一行表示一个消息。类<code>AvroKafkaStorage</code>（Pig类<code>StoreFunc</code>的扩展）接受参数Avro Schema并连接到Kafka URI，将数据推送到Kafka集群。使用AvroKafkaStorage producer时可以很容易地在同一个Pig脚本的job中写多个topic和broker。Pig脚本示例如下：</li>
+</ul>
+
+<pre><code>REGISTER hadoop-producer_2.8.0-0.8.0.jar;
+REGISTER avro-1.4.0.jar;
+REGISTER piggybank.jar;
+REGISTER kafka-0.8.0.jar;
+REGISTER jackson-core-asl-1.5.5.jar;
+REGISTER jackson-mapper-asl-1.5.5.jar;
+REGISTER scala-library.jar;
+member_info = LOAD 'member_info.tsv' AS (member_id : int, name : chararray);
+names = FOREACH member_info GENERATE name;
+STORE member_info INTO 'kafka://localhost:9092/member_info' USING kafka.bridge.AvroKafkaStorage('&quot;string&quot;');
+</code></pre>
+
+<ul>
+<li>使用Kafka OutputFormat类：Kafka OutputFormat类是Hadoop的OutputFormat类的扩展。这种方式消息以字节形式发布。Kafka OutputFormat类使用KafkaRecordWriter类（Hadoop类RecordWriter的扩展）将记录（也就是消息）写入Hadoop集群。</li>
+</ul>
+
+<p>要想在job中配置producer的参数，在参数前添加前缀<code>kafka.output</code>即可。例如配置压缩格式则使用<code>kafka.output.compression.codec</code>。除此之外，Kafka broker信息（kafka.metadata.broker.list）、topic（kafka.output.topic）、schema（kafka.output.schema）被注入到job的配置中。</p>
+
+<h5 id="hadoop-consumer">Hadoop consumer</h5>
+
+<p>Hadoop consumer是一个从Kafka broker拉取数据并推送到HDFS中的Hadoop job。</p>
+
+<p><img src="https://wukn.github.io/img/post/kafka/integration/hadoop-integrate-kafka-consumer.png" alt="" /></p>
+
+<p>一个Hadoop job并行地将Kafka数据写到HDFS中，加载数据的mapper数量取决于输入文件夹中文件的数量。输出文件夹中包括来自Kafka的数据和更新的topic offset。每个mapper在map task结束时将最后消费的消息offset写入HDFS。如果job是被或者被重启，每个mapper只是从HDFS中存储的offset处开始读取。</p>
+
+<p>Kafka的源码的contrib文件夹中包含hadoop-consumer示例。运行示例需要配置一下文件test/test.properties中的参数：
+* kafka.etl.topic：要获取的topic。
+* kafka.server.uri：Kafka服务器地址。
+* input：输入文件夹，文件夹内有使用DataGenerator生成的topic offset。文件夹内文件的数量决定了Hadoop mapper的数量。
+* output：输出文件夹，文件夹内为来自Kafka的数据和更新的topic offset。
+* kafka.request.limit：用于限制取数据事件的数量。</p>
+
+<p>在consumer中，实例KafkaETLRecordReader是与KafkaETLInputFormat相关的record reader。它从Kafka服务器中读取数据，从input指定的offset开始到最大可用offset或者指定的上限（kafka.request.limit）。KafkaETLJob包含一些辅助函数用于初始化job配置，SimpleKafkaETLJob设置job属性并提交Hadoop job。一旦job启动了，SimpleKafkaETLMapper就从Kafka数据写入ouptut指定的HDFS。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>[《Learing Apache Kafka-Second Edition》]()</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/kafka"><span class="tag">Kafka</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>304</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

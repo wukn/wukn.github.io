@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][软件架构模式]-微服务架构Microservices Architecture</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 微服务架构是个正在快速发展的架构，可替代独立应用程序和面向服务架构（service-oriented architecture）。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][软件架构模式]-微服务架构Microservices Architecture" />
+    <meta name="twitter:description" content=" 微服务架构是个正在快速发展的架构，可替代独立应用程序和面向服务架构（service-oriented architecture）。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/10/21/microservices-architecture/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][软件架构模式]-微服务架构Microservices Architecture</h1>
+      <p class="post-meta">@wukn · Oct 21, 2016 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>微服务架构是个正在快速发展的架构，可替代独立应用程序和面向服务架构（service-oriented architecture）。</p>
+</blockquote>
+
+<p></p>
+
+<h2 id="模式描述">模式描述</h2>
+
+<p>不考虑拓扑结构和实现方式，关于微服务架构有几个核心概念。一个是独立部署单元（separately deployed units），如图1所示，每个组件部署为独立单元，通过持续集成使得部署更容易，使应用之间和应用内部的组件高度解耦，提高了可伸缩性。</p>
+
+<p>最重要的概念是服务组件（service component）。服务组件的粒度可以很小也可以很大，既可以是一个独立的模块，也可以是应用的一部分。服务组件可以是包含一个或多个模块来提供某个单一功能，也可以是大型应用的业务独立的部分。如何确定服务组件的粒度是个很重要的问题。</p>
+
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/microservices_architecture/basic_microservices_architecture.png" alt="" />
+图1 基本的微服务架构模式</p>
+
+<p>还有个重要概念是，微服务架构是一个分布式的（distributed）。架构内的所有组件之间是完全解耦的，并且可以通过某种远程访问协议（JMS、AMQP、REST、SOAP、RMI等）来访问。分布式特性使得微服务架构具有优越的伸缩性和易于部署性。</p>
+
+<p>微服务架构的发展和演变来源于使用分层架构开发独立应用和使用面向服务架构开发分布式应用的综合。</p>
+
+<p>独立应用程序通常组件之间高耦合，测试和部署很繁琐，促使了微服务架构的持续集成的发展，将应用程序划分为多个可部署单元，也就是服务组件，每个组件可以独立开发测试和部署。</p>
+
+<p>面向服务架构很强大，提供了空前的抽象级别、异构连接、服务编排、可简单调整就能适应业务的能力，但是它很复杂，难以理解和实现。对于大多数应用来说是杀鸡用牛刀。微服务架构简化了服务的概念，消除编制需求，简化了服务组件的连接和访问。</p>
+
+<h2 id="模式拓扑">模式拓扑</h2>
+
+<p>常见的微服务架构实现方式有三种：基于REST API、基于REST应用、集中消息处理。</p>
+
+<p>基于REST API的结构一般用于使用某种API暴露出小的独立的服务的网站。如图2所示，该结构由很细粒度的服务组件组成，每个组件只包含一个或几个模块来实现某个业务功能，并与其它服务保持独立。这些细粒度的服务组件可使用基于REST的接口访问，通常部署为独立的的基于Web的API层。例如Google、Yahoo、Amazon提供的一些目标单一的RESTful服务。</p>
+
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/microservices_architecture/restapi_microservices_architecture.png" alt="" />
+图2 基于REST API的拓扑结构</p>
+
+<p>基于REST应用的结构与上面的结构的不同之处在于客户端的请求是通过传统的基于Web或富客户端应用来接收的，而不是通过API层。如图3所示，应用的UI层被部署为独立的Web应用，通过简单的基于REST的接口远程访问服务组件。该结构中的服务组件一般是粗粒度的，适用于不是很复杂的中型应用。</p>
+
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/microservices_architecture/restapp_microservices_architecture.png" alt="" />
+图3 基于REST应用的拓扑结构</p>
+
+<p>还有一种就是集中消息处理结构。如图4所示，它与基于REST应用的拓扑结构很相似，只是使用轻量级的集中消息代理组件代替REST进行远程访问。它可以称为小型SOA架构。该消息代理组件不做任何的编排、转换或复杂的路由，它只是向服务组件远程传递消息。该结构一般用于大型应用或UI层与服务组件之间的传输层需要复杂控制的应用。与基于REST应用的拓扑结构相比，它有高级队列机制、异步消息处理、监控、异常处理、更好的负载均衡和可伸缩性。该结构的瓶颈通常通过使用代理集群代替集中的消息代理来解决。</p>
+
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/microservices_architecture/lightweight_message_broker_microservices_architecture.png" alt="" />
+图4 集中消息处理的拓扑结构</p>
+
+<h2 id="避免依赖和编排">避免依赖和编排</h2>
+
+<p>微服务架构的一个主要难点是服务组件的粒度。粒度太大时享受不到架构的易于扩展性、可伸缩性、易于测试性、低耦合的优势。粒度太小时又导致需要服务编排，使简单的微服务架构变成了重量级的SOA架构。</p>
+
+<p>当需要在UI层或API层需要编排服务时说明服务组件粒度太小，当处理单个请求需要组件之间通信时要么粒度太大要么业务功能分离得不合理。</p>
+
+<p>服务间通信会导致组件之间的耦合，可通过共享数据库解决。例如，处理订单的服务组件需要客户信息，它可以直接去数据库查询，而不是调用客户信息服务组件。</p>
+
+<p>如果一个服务组件需要的功能在另一个组件中，有时可以将其复制到该服务组件中（从而违反DRY原则：Don&rsquo;t Repeat Yourself）。这是在使用微服务架构时需要权衡的，重复冗余的功能来保持组件的独立。</p>
+
+<p>在不考虑组件粒度时，如果还是无法避免服务编排，那也许微服务架构就不适合该业务场景，因为分布式的原因，服务组件之间事务很难管理，需要使用事务处理框架，这无疑增加了实现的复杂度。</p>
+
+<h2 id="架构考量">架构考量</h2>
+
+<p>微服务架构将应用分成很多小的独立的部署单元，使应用具有更强的健壮性、更好的伸缩性、更容易持续集成。此外还提供了实时生产部署的能力，减少了传统的停机部署。每次只需要部署修改过的组件就行了。</p>
+
+<p>还有一点需要注意的是，由于微服务架构是分布式的，它和事件驱动架构一样需要考虑契约的创建、维护和管理，远程访问的身份认证和授权。</p>
+
+<h2 id="模式分析">模式分析</h2>
+
+<p>下表展示了分层架构模式的通用架构特性的评级和分析。</p>
+
+<p>整体灵活性</p>
+
+<p>评级：高</p>
+
+<p>分析：整体灵活性是对环境变化快速响应的能力。服务组件是独立部署单元，改变通常隔离在组件内，可以快速实现和部署。</p>
+
+<p>易于部署</p>
+
+<p>评级：高</p>
+
+<p>分析：服务组件是低耦合的独立部署单元，可实现热部署和持续集成。</p>
+
+<p>可测试性</p>
+
+<p>评级：高</p>
+
+<p>分析：业务功能被分散在服务组件内，对服务组件进行测试是很方便的。而服务组件之间是低耦合的，很少有涉及几个服务组件同时改动而需要联合测试的情况。</p>
+
+<p>性能</p>
+
+<p>评级：低</p>
+
+<p>分析：虽然根据这个架构实现的性能可能还不错，但它的分布式特性决定了它不是一个高性能的架构。</p>
+
+<p>可伸缩性</p>
+
+<p>评级：高</p>
+
+<p>分析：应用被分成独立的服务组件，每个组件可以单独地扩展。</p>
+
+<p>开发容易度</p>
+
+<p>评级：高</p>
+
+<p>分析：业务功能被分散在独立且唯一的服务组件中，由于其作用域很小，开发起来很容易。很少有一个组件会影响另一个组件的情况，减少了开发人员之间冲突的可能。</p>
+
+<hr />
+
+<p>参考资料</p>
+
+<p><a href="http://www.oreilly.com/programming/free/software-architecture-patterns.csp">Software Architecture Patterns</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/architecture"><span class="tag">Architecture</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>342</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

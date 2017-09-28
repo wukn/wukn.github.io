@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][RabbitMQ] Remote Procedure Call</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 使用RabitMQ构建RPC应用。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][RabbitMQ] Remote Procedure Call" />
+    <meta name="twitter:description" content=" 使用RabitMQ构建RPC应用。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/10/24/rabbitmq-rpc/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][RabbitMQ] Remote Procedure Call</h1>
+      <p class="post-meta">@wukn · Oct 24, 2016 · 3 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>使用RabitMQ构建RPC应用。</p>
+</blockquote>
+
+<p></p>
+
+<h2 id="callback-queue">callback queue</h2>
+
+<p>RPC的过程为：客户端发送请求消息，服务器相应请求，回复响应消息。客户端为了能接收到相应消息，需要在请求消息中包含回调队列地址。回调队列可以使用默认的队列（在Java中是排他的）。</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">callbackQueueName</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">().</span><span class="na">getQueue</span><span class="o">();</span>
+
+<span class="n">BasicProperties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasicProperties</span>
+                            <span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                            <span class="o">.</span><span class="na">replyTo</span><span class="o">(</span><span class="n">callbackQueueName</span><span class="o">)</span>
+                            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+<span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">,</span> <span class="s">&quot;rpc_queue&quot;</span><span class="o">,</span> <span class="n">props</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+</code></pre></div>
+
+<h2 id="message-properties">message properties</h2>
+
+<p>最常用的消息属性为：</p>
+
+<ul>
+<li>deliveryMode：标记消息是否为持久化的。值为MessageProperties.PERSISTENT_TEXT_PLAIN表示是持久的，其他值表示是瞬时的。</li>
+<li>contentType：描述mime-type的编码。如JSON格式该属性为application/json。</li>
+<li>replyTo：通常用来命名回调队列。</li>
+<li>correlationId：关联RPC的请求和响应。</li>
+</ul>
+
+<h2 id="correlation-id">correlation id</h2>
+
+<p>上面的代码为每个RPC请求创建了一个回调队列，这有点不合适，会影响效率和资源占用。可以为每个客户端创建一个回调队列。这又带来一个新的问题，如何知道这个回调队列里的响应消息对应的是哪个请求的？这是就可以使用correlationId属性。我们为每个请求设置唯一的correlationId，当接收到回调队列里的响应时，根据响应的correlationId找到匹配的请求。如果有不识别的correlationId值，那么就丢弃它，说明它不属于该客户端的。这里，直接忽略不识别的消息，而不是抛出错误是因为，很小的可能会出现这样的情景：服务器在发送响应消息后和在向请求队列发送反馈消息前的间隔时间里挂掉了，服务器重启后会再次处理该请求。所以客户端应该合适地处理重复的响应。</p>
+
+<h2 id="rpc">RPC</h2>
+
+<p><img src="https://wukn.github.io/img/post/rabbitmq/rpc/rpc.png" alt="" /></p>
+
+<p>1.客户端启动，创建一个匿名的回调队列。</p>
+
+<p>2.客户端发送RPC请求时，在消息中包含两个属性，replyTo回调队列，correlationId唯一标识每个请求。</p>
+
+<p>3.将请求消息发送到请求队列中。</p>
+
+<p>4.RPC服务器接收请求队列中的消息，将处理结果发送到消息的replyTo指定的回调队列中。</p>
+
+<p>5.客户端接受回调队列中的消息，如果消息的correlationId与请求是匹配的，那么将响应消息返回给应用。</p>
+
+<p>完整代码如下：</p>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="c1">// RPCServer.java</span>
+
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.ConnectionFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Channel</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.QueueingConsumer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.AMQP.BasicProperties</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RPCServer</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">RPC_QUEUE_NAME</span> <span class="o">=</span> <span class="s">&quot;rpc_queue&quot;</span><span class="o">;</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">fib</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span><span class="mi">0</span><span class="o">)</span> <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
+    <span class="k">return</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+      <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+
+      <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+      <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+      <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">(</span><span class="n">RPC_QUEUE_NAME</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+
+      <span class="n">channel</span><span class="o">.</span><span class="na">basicQos</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+
+      <span class="n">QueueingConsumer</span> <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueueingConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">);</span>
+      <span class="n">channel</span><span class="o">.</span><span class="na">basicConsume</span><span class="o">(</span><span class="n">RPC_QUEUE_NAME</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="n">consumer</span><span class="o">);</span>
+
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [x] Awaiting RPC requests&quot;</span><span class="o">);</span>
+
+      <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+        <span class="n">QueueingConsumer</span><span class="o">.</span><span class="na">Delivery</span> <span class="n">delivery</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">nextDelivery</span><span class="o">();</span>
+
+        <span class="n">BasicProperties</span> <span class="n">props</span> <span class="o">=</span> <span class="n">delivery</span><span class="o">.</span><span class="na">getProperties</span><span class="o">();</span>
+        <span class="n">BasicProperties</span> <span class="n">replyProps</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasicProperties</span>
+                                         <span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                                         <span class="o">.</span><span class="na">correlationId</span><span class="o">(</span><span class="n">props</span><span class="o">.</span><span class="na">getCorrelationId</span><span class="o">())</span>
+                                         <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+          <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">delivery</span><span class="o">.</span><span class="na">getBody</span><span class="o">(),</span><span class="s">&quot;UTF-8&quot;</span><span class="o">);</span>
+          <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+
+          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [.] fib(&quot;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&quot;)&quot;</span><span class="o">);</span>
+          <span class="n">response</span> <span class="o">=</span> <span class="s">&quot;&quot;</span> <span class="o">+</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
+          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [.] &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+          <span class="n">response</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">finally</span> <span class="o">{</span>
+          <span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span> <span class="s">&quot;&quot;</span><span class="o">,</span> <span class="n">props</span><span class="o">.</span><span class="na">getReplyTo</span><span class="o">(),</span> <span class="n">replyProps</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">));</span>
+
+          <span class="n">channel</span><span class="o">.</span><span class="na">basicAck</span><span class="o">(</span><span class="n">delivery</span><span class="o">.</span><span class="na">getEnvelope</span><span class="o">().</span><span class="na">getDeliveryTag</span><span class="o">(),</span> <span class="kc">false</span><span class="o">);</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+    <span class="k">catch</span>  <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">finally</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">connection</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+          <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">ignore</span><span class="o">)</span> <span class="o">{}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="c1">// RPCClient.java</span>
+
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.ConnectionFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Channel</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.QueueingConsumer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.AMQP.BasicProperties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RPCClient</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="n">Connection</span> <span class="n">connection</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="n">Channel</span> <span class="n">channel</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="n">String</span> <span class="n">requestQueueName</span> <span class="o">=</span> <span class="s">&quot;rpc_queue&quot;</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="n">String</span> <span class="n">replyQueueName</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="n">QueueingConsumer</span> <span class="n">consumer</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">RPCClient</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="o">);</span>
+    <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">replyQueueName</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">().</span><span class="na">getQueue</span><span class="o">();</span>
+    <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueueingConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">);</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicConsume</span><span class="o">(</span><span class="n">replyQueueName</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">consumer</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="n">String</span> <span class="nf">call</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">corrId</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+
+    <span class="n">BasicProperties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasicProperties</span>
+                                <span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
+                                <span class="o">.</span><span class="na">correlationId</span><span class="o">(</span><span class="n">corrId</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">replyTo</span><span class="o">(</span><span class="n">replyQueueName</span><span class="o">)</span>
+                                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">,</span> <span class="n">requestQueueName</span><span class="o">,</span> <span class="n">props</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">));</span>
+
+    <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">QueueingConsumer</span><span class="o">.</span><span class="na">Delivery</span> <span class="n">delivery</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">nextDelivery</span><span class="o">();</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">delivery</span><span class="o">.</span><span class="na">getProperties</span><span class="o">().</span><span class="na">getCorrelationId</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">corrId</span><span class="o">))</span> <span class="o">{</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">delivery</span><span class="o">.</span><span class="na">getBody</span><span class="o">(),</span><span class="s">&quot;UTF-8&quot;</span><span class="o">);</span>
+        <span class="k">break</span><span class="o">;</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="n">response</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">RPCClient</span> <span class="n">fibonacciRpc</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">fibonacciRpc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RPCClient</span><span class="o">();</span>
+
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [x] Requesting fib(30)&quot;</span><span class="o">);</span>
+      <span class="n">response</span> <span class="o">=</span> <span class="n">fibonacciRpc</span><span class="o">.</span><span class="na">call</span><span class="o">(</span><span class="s">&quot;30&quot;</span><span class="o">);</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [.] Got &#39;&quot;</span> <span class="o">+</span> <span class="n">response</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="k">catch</span>  <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+    <span class="o">}</span>
+    <span class="k">finally</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">fibonacciRpc</span><span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+          <span class="n">fibonacciRpc</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">ignore</span><span class="o">)</span> <span class="o">{}</span>
+      <span class="o">}</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div>
+
+<p>运行结果如下：</p>
+
+<pre><code>[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar RPCServer
+ [x] Awaiting RPC requests
+ [.] fib(30)
+</code></pre>
+
+<pre><code>[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar RPCClient
+ [x] Requesting fib(30)
+ [.] Got '832040'
+</code></pre>
+
+<hr />
+
+<p>参考资料</p>
+
+<p><a href="https://www.rabbitmq.com/tutorials/tutorial-six-java.html">RabbitMQ-Remote Procedure Call</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/rabbitmq"><span class="tag">RabbitMQ</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>339</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][KnockoutJS] Bindings - Syntax</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][KnockoutJS] Bindings - Syntax" />
+    <meta name="twitter:description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-bindings-syntax/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][KnockoutJS] Bindings - Syntax</h1>
+      <p class="post-meta">@wukn · Nov 12, 2016 · 3 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>&ldquo;KnockoutJS文档官网：<a href="http://knockoutjs.com/documentation/introduction.html&quot;">http://knockoutjs.com/documentation/introduction.html&quot;</a></p>
+</blockquote>
+
+<p></p>
+
+<p>ko的声明式绑定系统提供了简洁且功能强大的链接数据和UI的方式。</p>
+
+<h2 id="data-bind语法">data-bind语法</h2>
+
+<p>一个绑定由两部分组成，名称和值，用分号隔开。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span>Today&#39;s message is: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: myMessage&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>一个元素可以由多个绑定，绑定之间使用逗号隔开。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- related bindings: valueUpdate is a parameter for value --&gt;</span>
+Your value: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;value: someValue, valueUpdate: &#39;afterkeydown&#39;&quot;</span> <span class="p">/&gt;</span>
+
+<span class="c">&lt;!-- unrelated bindings --&gt;</span>
+Cellphone: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;value: cellphoneNumber, enable: hasCellphone&quot;</span> <span class="p">/&gt;</span>
+</code></pre></div>
+
+<p>绑定的名称应该与一个注册的绑定处理器（包括ko内建的和自定义的）匹配，或者是另一个绑定的参数。否则会被忽略（没有错误或警告）。</p>
+
+<p>绑定的值可以是值、变量或字面量（<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types">value、variable、literal</a>），或者是任何有效的js表达式（<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Guide/Expressions_and_Operators">Javacript Expression</a>）。</p>
+
+<p>当值是对象字面量时，对象的属性名必须是有效的js标识符，否则需要放在引号中。</p>
+
+<p>当值是无效的js表达式或引用的是未知的变量时，ko会输出错误并停止绑定处理。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- variable (usually a property of the current view model --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;visible: shouldShowMessage&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- comparison and conditional --&gt;</span>
+The item is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: price() &gt; 50 ? &#39;expensive&#39; : &#39;cheap&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>.
+
+<span class="c">&lt;!-- function call and comparison --&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;enable: parseAreaCode(cellphoneNumber()) != &#39;555&#39;&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- function expression --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;click: function (data) { myFunction(&#39;param1&#39;, data) }&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- object literal (with unquoted and quoted property names) --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;with: {emotion: &#39;happy&#39;, &#39;facial-expression&#39;: &#39;smile&#39;}&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>绑定中可以包含任意数量的空字符（whitespace：spaces、tab、newlines），因此绑定中可以根据需要来排版。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- no spaces --&gt;</span>
+<span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;options:availableCountries,optionsText:&#39;countryName&#39;,value:selectedCountry,optionsCaption:&#39;Choose...&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- some spaces --&gt;</span>
+<span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;options : availableCountries, optionsText : &#39;countryName&#39;, value : selectedCountry, optionsCaption : &#39;Choose...&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- spaces and newlines --&gt;</span>
+<span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;</span>
+<span class="s">    options: availableCountries,</span>
+<span class="s">    optionsText: &#39;countryName&#39;,</span>
+<span class="s">    value: selectedCountry,</span>
+<span class="s">    optionsCaption: &#39;Choose...&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>注：ko V3.0之后，可以声明没有值的绑定，值会被赋为undefined。这对绑定预处理是有很用的。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">&gt;</span>Text that will be cleared when bindings are applied.<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<h2 id="绑定上下文-binding-context">绑定上下文（binding context）</h2>
+
+<p>绑定上下文是可以在绑定内引用的包含数据的对象。使用绑定时，ko会自动创建和管理绑定上下文的层级关系。层级关系的根就是应用绑定<code>ko.applyBindings(viewModel)</code>的视图viewModel。然后每使用一个流程控制绑定（如with或foreach），就会创建一个指向嵌套的视图模型数据的子绑定上下文。</p>
+
+<p>绑定上下文由如下特殊属性。</p>
+
+<ul>
+<li><p>$parent 它指向当前绑定上下文的父上下文的视图模型对象。对于根上下文，它指向undefined。</p></li>
+
+<li><p>$parents 它是所有父视图模型的数组。$parents[0]与$parent相同，指向父上下文的视图模型；$parents[1]指向$parents[0]的父上下文的视图模型；以此类推。</p></li>
+
+<li><p>$root 它指向根上下文的视图模型对象，通常就是传递给<code>ko.applyBindings</code>的对象。与<code>$parents[$parents.length - 1]</code>等价。</p></li>
+
+<li><p>$component 在component模板的上下文中，$component指向component的视图模型。在嵌套组件中，它指向最近一层组件的视图模型。</p></li>
+
+<li><p>$data 它指向当前上下文的视图模型对象。在根上下文中$data和$root是一样的。在嵌套的绑定中，该参数会被设置为当前数据项，当需要引用视图模型本身而不是视图模型的属性时，就可以用$data。</p></li>
+</ul>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;foreach: [&#39;cats&#39;, &#39;dogs&#39;, &#39;fish&#39;]&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>The value is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: $data&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<ul>
+<li><p>$index 它是foreach绑定中当前数组项的索引（从0开始）。与其他上下文属性不同，$index是可监控的，会随着数组项索引的变化而更新。</p></li>
+
+<li><p>$parentContext 它指向父层的绑定上下文对象。它根$parent是不一样的，$parent是指向父层的数据而不是绑定上下文。在根上下文中它指向undefined。
+例如在内层上下文中访问外层foreach项的索引值：<code>$parentContext.$index</code>。</p></li>
+
+<li><p>$rawData 它是当前上下文的原始视图模型值。通常与$data相同。但是视图模型包装在监控属性内时，$data是未包装的视图模型，而$rawData是监控属性本身。</p></li>
+
+<li><p>$componentTemplateNodes 在component模板的上下文中，$componentTemplateNodes是包含传递给组件的DOM节点的数组。这使得构建可以接收模板的组件很容易，例如构建可以接收行模板的表格组件。</p></li>
+</ul>
+
+<p>下面两个是绑定中的特殊变量，但不属于绑定上下文对象。</p>
+
+<ul>
+<li><p>context 它指向当前绑定上下文对象。</p></li>
+
+<li><p>element 它指向当前绑定的与元素DOM对象（element DOM object），或者虚拟元素的注释DOM对象（comment DOM object）。在需要访问当前元素的属性时很有用。</p></li>
+</ul>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;item1&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: $element.id&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>注：与with和foreach类似，在自定义绑定中可以改变子元素的绑定上下文，或者扩展绑定上下文对象来提供特殊的属性。</p>
+
+<h2 id="非侵入式事件绑定">非侵入式事件绑定</h2>
+
+<p>在大部分情况下，<code>data-bind</code>属性提供了一种简洁的方式来绑定视图模型。但是在绑定事件处理函数时，在<code>data-bind</code>中通常使用匿名函数来传递参数。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;click: function() { viewModel.items.remove($data); }&quot;</span><span class="p">&gt;</span>
+    remove
+<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>此外，Ko还提供了两个实用函数来获取DOM元素关联的数据。</p>
+
+<ul>
+<li><code>Ko.dataFor(element)</code>：返回元素绑定的数据。</li>
+<li><code>Ko.contextFor(element)</code>：返回DOM元素的整个绑定上下文。</li>
+</ul>
+
+<p>这两个函数可以在非侵入式事件绑定时使用，如jquery的bind或click。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.remove&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">ko</span><span class="p">.</span><span class="nx">dataFor</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>此外也可以在事件代理中使用，如jquery的live/delegate/on。这样绑定的事件对动态添加的元素也是生效的。</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.container&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="s2">&quot;.remove&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">ko</span><span class="p">.</span><span class="nx">dataFor</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>例：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;people&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;template: { name: &quot;personTmpl&quot;, foreach: people }&#39;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;personTmpl&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/html&quot;</span><span class="p">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="nx">a</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;remove&quot;</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="o">&gt;</span> <span class="nx">x</span> <span class="o">&lt;</span><span class="err">/a&gt;</span>
+        <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">data</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s1">&#39;text: name&#39;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;</span>
+        <span class="o">&lt;</span><span class="nx">a</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;add&quot;</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="o">&gt;</span> <span class="nx">add</span> <span class="nx">child</span> <span class="o">&lt;</span><span class="err">/a&gt;</span>
+        <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">data</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s1">&#39;template: { name: &quot;personTmpl&quot;, foreach: children }&#39;</span><span class="o">&gt;&lt;</span><span class="err">/ul&gt;</span>
+    <span class="o">&lt;</span><span class="err">/li&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">children</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">(</span><span class="nx">children</span> <span class="o">||</span> <span class="p">[]);</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">PeopleModel</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">people</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span>
+        <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="p">[</span>
+            <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Jan&quot;</span><span class="p">),</span>
+            <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Don&quot;</span><span class="p">,</span> <span class="p">[</span>
+                <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Ted&quot;</span><span class="p">),</span>
+                <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Ben&quot;</span><span class="p">,</span> <span class="p">[</span>
+                    <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Joe&quot;</span><span class="p">,</span> <span class="p">[</span>
+                        <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Ali&quot;</span><span class="p">),</span>
+                        <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Ken&quot;</span><span class="p">)</span>
+                    <span class="p">])</span>
+                <span class="p">]),</span>
+                <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Doug&quot;</span><span class="p">)</span>
+            <span class="p">])</span>
+        <span class="p">]),</span>
+        <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Ann&quot;</span><span class="p">,</span> <span class="p">[</span>
+            <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Eve&quot;</span><span class="p">),</span>
+            <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Hal&quot;</span><span class="p">)</span>
+        <span class="p">])</span>
+    <span class="p">]);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">addChild</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">parentArray</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">parentArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">));</span>
+    <span class="p">};</span>
+<span class="p">};</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="k">new</span> <span class="nx">PeopleModel</span><span class="p">());</span>
+
+<span class="c1">//attach event handlers</span>
+<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="s2">&quot;.remove&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//retrieve the context</span>
+    <span class="kd">var</span> <span class="nx">context</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">contextFor</span><span class="p">(</span><span class="k">this</span><span class="p">),</span>
+        <span class="nx">parentArray</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">$parent</span><span class="p">.</span><span class="nx">people</span> <span class="o">||</span> <span class="nx">context</span><span class="p">.</span><span class="nx">$parent</span><span class="p">.</span><span class="nx">children</span><span class="p">;</span>
+
+    <span class="c1">//remove the data (context.$data) from the appropriate array on its parent (context.$parent)</span>
+    <span class="nx">parentArray</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">$data</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">});</span>
+
+<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="s2">&quot;.add&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">//retrieve the context</span>
+    <span class="kd">var</span> <span class="nx">context</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">contextFor</span><span class="p">(</span><span class="k">this</span><span class="p">),</span>
+        <span class="nx">childName</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">$data</span><span class="p">.</span><span class="nx">name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; child&quot;</span><span class="p">,</span>
+        <span class="nx">parentArray</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">$data</span><span class="p">.</span><span class="nx">people</span> <span class="o">||</span> <span class="nx">context</span><span class="p">.</span><span class="nx">$data</span><span class="p">.</span><span class="nx">children</span><span class="p">;</span>
+
+    <span class="c1">//add a child to the appropriate parent, calling a method off of the main view model (context.$root)</span>
+    <span class="nx">context</span><span class="p">.</span><span class="nx">$root</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="nx">childName</span><span class="p">,</span> <span class="nx">parentArray</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="http://knockoutjs.com/documentation/binding-syntax.html">KnockoutJS documentation</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/knockoutjs"><span class="tag">KnockoutJS</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>320</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][KnockoutJS] Rate-limiting observable notification</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][KnockoutJS] Rate-limiting observable notification" />
+    <meta name="twitter:description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-ratelimit-observable/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][KnockoutJS] Rate-limiting observable notification</h1>
+      <p class="post-meta">@wukn · Nov 12, 2016 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>&ldquo;KnockoutJS文档官网：<a href="http://knockoutjs.com/documentation/introduction.html&quot;">http://knockoutjs.com/documentation/introduction.html&quot;</a></p>
+</blockquote>
+
+<p></p>
+
+<h2 id="延时通知-rate-limiting-notification">延时通知(rate-limiting notification)</h2>
+
+<p>通常监控属性在变化时是实时通知订阅者的，以便依赖它的计算监控属性和绑定能实时同步更新。而<code>rateLimit</code>扩展器是为了将变化通知阻止并延迟指定时间。延时监控属性是异步通知依赖者的。</p>
+
+<p><code>rateLimit</code>扩展器可用于任何监控属性，包括计算监控属性和监控数组。通常使用它的原因是：
+* 使响应延迟一段时间。
+* 将多个变化合并到一次更新中。</p>
+
+<p>如果只是要合并更新而不需要延时，使用deferred监控效率更高。</p>
+
+<h3 id="使用ratelimit扩展器">使用rateLimit扩展器</h3>
+
+<p><code>rateLimit</code>有两种参数格式：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// Shorthand: Specify just a timeout in milliseconds</span>
+<span class="nx">someObservableOrComputed</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="mi">500</span> <span class="p">});</span>
+
+<span class="c1">// Longhand: Specify timeout and/or method</span>
+<span class="nx">someObservableOrComputed</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="p">{</span> <span class="nx">timeout</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span> <span class="nx">method</span><span class="o">:</span> <span class="s2">&quot;notifyWhenChangesStop&quot;</span> <span class="p">}</span> <span class="p">});</span>
+</code></pre></div>
+
+<p><code>method</code>选项是在通知发起时触发，有两个参数：</p>
+
+<ul>
+<li><code>notifyAtFixedRate</code>：没有指定method选项时的默认值。从监控属性第一次改变开始（初始化时或上一次更新后），在指定时间后开始通知。</li>
+<li><code>notifyWhenChangesStop</code>：监控属性在指定时间后没有变化时开始通知。监控属性每次变化时，定时器就会被更新。因此如果监控属性更新频率比指定时间还短时，就一直不会发出通知。</li>
+</ul>
+
+<h3 id="例1-基本的示例">例1：基本的示例</h3>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s1">&#39;Bert&#39;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">upperCaseName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">name</span><span class="p">().</span><span class="nx">toUpperCase</span><span class="p">();</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>通常会这样改变name的值：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">name</span><span class="p">(</span><span class="s1">&#39;The New Bert&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<p>这时upperCaseName会立即更新。而如果使用了rateLimit：</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s1">&#39;Bert&#39;</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="mi">500</span> <span class="p">});</span>
+</code></pre></div>
+
+<p>那么upperCaseName不会在name变化后立即重新计算，name会在值变化后等待500ms再将新的值通知给upperCaseName。不管在这500ms内name的值变化了多少次，upperCaseName只会收到一次最新值得通知。</p>
+
+<h3 id="例2-在用户停止输入时执行一些逻辑">例2：在用户停止输入时执行一些逻辑</h3>
+
+<p>在本例中，监控属性<code>instantaneousValue</code>是用户按下按键后的实时输入值，计算监控属性<code>delayedValue</code>配置为在<code>instantaneousValue</code>停止变化400ms后被通知。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Type stuff here: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;textInput: instantaneousValue&#39;</span> <span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Current delayed value: <span class="p">&lt;</span><span class="nt">b</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;text: delayedValue&#39;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;visible: loggedValues().length &gt; 0&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Stuff you have typed:<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;foreach: loggedValues&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: $data&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">AppViewModel</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">instantaneousValue</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">delayedValue</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">pureComputed</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">instantaneousValue</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="p">{</span> <span class="nx">method</span><span class="o">:</span> <span class="s2">&quot;notifyWhenChangesStop&quot;</span><span class="p">,</span> <span class="nx">timeout</span><span class="o">:</span> <span class="mi">400</span> <span class="p">}</span> <span class="p">});</span>
+
+    <span class="c1">// Keep a log of the throttled values</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">loggedValues</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([]);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">delayedValue</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">val</span> <span class="o">!==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">loggedValues</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+    <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="k">new</span> <span class="nx">AppViewModel</span><span class="p">());</span>
+</code></pre></div>
+
+<h3 id="计算监控属性的特殊情况">计算监控属性的特殊情况</h3>
+
+<p>对于计算监控属性，rateLimit定时器是在它依赖的监控属性其中一个变化时开始触发，而不是在计算监控属性的值变化时。计算监控属性只会在需要它的值时才重新评估——延时已到应该发出通知了，或者当它的值被直接访问。如果需要计算监控属性的最新值，可以使用<code>peek</code>方法。</p>
+
+<h3 id="强制延时的监控属性始终通知订阅者">强制延时的监控属性始终通知订阅者</h3>
+
+<p>当监控属性的值是原始类型时（数字、字符串、bool值、null），监控属性只会在设置的值与之前的值不一样时才通知依赖者。因此，原始值得监控属性延时更新时，只会在延时timeout时，值的确不一样了才发出通知。也就是说如果原始类型监控属性延时更新，在延时timeout之前值变化了又变回原来的值，是不会通知更新的。</p>
+
+<p>为了保证订阅者始终能收更新到通知，即使值一样，可以使用notify扩展器：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">myViewModel</span><span class="p">.</span><span class="nx">fullName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">myViewModel</span><span class="p">.</span><span class="nx">firstName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nx">myViewModel</span><span class="p">.</span><span class="nx">lastName</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">notify</span><span class="o">:</span> <span class="s1">&#39;always&#39;</span><span class="p">,</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="mi">500</span> <span class="p">});</span>
+</code></pre></div>
+
+<h3 id="与deferred的比较">与deferred的比较</h3>
+
+<p>deferred与rateLimit相似，deferred是通过异步通知和更新的来达到延迟目的的。但defferred用的不是延时的方式，而是在当前任务结束后立刻更新。在使用ko v3.4.0版本之后可以用deferred来代替rateLimit：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ....</span>
+<span class="p">}).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">deferred</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+</code></pre></div>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="http://knockoutjs.com/documentation/rateLimit-observable.html">KnockoutJS documentation</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/knockoutjs"><span class="tag">KnockoutJS</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>320</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

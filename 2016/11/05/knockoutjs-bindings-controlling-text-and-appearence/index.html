@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][KnockoutJS] Bindings - Controlling text and appearence</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][KnockoutJS] Bindings - Controlling text and appearence" />
+    <meta name="twitter:description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/11/05/knockoutjs-bindings-controlling-text-and-appearence/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][KnockoutJS] Bindings - Controlling text and appearence</h1>
+      <p class="post-meta">@wukn · Nov 5, 2016 · 3 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>&ldquo;KnockoutJS文档官网：<a href="http://knockoutjs.com/documentation/introduction.html&quot;">http://knockoutjs.com/documentation/introduction.html&quot;</a></p>
+</blockquote>
+
+<p></p>
+
+<h2 id="visible">visible</h2>
+
+<p>visible绑定用于控制DOM元素隐藏或显示。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;visible: shouldShowMessage&quot;</span><span class="p">&gt;</span>
+    You will see this message only when &quot;shouldShowMessage&quot; holds a true value.
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+    <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">shouldShowMessage</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="c1">// Message initially visible</span>
+    <span class="p">};</span>
+    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">shouldShowMessage</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span> <span class="c1">// ... now it&#39;s hidden</span>
+    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">shouldShowMessage</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span> <span class="c1">// ... now it&#39;s visible again</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>当参数值为假时（false-like value：bool值false、数字0、null、undefined等），该绑定会设置DOM元素的<code>yourElement.style.display</code>属性为none使其隐藏。它的优先级高于CSS中的定义的隐藏样式。</p>
+
+<p>当参数值为真时（true-like value：bool值true、不为null的对象或数组等），该绑定会移除DOM元素的<code>yourElement.style.display</code>属性使其可见。注意此时CSS中定义的样式将会生效。</p>
+
+<p>如果参数是监控属性，该绑定会随着参数值变化而更新元素，否则只会绑定一次而不再更新。</p>
+
+<p>绑定的参数可以使用函数或表达式。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;visible: myValues().length &gt; 0&quot;</span><span class="p">&gt;</span>
+    You will see this message only when &#39;myValues&#39; has at least one member.
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+    <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">myValues</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([])</span> <span class="c1">// Initially empty, so message hidden</span>
+    <span class="p">};</span>
+    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">myValues</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&quot;some value&quot;</span><span class="p">);</span> <span class="c1">// Now visible</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<h2 id="text">text</h2>
+
+<p>text绑定用于DOM元素显示文本，通过设置元素的innerText或textContent。
+通常用于<span>或<em>元素用来显示文本，实际上可用于任何元素。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span>Today&#39;s message is: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: myMessage&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+    <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">myMessage</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">()</span> <span class="c1">// Initially blank</span>
+    <span class="p">};</span>
+    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">myMessage</span><span class="p">(</span><span class="s2">&quot;Hello, world!&quot;</span><span class="p">);</span> <span class="c1">// Text appears</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>如果绑定参数的不是字符串或数字，那么DOM元素的text相当于<code>yourParameter.toString()</code>。</p>
+
+<p>如果参数是监控属性，该绑定会随着参数值变化而更新元素，否则只会绑定一次而不再更新。</p>
+
+<p>绑定的参数可以使用函数或表达式。</p>
+
+<p>注1：与html不同，参数值中若包含html标签，显示时不会解析成html，而是原样显示。</p>
+
+<p>注2：使用text但没有承载元素</p>
+
+<p>如果想用ko进行text绑定但没有元素可用于绑定时，例如option元素中不能包含其他元素：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;foreach: items&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">option</span><span class="p">&gt;</span>Item <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: name&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">option</span><span class="p">&gt;</span><span class="c">&lt;!--not work--&gt;</span>
+<span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>可以使用基于标注标签的无承载标签语法（containerless syntax），以<code>&lt;!--ko--&gt;</code>和<code>&lt;!--/ko--&gt;</code>为开始标签和结束标签定义一个“虚拟元素 ”（virtual element）。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;foreach: items&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">option</span><span class="p">&gt;</span>Item <span class="c">&lt;!--ko text: name--&gt;&lt;!--/ko--&gt;</span><span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>注3：IE6的空格问题</p>
+
+<p>IE6并不会显示span标签后紧跟的空格，因此</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span>Welcome, <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: userName&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> to our web site.<span class="c">&lt;!--not whitespace before &#39;to&#39; in IE6--&gt;</span>
+
+Welcome, <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: userName&quot;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> to our web site.<span class="c">&lt;!--show as you wish--&gt;</span>
+</code></pre></div>
+
+<h2 id="html">html</h2>
+
+<p>html绑定用于DOM元素显示html内容。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;html: details&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+    <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">details</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">()</span> <span class="c1">// Initially blank</span>
+    <span class="p">};</span>
+    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">details</span><span class="p">(</span><span class="s2">&quot;&lt;em&gt;For further details, view the report &lt;a href=&#39;report.html&#39;&gt;here&lt;/a&gt;.&lt;/em&gt;&quot;</span><span class="p">);</span> <span class="c1">// HTML content appears</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>jquery可用时，ko使用jquery的html函数，否则将参数解析成html节点并添加为绑定DOM元素的子节点。</p>
+
+<p>如果参数是监控属性，该绑定会随着参数值变化而更新元素，否则只会绑定一次而不再更新。</p>
+
+<p>如果绑定参数的不是字符串或数字，那么DOM元素的innerHTML相当于<code>yourParameter.toString()</code>。</p>
+
+<h2 id="css">CSS</h2>
+
+<p>css绑定用于向DOM元素添加或移除命名的CSS类。</p>
+
+<p>例1：绑定静态CSS类</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;css: { profitWarning: currentProfit() &lt; 0 }&quot;</span><span class="p">&gt;</span>
+   Profit Information
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+    <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">currentProfit</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="mi">150000</span><span class="p">)</span> <span class="c1">// Positive value, so initially we don&#39;t apply the &quot;profitWarning&quot; class</span>
+    <span class="p">};</span>
+    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">currentProfit</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">);</span> <span class="c1">// Causes the &quot;profitWarning&quot; class to be applied</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>当currentProfit小于0时，CSS类profitWarning被应用；当currentProfit大于等于0时，CSS类profitWarning被移除。</p>
+
+<p>例2：绑定动态CSS类</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;css: profitStatus&quot;</span><span class="p">&gt;</span>
+   Profit Information
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+    <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">currentProfit</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="mi">150000</span><span class="p">)</span>
+    <span class="p">};</span>
+
+    <span class="c1">// Evalutes to a positive value, so initially we apply the &quot;profitPositive&quot; class</span>
+    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">profitStatus</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">pureComputed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentProfit</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">?</span> <span class="s2">&quot;profitWarning&quot;</span> <span class="o">:</span> <span class="s2">&quot;profitPositive&quot;</span><span class="p">;</span>
+    <span class="p">},</span> <span class="nx">viewModel</span><span class="p">);</span>
+
+    <span class="c1">// Causes the &quot;profitPositive&quot; class to be removed and &quot;profitWarning&quot; class to be added</span>
+    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">currentProfit</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">);</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>当currentProfit非负时，应用CSS类profitPositive，否则应用CSS类profitWarning。</p>
+
+<p>如果使用静态CSS类名，可以传递一个属性名为CSS类名、值为可被计算为bool值的js对象。也就是说，可以一次设置多个CSS类：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;css: { profitWarning: currentProfit() &lt; 0, majorHighlight: isSevere }&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>甚至可以通过将多个CSS类名时用引号包装用同一个条件控制：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;css: { profitWarning: currentProfit() &lt; 0, &#39;major highlight&#39;: isSevere }&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>非bool值会被宽松地解释为bool值。如0和null会被当成false，21或非null对象会被当成true。</p>
+
+<p>如果使用动态CSS类名，将CSS类名作为字符串传递给参数就行。如果绑定的时监控属性，监控属性变化时，之前添加的CSS类将被移除而重新添加。</p>
+
+<p>如果参数是监控属性，该绑定会随着参数值变化而更新元素，否则只会绑定一次而不再更新。</p>
+
+<p>绑定的参数可以使用函数或表达式。</p>
+
+<p>当CSS类名是非法的js变量名时，例如my-class，不能直接这样写：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;css: { my-class: someValue }&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>应该时用引号使其成为字符串字面量（string literal），从而在js对象字面量（object literal）中时合理的。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;css: { &#39;my-class&#39;: someValue }&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<h2 id="style">style</h2>
+
+<p>style绑定用于向DOM元素添加或移除style值。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;style: { color: currentProfit() &lt; 0 ? &#39;red&#39; : &#39;black&#39; }&quot;</span><span class="p">&gt;</span>
+   Profit Information
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+    <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">currentProfit</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="mi">150000</span><span class="p">)</span> <span class="c1">// Positive value, so initially black</span>
+    <span class="p">};</span>
+    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">currentProfit</span><span class="p">(</span><span class="o">-</span><span class="mi">50</span><span class="p">);</span> <span class="c1">// Causes the DIV&#39;s contents to go red</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>当currentProfit值小于0时，元素的style.color属性被赋值red，大于等于0时赋值black。</p>
+
+<p>绑定的参数可以使用属性名为style名称、值为style值的js对象。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;style: { color: currentProfit() &lt; 0 ? &#39;red&#39; : &#39;black&#39;, fontWeight: isSevere() ? &#39;bold&#39; : &#39;&#39; }&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>如果参数是监控属性，该绑定会随着参数值变化而更新元素，否则只会绑定一次而不再更新。</p>
+
+<p>绑定的参数可以使用函数或表达式。</p>
+
+<p>不能使用非js标识符的style名称（如font-weight或text-decoration等），必须使用style的js名称（如{ fontWeight: someValue }或{ textDecoration: someValue }等）。</p>
+
+<p>详见JavaScript Style Attributes。</p>
+
+<h2 id="attr">attr</h2>
+
+<p>attr绑定提供更通用的方式向DOM元素添加属性。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;attr: { href: url, title: details }&quot;</span><span class="p">&gt;</span>
+    Report
+<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
+    <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="nx">url</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s2">&quot;year-end.html&quot;</span><span class="p">),</span>
+        <span class="nx">details</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s2">&quot;Report including final year-end statistics&quot;</span><span class="p">)</span>
+    <span class="p">};</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>绑定的参数可以使用属性名为属性名称、值为属性值的js对象。</p>
+
+<p>如果参数是监控属性，该绑定会随着参数值变化而更新元素，否则只会绑定一次而不再更新。</p>
+
+<p>属性名为关键字或非法的js变量名时，需要使用引号包裹。</p>
+
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#Keywords">Javacript Keywords</a>。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="http://knockoutjs.com/documentation/visible-binding.html">KnockoutJS documentation</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/knockoutjs"><span class="tag">KnockoutJS</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>327</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

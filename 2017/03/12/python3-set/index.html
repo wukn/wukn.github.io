@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Python3] 集合</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" Python3 集合。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Python3] 集合" />
+    <meta name="twitter:description" content=" Python3 集合。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2017/03/12/python3-set/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Python3] 集合</h1>
+      <p class="post-meta">@wukn · Mar 12, 2017 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>Python3 集合。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="集合-set">集合（Set）</h3>
+
+<p>集合是一个无序不重复元素集。其中的元素为可哈希对象。常用于关系测试和消除序列中的重复元素. 以及一些数学运算，如intersection（交集）、union（并集）、difference（差集）和sysmmetric difference（对称差集）。</p>
+
+<p>集合支持以下操作：<code>x in set</code>、<code>len(set)</code>和<code>for x in set</code>。由于集合内的元素是无序的，集合并不记录元素的位置和插入的顺序，因此，它不支持索引、切片等序列相关的操作。</p>
+
+<p>集合有两种类型，set和frozenset。set是可变类型的，也就是说可以使用<code>add()</code>和<code>remove()</code>方法来改变它的内容。因为它是可变的，所以它没有hash值，并且不能用作字典的key或者作为另一个集合的元素。frozenset是不可变且可哈希的。它一旦创建后内容便不能被修改。它可以用作字典的key或者作为另一个集合的元素。</p>
+
+<p>集合可以通过构造函数创建：<code>set(iterable)</code>和<code>frozenset(iterable)</code>。如果iterable省略，那么创建的就是空集合。</p>
+
+<p>set（不包括frozenset）还可以通过大括号和逗号分隔的元素列表创建，例如：<code>{'tom', 'jerry'}</code>。</p>
+
+<p>跟列表解析类似，还可以使用集合解析来创建：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="s1">&#39;abracadabra&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="s1">&#39;abc&#39;</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="p">{</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">}</span>
+</code></pre></div>
+
+<p>注意： 若要创建一个空集必须使用set()，而不能用 {}；后者将创建一个空的字典。</p>
+
+<h3 id="通用集合操作">通用集合操作</h3>
+
+<p>set和frozenset支持以下操作：</p>
+
+<ul>
+<li><code>len(s)</code>：返回集合s的容量。</li>
+<li><code>x in s</code>：测试元素x是否存在于集合s中。</li>
+<li><code>x not in s</code>：测试元素x是否不存在于集合s中。</li>
+<li><code>isdisjoint(other)</code>：如果集合中没有跟other相同的元素（与other不相交），则返回True。两个集合的交集为空则为不相交。</li>
+<li><code>issubset(other)</code>和<code>set &lt;= other</code>：测试集合是否为other的子集，即是否集合中所有的元素都在other中。</li>
+<li><code>set &lt; other</code>：测试集合是否为other的真子集，也就是<code>set &lt;= other</code>且<code>set != other</code>。</li>
+<li><code>issuperset(other)</code>和<code>set &gt;= other</code>：测试other是否为集合的子集，即是否other中所有的元素都在集合中。</li>
+<li><code>set &gt; other</code>：测试other是否为集合的真子集，也就是<code>set &gt;= other</code>且<code>set != other</code>。</li>
+<li><code>union(other, ...)</code>和<code>set | other | ...</code>：将集合的并集放到一个新的集合中返回。</li>
+<li><code>intersection(other, ...)</code>和<code>set &amp; other &amp; ...</code>：将集合的交集放到一个新的集合中返回。</li>
+<li><code>difference(other, ...)</code>和<code>set - other - ...</code>：将在set中而不在其它集合中的元素放到一个新的集合中返回。</li>
+<li><code>symmetric_difference(other)</code>和<code>set ^ other</code>：将set和other的对称差集放到一个新的集合中返回。（对称差集：所有在set或者other中但不是同时在两个集合中的元素）</li>
+<li><code>copy()</code>：将s的浅拷贝作为一个新的集合返回。</li>
+</ul>
+
+<p>注意，非操作符版的<code>union()</code>、<code>intersection()</code>、<code>difference()</code>、<code>symmetric_difference()</code>、<code>issubset()</code>和<code>issuperset()</code>可以接受任意迭代器（iterable）作为参数。相对的，操作符版的方法所需的参数必须为集合。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">set</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="s1">&#39;cbs&#39;</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="s2">&quot;&lt;stdin&gt;&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="n">unsupported</span> <span class="n">operand</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="o">&amp;</span><span class="p">:</span> <span class="s1">&#39;set&#39;</span> <span class="ow">and</span> <span class="s1">&#39;str&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">set</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="s1">&#39;cbs&#39;</span><span class="p">)</span>
+<span class="p">{</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">}</span>
+</code></pre></div>
+
+<p>set和frozenset都支持集合比较。如果每个集合中的所有元素都在另一个集合中（两个集合互为子集），那么这两个集合就是相等的。如果集合A是集合B的真子集，那么集合A小于集合B。如果集合A是集合B的真超集，那么集合A大于集合B。</p>
+
+<p>set和frozenset比较是根据它们的元素进行比较的。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">set</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="nb">frozenset</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">set</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">([</span><span class="nb">frozenset</span><span class="p">(</span><span class="s1">&#39;abc&#39;</span><span class="p">)])</span>
+<span class="bp">True</span>
+</code></pre></div>
+
+<p>子集和相等性比较不能推算出子集的排序顺序。例如，两个不相交的集合既不相等也不是对方的子集，也就是说<code>a&lt;b</code>、<code>a==b</code>和<code>a&gt;b</code>都返回False。</p>
+
+<p>set和frozenset混合的二进制操作返回的是第一个操作数的类型。例如，<code>frozenset('ab') | set('bc')</code>返回的是一个frozenset实例。</p>
+
+<h3 id="可变集合操作">可变集合操作</h3>
+
+<p>set支持而frozenset不支持的操作如下：
+* <code>update(other, ...)</code>和<code>set |= other | ...</code>：更新集合set，将所有其它集合的元素添加到其中。（将集合更新为与其他集合的并集）
+* <code>intersection_update(other, ...)</code>和<code>set &amp;= other &amp; ...</code>：更新集合set，只保留它跟所有其他集合并集的元素。（将集合更新为与其他集合的交集）
+* <code>difference_update(other, ...)</code>和<code>set -= other | ...</code>：更新集合set，移除在其他集合中的元素。（将集合更新为与其他集合的差集）
+* <code>symmetric_difference_update(other)</code>和<code>set ^= other</code>：更新集合set，只保留存在于其中一个集合而不是同时存在于两个集合中的元素。（将集合更新为与其他集合的对称差集）
+* <code>add(elem)</code>：向集合中添加一个元素elem。
+* <code>remove(elem)</code>：从集合中移除元素elem。elem不存在于集合中时会引发KeyError异常。
+* <code>discard(elem)</code>：如果集合中存在elem，那么从集合中移除它。
+* <code>pop()</code>：从集合中移除并返回任意一个元素。如果集合为空会引发KeyError异常。
+* <code>clear()</code>：移除集合中的所有元素。</p>
+
+<p>非操作符版的<code>update()</code>、<code>intersection_update()</code>、<code>difference_update()</code>和<code>symmetric_difference_update()</code>方法可以接受任意迭代器（iterable）作为参数。</p>
+
+<p><code>__contains__()</code>、<code>remove()</code>和<code>discard()</code>方法的<code>elem</code>参数必须为集合。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://docs.python.org/3.5/library/stdtypes.html#set-types-set-frozenset">Python3 Documentation - Language Reference</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/python3"><span class="tag">Python3</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>200</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

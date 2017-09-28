@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][KnockoutJS] Extending observables</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][KnockoutJS] Extending observables" />
+    <meta name="twitter:description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-extending-observables/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][KnockoutJS] Extending observables</h1>
+      <p class="post-meta">@wukn · Nov 12, 2016 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>&ldquo;KnockoutJS文档官网：<a href="http://knockoutjs.com/documentation/introduction.html&quot;">http://knockoutjs.com/documentation/introduction.html&quot;</a></p>
+</blockquote>
+
+<p></p>
+
+<h2 id="创建扩展器">创建扩展器</h2>
+
+<p>向<code>ko.extenders</code>对象添加一个方法来创建一个扩展器。添加的方法有两个参数，第一个参数监控属性自身，第二个参数是任意的参数。它可以返回监控属性本身，或者返回使用原监控属性的计算监控属性。</p>
+
+<p>例如，定义一个扩展器<code>logChange</code>，订阅监控属性，使用配置的信息在控制台中输出日志：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">extenders</span><span class="p">.</span><span class="nx">logChange</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">option</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">target</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">newValue</span><span class="p">)</span> <span class="p">{</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">option</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nx">newValue</span><span class="p">);</span>
+    <span class="p">});</span>
+    <span class="k">return</span> <span class="nx">target</span><span class="p">;</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>使用该扩展器时，调用监控属性的<code>extend</code>方法，传入一个包含<code>logChange</code>属性的对象作为参数。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s2">&quot;Bob&quot;</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span><span class="nx">logChange</span><span class="o">:</span> <span class="s2">&quot;first name&quot;</span><span class="p">});</span>
+</code></pre></div>
+
+<h3 id="例1-强制输入为数字">例1：强制输入为数字</h3>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;value: myNumberOne&quot;</span> <span class="p">/&gt;</span> (round to whole number)<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;value: myNumberTwo&quot;</span> <span class="p">/&gt;</span> (round to two decimals)<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">extenders</span><span class="p">.</span><span class="nx">numeric</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">precision</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//create a writable computed observable to intercept writes to our observable</span>
+    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">pureComputed</span><span class="p">({</span>
+        <span class="nx">read</span><span class="o">:</span> <span class="nx">target</span><span class="p">,</span>  <span class="c1">//always return the original observables value</span>
+        <span class="nx">write</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">newValue</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">current</span> <span class="o">=</span> <span class="nx">target</span><span class="p">(),</span>
+                <span class="nx">roundingMultiplier</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">pow</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="nx">precision</span><span class="p">),</span>
+                <span class="nx">newValueAsNum</span> <span class="o">=</span> <span class="nb">isNaN</span><span class="p">(</span><span class="nx">newValue</span><span class="p">)</span> <span class="o">?</span> <span class="mi">0</span> <span class="o">:</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="o">+</span><span class="nx">newValue</span><span class="p">),</span>
+                <span class="nx">valueToWrite</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">newValueAsNum</span> <span class="o">*</span> <span class="nx">roundingMultiplier</span><span class="p">)</span> <span class="o">/</span> <span class="nx">roundingMultiplier</span><span class="p">;</span>
+
+            <span class="c1">//only write if it changed</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">valueToWrite</span> <span class="o">!==</span> <span class="nx">current</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">target</span><span class="p">(</span><span class="nx">valueToWrite</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="c1">//if the rounded value is the same, but a different value was written, force a notification for the current field</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">newValue</span> <span class="o">!==</span> <span class="nx">current</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">target</span><span class="p">.</span><span class="nx">notifySubscribers</span><span class="p">(</span><span class="nx">valueToWrite</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">notify</span><span class="o">:</span> <span class="s1">&#39;always&#39;</span> <span class="p">});</span>
+
+    <span class="c1">//initialize with current value to make sure it is rounded appropriately</span>
+    <span class="nx">result</span><span class="p">(</span><span class="nx">target</span><span class="p">());</span>
+
+    <span class="c1">//return the new computed observable</span>
+    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">AppViewModel</span><span class="p">(</span><span class="nx">one</span><span class="p">,</span> <span class="nx">two</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">myNumberOne</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="nx">one</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">numeric</span><span class="o">:</span> <span class="mi">0</span> <span class="p">});</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">myNumberTwo</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="nx">two</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">numeric</span><span class="o">:</span> <span class="mi">2</span> <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="k">new</span> <span class="nx">AppViewModel</span><span class="p">(</span><span class="mf">221.2234</span><span class="p">,</span> <span class="mf">123.4525</span><span class="p">));</span>
+</code></pre></div>
+
+<p>注意，为了自动清除界面上的格式不对的值，需要对计算监控属性调用<code>extend({ notify: 'always' })</code>，否则可能会出现用户输入了无效的<code>newValue</code>后在截断时返回了未改变的<code>valueToWrite</code>。然后，由于模型值没变，就不会通知文本框更新。使用<code>extend({ notify: 'always' })</code>会强制文本框更新值，即使计算属性的值没变。</p>
+
+<h3 id="例2-为监控属性添加验证">例2：为监控属性添加验证</h3>
+
+<p>本例创建一个可以验证监控属性的扩展器。不同于返回新对象，该扩展器只是为已有的监控属性添加额外的子监控属性。由于监控属性是函数，它们可以有自己的属性。然而当视图模型转换为json时，子监控属性会被忽略。这样能很方便地添加只跟UI相关不需要与服务器交互的额外功能。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;css: { error: firstName.hasError }&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;value: firstName, valueUpdate: &quot;afterkeydown&quot;&#39;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;visible: firstName.hasError, text: firstName.validationMessage&#39;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;css: { error: lastName.hasError }&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;value: lastName, valueUpdate: &quot;afterkeydown&quot;&#39;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;visible: lastName.hasError, text: lastName.validationMessage&#39;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">extenders</span><span class="p">.</span><span class="nx">required</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">overrideMessage</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//add some sub-observables to our observable</span>
+    <span class="nx">target</span><span class="p">.</span><span class="nx">hasError</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span>
+    <span class="nx">target</span><span class="p">.</span><span class="nx">validationMessage</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span>
+
+    <span class="c1">//define a function to do validation</span>
+    <span class="kd">function</span> <span class="nx">validate</span><span class="p">(</span><span class="nx">newValue</span><span class="p">)</span> <span class="p">{</span>
+       <span class="nx">target</span><span class="p">.</span><span class="nx">hasError</span><span class="p">(</span><span class="nx">newValue</span> <span class="o">?</span> <span class="kc">false</span> <span class="o">:</span> <span class="kc">true</span><span class="p">);</span>
+       <span class="nx">target</span><span class="p">.</span><span class="nx">validationMessage</span><span class="p">(</span><span class="nx">newValue</span> <span class="o">?</span> <span class="s2">&quot;&quot;</span> <span class="o">:</span> <span class="nx">overrideMessage</span> <span class="o">||</span> <span class="s2">&quot;This field is required&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">//initial validation</span>
+    <span class="nx">validate</span><span class="p">(</span><span class="nx">target</span><span class="p">());</span>
+
+    <span class="c1">//validate whenever the value changes</span>
+    <span class="nx">target</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">validate</span><span class="p">);</span>
+
+    <span class="c1">//return the original observable</span>
+    <span class="k">return</span> <span class="nx">target</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">AppViewModel</span><span class="p">(</span><span class="nx">first</span><span class="p">,</span> <span class="nx">last</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="nx">first</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">required</span><span class="o">:</span> <span class="s2">&quot;Please enter a first name&quot;</span> <span class="p">});</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">lastName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="nx">last</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">required</span><span class="o">:</span> <span class="s2">&quot;&quot;</span> <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="k">new</span> <span class="nx">AppViewModel</span><span class="p">(</span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span><span class="s2">&quot;Smith&quot;</span><span class="p">));</span>
+</code></pre></div>
+
+<h2 id="同时应用多个扩展器">同时应用多个扩展器</h2>
+
+<p>在一次调用<code>extend</code>方法时可以同时应用多个扩展器。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="nx">first</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">required</span><span class="o">:</span> <span class="s2">&quot;Please enter a first name&quot;</span><span class="p">,</span> <span class="nx">logChange</span><span class="o">:</span> <span class="s2">&quot;first name&quot;</span> <span class="p">});</span>
+</code></pre></div>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="http://knockoutjs.com/documentation/extenders.html">KnockoutJS documentation</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/knockoutjs"><span class="tag">KnockoutJS</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>320</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

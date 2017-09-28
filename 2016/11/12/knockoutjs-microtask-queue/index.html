@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][KnockoutJS] Microtask queue</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][KnockoutJS] Microtask queue" />
+    <meta name="twitter:description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-microtask-queue/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][KnockoutJS] Microtask queue</h1>
+      <p class="post-meta">@wukn · Nov 12, 2016 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>&ldquo;KnockoutJS文档官网：<a href="http://knockoutjs.com/documentation/introduction.html&quot;">http://knockoutjs.com/documentation/introduction.html&quot;</a></p>
+</blockquote>
+
+<p></p>
+
+<p>ko的微任务队列支持在异步运行时或尽量在I/O处理、重新流程处理、重新渲染界面之前对任务进行调度。在ko组件内部就是用它来维护异步行为和调度监控变量的deferred更新。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">schedule</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>使用上面的方法将提供的回调函数添加到微服务队列中。ko包含一个快速任务队列，它采用FIFO顺序执行任务知道队列为空。当第一个任务被调度时，如果浏览器支持的话，ko会使用浏览器的microtask来调度一个刷新事件。这样确保第一个任务和后续的任务相似。</p>
+
+<p>微任务可被取消，使用<code>ko.tasks.schedule</code>返回的值。任务已经在运行或已经被取消时，再取消将不会处理。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">handle</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">schedule</span><span class="p">(</span><span class="cm">/* ... */</span><span class="p">);</span>
+<span class="nx">ko</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">cancel</span><span class="p">(</span><span class="nx">handle</span><span class="p">);</span>
+</code></pre></div>
+
+<h2 id="错误处理">错误处理</h2>
+
+<p>如果一个任务抛出了异常，并不会中断任务队列。异常会被推迟到后面的一个事件中，而且能被<code>ko.onError</code>或<code>window.onerror</code>捕获并处理。</p>
+
+<p>当异常发生，在抛出原异常之前，可以使用<code>ko.onError</code>来处理异常。另外，由于原先的调用包装在try/catch中，传递给<code>ko.onError</code>的异常包含一个<code>stack</code>属性，而这是很多浏览器的<code>window.onerror</code>所没有的。</p>
+
+<p>该功能适用于处理一下情形的错误：</p>
+
+<ul>
+<li>textInput和value绑定部分产生的异步更新</li>
+<li>没有配置同步加载组件时，加载一个缓存的组件</li>
+<li>rateLimit计算中</li>
+<li>由<code>ko.utils.registerEventHandler</code>添加的事件处理器，包括使用event和click绑定的</li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">onError</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">myLogger</span><span class="p">(</span><span class="s2">&quot;error throwed.&quot;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<h2 id="递归任务限制">递归任务限制</h2>
+
+<p>由于ko会一直处理队列中的任务直到队列为空，不会返回到外层事件，大量的或耗时很长的任务会导致浏览器页面未响应。ko会在检测到有高层递归时取消剩余的所有任务，避免无线递归。例如，下面的例子中会最终停止并抛出错误：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">loop</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">ko</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">schedule</span><span class="p">(</span><span class="nx">loop</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">loop</span><span class="p">();</span>
+</code></pre></div>
+
+<h2 id="实现">实现</h2>
+
+<p>当第一个任务被调度时（初始时和前一个刷新事件完成后），ko会安排一个刷新事件来处理微任务队列。如果可能的话，ko会尝试使用浏览器自身的microtask功能。在现代浏览器中会使用<a href="http://dom.spec.whatwg.org/#mutation-observers">DOM mutation observer</a>，在老版本的IE中会使用<code>onreadystatechange</code>事件。这些方法可以使得在重新渲染页面之前开始处理任务队列。在其它浏览器中，将使用setTimeout来恢复处理。</p>
+
+<h2 id="高级队列控制">高级队列控制</h2>
+
+<p>ko提供了一些高级方法来控制处理中的任务队列。</p>
+
+<ul>
+<li><code>ko.tasks.runEarly()</code>：在需要时调用该方法来立刻处理微任务队列，直到队列为空。在与其它库集成时，可以在安排了一系列任务后，需要同步处理这些任务的效果时调用该方法。</li>
+<li><code>ko.tasks.scheduler</code>：重写该方法来重定义或增加ko的调度处理和刷新队列的逻辑。ko在调度第一个任务时调用该方法，因此它必须调度事件并立即返回。你或许更倾向在刷新事件中使用<code>process.nextTick</code>：<code>ko.tasks.scheduler = process.nextTick;</code>。</li>
+</ul>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="http://knockoutjs.com/documentation/microtasks.html">KnockoutJS documentation</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/knockoutjs"><span class="tag">KnockoutJS</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>320</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

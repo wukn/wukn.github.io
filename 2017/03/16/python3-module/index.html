@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Python3] 模块</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" Python3 模块。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Python3] 模块" />
+    <meta name="twitter:description" content=" Python3 模块。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2017/03/16/python3-module/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Python3] 模块</h1>
+      <p class="post-meta">@wukn · Mar 16, 2017 · 4 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>Python3 模块。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="模块-ｍodule">模块（Ｍodule）</h3>
+
+<p>通常我们将代码写到文件中（所谓的创建脚本），然后运行这个文件。对于很长的程序，我们希望将它分成多个文件，这样更易于维护和复用。</p>
+
+<p>Python支持将程序的内容放在文件中，然后在其它脚本或交互方式中使用。这种文件就成为模块（Module）。</p>
+
+<p>模块是包含Python定义和声明的文件。文件名就是模块名加上.py后缀。在模块里面，模块名（是一个字符串）可以通过访问全局变量<code>__name__</code>的值得到。</p>
+
+<p>例如，创建一个<code>fibo.py</code>文件：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># Fibonacci numbers module</span>
+
+<span class="k">def</span> <span class="nf">fib</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>    <span class="c1"># write Fibonacci series up to n</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
+    <span class="k">print</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">fib2</span><span class="p">(</span><span class="n">n</span><span class="p">):</span> <span class="c1"># return Fibonacci series up to n</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span>
+    <span class="k">while</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">:</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div>
+
+<p>现在可以在Python解释器中导入并使用这个模块：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">fibo</span>
+</code></pre></div>
+
+<p>这样只是把模块名字<code>fibo</code>导入当前的符号表中，而不是把<code>fibo</code>中的函数名字导入其中。我们可以通过模块名访问这些函数：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">fibo</span><span class="o">.</span><span class="n">fib</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">8</span> <span class="mi">13</span> <span class="mi">21</span> <span class="mi">34</span> <span class="mi">55</span> <span class="mi">89</span> <span class="mi">144</span> <span class="mi">233</span> <span class="mi">377</span> <span class="mi">610</span> <span class="mi">987</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fibo</span><span class="o">.</span><span class="n">fib2</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">34</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">89</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fibo</span><span class="o">.</span><span class="vm">__name__</span>
+<span class="s1">&#39;fibo&#39;</span>
+</code></pre></div>
+
+<p>对于频繁使用的函数，可以把他赋给一个本地变量：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">fib</span> <span class="o">=</span> <span class="n">fibo</span><span class="o">.</span><span class="n">fib</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fib</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">8</span> <span class="mi">13</span> <span class="mi">21</span> <span class="mi">34</span> <span class="mi">55</span> <span class="mi">89</span> <span class="mi">144</span> <span class="mi">233</span> <span class="mi">377</span>
+</code></pre></div>
+
+<p>import模块或模块的内容时，可以起一个别名，然后使用别名来访问它：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">fibo</span> <span class="kn">as</span> <span class="nn">fibonacci</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fibonacci</span><span class="o">.</span><span class="n">fib</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">8</span> <span class="mi">13</span> <span class="mi">21</span> <span class="mi">34</span> <span class="mi">55</span> <span class="mi">89</span> <span class="mi">144</span> <span class="mi">233</span> <span class="mi">377</span>
+</code></pre></div>
+
+<h3 id="模块的导入">模块的导入</h3>
+
+<p>模块除了可以包含定义的函数，还可以包含可执行语句。这些语句通常是为了初始化模块，它们只在模块第一次导入时执行。（如果文件作为脚本运行，那它们也会执行。）</p>
+
+<p>每个模块都有它自己的似有符号表。模块内的函数使用它作为全局符号表。因此，在模块内使用全局变量不会与其它模块的全局变量有冲突。另外，可以使用引用模块函数的表示法访问模块的全局变量：<code>modname.itemname</code>。</p>
+
+<p>模块中可以导入其它模块。习惯上将import语句放在模块（或脚本）的开始。被导入的模块的名字放在导入模块的全局符号表中。</p>
+
+<p>另一种import语句可以从被导入模块中将名字导入到模块的符号表中，这样并不会把模块名导入到本地的符号表中。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">fibo</span> <span class="kn">import</span> <span class="n">fib</span><span class="p">,</span> <span class="n">fib2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fib</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">8</span> <span class="mi">13</span> <span class="mi">21</span> <span class="mi">34</span> <span class="mi">55</span> <span class="mi">89</span> <span class="mi">144</span> <span class="mi">233</span> <span class="mi">377</span>
+</code></pre></div>
+
+<p>或者导入所有名字：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">from</span> <span class="nn">fibo</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fib</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+<span class="mi">1</span> <span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">5</span> <span class="mi">8</span> <span class="mi">13</span> <span class="mi">21</span> <span class="mi">34</span> <span class="mi">55</span> <span class="mi">89</span> <span class="mi">144</span> <span class="mi">233</span> <span class="mi">377</span>
+</code></pre></div>
+
+<p>这种方式不会导入以下划线 ( _ ) 开头的名称。通常不建议这样做，因为这样会使代码的可读性变差。</p>
+
+<h3 id="将模块作为脚本执行">将模块作为脚本执行</h3>
+
+<p>当使用下列方式运行一个Python模块：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>python fibo.py &lt;arguments&gt;
+</code></pre></div>
+
+<p>模块中的代码将会被执行，就像导入它一样，只不过这时候<code>__name__</code>被设置为<code>__main__</code>。因此，如果在模块里加入如下代码：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">sys</span>
+    <span class="n">fib</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+</code></pre></div>
+
+<p>就可以让这个文件既作为可执行脚本，也可以作为模块被导入。因为解析命令行的那部分代码只有在模块作为 “main” 文件执行时才被调用。</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>$ python fibo.py <span class="m">50</span>
+<span class="m">1</span> <span class="m">1</span> <span class="m">2</span> <span class="m">3</span> <span class="m">5</span> <span class="m">8</span> <span class="m">13</span> <span class="m">21</span> <span class="m">34</span>
+</code></pre></div>
+
+<p>而导入该模块时，则不会运行这段代码：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">fibo</span>
+<span class="o">&gt;&gt;&gt;</span>
+</code></pre></div>
+
+<p>通常可以使用这种方式为模块提供用户接口或用于运行测试用例。</p>
+
+<h3 id="模块搜索路径">模块搜索路径</h3>
+
+<p>当导入一个名为spam的模块时，解释器首先在内置模块中搜索。如果没有找到，它会接着到sys.path变量给出的目录中查找名为spam.py的文件。sys.path变量的初始值来自这些位置：
+* 脚本所在的目录（如果没有指明文件，则为当前目录）
+* PYTHONPATH（一个包含目录名的列表，跟shell变量PATH的语法相同）
+* 与安装相关的默认值</p>
+
+<p>注意：在支持符号链接的文件系统中，输入的脚本所在的目录是符号链接所指向的目录。也就是说包含符号链接的目录不会被加到目录搜索路径中。</p>
+
+<p>在初始化之后，Python程序可以修改sys.path。脚本所在的目录被放置在搜索路径的最开始，也就是在标准库的路径之前。这意味着将会加载当前目录中的脚本，库目录中具有相同名称的模块不会被加载。</p>
+
+<h3 id="标准模块">标准模块</h3>
+
+<p>Python带有一个标准模块库，详细可见<a href="https://docs.python.org/3/library/index.html">库参考手册</a>。</p>
+
+<p>有一个特别的模块sys，它内置在每一个Python解释器中。</p>
+
+<p>变量sys.path是一个字符串列表，它决定了解释器搜索模块的路径。它初始的默认路径来自于环境变量PYTHONPATH，如果PYTHONPATH未设置则来自于内置的默认值。可以使用标准的列表操作修改它：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">sys</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/ufs/guido/lib/python&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+<h3 id="dir-函数">dir()函数</h3>
+
+<p>内置函数<code>dir()</code>用于找出模块中定义了哪些名字。它返回一个排序后的字符串列表：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">fibo</span><span class="o">,</span> <span class="nn">sys</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">dir</span><span class="p">(</span><span class="n">fibo</span><span class="p">)</span>
+<span class="p">[</span><span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;fib&#39;</span><span class="p">,</span> <span class="s1">&#39;fib2&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">dir</span><span class="p">(</span><span class="n">sys</span><span class="p">)</span>
+<span class="p">[</span><span class="s1">&#39;__displayhook__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s1">&#39;__excepthook__&#39;</span><span class="p">,</span> <span class="s1">&#39;__loader__&#39;</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;__package__&#39;</span><span class="p">,</span> <span class="s1">&#39;__stderr__&#39;</span><span class="p">,</span> <span class="s1">&#39;__stdin__&#39;</span><span class="p">,</span> <span class="s1">&#39;__stdout__&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;_clear_type_cache&#39;</span><span class="p">,</span> <span class="s1">&#39;_current_frames&#39;</span><span class="p">,</span> <span class="s1">&#39;_debugmallocstats&#39;</span><span class="p">,</span> <span class="s1">&#39;_getframe&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;_home&#39;</span><span class="p">,</span> <span class="s1">&#39;_mercurial&#39;</span><span class="p">,</span> <span class="s1">&#39;_xoptions&#39;</span><span class="p">,</span> <span class="s1">&#39;abiflags&#39;</span><span class="p">,</span> <span class="s1">&#39;api_version&#39;</span><span class="p">,</span> <span class="s1">&#39;argv&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;base_exec_prefix&#39;</span><span class="p">,</span> <span class="s1">&#39;base_prefix&#39;</span><span class="p">,</span> <span class="s1">&#39;builtin_module_names&#39;</span><span class="p">,</span> <span class="s1">&#39;byteorder&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;call_tracing&#39;</span><span class="p">,</span> <span class="s1">&#39;callstats&#39;</span><span class="p">,</span> <span class="s1">&#39;copyright&#39;</span><span class="p">,</span> <span class="s1">&#39;displayhook&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;dont_write_bytecode&#39;</span><span class="p">,</span> <span class="s1">&#39;exc_info&#39;</span><span class="p">,</span> <span class="s1">&#39;excepthook&#39;</span><span class="p">,</span> <span class="s1">&#39;exec_prefix&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;executable&#39;</span><span class="p">,</span> <span class="s1">&#39;exit&#39;</span><span class="p">,</span> <span class="s1">&#39;flags&#39;</span><span class="p">,</span> <span class="s1">&#39;float_info&#39;</span><span class="p">,</span> <span class="s1">&#39;float_repr_style&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;getcheckinterval&#39;</span><span class="p">,</span> <span class="s1">&#39;getdefaultencoding&#39;</span><span class="p">,</span> <span class="s1">&#39;getdlopenflags&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;getfilesystemencoding&#39;</span><span class="p">,</span> <span class="s1">&#39;getobjects&#39;</span><span class="p">,</span> <span class="s1">&#39;getprofile&#39;</span><span class="p">,</span> <span class="s1">&#39;getrecursionlimit&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;getrefcount&#39;</span><span class="p">,</span> <span class="s1">&#39;getsizeof&#39;</span><span class="p">,</span> <span class="s1">&#39;getswitchinterval&#39;</span><span class="p">,</span> <span class="s1">&#39;gettotalrefcount&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;gettrace&#39;</span><span class="p">,</span> <span class="s1">&#39;hash_info&#39;</span><span class="p">,</span> <span class="s1">&#39;hexversion&#39;</span><span class="p">,</span> <span class="s1">&#39;implementation&#39;</span><span class="p">,</span> <span class="s1">&#39;int_info&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;intern&#39;</span><span class="p">,</span> <span class="s1">&#39;maxsize&#39;</span><span class="p">,</span> <span class="s1">&#39;maxunicode&#39;</span><span class="p">,</span> <span class="s1">&#39;meta_path&#39;</span><span class="p">,</span> <span class="s1">&#39;modules&#39;</span><span class="p">,</span> <span class="s1">&#39;path&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;path_hooks&#39;</span><span class="p">,</span> <span class="s1">&#39;path_importer_cache&#39;</span><span class="p">,</span> <span class="s1">&#39;platform&#39;</span><span class="p">,</span> <span class="s1">&#39;prefix&#39;</span><span class="p">,</span> <span class="s1">&#39;ps1&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;setcheckinterval&#39;</span><span class="p">,</span> <span class="s1">&#39;setdlopenflags&#39;</span><span class="p">,</span> <span class="s1">&#39;setprofile&#39;</span><span class="p">,</span> <span class="s1">&#39;setrecursionlimit&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;setswitchinterval&#39;</span><span class="p">,</span> <span class="s1">&#39;settrace&#39;</span><span class="p">,</span> <span class="s1">&#39;stderr&#39;</span><span class="p">,</span> <span class="s1">&#39;stdin&#39;</span><span class="p">,</span> <span class="s1">&#39;stdout&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;thread_info&#39;</span><span class="p">,</span> <span class="s1">&#39;version&#39;</span><span class="p">,</span> <span class="s1">&#39;version_info&#39;</span><span class="p">,</span> <span class="s1">&#39;warnoptions&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>如果不带参数，dir()列出当前已定义的名称：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">fibo</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">fib</span> <span class="o">=</span> <span class="n">fibo</span><span class="o">.</span><span class="n">fib</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">dir</span><span class="p">()</span>
+<span class="p">[</span><span class="s1">&#39;__builtins__&#39;</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;fib&#39;</span><span class="p">,</span> <span class="s1">&#39;fibo&#39;</span><span class="p">,</span> <span class="s1">&#39;sys&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>注意，它列出了所有类型的名称： 变量、模块、函数等。</p>
+
+<p><code>dir()</code>不会列出内置的函数和变量的名称。如果想列出这些内容，它们定义在标准模块builtins中：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">builtins</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">dir</span><span class="p">(</span><span class="n">builtins</span><span class="p">)</span>
+<span class="p">[</span><span class="s1">&#39;ArithmeticError&#39;</span><span class="p">,</span> <span class="s1">&#39;AssertionError&#39;</span><span class="p">,</span> <span class="s1">&#39;AttributeError&#39;</span><span class="p">,</span> <span class="s1">&#39;BaseException&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;BlockingIOError&#39;</span><span class="p">,</span> <span class="s1">&#39;BrokenPipeError&#39;</span><span class="p">,</span> <span class="s1">&#39;BufferError&#39;</span><span class="p">,</span> <span class="s1">&#39;BytesWarning&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ChildProcessError&#39;</span><span class="p">,</span> <span class="s1">&#39;ConnectionAbortedError&#39;</span><span class="p">,</span> <span class="s1">&#39;ConnectionError&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ConnectionRefusedError&#39;</span><span class="p">,</span> <span class="s1">&#39;ConnectionResetError&#39;</span><span class="p">,</span> <span class="s1">&#39;DeprecationWarning&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;EOFError&#39;</span><span class="p">,</span> <span class="s1">&#39;Ellipsis&#39;</span><span class="p">,</span> <span class="s1">&#39;EnvironmentError&#39;</span><span class="p">,</span> <span class="s1">&#39;Exception&#39;</span><span class="p">,</span> <span class="s1">&#39;False&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FileExistsError&#39;</span><span class="p">,</span> <span class="s1">&#39;FileNotFoundError&#39;</span><span class="p">,</span> <span class="s1">&#39;FloatingPointError&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;FutureWarning&#39;</span><span class="p">,</span> <span class="s1">&#39;GeneratorExit&#39;</span><span class="p">,</span> <span class="s1">&#39;IOError&#39;</span><span class="p">,</span> <span class="s1">&#39;ImportError&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ImportWarning&#39;</span><span class="p">,</span> <span class="s1">&#39;IndentationError&#39;</span><span class="p">,</span> <span class="s1">&#39;IndexError&#39;</span><span class="p">,</span> <span class="s1">&#39;InterruptedError&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;IsADirectoryError&#39;</span><span class="p">,</span> <span class="s1">&#39;KeyError&#39;</span><span class="p">,</span> <span class="s1">&#39;KeyboardInterrupt&#39;</span><span class="p">,</span> <span class="s1">&#39;LookupError&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;MemoryError&#39;</span><span class="p">,</span> <span class="s1">&#39;NameError&#39;</span><span class="p">,</span> <span class="s1">&#39;None&#39;</span><span class="p">,</span> <span class="s1">&#39;NotADirectoryError&#39;</span><span class="p">,</span> <span class="s1">&#39;NotImplemented&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;NotImplementedError&#39;</span><span class="p">,</span> <span class="s1">&#39;OSError&#39;</span><span class="p">,</span> <span class="s1">&#39;OverflowError&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;PendingDeprecationWarning&#39;</span><span class="p">,</span> <span class="s1">&#39;PermissionError&#39;</span><span class="p">,</span> <span class="s1">&#39;ProcessLookupError&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ReferenceError&#39;</span><span class="p">,</span> <span class="s1">&#39;ResourceWarning&#39;</span><span class="p">,</span> <span class="s1">&#39;RuntimeError&#39;</span><span class="p">,</span> <span class="s1">&#39;RuntimeWarning&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;StopIteration&#39;</span><span class="p">,</span> <span class="s1">&#39;SyntaxError&#39;</span><span class="p">,</span> <span class="s1">&#39;SyntaxWarning&#39;</span><span class="p">,</span> <span class="s1">&#39;SystemError&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;SystemExit&#39;</span><span class="p">,</span> <span class="s1">&#39;TabError&#39;</span><span class="p">,</span> <span class="s1">&#39;TimeoutError&#39;</span><span class="p">,</span> <span class="s1">&#39;True&#39;</span><span class="p">,</span> <span class="s1">&#39;TypeError&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;UnboundLocalError&#39;</span><span class="p">,</span> <span class="s1">&#39;UnicodeDecodeError&#39;</span><span class="p">,</span> <span class="s1">&#39;UnicodeEncodeError&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;UnicodeError&#39;</span><span class="p">,</span> <span class="s1">&#39;UnicodeTranslateError&#39;</span><span class="p">,</span> <span class="s1">&#39;UnicodeWarning&#39;</span><span class="p">,</span> <span class="s1">&#39;UserWarning&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;ValueError&#39;</span><span class="p">,</span> <span class="s1">&#39;Warning&#39;</span><span class="p">,</span> <span class="s1">&#39;ZeroDivisionError&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39;__build_class__&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;__debug__&#39;</span><span class="p">,</span> <span class="s1">&#39;__doc__&#39;</span><span class="p">,</span> <span class="s1">&#39;__import__&#39;</span><span class="p">,</span> <span class="s1">&#39;__name__&#39;</span><span class="p">,</span> <span class="s1">&#39;__package__&#39;</span><span class="p">,</span> <span class="s1">&#39;abs&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;all&#39;</span><span class="p">,</span> <span class="s1">&#39;any&#39;</span><span class="p">,</span> <span class="s1">&#39;ascii&#39;</span><span class="p">,</span> <span class="s1">&#39;bin&#39;</span><span class="p">,</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="s1">&#39;bytearray&#39;</span><span class="p">,</span> <span class="s1">&#39;bytes&#39;</span><span class="p">,</span> <span class="s1">&#39;callable&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;chr&#39;</span><span class="p">,</span> <span class="s1">&#39;classmethod&#39;</span><span class="p">,</span> <span class="s1">&#39;compile&#39;</span><span class="p">,</span> <span class="s1">&#39;complex&#39;</span><span class="p">,</span> <span class="s1">&#39;copyright&#39;</span><span class="p">,</span> <span class="s1">&#39;credits&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;delattr&#39;</span><span class="p">,</span> <span class="s1">&#39;dict&#39;</span><span class="p">,</span> <span class="s1">&#39;dir&#39;</span><span class="p">,</span> <span class="s1">&#39;divmod&#39;</span><span class="p">,</span> <span class="s1">&#39;enumerate&#39;</span><span class="p">,</span> <span class="s1">&#39;eval&#39;</span><span class="p">,</span> <span class="s1">&#39;exec&#39;</span><span class="p">,</span> <span class="s1">&#39;exit&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;filter&#39;</span><span class="p">,</span> <span class="s1">&#39;float&#39;</span><span class="p">,</span> <span class="s1">&#39;format&#39;</span><span class="p">,</span> <span class="s1">&#39;frozenset&#39;</span><span class="p">,</span> <span class="s1">&#39;getattr&#39;</span><span class="p">,</span> <span class="s1">&#39;globals&#39;</span><span class="p">,</span> <span class="s1">&#39;hasattr&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;hash&#39;</span><span class="p">,</span> <span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="s1">&#39;hex&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;input&#39;</span><span class="p">,</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="s1">&#39;isinstance&#39;</span><span class="p">,</span> <span class="s1">&#39;issubclass&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;iter&#39;</span><span class="p">,</span> <span class="s1">&#39;len&#39;</span><span class="p">,</span> <span class="s1">&#39;license&#39;</span><span class="p">,</span> <span class="s1">&#39;list&#39;</span><span class="p">,</span> <span class="s1">&#39;locals&#39;</span><span class="p">,</span> <span class="s1">&#39;map&#39;</span><span class="p">,</span> <span class="s1">&#39;max&#39;</span><span class="p">,</span> <span class="s1">&#39;memoryview&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;min&#39;</span><span class="p">,</span> <span class="s1">&#39;next&#39;</span><span class="p">,</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span> <span class="s1">&#39;oct&#39;</span><span class="p">,</span> <span class="s1">&#39;open&#39;</span><span class="p">,</span> <span class="s1">&#39;ord&#39;</span><span class="p">,</span> <span class="s1">&#39;pow&#39;</span><span class="p">,</span> <span class="s1">&#39;print&#39;</span><span class="p">,</span> <span class="s1">&#39;property&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;quit&#39;</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">,</span> <span class="s1">&#39;repr&#39;</span><span class="p">,</span> <span class="s1">&#39;reversed&#39;</span><span class="p">,</span> <span class="s1">&#39;round&#39;</span><span class="p">,</span> <span class="s1">&#39;set&#39;</span><span class="p">,</span> <span class="s1">&#39;setattr&#39;</span><span class="p">,</span> <span class="s1">&#39;slice&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;sorted&#39;</span><span class="p">,</span> <span class="s1">&#39;staticmethod&#39;</span><span class="p">,</span> <span class="s1">&#39;str&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">,</span> <span class="s1">&#39;super&#39;</span><span class="p">,</span> <span class="s1">&#39;tuple&#39;</span><span class="p">,</span> <span class="s1">&#39;type&#39;</span><span class="p">,</span> <span class="s1">&#39;vars&#39;</span><span class="p">,</span>
+ <span class="s1">&#39;zip&#39;</span><span class="p">]</span>
+</code></pre></div>
+
+<h3 id="包-package">包（Package）</h3>
+
+<p>包是一种管理 Python 模块命名空间的方式，采用的是“点分模块名称”方式。例如，模块名<code>A.B</code>表示包A中一个名为B的子模块。</p>
+
+<p>例如，一个包的结构可能是这样子的（分层的文件系统）：</p>
+
+<pre><code>sound/                          Top-level package
+      __init__.py               Initialize the sound package
+      formats/                  Subpackage for file format conversions
+              __init__.py
+              wavread.py
+              wavwrite.py
+              aiffread.py
+              aiffwrite.py
+              auread.py
+              auwrite.py
+              ...
+      effects/                  Subpackage for sound effects
+              __init__.py
+              echo.py
+              surround.py
+              reverse.py
+              ...
+      filters/                  Subpackage for filters
+              __init__.py
+              equalizer.py
+              vocoder.py
+              karaoke.py
+              ...
+</code></pre>
+
+<p>导入这个包时，Python搜索sys.path中的目录以寻找这个包的子目录。</p>
+
+<p>为了让Python将目录当做包，目录下必须包含<strong>init</strong>.py文件。最简单的情况下，<strong>init</strong>.py可以只是一个空的文件，也可以为包执行初始化代码或设置<strong>all</strong>变量。</p>
+
+<p>用户可以从包中导入单独的模块，例如：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">import</span> <span class="nn">sound.effects.echo</span>
+</code></pre></div>
+
+<p>这样就加载了子模块sound.effects.echo。但是使用时必须用它完整名称来引用。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="n">sound</span><span class="o">.</span><span class="n">effects</span><span class="o">.</span><span class="n">echo</span><span class="o">.</span><span class="n">echofilter</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">atten</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div>
+
+<p>另一种导入子模块的方法是：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">from</span> <span class="nn">sound.effects</span> <span class="kn">import</span> <span class="n">echo</span>
+</code></pre></div>
+
+<p>这样也加载了子模块echo，而且使用它时可以不用包前缀访问：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="n">echo</span><span class="o">.</span><span class="n">echofilter</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">atten</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div>
+
+<p>还有一种导入方式就是直接导入函数或者变量：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">from</span> <span class="nn">sound.effects.echo</span> <span class="kn">import</span> <span class="n">echofilter</span>
+</code></pre></div>
+
+<p>这样可以直接访问函数：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="n">echofilter</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">atten</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div>
+
+<p>注意，使用<code>from package import item</code>时，item既可以是包的子模块（或子包），也可以是包中定义的一些其它的名称，比如函数、类或者变量。import语句首先测试item在包中是否有定义；如果没有，那么假定它是一个模块，并尝试加载它。如果仍没有找到，则抛出ImportError异常。</p>
+
+<p>而使用<code>import item.subitem.subsubitem</code>这样的方式时，除了最后一项其它每项必须是一个包；最后一项可以是一个模块或一个包，但不能是前一个项目中定义的类、函数或变量。</p>
+
+<h3 id="从包中导入">从包中导入*</h3>
+
+<p>如果这样写<code>from sound.effects import *</code>，会发生什么呢？理想情况是到文件系统中寻找包里面含有哪些子模块，并把它们全部导入。这样导入子模块可能会产生一些意想不到的副作用，这些作用本应该只有当子模块是显式导入时才会发生。</p>
+
+<p>唯一的解决办法是为包提供显式的索引。import语句约定：如果包中的<strong>init</strong>.py代码定义了一个名为<strong>all</strong>的列表，那么在<code>from package import *</code>时，就把这个列表中的所有模块名字导入。</p>
+
+<p>例如，在文件<code>sound/effects/__init__.py</code>中包含下列代码：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="s2">&quot;surround&quot;</span><span class="p">,</span> <span class="s2">&quot;reverse&quot;</span><span class="p">]</span>
+</code></pre></div>
+
+<p>这样<code>from sound.effects import *</code>只会导入这三个模块。</p>
+
+<p>如果没有定义<strong>all</strong>，<code>from sound.effects import *</code>则不会从sound.effects包中导入所有的子模块到当前命名空间；它只保证sound.effects包已经被导入（可能会运行<strong>init</strong>.py中的任何初始化代码），然后导入包中定义的任何名称。这包括由<strong>init</strong>.py定义的任何名称（以及它显式加载的子模块）。还包括这个包中已经由前面的import语句显式加载的子模块。</p>
+
+<h3 id="包内引用">包内引用</h3>
+
+<p>如果一个包是子包（比如上面的sound包），可以使用绝对导入来引用兄弟包的子模块。例如，如果模块sound.filters.vocoder需要使用sound.effects包中的echo模块，可以使用<code>from sound.effects import echo</code>。</p>
+
+<p>还可以用<code>from module import name</code>形式的import语句进行相对导入。这些导入使用前导的点号表示相对导入的是从当前包还是上级的包。以surround模块为例：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">echo</span>
+<span class="kn">from</span> <span class="nn">..</span> <span class="kn">import</span> <span class="n">formats</span>
+<span class="kn">from</span> <span class="nn">..filters</span> <span class="kn">import</span> <span class="n">equalizer</span>
+</code></pre></div>
+
+<p>注意，相对导入基于当前模块的名称。因为主模块的名字总是<code>__main__</code>，Python应用程序的主模块必须总是用绝对导入。</p>
+
+<h3 id="包含多个目录的包">包含多个目录的包</h3>
+
+<p>包还支持一个特殊的属性，<strong>path</strong>。该变量初始化一个包含<strong>init</strong>.py所在目录的列表。这个变量可以修改；这样做会影响未来包中包含的模块和子包的搜索。</p>
+
+<p>虽然通常不需要此功能，它可以用于扩展包中的模块的集合。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://docs.python.org/3/tutorial/modules.html">Python3 Documentation - Tutorial</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/python3"><span class="tag">Python3</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>196</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

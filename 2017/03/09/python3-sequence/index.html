@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Python3] 序列</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 序列类型（Sequence Types）是包含一组成员的连续列表，这些成员紧邻排列，并且可以通过序号（下标偏移量）访问其中的一个或多个成员。
+ 基础的序列类型有：列表（list）、元组（tuple）和range。字符串（string）也是序列的一种。
+
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Python3] 序列" />
+    <meta name="twitter:description" content=" 序列类型（Sequence Types）是包含一组成员的连续列表，这些成员紧邻排列，并且可以通过序号（下标偏移量）访问其中的一个或多个成员。
+ 基础的序列类型有：列表（list）、元组（tuple）和range。字符串（string）也是序列的一种。
+
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2017/03/09/python3-sequence/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Python3] 序列</h1>
+      <p class="post-meta">@wukn · Mar 9, 2017 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>序列类型（Sequence Types）是包含一组成员的连续列表，这些成员紧邻排列，并且可以通过序号（下标偏移量）访问其中的一个或多个成员。</p>
+</blockquote>
+
+<p>基础的序列类型有：列表（list）、元组（tuple）和range。字符串（string）也是序列的一种。</p>
+
+<p></p>
+
+<h3 id="通用的序列操作">通用的序列操作</h3>
+
+<p>序列类型的一些通用操作如下：</p>
+
+<ul>
+<li><code>x in s</code>：如果s中有个元素等于x则为True，否则为False</li>
+<li><code>x not in s</code>：如果s中有个元素等于x则为False，否则为True</li>
+<li><code>s + t</code>：连接s和t</li>
+<li><code>s * n</code>或<code>n * s</code>：连接在一起的n个s的浅拷贝</li>
+<li><code>s[i]</code>：s的第i个元素，索引从0开始</li>
+<li><code>s[i:j]</code>：s中从第i个到第j个元素的切片</li>
+<li><code>s[i:j:k]</code>：s中从第i个到第j个元素、步长为k的切片</li>
+<li><code>len(s)</code>：s的长度，也就是s中元素的数量</li>
+<li><code>min(s)</code>：s中最小的元素</li>
+<li><code>max(s)</code>：s中最大的元素</li>
+<li><code>s.index(x[, i[, j]])</code>    s中第一次出现的元素x的索引（在索引i或i之后，到j之前）   (8)</li>
+<li><code>s.count(x)</code>：s中出现的元素x的次数</li>
+</ul>
+
+<p>PS1:<code>s * n</code>或<code>n * s</code>中，n小于0时会被当作0，也就是返回一个跟s相同类型的空序列。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">*</span> <span class="mi">0</span>
+<span class="p">[]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">list</span><span class="s1">&#39;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span> <span class="o">*</span> <span class="mi">0</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">list</span><span class="s1">&#39;&gt;</span>
+</code></pre></div>
+
+<p>PS2:<code>s * n</code>或<code>n * s</code>中，复制为浅拷贝模式，嵌套的结构不会被拷贝过去。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[[]]</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span>
+<span class="p">[[],</span> <span class="p">[],</span> <span class="p">[]]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span>
+<span class="p">[[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]]</span>
+</code></pre></div>
+
+<p>因为<code>[[]]</code>是包含一个空列表元素的列表，由于是浅拷贝，<code>[[]] * 3</code>中的三个元素都指向同一个空列表。要想创建元素为不同类表的列表，可以这样：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span>
+<span class="p">[[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">]]</span>
+</code></pre></div>
+
+<p>PS3:序列支持负数索引。当索引i为负数时，相当于<code>len(s) + i</code>。也就是从序列的尾部开始计算，最后一个元素的索引为-1。如果i非负，那么0 &lt;= i &lt;= len(s)，如果i为负，那么-len(s) &lt;= i &lt;= -1，否则会引发索引越界异常。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">25</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="mi">25</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+<span class="mi">16</span>
+</code></pre></div>
+
+<p>PS4:<code>s[i:j]</code>切片操作，就是取索引k符合i &lt;= k &lt; j的所有元素。如果i或j大于s的长度len(s)，那么就取len(s)。如果i被省略了或者为None则取0;如果j被省略了或者为None则取len(s)。如果i大于或等于j，那么切片为空。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">25</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">25</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
+<span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">25</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+<span class="p">[]</span>
+</code></pre></div>
+
+<p>PS5:带步长的切片<code>s[i:j:k]</code>，就是取索引x符合x = i + n*k 且0 &lt;= n &lt; (j-i)/k的所有元素。</p>
+
+<blockquote>
+<p>k不能为0；省略k或k为None时，令k=1</p>
+
+<p>k为正时
+* 如果省略i或i为None，则令i=0
+* 如果省略j或j为None，则令j=N
+* 如果i为负，则令i=i+N，此时如果i仍然为负，则令i=0；j类似
+* 如果i大于等于N，则令i=N；j类似</p>
+
+<p>k为负时
+* 如果省略i或i为None，则令i=N-1
+* 如果省略j或j为None，则令j=-1
+* 如果i为负，则令i=i+N，此时如果i仍然为负，则令i=-1；j类似
+* 如果i大于等于N，则令i=N-1；j类似</p>
+
+<p>经过上述计算后，如果i、j、k的最终取值满足以下情况，则切片s[i:j:k]对应的子序列为空：
+* k为正，且i大于等于j
+* k为负，且i小于等于j</p>
+</blockquote>
+
+<h3 id="不可变序列类型-immutable-sequence-type">不可变序列类型（Immutable Sequence Type）</h3>
+
+<p>不可变序列类型有一个可变序列类型不支持的操作，那就是<code>hash()</code>。</p>
+
+<p>这意味着不可变序列类型，例如元组实例，可以作为字典（dict）的键（key），且可以存储在set和frozenset实例中。</p>
+
+<h3 id="可变序列类型-mutable-sequence-type">可变序列类型（Mutable Sequence Type）</h3>
+
+<p>可变操作类型还支持以下操作：</p>
+
+<ul>
+<li><code>s[i] = x</code>：将s中第i个元素替换为x</li>
+<li><code>s[i:j] = t</code>和<code>s[i:j:k] = t</code>：将切片替换为迭代器t的内容，t的长度必须和切片的长度一样</li>
+<li><code>del s[i]</code>：删除s中第i的元素</li>
+<li><code>del s[i:j]</code>：跟<code>s[i:j] = []</code>一样</li>
+<li><code>del s[i:j:k]</code>：从s中移除切片中的元素</li>
+<li><code>s.append(x)</code>：在序列的末尾添加x，相当于<code>s[len(s):len(s)] = [x]</code></li>
+<li><code>s.clear()</code>：移除s中的所有元素，相当于<code>del s[:]</code></li>
+<li><code>s.copy()</code>：创建一个s的浅拷贝，相当于<code>s[:]</code></li>
+<li><code>s.extend(t)</code>：将t的内容追加到s中，相当于<code>s[len(s):len(s)] = t</code></li>
+<li><code>s.insert(i, x)</code>：将x插入到s的索引i位置上，相当于<code>s[i:i] = [x]</code></li>
+<li><code>s.pop([i])</code>：获取索引i处的元素并将他从s中移除，i默认为-1</li>
+<li><code>s.remove(x)</code>：移除s中第一个等于x的元素，如果x不再s中则会引发异常</li>
+<li><code>s.reverse()</code>：颠倒s中元素的顺序，这个操作会直接修改s</li>
+</ul>
+
+<p>PS:
+* <code>enumerate(s)</code>    返回一个enumerate对象，该对象生成由(i, s[i])组成的元组
+* <code>list(iter)</code>  把可迭代对象转换为列表
+* <code>reversed(s)</code> 返回一个迭代器，访问该迭代器得到的序列与s逆序
+* <code>sorted(s)</code>   返回一个列表，该列表是对s排序后的结果
+* <code>str(obj)</code>    把对象转换为字符串（对象的字符串表示）
+* <code>sum(s[, start])</code> s中成员与start的总和（只能用于数值列表或数值元组，字符串用&rdquo;.join(s)）
+* <code>tuple(iter)</code> 把可迭代对象转换为元组
+* <code>zip(s1, s2, ...)</code>    返回一个列表：[(s1[0], s2[0], &hellip;), (s1[1], s2[1], &hellip;), &hellip;]
+* <code>s.sort([cmp[, key[, reverse]]])</code> 对s进行排序</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://docs.python.org/3.5/">Python3 Documentation</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/python3"><span class="tag">Python3</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>203</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

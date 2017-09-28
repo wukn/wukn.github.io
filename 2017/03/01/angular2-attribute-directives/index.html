@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Angular2] Attribute Directives</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 属性指令用于改变DOM元素的外观或行为。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Angular2] Attribute Directives" />
+    <meta name="twitter:description" content=" 属性指令用于改变DOM元素的外观或行为。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2017/03/01/angular2-attribute-directives/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Angular2] Attribute Directives</h1>
+      <p class="post-meta">@wukn · Mar 1, 2017 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>属性指令用于改变DOM元素的外观或行为。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="指令综述">指令综述</h3>
+
+<p>Angular中共有三种指令：</p>
+
+<ul>
+<li>组件：带模板的指令。组件是三种指令中最常见的。</li>
+<li>结构指令：通过添加或移除DOM元素来改变DOM布局。结构指令用于改变视图的结构。例如<code>NgFor</code>和<code>NgIf</code>。</li>
+<li>属性指令：改变元素、组件或另一个指令的外观或元素。属性指令被当做元素的属性来使用。例如<code>NgStyle</code>。</li>
+</ul>
+
+<h3 id="构建一个简单的属性指令">构建一个简单的属性指令</h3>
+
+<p>最简单的属性指令就是一个带有<code>@Directive</code>注解的controller类，注解中指定了标识属性的选择器。controller类实现期望的指令行为。</p>
+
+<p>接下来演示构建一个<code>myHighlight</code>属性指令，它的作用是当用户鼠标悬停在元素上时改变它的背景颜色。可以这样使用它：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">myHighlight</span><span class="p">&gt;</span>Highlight me!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>按照<a href="https://wukn.github.io/2016/11/29/angluar2-quick-start/">Quick Start</a>中创建一个项目<code>attribute-directives</code>。</p>
+
+<p>创建文件<code>src/app/highlight.directive.ts</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Directive</span><span class="p">,</span> <span class="nx">ElementRef</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Directive</span><span class="p">({</span> <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;[myHighlight]&#39;</span> <span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HighlightDirective</span> <span class="p">{</span>
+    <span class="nx">constructor</span><span class="p">(</span><span class="nx">el</span><span class="o">:</span> <span class="nx">ElementRef</span><span class="p">)</span> <span class="p">{</span>
+       <span class="nx">el</span><span class="p">.</span><span class="nx">nativeElement</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>从Angular的<code>core</code>中引入：</p>
+
+<ul>
+<li><code>Directive</code>：提供<code>@Directive</code>装饰器</li>
+<li><code>ElementRef</code>：注入到指令的构造函数中以便于在代码中访问DOM元素</li>
+<li><code>Input</code>：允许数据从绑定表达式流向指令</li>
+</ul>
+
+<p><code>@Directive</code>注解中指定了一个CSS选择器。一个属性的CSS选择器是一个放在中括号里的属性名。在这里属性的选择器是<code>[myHighlight]</code>。Angular会定位模板中所有拥有名为<code>myHighlight</code>的属性的元素。</p>
+
+<p>Angular会为每个匹配的元素创建一个指令的controller类的实例，并将<code>ElementRef</code>注入到构造函数中。<code>ElementRef</code>是一个Service，通过它的<code>nativeElement</code>属性可以直接访问DOM元素。</p>
+
+<h3 id="在模板中为元素使用属性指令">在模板中为元素使用属性指令</h3>
+
+<p>为了使用<code>HighlightDirective</code>，我们创建一个模板：</p>
+
+<p>创建模板文件<code>app.component.html</code>：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- src/app/app.component.html --&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>My First Attribute Directive<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">myHighlight</span><span class="p">&gt;</span>Highlight me!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>修改<code>AppComponent</code>中的模板配置：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// src/app/app.component.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
+  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;./app.component.html&#39;</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">color</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>接下来，在NgModule的<code>declarations</code>元数据中引入<code>Highlight</code>，这样Angular遇到模板中的<code>myHighlight</code>才知道该把他解析成指令。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// src/app/app.module.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HighlightDirective</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./highlight.directive&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span> <span class="nx">BrowserModule</span> <span class="p">],</span>
+  <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">AppComponent</span><span class="p">,</span>
+    <span class="nx">HighlightDirective</span>
+  <span class="p">],</span>
+  <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>现在运行应用，可以看到：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/attribute-directives/highlight-1.png" alt="" /></p>
+
+<h3 id="响应用户初始化事件">响应用户初始化事件</h3>
+
+<p>目前<code>myHighlight</code>只是简单的给元素添加背景色。我们可以为指令添加一些动态的效果。比如可以响应鼠标的进入和移出事件来为元素设置或取消背景色。</p>
+
+<p>在<code>import</code>中添加<code>HostListener</code>，<code>Input</code>也即将用到，一并添加上：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Directive</span><span class="p">,</span> <span class="nx">ElementRef</span><span class="p">,</span> <span class="nx">HostListener</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>添加两个响应鼠标进入和离开的事件处理器：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">HostListener</span><span class="p">(</span><span class="s1">&#39;mouseenter&#39;</span><span class="p">)</span> <span class="nx">onMouseEnter</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">highlight</span><span class="p">(</span><span class="s1">&#39;yellow&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="err">@</span><span class="nx">HostListener</span><span class="p">(</span><span class="s1">&#39;mouseleave&#39;</span><span class="p">)</span> <span class="nx">onMouseLeave</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">highlight</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kr">private</span> <span class="nx">highlight</span><span class="p">(</span><span class="nx">color</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">nativeElement</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="nx">color</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><code>@HostListener</code>用于订阅使用了该指令的元素的事件。</p>
+
+<p>当然我们也可以使用标准的JavaScript来访问DOM元素和附加事件监听。但这至少有三个问题：</p>
+
+<ul>
+<li>必须手动的写对应事件的监听器</li>
+<li>在指令销毁时需要在代码中移除事件监听，以免内存泄露</li>
+<li>直接调用DOM的API并不是一个很好的选择</li>
+</ul>
+
+<p>修改指令的构造函数，注入DOM元素<code>el</code>供事件处理函数调用：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">el</span><span class="o">:</span> <span class="nx">ElementRef</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>完整的代码如下：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// src/app/highlight.directive.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Directive</span><span class="p">,</span> <span class="nx">ElementRef</span><span class="p">,</span> <span class="nx">HostListener</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Directive</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;[myHighlight]&#39;</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HighlightDirective</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">el</span><span class="o">:</span> <span class="nx">ElementRef</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+  <span class="err">@</span><span class="nx">HostListener</span><span class="p">(</span><span class="s1">&#39;mouseenter&#39;</span><span class="p">)</span> <span class="nx">onMouseEnter</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">highlight</span><span class="p">(</span><span class="s1">&#39;yellow&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="err">@</span><span class="nx">HostListener</span><span class="p">(</span><span class="s1">&#39;mouseleave&#39;</span><span class="p">)</span> <span class="nx">onMouseLeave</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">highlight</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="kr">private</span> <span class="nx">highlight</span><span class="p">(</span><span class="nx">color</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">nativeElement</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="nx">color</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>现在运行应用，当鼠标不是停留在“Highlight me”这一行时是没有背景色的，鼠标移上去之后就有了（截图的时候鼠标不见了&hellip;）：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/attribute-directives/highlight-2-1.png" alt="" /></p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/attribute-directives/highlight-2-2.png" alt="" /></p>
+
+<h3 id="使用-input数据绑定向指令传递数据">使用@Input数据绑定向指令传递数据</h3>
+
+<p>现在颜色是硬编码在指令中。我们将它改成可设置的。</p>
+
+<p>为指令添加一个<code>highlightColor</code>属性：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">highlightColor</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+</code></pre></div>
+
+<p>注意，这里用到了<code>@Input</code>装饰器。它让指令的<code>highlightColor</code>属性可绑定。这里用的是input属性，是因为数据从绑定表达式流向指令。</p>
+
+<p>向<code>AppComponent</code>的模板中添加指令的绑定：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">myHighlight</span> <span class="na">highlightColor</span><span class="o">=</span><span class="s">&quot;yellow&quot;</span><span class="p">&gt;</span>Highlighted in yellow<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">myHighlight</span> <span class="err">[</span><span class="na">highlightColor</span><span class="err">]=&quot;&#39;</span><span class="na">orange</span><span class="err">&#39;&quot;</span><span class="p">&gt;</span>Highlighted in orange<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>为<code>AppComponent</code>添加一个<code>color</code>属性：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">color</span> <span class="o">=</span> <span class="s1">&#39;yellow&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>使用属性绑定来控制颜色：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="na">myHighlight</span> <span class="err">[</span><span class="na">highlightColor</span><span class="err">]=&quot;</span><span class="na">color</span><span class="err">&quot;</span><span class="p">&gt;</span>Highlighted with parent component&#39;s color<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>也可以同时使用指令并绑定属性：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="err">[</span><span class="na">myHighlight</span><span class="err">]=&quot;</span><span class="na">color</span><span class="err">&quot;</span><span class="p">&gt;</span>Highlight me!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p><code>[myHighlight]</code>会同时应用指令并绑定属性。但是需要将指令的<code>highlightColor</code>属性名改成<code>myHighlight</code>。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">myHighlight</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+</code></pre></div>
+
+<p>但是<code>myHighlight</code>作为属性名太糟糕了。我们可以绑定一个<code>@Input</code>别名：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Input</span><span class="p">(</span><span class="s1">&#39;myHighlight&#39;</span><span class="p">)</span> <span class="nx">highlightColor</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+</code></pre></div>
+
+<p>在指令内部可以用属性名<code>highlightColor</code>，在指令外部可以绑定<code>myHighlight</code>。</p>
+
+<p>既然绑定了<code>highlightColor</code>属性，那么就需要修改<code>onMouseEnter()</code>的方法了：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">HostListener</span><span class="p">(</span><span class="s1">&#39;mouseenter&#39;</span><span class="p">)</span> <span class="nx">onMouseEnter</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">highlight</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">highlightColor</span> <span class="o">||</span> <span class="s1">&#39;red&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>完整的代码如下：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// src/app/highlight.directive.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Directive</span><span class="p">,</span> <span class="nx">ElementRef</span><span class="p">,</span> <span class="nx">HostListener</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Directive</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;[myHighlight]&#39;</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HighlightDirective</span> <span class="p">{</span>
+
+  <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">el</span><span class="o">:</span> <span class="nx">ElementRef</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+  <span class="err">@</span><span class="nx">Input</span><span class="p">(</span><span class="s1">&#39;myHighlight&#39;</span><span class="p">)</span> <span class="nx">highlightColor</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+
+  <span class="err">@</span><span class="nx">HostListener</span><span class="p">(</span><span class="s1">&#39;mouseenter&#39;</span><span class="p">)</span> <span class="nx">onMouseEnter</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">highlight</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">highlightColor</span> <span class="o">||</span> <span class="s1">&#39;red&#39;</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="err">@</span><span class="nx">HostListener</span><span class="p">(</span><span class="s1">&#39;mouseleave&#39;</span><span class="p">)</span> <span class="nx">onMouseLeave</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">highlight</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="kr">private</span> <span class="nx">highlight</span><span class="p">(</span><span class="nx">color</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">el</span><span class="p">.</span><span class="nx">nativeElement</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">backgroundColor</span> <span class="o">=</span> <span class="nx">color</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>我们将<code>AppComponent</code>改成选择颜色的方式。更新<code>app.component.html</code>：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>My First Attribute Directive<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Pick a highlight color<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;colors&quot;</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">color</span><span class="o">=</span><span class="s">&#39;lightgreen&#39;</span><span class="err">&quot;</span><span class="p">&gt;</span>Green
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;colors&quot;</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">color</span><span class="o">=</span><span class="s">&#39;yellow&#39;</span><span class="err">&quot;</span><span class="p">&gt;</span>Yellow
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;radio&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;colors&quot;</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">color</span><span class="o">=</span><span class="s">&#39;cyan&#39;</span><span class="err">&quot;</span><span class="p">&gt;</span>Cyan
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="err">[</span><span class="na">myHighlight</span><span class="err">]=&quot;</span><span class="na">color</span><span class="err">&quot;</span><span class="p">&gt;</span>Highlight me!<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>将<code>AppComponent.color</code>还原回去：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">color</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>效果如下：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/attribute-directives/highlight-3.png" alt="" /></p>
+
+<h3 id="绑定另一个属性">绑定另一个属性</h3>
+
+<p>现在这个指令有了一个可设置的属性。我们还可以再添加属性用于绑定。</p>
+
+<p>例如，现在的默认颜色是硬编码的，我们将它也改成可绑定的。</p>
+
+<p>为指令添加input属性<code>defaultColor</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">defaultColor</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+</code></pre></div>
+
+<p>修改指令的<code>onMouseEnter</code>，先尝试使用<code>highlightColor</code>，然后是<code>defaultColor</code>，当两个属性都未定义时才使用<code>red</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">HostListener</span><span class="p">(</span><span class="s1">&#39;mouseenter&#39;</span><span class="p">)</span> <span class="nx">onMouseEnter</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">highlight</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">highlightColor</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">defaultColor</span> <span class="o">||</span> <span class="s1">&#39;red&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>现在问题来了，怎样在模板中绑定第二个属性呢？</p>
+
+<p>跟组件类似，我们可以在模板中添加任意多的指令属性绑定，如下：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span> <span class="err">[</span><span class="na">myHighlight</span><span class="err">]=&quot;</span><span class="na">color</span><span class="err">&quot;</span> <span class="na">defaultColor</span><span class="o">=</span><span class="s">&quot;violet&quot;</span><span class="p">&gt;</span>
+  Highlight me too!
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>Angular会知道<code>defaultColor</code>绑定是属于<code>HighlightDirective</code>的，因为指令中这个属性使用<code>@Input</code>标记为public类型了。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://angular.io/docs/ts/latest/guide/attribute-directives.html">Angular2 Documentation - Attribute Directives</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>211</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

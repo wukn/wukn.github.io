@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Angular2] Forms</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" Angular表单通常包含控件数据绑定、变化跟踪、输入验证、错误展示等。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Angular2] Forms" />
+    <meta name="twitter:description" content=" Angular表单通常包含控件数据绑定、变化跟踪、输入验证、错误展示等。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/12/24/angular2-forms/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Angular2] Forms</h1>
+      <p class="post-meta">@wukn · Dec 24, 2016 · 3 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>Angular表单通常包含控件数据绑定、变化跟踪、输入验证、错误展示等。</p>
+</blockquote>
+
+<p></p>
+
+<p>有经验的Web开发者会使用合适标签来构建一个用户体验良好的HTML表单，这需要一些技巧。同时需要框架支持双向数据绑定、变化跟踪、验证和错误处理等。</p>
+
+<p>接下来我们学习如何构建一个表单：</p>
+
+<ul>
+<li>使用组件和模板构建Angular表单</li>
+<li>使用双向数据绑定语法<code>[(ngModel)]</code>读写input的值</li>
+<li>使用<code>ngModel</code>指令跟踪表单的状态变化和有效性</li>
+<li>为表单控件添加CSS类，提供可视化的反馈</li>
+<li>显示验证的错误消息并启用/禁用表单控件</li>
+<li>使用模板引用变量在HTML元素之间共享信息</li>
+</ul>
+
+<p>我们要实现一个简单的的注册页面，当有必填项没填时，显示验证信息并禁用提交按钮：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/forms/form.png" alt="" /></p>
+
+<p>首先，创建一个项目文件夹<code>angular2-forms</code>，按照<a href="https://wukn.github.io/2016/11/29/angluar2-quick-start/">QuickStart</a>创建项目。</p>
+
+<h3 id="创建user模型类">创建User模型类</h3>
+
+<p>用户输入表单数据，我们捕捉变化并更新到模型的实例上。所以我们要先设计数据模型，然后再设计表单布局。</p>
+
+<p>一个数据模型可以简单的是某个事物的属性集合。</p>
+
+<p>在<code>app</code>文件夹下新建文件<code>user.ts</code>，创建一个<code>User</code>类，其中有三个必填字段（<code>id</code>、<code>name</code>、<code>email</code>），一个可选字段（<code>address</code>）：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">export</span> <span class="kr">class</span> <span class="nx">User</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span>
+    <span class="kr">public</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">,</span>
+    <span class="kr">public</span> <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="kr">public</span> <span class="nx">city</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
+    <span class="kr">public</span> <span class="nx">email</span><span class="o">?:</span> <span class="nx">string</span>
+  <span class="p">)</span> <span class="p">{</span>  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>TypeScript编译器会为<code>constructor</code>的每个<code>public</code>参数生成一个公有字段，并在创建新实例的时候将参数值赋给对应的字段。</p>
+
+<p><code>email</code>是可选的（看到email后面的问号了吗），所以实例化的时候可是省略这个参数。</p>
+
+<p>现在我们可以这样创建一个user：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">let</span> <span class="nx">user</span> <span class="o">=</span>  <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Kun&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;HF&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;kun@wukn.org&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;My name is &#39;</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span> <span class="c1">// &quot;My name is Kun&quot;</span>
+</code></pre></div>
+
+<h3 id="创建form组件">创建Form组件</h3>
+
+<p>一个Angular表单包含两部分：基于HTML的模板和处理数据及用户交互的组件。</p>
+
+<p>在文件夹<code>app</code>下创建文件<code>user-form.component.ts</code>，</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">User</span> <span class="p">}</span>    <span class="nx">from</span> <span class="s1">&#39;./user&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;user-form&#39;</span><span class="p">,</span>
+  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;user-form.component.html&#39;</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">UserFormComponent</span> <span class="p">{</span>
+  <span class="nx">cities</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;HeFei&#39;</span><span class="p">,</span> <span class="s1">&#39;BeiJing&#39;</span><span class="p">,</span> <span class="s1">&#39;ShangHai&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;NanJing&#39;</span><span class="p">,</span> <span class="s1">&#39;ShenZhen&#39;</span><span class="p">];</span>
+  <span class="nx">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="s1">&#39;Xiao Hui&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">cities</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s1">&#39;123@123.com&#39;</span><span class="p">);</span>
+  <span class="nx">submitted</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+  <span class="nx">onSubmit</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">submitted</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="p">}</span>
+  <span class="c1">// TODO: Remove this when we&#39;re done</span>
+  <span class="nx">get</span> <span class="nx">diagnostic</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>创建组件没有什么特别之处，前面都提到过了。</p>
+
+<ol>
+<li>从Angular库中引入<code>Component</code>装饰器</li>
+<li>引入刚刚创建的<code>User</code>数据模型</li>
+<li><code>@Component</code>的selector指定我们的组件要放在<code>&lt;user-form&gt;</code>标签中。</li>
+<li><code>moduleId: module.id</code>属性 sets the base for module-relative loading of the <code>templateUrl</code>（什么意思？）</li>
+<li><code>templateUrl</code>属性指向一个独立的模板文件</li>
+<li>在组件内我们定义了一些数据作为演示。后面我们可以注入一个数据服务来获取及保存数据，或者将这些属性暴露出来供父组件绑定。</li>
+<li>在最后我们抛出一个<code>diagnostic</code>属性来返回模型的JSON字符串。这样便于开发过程中跟踪调试。</li>
+</ol>
+
+<h3 id="修改-app-module-ts">修改<code>app.module.ts</code></h3>
+
+<p><code>app.module.ts</code>中定义了应用的根模块。在这个文件中，我们声明要使用的外部模块以及属于该模块的组件例如刚创建的<code>UserFormComponent</code>。</p>
+
+<p>因为模板驱动的表单是在它们自己的模块中，我们需要在<code>imports</code>数组中加入<code>FormsModule</code>，这样我们才能使用表单。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">FormsModule</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;@angular/forms&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">UserFormComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./user-form.component&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">BrowserModule</span><span class="p">,</span>
+    <span class="nx">FormsModule</span>
+  <span class="p">],</span>
+  <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">AppComponent</span><span class="p">,</span>
+    <span class="nx">UserFormComponent</span>
+  <span class="p">],</span>
+  <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>修改的地方有三处：</p>
+
+<ol>
+<li>引入<code>FormsModule</code>和新创建的<code>UserFormComponent</code>。</li>
+<li>将<code>FormsModule</code>添加到<code>ngModule</code>装饰器的<code>imports</code>数组列表中。这样应用就可以使用模板驱动表单这个特性了，包括<code>ngModel</code>。</li>
+<li>将<code>UserFormComponent</code>添加到<code>ngModule</code>装饰器的<code>declarations</code>数组列表中。这样在整个模块中<code>UserFormComponent</code>都是可见的。</li>
+</ol>
+
+<h3 id="修改-app-component-ts">修改<code>app.component.ts</code></h3>
+
+<p><code>app.component.ts</code>是应用的根组件。它将负责管理<code>UserFormComponent</code>。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;user-form&gt;&lt;/user-form&gt;&#39;</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>这里我们只是将模板改成了新创建的<code>UserFormComponent</code>的selector。</p>
+
+<h3 id="创建html表单模板">创建HTML表单模板</h3>
+
+<p>在<code>app</code>文件夹下创建文件<code>user-form.component.html</code>：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>User Form<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">form</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;name&quot;</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;name&quot;</span> <span class="na">required</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;email&quot;</span><span class="p">&gt;</span>Email<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;email&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-default&quot;</span><span class="p">&gt;</span>Submit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>这是一个普通的HTML5片段，显示了<code>User</code>的两个字段，<code>name</code>和<code>email</code>。<code>name</code>对应的input控件有个HTML5的<code>required</code>属性，为<code>email</code>没有因为它不是必填的。</p>
+
+<p>到目前位置还没有添加Angular的绑定和指令，只是页面布局。其中，<code>container</code>、<code>form-group</code>、<code>form-control</code>和<code>btn</code>这些样式来自Twitter Bootstrap。</p>
+
+<p>安装Bootstrap，在项目根文件夹下执行：</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span>npm install bootstrap --save
+</code></pre></div>
+
+<p>在<code>index.html</code>中添加样式文件的引用：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;node_modules/bootstrap/dist/css/bootstrap.min.css&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<h3 id="ngfor-绑定数组"><code>*ngFor</code>绑定数组</h3>
+
+<p>用户在表单中使用下拉列表来选择城市，使用<code>NgFor</code>来绑定数组：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="o">&lt;</span><span class="nx">div</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;form-group&quot;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">label</span> <span class="k">for</span><span class="o">=</span><span class="s2">&quot;city&quot;</span><span class="o">&gt;</span><span class="nx">City</span><span class="o">&lt;</span><span class="err">/label&gt;</span>
+  <span class="o">&lt;</span><span class="nx">select</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;form-control&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;city&quot;</span> <span class="nx">required</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">option</span> <span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">&quot;let city of cities&quot;</span> <span class="p">[</span><span class="nx">value</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;city&quot;</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">city</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/option&gt;</span>
+  <span class="o">&lt;</span><span class="err">/select&gt;</span>
+<span class="o">&lt;</span><span class="err">/div&gt;</span>
+</code></pre></div>
+
+<p>这里将对<code>cities</code>数组中的每个<code>city</code>重复生成<code>&lt;options&gt;</code>标签。</p>
+
+<h2 id="使用-ngmodel-双向绑定数据">使用<code>*ngModel</code>双向绑定数据</h2>
+
+<p>运行应用，结果如下：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/forms/form1.png" alt="" /></p>
+
+<p>界面上没有数据，是因为我们还没有绑定<code>User</code>。前面我们已经了解了属性绑定和事件绑定来更新组件属性后和页面的值。这里使用一种新的方法，使用<code>[(ngModel)]</code>指令实现双向数据绑定。</p>
+
+<p>将<code>name</code>对应的inut标签更新如下：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span>  <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;name&quot;</span>
+       <span class="na">required</span>
+       <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]=&quot;</span><span class="na">model</span><span class="err">.</span><span class="na">name</span><span class="err">&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;name&quot;</span><span class="p">&gt;</span>
+  TODO: remove this: {{model.name}}
+</code></pre></div>
+
+<p>注意，TODO那一行是在暂时调试使用的，后面会删掉。</p>
+
+<p>现在我们主要来看绑定语法<code>[(ngModel)]=&quot;...&quot;</code>。</p>
+
+<p>如果现在运行应用，改变界面上Name的输入值，可以看到TODO那一行会在每次修改Name时显示当前的值，说明双向数据绑定生效了！</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/forms/ngmodel1.png" alt="" /></p>
+
+<p>注意到我们还为<code>&lt;input&gt;</code>标签添加了一个<code>name</code>属性。这个属性值得是唯一的。在表单中使用<code>[(ngModel)]</code>时<code>name</code>属性是必需的。</p>
+
+<blockquote>
+<p>从内部实现来看，Angular创建<code>FormControls</code>并使用Angular附带的<code>NgForm</code>指令注册到<code>&lt;form&gt;</code>标签。每个<code>FormControl</code>是注册到我们指定的<code>name</code>属性。</p>
+</blockquote>
+
+<p>为另外两个属性也加上<code>[(ngModel)]</code>绑定，并在最上面添加一个<code>diagnostic</code>属性的绑定用于调试。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;container&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>User Form<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">form</span><span class="p">&gt;</span>
+      {{diagnostic}}
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;name&quot;</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span>  <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;name&quot;</span>
+          <span class="na">required</span>
+          <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]=&quot;</span><span class="na">model</span><span class="err">.</span><span class="na">name</span><span class="err">&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;name&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;city&quot;</span><span class="p">&gt;</span>City<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">select</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;city&quot;</span> <span class="na">required</span>
+          <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]=&quot;</span><span class="na">model</span><span class="err">.</span><span class="na">city</span><span class="err">&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;city&quot;</span><span class="p">&gt;</span>
+          <span class="p">&lt;</span><span class="nt">option</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&quot;let city of cities&quot;</span> <span class="err">[</span><span class="na">value</span><span class="err">]=&quot;</span><span class="na">city</span><span class="err">&quot;</span><span class="p">&gt;</span>{{city}}<span class="p">&lt;/</span><span class="nt">option</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-group&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;email&quot;</span><span class="p">&gt;</span>Email<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;email&quot;</span>
+          <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]=&quot;</span><span class="na">model</span><span class="err">.</span><span class="na">email</span><span class="err">&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;email&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-default&quot;</span><span class="p">&gt;</span>Submit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>看起来结果如下：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/forms/form2.png" alt="" /></p>
+
+<h3 id="ngmodel-的原理"><code>[(ngModel)]</code>的原理</h3>
+
+<p>在属性绑定中，值从模型流向视图中的目标属性，我们将目标属性放在方括号<code>[]</code>中，这是从模型到视图的单向数据绑定。</p>
+
+<p>在事件绑定中，我们将视图中的目标属性的值流向模型，我们将目标属性放在圆括号<code>()</code>中，这是从视图到模型的单向数据绑定。</p>
+
+<p>Angular将两者结合起来，形成<code>[()]</code>，来标识双向数据绑定。</p>
+
+<p>事实上，我们也可以将<code>NgModel</code>绑定拆分成两部分：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text&quot;</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;form-control&quot;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;name&quot;</span>
+  <span class="nx">required</span>
+  <span class="p">[</span><span class="nx">ngModel</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;model.name&quot;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&quot;name&quot;</span>
+  <span class="p">(</span><span class="nx">ngModelChange</span><span class="p">)</span><span class="o">=</span><span class="s2">&quot;model.name = $event&quot;</span> <span class="o">&gt;</span>
+</code></pre></div>
+
+<p>这里的属性绑定跟之前介绍的是一样的，但是事件绑定看起来就有点奇怪了。<code>ngModelChange</code>并不是<code>&lt;input&gt;</code>元素的事件，它实际上是<code>NgModel</code>指令的事件属性。当Angular遇到<code>[(x)]</code>这样的绑定时，它希望指令<code>x</code>有一个<code>x</code>输入属性和一个<code>xChange</code>输出属性。</p>
+
+<p>另一个奇怪的地方是模板表达式<code>model.name = $event</code>。我们在前面见过来自DOM事件的<code>$event</code>对象。<code>ngModelChange</code>属性并不产生DOM事件，它只是一个Angular的<code>EventEmitter</code>属性，当该事件触发时，它返回的是input文本框的值。</p>
+
+<h3 id="使用-ngmodel-跟踪状态变化和有效性">使用<code>ngModel</code>跟踪状态变化和有效性</h3>
+
+<p>一个表单不仅仅有数据绑定。我们还希望知道表单中控件的状态。</p>
+
+<p>表单中使用的<code>ngModel</code>不仅仅提供了双向数据绑定的功能，它还能告诉我们用户是否点击了控件、值是否有变化、以及值是否有效，</p>
+
+<p>这个指令不仅仅跟踪状态，它还会使用特殊的Angular的CSS类更新组件。我们可以利用这些CSS类来改变控件的外观或控制控件的显示与隐藏。</p>
+
+<p>假设我们定义控件的三个状态：</p>
+
+<ul>
+<li>控件是否被访问    ng-touched  ng-untouched</li>
+<li>控件的值是否变化  ng-dirty  ng-pristine</li>
+<li>控件的值是否有效  ng-valid  ng-invalid</li>
+</ul>
+
+<p>我们为<code>name</code>对应的input添加一个模板引用变量<code>spy</code>：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;name&quot;</span>
+  <span class="na">required</span>
+  <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]=&quot;</span><span class="na">model</span><span class="err">.</span><span class="na">name</span><span class="err">&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;name&quot;</span>
+  <span class="err">#</span><span class="na">spy</span> <span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>TODO: remove this: {{spy.className}}
+</code></pre></div>
+
+<p>运行后我们按照下面四步来检查效果：</p>
+
+<p>1.打开后不点击
+<img src="https://wukn.github.io/img/post/angular2/forms/ngmodel-class1.png" alt="" />
+2.点击输入框，再点其他地方离开输入框
+<img src="https://wukn.github.io/img/post/angular2/forms/ngmodel-class2.png" alt="" />
+3.在输入框中输入若干字符
+<img src="https://wukn.github.io/img/post/angular2/forms/ngmodel-class3.png" alt="" />
+4.清空输入框
+<img src="https://wukn.github.io/img/post/angular2/forms/ngmodel-class4.png" alt="" /></p>
+
+<p>测试完毕后删掉模板引用变量<code>spy</code>和TODO。</p>
+
+<h3 id="添加自定义css">添加自定义CSS</h3>
+
+<p>接下来，我们使用CSS样式来为提示字段是否必填和数据有效性。数据验证有效则输入框左侧显示绿色，无效则显示红色。效果如图：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/forms/validate.png" alt="" /></p>
+
+<p>添加两个样式来实现上面的效果。在项目根文件夹下创建文件<code>forms.css</code>：</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="p">.</span><span class="nc">ng-valid</span><span class="o">[</span><span class="nt">required</span><span class="o">],</span> <span class="p">.</span><span class="nc">ng-valid</span><span class="p">.</span><span class="nc">required</span>  <span class="p">{</span>
+  <span class="k">border-left</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#42A948</span><span class="p">;</span> <span class="c">/* green */</span>
+<span class="p">}</span>
+
+<span class="p">.</span><span class="nc">ng-invalid</span><span class="p">:</span><span class="nd">not</span><span class="o">(</span><span class="nt">form</span><span class="o">)</span>  <span class="p">{</span>
+  <span class="k">border-left</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#a94442</span><span class="p">;</span> <span class="c">/* red */</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>并在<code>index.html</code>中添加引用：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;forms.css&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>上面的提示只指示验证是否有效，如果无效的话，没有给出错误消息。因此我们加上提示消息：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/forms/validate-msg.png" alt="" /></p>
+
+<p>为<code>name</code>对应的input添加模板引用变量，并在它下面添加显示错误信息的<code>&lt;div&gt;</code>：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&quot;name&quot;</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;form-control&quot;</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;name&quot;</span>
+  <span class="na">required</span>
+  <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]=&quot;</span><span class="na">model</span><span class="err">.</span><span class="na">name</span><span class="err">&quot;</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;name&quot;</span>
+  <span class="err">#</span><span class="na">name</span><span class="o">=</span><span class="s">&quot;ngModel&quot;</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">hidden</span><span class="err">]=&quot;</span><span class="na">name</span><span class="err">.</span><span class="na">valid</span> <span class="err">||</span> <span class="na">name</span><span class="err">.</span><span class="na">pristine</span><span class="err">&quot;</span>
+  <span class="na">class</span><span class="o">=</span><span class="s">&quot;alert alert-danger&quot;</span><span class="p">&gt;</span>
+  Name is required.
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>这里，我们在控件为<code>valid</code>或<code>pristine</code>时隐藏提示信息。<code>pristine</code>表示页面加载后我们还没有改变控件值的状态。</p>
+
+<blockquote>
+<p>上面的代码中，引用模板变量<code>name</code>的值为<code>ngModel</code>。为什么是<code>ngModel</code>呢？一个指令的<code>exportAs</code>属性用来告诉Angular如何链接引用变量到指令。我们将<code>name</code>赋值为<code>ngModel</code>是因为，<code>ngModel</code>指令的<code>exportAs</code>属性正好是<code>ngModel</code>。</p>
+</blockquote>
+
+<p>有的小伙伴可能会觉得这个提示信息有点迷惑人。他们只想在用户输入无效数据时才显示这个提示信息，当控件是<code>pristine</code>不需要显示。</p>
+
+<h3 id="添加user并重置表单">添加User并重置表单</h3>
+
+<p>添加一个<code>New User</code>按钮，，将点击事件绑定到组件的方法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-default&quot;</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">newUser</span><span class="err">()&quot;</span><span class="p">&gt;</span>New User<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>在组件中添加方法：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">newUser</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>运行应用并点击<code>Add User</code>按钮，必填项的文本框左侧会显示红色，但是不会显示提示信息，因为我们并没有改变控件中的值。</p>
+
+<p>输入名称后再点击<code>Add User</code>按钮，这时候会现实提示信息。其实我们并不想在创建新用户的时候显示这个提示信息。为什么会这样呢？我们显示的还是一个空的User也显示提示消息了。</p>
+
+<p>这是因为Name文本框不再是原始状态了。用新的User替换原来的之后，控件的状态并没有被恢复为未修改状态。（Angular不能分辨是model被替换了，还是只清除了name属性的值）。我们必须重置表单控件。</p>
+
+<p>为<code>form</code>添加一个模板引用变量：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">form</span> <span class="err">#</span><span class="na">userForm</span><span class="o">=</span><span class="s">&quot;ngForm&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>在<code>Add User</code>按钮的<code>click</code>事件中重置表单：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-default&quot;</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">newUser</span><span class="err">();</span> <span class="na">userForm</span><span class="err">.</span><span class="na">reset</span><span class="err">()&quot;</span><span class="p">&gt;</span>New User<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<h3 id="使用-ngsubmit-提交表单">使用<code>ngSubmit</code>提交表单</h3>
+
+<p>用户填写完表单后应该能提交表单。在页面地步添加一个<code>Submit</code>按钮，该按钮本身并不做什么，但是它会出发表单提交。因为它的<code>type</code>为<code>submit</code>。但是目前表单提交是无效的。我们要在<code>&lt;form&gt;</code>上使用<code>NgSubmit</code>指令，绑定到组件的<code>UserFormComponent.submit()</code>方法：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">form</span> <span class="err">(</span><span class="na">ngSubmit</span><span class="err">)=&quot;</span><span class="na">onSubmit</span><span class="err">()&quot;</span> <span class="err">#</span><span class="na">userForm</span><span class="o">=</span><span class="s">&quot;ngForm&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>这里，我们定义了一个本地变量<code>#userForm</code>，赋值为<code>ngForm</code>，这样<code>userForm</code>就指向管理整个表单的<code>NgForm</code>指令了。</p>
+
+<p>等等，怎么是<code>NgForm</code>指令呢？我们根本就没有添加<code>NgForm</code>指令啊？</p>
+
+<p>这是因为Angular自动为<code>&lt;form&gt;</code>创建并添加<code>NgForm</code>指令。</p>
+
+<p><code>NgForm</code>指令为<code>form</code>元素补充了一些额外的特性。它包含我们用<code>ngModel</code>指令和<code>name</code>属性为元素创建的控件，监控它们的属性包括有效性。它本身也有一个<code>valid</code>属性，当它包含的控件全都有效时为<code>true</code>。</p>
+
+<p>将Submit按钮的<code>disabled</code>属性绑定到表单的有效性：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;submit&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-default&quot;</span> <span class="err">[</span><span class="na">disabled</span><span class="err">]=&quot;!</span><span class="na">userForm</span><span class="err">.</span><span class="na">form</span><span class="err">.</span><span class="na">valid</span><span class="err">&quot;</span><span class="p">&gt;</span>Submit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>现在运行应用，表单打开时是有效状态，<code>Submit</code>按钮也是可以点击的。清空Name输入框的内容后，<code>Submit</code>按钮将被禁用。</p>
+
+<h3 id="在表单之间切换">在表单之间切换</h3>
+
+<p>用一个<code>&lt;div&gt;</code>包装表单，将它的<code>hidden</code>属性绑定到组件的<code>submitted</code>属性：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span>  <span class="err">[</span><span class="na">hidden</span><span class="err">]=&quot;</span><span class="na">submitted</span><span class="err">&quot;</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>User Form<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">form</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&quot;active&quot;</span> <span class="err">(</span><span class="na">ngSubmit</span><span class="err">)=&quot;</span><span class="na">onSubmit</span><span class="err">()&quot;</span> <span class="err">#</span><span class="na">userForm</span><span class="o">=</span><span class="s">&quot;ngForm&quot;</span><span class="p">&gt;</span>
+
+    <span class="c">&lt;!-- ... all of the form ... --&gt;</span>
+
+ <span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>这个表单在页面打开时是可见的，因为<code>submitted</code>值为<code>false</code>，直到我们提交了表单，它才会是<code>true</code>。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">submitted</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+<span class="nx">onSubmit</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">submitted</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>当我们点击Submit按钮，<code>submitted</code>值变成<code>true</code>，表单就会被隐藏。这时候显示一些其他信息：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">hidden</span><span class="err">]=&quot;!</span><span class="na">submitted</span><span class="err">&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>You submitted the following:<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-xs-3&quot;</span><span class="p">&gt;</span>Name<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-xs-9  pull-left&quot;</span><span class="p">&gt;</span>{{ model.name }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-xs-3&quot;</span><span class="p">&gt;</span>Email<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-xs-9 pull-left&quot;</span><span class="p">&gt;</span>{{ model.email }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;row&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-xs-3&quot;</span><span class="p">&gt;</span>City<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-xs-9 pull-left&quot;</span><span class="p">&gt;</span>{{ model.city }}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">br</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;btn btn-default&quot;</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">submitted</span><span class="o">=</span><span class="s">false&quot;</span><span class="p">&gt;</span>Edit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>我们添加了<code>Edit</code>按钮，点击后将清除<code>submitted</code>标志，这样就重新显示之前的可编辑的表单啦。</p>
+
+<p>在浏览器中的效果如下：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/forms/form3.png" alt="" /></p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://angular.io/docs/ts/latest/guide/forms.html">Angular2 Documentation - Forms</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>278</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

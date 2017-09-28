@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Angular2] Component Styles</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 让我们来看看如何为组件添加CSS样式。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Angular2] Component Styles" />
+    <meta name="twitter:description" content=" 让我们来看看如何为组件添加CSS样式。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2017/03/04/angular2-component-styles/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Angular2] Component Styles</h1>
+      <p class="post-meta">@wukn · Mar 4, 2017 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>让我们来看看如何为组件添加CSS样式。</p>
+</blockquote>
+
+<p></p>
+
+<p>Angular应用中的样式用的就是标准的CSS。也就是说可以直接为组件应用CSS样式表、选择器、规则和媒体查询。</p>
+
+<p>除此之外，Angular还可以为组件绑定组件样式（component style），这是比常规样式表更加模块化的设计。</p>
+
+<h3 id="使用组件样式">使用组件样式</h3>
+
+<p>对于我们开发的每一个组件，我们不仅仅定义一个HTML模板，通常还会有一个跟模板对应的CSS样式，指定所需的选择器、规则和媒体查询。</p>
+
+<p>一种方法是设置组件元数据的<code>styles</code>属性。<code>styles</code>属性的值是一个包含CSS代码的字符串数组。例如：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-app&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
+<span class="sb">    &lt;h1&gt;Tour of Heroes&lt;/h1&gt;</span>
+<span class="sb">    &lt;hero-app-main [hero]=hero&gt;&lt;/hero-app-main&gt;`</span><span class="p">,</span>
+  <span class="nx">styles</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;h1 { font-weight: normal; }&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroAppComponent</span> <span class="p">{</span>
+<span class="cm">/* . . . */</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>在组件的style中定义的选择器只会作用与组件的模板内。这种模块化的机制比传统的CSS更好用。</p>
+
+<ul>
+<li>可以在每个组件上下文中选择最有语义的CSS类名和选择器</li>
+<li>类名和选择器只是相对与组件的，不会跟应用的其他地方发生冲突</li>
+<li>修改应用中其他地方的样式不会影响组件的样式</li>
+<li>可以将组件的TypeScript代码和HTML代码以及CSS代码放在一起，形成一个干净整洁的项目结构</li>
+<li>修改或移除组件样式时，不需要去查找应用中其它哪些代码用到了它</li>
+</ul>
+
+<h3 id="特殊的选择器">特殊的选择器</h3>
+
+<p>组件样式有几个特殊的选择器，来自于Shadow DOM样式。</p>
+
+<h4 id="host"><code>:host</code></h4>
+
+<p>使用<code>:host</code>伪类选择器来为组件的宿主元素指定样式。</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="p">:</span><span class="nd">host</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+  <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">black</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><code>:host</code>选择器是唯一指向宿主元素的方式。你无法在组件内用其它选择器来指向宿主元素，因为宿主元素不是组件模板的一部分。宿主元素是组件模板的父元素。</p>
+
+<p>使用函数方式在<code>:host</code>后的括号内指令另一个选择器，可以为宿主元素添加条件样式。例如，下面这个样式还是针对宿主元素的，但仅仅是在它有<code>active</code>CSS类时。</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="p">:</span><span class="nd">host</span><span class="o">(</span><span class="p">.</span><span class="nc">active</span><span class="o">)</span> <span class="p">{</span>
+  <span class="k">border-width</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="host-context"><code>:host-context</code></h4>
+
+<p>有的时候为组件视图的外部添加一些样式也是很有用的。例如，一个CSS主题类可以被应用到<code>&lt;body&gt;</code>上来改变组件在其中的显示样式。</p>
+
+<p>使用<code>:host-context()</code>伪类选择器，它会查找组件宿主元素的父元素的CSS类，直到DOM的根元素。通常<code>:host-context()</code>跟另外的选择器结合起来使用。</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="p">:</span><span class="nd">host-context</span><span class="o">(</span><span class="p">.</span><span class="nc">theme-light</span><span class="o">)</span> <span class="nt">h2</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#eef</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>这个例子中，当组件的父元素有<code>theme-light</code>类时，组件内的<code>&lt;h2&gt;</code>元素应用<code>background-color</code>样式。</p>
+
+<h4 id="deep"><code>/deep/</code></h4>
+
+<p>组件样式通常只应用于组件自己的模板。</p>
+
+<p>使用<code>/deep/</code>选择器可以强制样式应用到所有的子组件视图。它对任意层级的组件嵌套都有用。</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="p">:</span><span class="nd">host</span> <span class="o">/</span><span class="nt">deep</span><span class="o">/</span> <span class="nt">h3</span> <span class="p">{</span>
+  <span class="k">font-style</span><span class="p">:</span> <span class="kc">italic</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>上面的例子将作用于所有<code>&lt;h3&gt;</code>元素，包括从宿主元素到这个组件的所有子元素。</p>
+
+<p><code>/deep/</code>也可以写成<code>&gt;&gt;&gt;</code>。</p>
+
+<h3 id="为组件添加样式">为组件添加样式</h3>
+
+<p>为组件添加样式的方式有几种：</p>
+
+<ul>
+<li>设置<code>styles</code>或<code>styleUrls</code>元数据</li>
+<li>在HTML模板中行内定义</li>
+<li>使用CSS import</li>
+</ul>
+
+<h4 id="元数据中设置styles">元数据中设置styles</h4>
+
+<p>为<code>@Component</code>装饰器添加数组属性<code>styles</code>，数组的每一行都是CSS。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-app&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
+<span class="sb">    &lt;h1&gt;Tour of Heroes&lt;/h1&gt;</span>
+<span class="sb">    &lt;hero-app-main [hero]=hero&gt;&lt;/hero-app-main&gt;`</span><span class="p">,</span>
+  <span class="nx">styles</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;h1 { font-weight: normal; }&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroAppComponent</span> <span class="p">{</span>
+<span class="cm">/* . . . */</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h4 id="元数据中设置styleurls">元数据中设置styleUrls</h4>
+
+<p>为<code>@Component</code>装饰器添加数组属性<code>styleUrls</code>，引入外部CSS文件。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-details&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
+<span class="sb">    &lt;h2&gt;{{hero.name}}&lt;/h2&gt;</span>
+<span class="sb">    &lt;hero-team [hero]=hero&gt;&lt;/hero-team&gt;</span>
+<span class="sb">    &lt;ng-content&gt;&lt;/ng-content&gt;</span>
+<span class="sb">  `</span><span class="p">,</span>
+  <span class="nx">styleUrls</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;app/hero-details.component.css&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroDetailsComponent</span> <span class="p">{</span>
+<span class="cm">/* . . . */</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>这个URL相对于应用的根目录，通常也就是<code>index.html</code>所在的目录。也可以指定相对于组件文件的URL，见附2。</p>
+
+<p>如果使用Webpack，还可以使用<code>styles</code>属性在构建时从外部文件加载样式。例如：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">styles</span><span class="o">:</span> <span class="p">[</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;my.component.css&#39;</span><span class="p">)]</span>
+</code></pre></div>
+
+<h4 id="模板中行内定义样式">模板中行内定义样式</h4>
+
+<p>可以将样式写在模板中<code>&lt;style&gt;</code>标签内。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-controls&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
+<span class="sb">    &lt;style&gt;</span>
+<span class="sb">      button {</span>
+<span class="sb">        background-color: white;</span>
+<span class="sb">        border: 1px solid #777;</span>
+<span class="sb">      }</span>
+<span class="sb">    &lt;/style&gt;</span>
+<span class="sb">    &lt;h3&gt;Controls&lt;/h3&gt;</span>
+<span class="sb">    &lt;button (click)=&quot;activate()&quot;&gt;Activate&lt;/button&gt;</span>
+<span class="sb">  `</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<h4 id="模板链接标签">模板链接标签</h4>
+
+<p>还可以在模板内使用<code>&lt;link&gt;</code>标签。</p>
+
+<p>跟<code>styleUrls</code>一样，标签的<code>href</code> URL是相对于应用的根目录的，不是相对组件文件的。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-team&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
+<span class="sb">    &lt;link rel=&quot;stylesheet&quot; href=&quot;app/hero-team.component.css&quot;&gt;</span>
+<span class="sb">    &lt;h3&gt;Team&lt;/h3&gt;</span>
+<span class="sb">    &lt;ul&gt;</span>
+<span class="sb">      &lt;li *ngFor=&quot;let member of hero.team&quot;&gt;</span>
+<span class="sb">        {{member}}</span>
+<span class="sb">      &lt;/li&gt;</span>
+<span class="sb">    &lt;/ul&gt;`</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<h4 id="css-imports">CSS <code>@imports</code></h4>
+
+<p>可以使用标准的CSS <code>@import</code>规则来向CSS文件中引入CSS文件。</p>
+
+<p>这种场景下，URL是相对于正在引入的这个文件。</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="c">/* src/app/hero-details.component.css (excerpt) */</span>
+
+<span class="p">@</span><span class="k">import</span> <span class="s1">&#39;hero-details-box.css&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<h3 id="控制视图封装">控制视图封装</h3>
+
+<p>正如之前所说，组件的CSS样式被封装到组件视图内，且不会影响应用的其它地方。</p>
+
+<p>我们可以在组件的元数据中设置视图封装模式：</p>
+
+<ul>
+<li><code>Native</code>视图封装：使用浏览器自身的shadow DOM实现来为组件的宿主元素附加一个shadow DOM，然后将组件视图放到这个shadow DOM中。组件的样式也包含在shadow DOM内。</li>
+<li><code>Emulated</code>视图封装（默认模式）：通过预处理（重命名）CSS代码将作用域限制在视图模板内来模拟shadow DOM的行为。详见附1。</li>
+<li><code>None</code>：Angular不做视图封装。Angular将CSS添加到全局样式中。</li>
+</ul>
+
+<p>要设置组件的封装模式，使用组件元数据的<code>encapsulation</code>属性：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// warning: few browsers support shadow DOM encapsulation at this time</span>
+<span class="nx">encapsulation</span><span class="o">:</span> <span class="nx">ViewEncapsulation</span><span class="p">.</span><span class="nx">Native</span>
+</code></pre></div>
+
+<p>使用<code>Native</code>模式的前提是浏览器原生支持shadow DOM。</p>
+
+<h3 id="附1-一窥emulated视图封装生成的css">附1：一窥Emulated视图封装生成的CSS</h3>
+
+<p>当使用emulated视图封装时，Angular会预处理所有的组件样式，让它们接近标准的shadow CSS作用域规则。</p>
+
+<p>启用emulated视图封装时，每个DOM元素会被附件一些额外的属性：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">hero-details</span> <span class="na">_nghost-pmm-5</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">_ngcontent-pmm-5</span><span class="p">&gt;</span>Mister Fantastic<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">hero-team</span> <span class="na">_ngcontent-pmm-5</span> <span class="na">_nghost-pmm-6</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span> <span class="na">_ngcontent-pmm-6</span><span class="p">&gt;</span>Team<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">hero-team</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">hero-detail</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>有两种生成的属性：</p>
+
+<ul>
+<li>在native封装模式中应该为shadow DOM宿主的那个元素会被生成一个<code>_nghost</code>属性。这通常就是组件的宿主元素。</li>
+<li>组件视图内的元素会被生成一个<code>_ngcontent</code>属性，表明它属于哪一个模拟的shadow DOM。</li>
+</ul>
+
+<p>这些属性的具体值是不重要的。它是自动生成的，并且代码中绝对不可能用到。但是它们会在生成的组件样式中用到，在DOM的<code>&lt;head&gt;</code>段中。</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="o">[</span><span class="nt">_nghost-pmm-5</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+  <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">black</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">h3</span><span class="o">[</span><span class="nt">_ngcontent-pmm-6</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+  <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#777</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="附2-使用相对url加载样式">附2：使用相对URL加载样式</h3>
+
+<p>通常我们将组件的代码分成三部分，js代码，HTML和CSS分别放在三个文件中：</p>
+
+<pre><code>quest-summary.component.ts
+quest-summary.component.html
+quest-summary.component.css
+</code></pre>
+
+<p>我们通过元数据的<code>templateUrl</code>和<code>styleUrls</code>属性来引用它们。那么根据名称来引用它们比指定它们跟应用根目录的相对路径更好一些。</p>
+
+<p>我们可以修改Angular的完整URL的计算规则，将组件元数据的<code>moduleId</code>属性赋值为<code>module.id</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;quest-summary&#39;</span><span class="p">,</span>
+  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;./quest-summary.component.html&#39;</span><span class="p">,</span>
+  <span class="nx">styleUrls</span><span class="o">:</span>  <span class="p">[</span><span class="s1">&#39;./quest-summary.component.css&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">QuestSummaryComponent</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://angular.io/docs/ts/latest/guide/component-styles.html">Angular2 Documentation - Component Styles</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>208</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

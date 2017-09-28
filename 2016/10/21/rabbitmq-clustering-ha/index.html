@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][RabbitMQ] Clustering and High Availability</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 使用RabitMQ构建RPC应用。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][RabbitMQ] Clustering and High Availability" />
+    <meta name="twitter:description" content=" 使用RabitMQ构建RPC应用。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/10/21/rabbitmq-clustering-ha/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][RabbitMQ] Clustering and High Availability</h1>
+      <p class="post-meta">@wukn · Oct 24, 2016 · 3 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>使用RabitMQ构建RPC应用。</p>
+</blockquote>
+
+<p></p>
+
+<h2 id="distributed-rabbitmq-broker">distributed RabbitMQ broker</h2>
+
+<p>构建分布式broker有三种方式：clustering、federation、shovel。</p>
+
+<ul>
+<li>clustering是将多台机器连接在一起形成一个逻辑broker，通过Erlang的消息传递进行通信。集群内所有节点需要有同样的Erlang cookie，也就是说所有的机器运行相同版本的Erlang和RabbitMQ。virtual host、exchange、user、permission会在集群内所有节点之间自动镜像。queue可能只在某一个broker中，也可以配置为在多个节点之间镜像。客户端连接到某个节点后可以访问集群内所有的queue。通常使用clustering来实现高可用和增加吞吐量。</li>
+<li>federation允许一个broker的exchange或queue接收发布到另一个broker的exchange或queue的消息，通过AMQP通信。联邦的exchange之间是单向点对点连接。默认情况下消息只会通过联邦连接传递一次，当然也可以配置成多次来实现复杂的路由。有的消息可能会被联邦连接忽略而不传递，如果一个消息传递到联邦的exchange后不会路由到queue，那么它一开始就不会被传递。联邦queue也是类似的单向点对点连接，消息会根据consumer而被传递任意次数。通常使用federation来连接通过互联网发布/订阅消息和队列的broker。</li>
+<li>shovel概念上跟federation类似，它仅仅是从一个broker的某个queue中消息消息，传递给另一个broker的exchange。shovel提供了比federation更细粒度的控制。</li>
+</ul>
+
+<h2 id="reliable-delivery">reliable delivery</h2>
+
+<p>网络失效是最常见的故障，而且通常不会立刻被发现。另外，broker和客户端应用可能会遭遇硬件故障。甚至客户端的一些逻辑错误会导致channel或connection错误，需要重新建立channel或connection。这就需要一些措施来确保消息传递的可靠性。</p>
+
+<p>连接失效时，客户端会重新建立新的连接，之前的连接上打开的channel会自动关闭并重新打开。</p>
+
+<p>在连接失效时，正在传输中的消息会丢失。acknowledgement可以解决这个问题。acknowledgement有两种：consumer向server发送它已经接收/处理消息的反馈；server向producer发送同样的反馈。后一种情况在RabbitMQ中成为confirm。</p>
+
+<p>对于操作系统层的TCP连接中断，可以使用heartbeat特性。</p>
+
+<p>为了避免broker中消息丢失，需要考虑broker重启和硬件故障或应用崩溃的情况。</p>
+
+<p>建立持久的exchange和queue并且将消息持久化到磁盘可以保证broker重启后消息不会丢失。</p>
+
+<p>如果要确保broker在硬件故障时仍可用，可以使用clustering。</p>
+
+<h2 id="clustering">clustering</h2>
+
+<p>一个RabbitMQ broker是由一个或多个Erlang node组成的一个逻辑组，每个node运行Erlang并共享users、virtual hosts、queues、exchanges、bindings、runtime parameter。也称为cluster。</p>
+
+<p>broker运行所需的所有数据/状态在所有node之间复制，除了queue。queue默认只驻留在某一个node中，但对所有节点是可见且可访问的。要在cluster的node之间复制queue可以使用high availability。</p>
+
+<p>node之间通过域名相互访问，因此需要每个node的hostname可以被其他node解析。（使用操作系统提供的DNS记录、本地host文件或Erlang VM配置。）</p>
+
+<p>cluster有多种配置方式：</p>
+
+<ul>
+<li>使用rabbitmqctl手动建立</li>
+<li>在config文件中声明所有node</li>
+<li>使用插件rabbitmq-autocluster声明</li>
+<li>使用插件rabbitmq-clusterer声明</li>
+</ul>
+
+<p>举个例子，构建一个集群，包含三个节点：rabbit1、rabbit2、rabbit3。</p>
+
+<p>RabbitMQ node和命令行工具需要相互通信时，他们必须得有相同的Erlang cookie。Erlang虚拟机在启动RabbitMQ服务器是会自动创建一个随机的cookie文件，通常位于<code>/var/lib/rabbitmq/.erlang.cookie</code>或<code>$HOME/.erlang.cookie</code>。最简单的方法是，一个node创建了cookie文件后，将它复制到其它node。</p>
+
+<h3 id="独立启动每个node">独立启动每个node</h3>
+
+<p>建立cluster是通过将已经存在的node配置成集群，因此首先以正常方式启动所有节点：</p>
+
+<pre><code>rabbit1$ rabbitmq-server -detached
+
+rabbit2$ rabbitmq-server -detached
+
+rabbit3$ rabbitmq-server -detached
+</code></pre>
+
+<p>这样，在三个node上创建了独立的broker，使用cluster_status查看结果如下：</p>
+
+<pre><code>rabbit1$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1]}]},{running_nodes,[rabbit@rabbit1]}]
+...done.
+
+rabbit2$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit2]}]},{running_nodes,[rabbit@rabbit2]}]
+...done.
+
+rabbit3$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
+...done.
+</code></pre>
+
+<h3 id="创建cluster">创建cluster</h3>
+
+<p>为了将三个node连接成一个cluster，将其中两个节点加到第三个节点的cluster中，例如将<code>rabbit@rabbit2</code>和<code>rabbit@rabbit3</code>加入到rabbit@rabbit1集群中。</p>
+
+<p>将<code>rabbit@rabbit2</code>加入<code>rabbit@rabbit1</code>集群时，先将<code>rabbit@rabbit2</code>上的RabbitMQ应用停掉，再加入<code>rabbit@rabbit1</code>集群，最后重启RabbitMQ应用。加入集群后，<code>rabbit@rabbit2</code>上的资源和数据将被覆盖。</p>
+
+<pre><code>rabbit2$ rabbitmqctl stop_app
+Stopping node rabbit@rabbit2 ...done.
+rabbit2$ rabbitmqctl join_cluster rabbit@rabbit1
+Clustering node rabbit@rabbit2 with [rabbit@rabbit1] ...done.
+rabbit2$ rabbitmqctl start_app
+Starting node rabbit@rabbit2 ...done.
+</code></pre>
+
+<p>将<code>rabbit@rabbit3</code>加入集群：</p>
+
+<pre><code>rabbit3$ rabbitmqctl stop_app
+Stopping node rabbit@rabbit3 ...done.
+
+rabbit3$ rabbitmqctl join_cluster rabbit@rabbit2
+Clustering node rabbit@rabbit3 with rabbit@rabbit2 ...done.
+
+rabbit3$ rabbitmqctl start_app
+Starting node rabbit@rabbit3 ...done.
+</code></pre>
+
+<p>使用cluster_status查看结果如下：</p>
+
+<pre><code>rabbit1$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]
+...done.
+
+rabbit2$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit3,rabbit@rabbit1,rabbit@rabbit2]}]
+...done.
+
+rabbit3$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit3,rabbit@rabbit2,rabbit@rabbit1]}]},
+ {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
+...done.
+</code></pre>
+
+<p>使用上面的方法，可以在cluster运行的任意时刻添加node。</p>
+
+<h3 id="重启cluster-node">重启cluster node</h3>
+
+<p>加入cluster的node可以随时被停止，也就是说node崩溃不会影响cluster。</p>
+
+<p>依次将<code>rabbit@rabbit1</code>和<code>rabbit@rabbit3</code>停掉，并查看cluster的状态：</p>
+
+<pre><code>rabbit1$ rabbitmqctl stop
+Stopping and halting node rabbit@rabbit1 ...done.
+
+rabbit2$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit3,rabbit@rabbit2]}]
+...done.
+
+rabbit3$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit2,rabbit@rabbit3]}]
+...done.
+
+rabbit3$ rabbitmqctl stop
+Stopping and halting node rabbit@rabbit3 ...done.
+
+rabbit2$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit2]}]
+...done.
+</code></pre>
+
+<p>再将node重启：</p>
+
+<pre><code>rabbit1$ rabbitmq-server -detached
+rabbit1$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
+...done.
+
+rabbit2$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
+...done.
+
+rabbit3$ rabbitmq-server -detached
+rabbit1$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
+...done.
+
+rabbit2$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]
+...done.
+
+rabbit3$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2,rabbit@rabbit3]}]},
+ {running_nodes,[rabbit@rabbit2,rabbit@rabbit1,rabbit@rabbit3]}]
+...done.
+</code></pre>
+
+<p>要注意的是：</p>
+
+<ul>
+<li>如果cluster所有的node都挂掉了，那么最后一个挂掉的node必须是第一个重新上线的。如果其他node在等待30秒之后，该node仍不能恢复，那么集群就失败了。如果最后一个挂掉的node恢复不了，那么可以使用rabbitmqctl命令的forget_cluster_node将它移除cluster。</li>
+<li>如果cluster所有的node同时挂掉了（如断电导致的），那么所有node都认为其他node是在它们之后停止的，这是可以使用rabbitmqctl的force_boot来让某个节点可启动。</li>
+</ul>
+
+<h3 id="移除cluster-node">移除cluster node</h3>
+
+<p>从cluster中移除一个node：</p>
+
+<pre><code>rabbit3$ rabbitmqctl stop_app
+Stopping node rabbit@rabbit3 ...done.
+rabbit3$ rabbitmqctl reset
+Resetting node rabbit@rabbit3 ...done.
+rabbit3$ rabbitmqctl start_app
+Starting node rabbit@rabbit3 ...done.
+</code></pre>
+
+<p>查看状态如下：</p>
+
+<pre><code>rabbit1$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
+ {running_nodes,[rabbit@rabbit2,rabbit@rabbit1]}]
+...done.
+
+rabbit2$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit1,rabbit@rabbit2]}]},
+ {running_nodes,[rabbit@rabbit1,rabbit@rabbit2]}]
+...done.
+
+rabbit3$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
+...done.
+</code></pre>
+
+<p>还可以远程移除node：</p>
+
+<pre><code>rabbit1$ rabbitmqctl stop_app
+Stopping node rabbit@rabbit1 ...done.
+
+rabbit2$ rabbitmqctl forget_cluster_node rabbit@rabbit1
+Removing node rabbit@rabbit1 from cluster ...
+...done.
+</code></pre>
+
+<p>这时rabbit1仍然认为它和rabbit2是同一个集群的，直接启动它会报错，需要reset后重新启动：</p>
+
+<pre><code>rabbit1$ rabbitmqctl start_app
+Starting node rabbit@rabbit1 ...
+Error: inconsistent_cluster: Node rabbit@rabbit1 thinks it's clustered with node rabbit@rabbit2, but rabbit@rabbit2 disagrees
+rabbit1$ rabbitmqctl reset
+Resetting node rabbit@rabbit1 ...done.
+rabbit1$ rabbitmqctl start_app
+Starting node rabbit@mcnulty ...
+...done.
+</code></pre>
+
+<p>现在，三个node是独立的broker了：</p>
+
+<pre><code>rabbit1$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit1 ...
+[{nodes,[{disc,[rabbit@rabbit1]}]},{running_nodes,[rabbit@rabbit1]}]
+...done.
+
+rabbit2$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit2 ...
+[{nodes,[{disc,[rabbit@rabbit2]}]},{running_nodes,[rabbit@rabbit2]}]
+...done.
+
+rabbit3$ rabbitmqctl cluster_status
+Cluster status of node rabbit@rabbit3 ...
+[{nodes,[{disc,[rabbit@rabbit3]}]},{running_nodes,[rabbit@rabbit3]}]
+...done.
+</code></pre>
+
+<p>值得注意的是，这时<code>rabbit@rabbit2</code>仍然保留这集群的状态，而<code>rabbit@rabbit1</code>和<code>rabbit@rabbit3</code>相当于新建的独立broker。将<code>rabbit@rabbit2</code>恢复初始化：</p>
+
+<pre><code>rabbit2$ rabbitmqctl stop_app
+Stopping node rabbit@rabbit2 ...done.
+rabbit2$ rabbitmqctl reset
+Resetting node rabbit@rabbit2 ...done.
+rabbit2$ rabbitmqctl start_app
+Starting node rabbit@rabbit2 ...done.
+</code></pre>
+
+<h3 id="在一台机器上构建集群">在一台机器上构建集群</h3>
+
+<p>在一台机器上运行多个RabitMQ node时，每个node需要有独立的节点名称、数据存储位置、日志文件位置、绑定不同的端口。例如：</p>
+
+<pre><code>$ RABBITMQ_NODE_PORT=5672 RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
+$ RABBITMQ_NODE_PORT=5673 RABBITMQ_NODENAME=hare rabbitmq-server -detached
+$ rabbitmqctl -n hare stop_app
+$ rabbitmqctl -n hare join_cluster rabbit@`hostname -s`
+$ rabbitmqctl -n hare start_app
+</code></pre>
+
+<p>如果除了AMQP端口还有其他端口的话，在启动命令中指定：</p>
+
+<pre><code>$ RABBITMQ_NODE_PORT=5672 RABBITMQ_SERVER_START_ARGS=&quot;-rabbitmq_management listener [{port,15672}]&quot; RABBITMQ_NODENAME=rabbit rabbitmq-server -detached
+$ RABBITMQ_NODE_PORT=5673 RABBITMQ_SERVER_START_ARGS=&quot;-rabbitmq_management listener [{port,15673}]&quot; RABBITMQ_NODENAME=hare rabbitmq-server -detached
+</code></pre>
+
+<h3 id="ram-node">RAM node</h3>
+
+<p>RAM node将一些元数据保存在内存中，减少了写入磁盘的次数，可以提高性能。RAM node可以随转换为disk node。</p>
+
+<h2 id="high-availabile-quque">high availabile quque</h2>
+
+<p>默认情况下，cluster中的queue只存在于某个node中。可以配置queue在多个node之间镜像，建立镜像的queue有一个master和一个或多个slave，当master挂掉时，最早的那个slave将成为新的master。</p>
+
+<p>发布到queue的消息会复制到所有slave中，consumer不管连接的是那个node，它连接的都是master。slave在master受到反馈时也会删除消息。建立queue的镜像提高了可用性，但不是在node之间做负载均衡。</p>
+
+<p>配置queue的镜像策略是通过使用policy。镜像策略在任意时候都是可以修改的。可以创建一个非镜像queue，然后再将它转成镜像queue。非镜像queue和没有slave的镜像queue是不一样的，前者的运行速度更快。配置镜像时需要注意：</p>
+
+<ul>
+<li>新的镜像中不包含原master时，RabbitMQ会等到其中一个slave同步完成移除master。例如，queue在[A B]上(其中A是master)现在将它配置到[C D]上，首先会这样[A C D]。一旦同步至新的镜像[C D]后，master A就会被关闭。</li>
+<li>exclusive queue不会建立镜像，因为声明它的connection关闭时它就被删掉了。
+新添加到cluster的node根据镜像策略可能会成为slave，这时它不包含queue中已存在的消息，但是会接收新消息的同步，随着时间的推移最终会与master保持完全一致。</li>
+<li>配置ha-sync-batch-size可设置消息同步的批次大小，可以提高性能。</li>
+</ul>
+
+<p>名称以&rsquo;ha.&lsquo;开头的queue镜像到所有node：</p>
+
+<pre><code>rabbitmqctl set_policy ha-all &quot;^ha\.&quot; '{&quot;ha-mode&quot;:&quot;all&quot;}'
+</code></pre>
+
+<p>名称以&rsquo;two.&lsquo;开头的queue镜像到任意两个node：</p>
+
+<pre><code>rabbitmqctl set_policy ha-two &quot;^two\.&quot; '{&quot;ha-mode&quot;:&quot;exactly&quot;,&quot;ha-params&quot;:2,&quot;ha-sync-mode&quot;:&quot;automatic&quot;}'
+</code></pre>
+
+<p>名称以&rsquo;nodes.&lsquo;开头的queue镜像到指定node：</p>
+
+<pre><code>rabbitmqctl set_policy ha-nodes &quot;^nodes\.&quot; '{&quot;ha-mode&quot;:&quot;nodes&quot;,&quot;ha-params&quot;:[&quot;rabbit@nodeA&quot;, &quot;rabbit@nodeB&quot;]}'
+</code></pre>
+
+<hr />
+
+<p>参考资料</p>
+
+<p><a href="http://www.rabbitmq.com/documentation.html">RabbitMQ documentation</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/rabbitmq"><span class="tag">RabbitMQ</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>339</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

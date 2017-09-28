@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Angular2] Case Study -HTTP</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 使用TypeScript构建Angular2应用。将服务改成HTTP服务。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Angular2] Case Study -HTTP" />
+    <meta name="twitter:description" content=" 使用TypeScript构建Angular2应用。将服务改成HTTP服务。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2017/01/05/angular2-case-study-http/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Angular2] Case Study -HTTP</h1>
+      <p class="post-meta">@wukn · Jan 5, 2017 · 6 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>使用TypeScript构建Angular2应用。将服务改成HTTP服务。</p>
+</blockquote>
+
+<p></p>
+
+<p>现在我们要将数据的获取改成从服务器查询，并且添加、修改和删除操作能回写到服务器中。通过HTTP调用远程服务器的web API。</p>
+
+<h3 id="提供http服务">提供HTTP服务</h3>
+
+<p><code>HttpModule</code>模块不是Angular的核心模块。它在可选的<code>@angular/http</code>包中，是Angular的npm包中的一个单独的文件。</p>
+
+<p>幸运的是，我们可以直接从<code>@angular/http</code>中引入，因为<code>systemjs.config</code>配置了SystemJS去加载我们所用到的库。</p>
+
+<h4 id="注册http服务">注册HTTP服务</h4>
+
+<p>我们的应用将依赖http服务，而它又依赖一些其它的支撑服务。<code>HttpModule</code>包含了所有http服务相关的provider。</p>
+
+<p>在<code>HttpModule</code>中引入<code>HttpModule</code>，这样整个应用就能使用这些服务了。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">FormsModule</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;@angular/forms&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HttpModule</span> <span class="p">}</span>    <span class="nx">from</span> <span class="s1">&#39;@angular/http&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppRoutingModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./app-routing.module&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>         <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">DashboardComponent</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;./dashboard.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroesComponent</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;./heroes.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroDetailComponent</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;./hero-detail.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span>          <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">BrowserModule</span><span class="p">,</span>
+    <span class="nx">FormsModule</span><span class="p">,</span>
+    <span class="nx">HttpModule</span><span class="p">,</span>
+    <span class="nx">AppRoutingModule</span>
+  <span class="p">],</span>
+  <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">AppComponent</span><span class="p">,</span>
+    <span class="nx">DashboardComponent</span><span class="p">,</span>
+    <span class="nx">HeroDetailComponent</span><span class="p">,</span>
+    <span class="nx">HeroesComponent</span><span class="p">,</span>
+  <span class="p">],</span>
+  <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">HeroService</span> <span class="p">],</span>
+  <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
+
+<h3 id="模拟web-api">模拟Web API</h3>
+
+<p>我们的应用离真实的场景还远着呢。我们都还没有可以处理请求的Web服务器呢。先模拟一个吧。</p>
+
+<p>我们这里从一个模拟的service中数据的获取和保存，一个内存中的Web API。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">FormsModule</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;@angular/forms&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HttpModule</span> <span class="p">}</span>    <span class="nx">from</span> <span class="s1">&#39;@angular/http&#39;</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppRoutingModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./app-routing.module&#39;</span><span class="p">;</span>
+
+<span class="c1">// Imports for loading &amp; configuring the in-memory web api</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">InMemoryWebApiModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;angular-in-memory-web-api&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">InMemoryDataService</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;./in-memory-data.service&#39;</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>         <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">DashboardComponent</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;./dashboard.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroesComponent</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;./heroes.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroDetailComponent</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;./hero-detail.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span>          <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">BrowserModule</span><span class="p">,</span>
+    <span class="nx">FormsModule</span><span class="p">,</span>
+    <span class="nx">HttpModule</span><span class="p">,</span>
+    <span class="nx">InMemoryWebApiModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">InMemoryDataService</span><span class="p">),</span>
+    <span class="nx">AppRoutingModule</span>
+  <span class="p">],</span>
+  <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">AppComponent</span><span class="p">,</span>
+    <span class="nx">DashboardComponent</span><span class="p">,</span>
+    <span class="nx">HeroDetailComponent</span><span class="p">,</span>
+    <span class="nx">HeroesComponent</span><span class="p">,</span>
+  <span class="p">],</span>
+  <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">HeroService</span> <span class="p">],</span>
+  <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>这里是用<code>InMemoryWebApiModule</code>模拟服务器API的。<code>InMemoryWebApiModule.forRoot(InMemoryDataService)</code>中的参数<code>InMemoryDataService</code>是一个提供内存数据库初始值的类：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/in-memory-data.service.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">InMemoryDbService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;angular-in-memory-web-api&#39;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">InMemoryDataService</span> <span class="kr">implements</span> <span class="nx">InMemoryDbService</span> <span class="p">{</span>
+  <span class="nx">createDb</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">heroes</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Mr. Nice&#39;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Narco&#39;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">13</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Bombasto&#39;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Celeritas&#39;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Magneta&#39;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">16</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;RubberMan&#39;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">17</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dynama&#39;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dr IQ&#39;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">19</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Magma&#39;</span><span class="p">},</span>
+      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Tornado&#39;</span><span class="p">}</span>
+    <span class="p">];</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">heroes</span><span class="p">};</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>现在可以删掉<code>mock-heroes.ts</code>了。</p>
+
+<h3 id="http">HTTP</h3>
+
+<p>看一下目前<code>HeroService</code>中的实现：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">getHeroes</span><span class="p">()</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">HEROES</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>我们用模拟数据返回了一个resloved Promise。那么现在要改成从HTTP客户端异步获取数据：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero.service.ts (updated getHeroes and new class members)</span>
+
+<span class="kr">private</span> <span class="nx">heroesUrl</span> <span class="o">=</span> <span class="s1">&#39;api/heroes&#39;</span><span class="p">;</span>  <span class="c1">// URL to web api</span>
+
+<span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">http</span><span class="o">:</span> <span class="nx">Http</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+<span class="nx">getHeroes</span><span class="p">()</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">heroesUrl</span><span class="p">)</span>
+             <span class="p">.</span><span class="nx">toPromise</span><span class="p">()</span>
+             <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span> <span class="nx">as</span> <span class="nx">Hero</span><span class="p">[])</span>
+             <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kr">private</span> <span class="nx">handleError</span><span class="p">(</span><span class="nx">error</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;An error occurred&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span> <span class="c1">// for demo purposes only</span>
+  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="o">||</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>同时还要更新下import：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero.service.ts (updated imports)</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span>    <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Headers</span><span class="p">,</span> <span class="nx">Http</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/http&#39;</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/toPromise&#39;</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>刷新浏览器，数据可以成功地从模拟的server中获取。</p>
+
+<h4 id="http-promise">HTTP Promise</h4>
+
+<p>我们返回的仍然是一个Promise，但是创建的方式跟之前有些不同。</p>
+
+<p>Angular的<code>http.get</code>方法返回的是一个RxJS的<code>Observable</code>。Observables是一种管理异步数据流的方式。这里我们使用了<code>.toPromise()</code>方法将<code>Observable</code>转换成<code>Promise</code>。但是Angular自己的<code>Observable</code>没有提供<code>toPromise</code>操作符，所以我们使用了RxJS库。</p>
+
+<h4 id="在then的回调中抽取数据">在then的回调中抽取数据</h4>
+
+<p>在promise的<code>then</code>回调中我们用HTTP <code>Response</code>的<code>json</code>方法来获取数据。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span> <span class="nx">as</span> <span class="nx">Hero</span><span class="p">[])</span>
+</code></pre></div>
+
+<p>响应结果JSON中有个data属性，这个属性的值就是Web API返回的值。在这里正好是我们想要的数组，所以直接将它作为resolved Promise值返回。</p>
+
+<h4 id="错误处理">错误处理</h4>
+
+<p>在<code>getHeroes()</code>方法的结尾我们<code>catch</code>了服务器的错误并提供了一个错误处理函数：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
+</code></pre></div>
+
+<p>这一步很重要。我们必须假定HTTP调用失败是很常见的。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">private</span> <span class="nx">handleError</span><span class="p">(</span><span class="nx">error</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;An error occurred&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span> <span class="c1">// for demo purposes only</span>
+  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="o">||</span> <span class="nx">error</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>这里我们只是记录了错误到console中，同时返回一个rejected promise，这样调用者可以将错误显示给用户。</p>
+
+<h4 id="gethero-by-id">getHero by id</h4>
+
+<p>目前<code>HeroService</code>中的<code>getHero</code>是把所有数据获取过来之后再做查询的。实际情况中一般是不会这样做的。一般Web API都会支持get-by-id方式的请求，<code>api/hero/:id</code>（例如<code>api/hero/11</code>）：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">getHero</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">heroesUrl</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">toPromise</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span> <span class="nx">as</span> <span class="nx">Hero</span><span class="p">)</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="保存更新后的数据">保存更新后的数据</h3>
+
+<p>现在我们可以在Hero的详细信息视图中更新数据，但是这只是在当前视图中，跳转到其它页面后更新就丢失了，因为我们的修改没有写回服务器中。</p>
+
+<p>在模板中添加一个保存按钮：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- app/hero-detail.component.html (save) --&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">save</span><span class="err">()&quot;</span><span class="p">&gt;</span>Save<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>在<code>save</code>方法中调用service的<code>update</code>方法：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-detail.component.ts (save)</span>
+
+<span class="nx">save</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">hero</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">goBack</span><span class="p">());</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>service中的<code>update</code>方法如下：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero.service.ts (update)</span>
+
+<span class="kr">private</span> <span class="nx">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">({</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">});</span>
+
+<span class="nx">update</span><span class="p">(</span><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">heroesUrl</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">hero</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">http</span>
+    <span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">hero</span><span class="p">),</span> <span class="p">{</span><span class="nx">headers</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">headers</span><span class="p">})</span>
+    <span class="p">.</span><span class="nx">toPromise</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">hero</span><span class="p">)</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>通过URL中的id指定我们要修改的hero，把修改后的hero转换成JSON字符串放在POST请求的body中，并在请求的Herder中制定了内容的类型。</p>
+
+<p>刷新浏览器试一试，现在修改数据后可以保存了。</p>
+
+<h3 id="添加hero">添加Hero</h3>
+
+<p>添加一个Hero只需要知道它的name就行了，所以在<code>heroes.component.html</code>中加一个input元素和一个按钮：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- app/heroes.component.html (add) --&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>Hero name:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">input</span> <span class="err">#</span><span class="na">heroName</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">add</span><span class="err">(</span><span class="na">heroName</span><span class="err">.</span><span class="na">value</span><span class="err">);</span> <span class="na">heroName</span><span class="err">.</span><span class="na">value</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="err">&quot;</span><span class="p">&gt;</span>
+    Add
+  <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>点击添加按钮后调用组件的<code>add</code>方法，保存数据并晴空input文本框：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/heroes.component.ts (add)</span>
+
+<span class="nx">add</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">.</span><span class="nx">trim</span><span class="p">();</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">hero</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">hero</span><span class="p">);</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><code>HeroService</code>中的<code>create</code>方法：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero.service.ts (create)</span>
+
+<span class="nx">create</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">http</span>
+    <span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">heroesUrl</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span> <span class="nx">name</span><span class="p">}),</span> <span class="p">{</span><span class="nx">headers</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">headers</span><span class="p">})</span>
+    <span class="p">.</span><span class="nx">toPromise</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="p">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span><span class="p">)</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>刷新浏览器，试试效果。</p>
+
+<h3 id="删除hero">删除Hero</h3>
+
+<p>在heroes列表视图中添加删除功能。</p>
+
+<p>在列表的<code>&lt;li&gt;</code>标签内的最后加一个删除按钮：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/heroes.component.html (li-element)</span>
+
+<span class="o">&lt;</span><span class="nx">li</span> <span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">&quot;let hero of heroes&quot;</span> <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">&quot;onSelect(hero)&quot;</span>
+    <span class="p">[</span><span class="kr">class</span><span class="p">.</span><span class="nx">selected</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;hero === selectedHero&quot;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">span</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;badge&quot;</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">hero</span><span class="p">.</span><span class="nx">id</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
+  <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">hero</span><span class="p">.</span><span class="nx">name</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
+  <span class="o">&lt;</span><span class="nx">button</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;delete&quot;</span>
+    <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">&quot;delete(hero); $event.stopPropagation()&quot;</span><span class="o">&gt;</span><span class="nx">x</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
+<span class="o">&lt;</span><span class="err">/li&gt;</span>
+</code></pre></div>
+
+<p>删除按钮点击后，除了调用组件的<code>delete</code>方法，还要阻止事件往上层冒泡。我们不希望在点击删除按钮后还会出发<code>&lt;li&gt;</code>的点击事件。</p>
+
+<p>组件的<code>delete</code>方法：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/heroes.component.ts (delete)</span>
+
+<span class="k">delete</span><span class="p">(</span><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span>
+      <span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">hero</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">h</span> <span class="p">=&gt;</span> <span class="nx">h</span> <span class="o">!==</span> <span class="nx">hero</span><span class="p">);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">===</span> <span class="nx">hero</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="p">}</span>
+      <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>这里调用service的<code>delete</code>方法，但是界面上的更新还是要组件自己负责，从数组中移除已删除的，并且根据需要重置<code>selectedHero</code>。</p>
+
+<p>给删除按钮加个样式，让它显示在最后面：</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="c">/* app/heroes.component.css (additions) */</span>
+
+<span class="nt">button</span><span class="p">.</span><span class="nc">delete</span> <span class="p">{</span>
+  <span class="k">float</span><span class="p">:</span><span class="kc">right</span><span class="p">;</span>
+  <span class="k">margin-top</span><span class="p">:</span> <span class="mi">2</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">margin-right</span><span class="p">:</span> <span class="mf">.8</span><span class="kt">em</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="kc">gray</span> <span class="cp">!important</span><span class="p">;</span>
+  <span class="k">color</span><span class="p">:</span><span class="kc">white</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><code>heroService</code>中的<code>delete</code>方法：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero.service.ts (delete)</span>
+
+<span class="k">delete</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">heroesUrl</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span><span class="nx">headers</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">headers</span><span class="p">})</span>
+    <span class="p">.</span><span class="nx">toPromise</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="kc">null</span><span class="p">)</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>刷新浏览器，看一下效果。</p>
+
+<h3 id="observables">Observables</h3>
+
+<p><code>Http</code>服务的方法返回的是一个HTTP <code>Response</code>对象的<code>Observable</code>。</p>
+
+<p><code>HeroService</code>中将<code>Observable</code>转换成一个<code>Promise</code>返回给调用者。现在我们看下如何直接返回<code>Observable</code>。</p>
+
+<h4 id="背景知识">背景知识</h4>
+
+<p>observable是一个我们可以使用类似数组的操作符来处理的事件流。</p>
+
+<p>Angular核心库提供了observable的基本支持。推荐使用<a href="http://reactivex.io/rxjs/">RxJS Observable</a>库来支持一些操作符和扩展。</p>
+
+<p>还记得上面的代码中，我们将<code>http.get</code>返回的<code>Observable</code>通过链式调用<code>toPromise</code>转换成<code>Promise</code>返回给用户。</p>
+
+<p>通常这样做是个好主意。因为通常我们调用<code>http.get</code>就是为了获取数据，当我们获取到数据就结束了。将结果转换成promise对消费者来说处理起来比较简单。</p>
+
+<p>但是有的请求不是一次就完成的。可能有这样的场景：发起请求——取消它——在服务器响应第一个请求之前发起另一个请求。这种request-cancel-new-request就不好用Promise实现。我慢将会看到Observables很容易实现。</p>
+
+<h4 id="根据name搜索">根据name搜索</h4>
+
+<p>接下来为应用添加一个搜索功能。</p>
+
+<p>先创建一个<code>HeroSearchService</code>向Web API发送查询：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-search.service.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span>     <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Http</span><span class="p">,</span> <span class="nx">Response</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/http&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Observable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;rxjs&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span>           <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroSearchService</span> <span class="p">{</span>
+  <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">http</span><span class="o">:</span> <span class="nx">Http</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="nx">search</span><span class="p">(</span><span class="nx">term</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">http</span>
+               <span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="sb">`app/heroes/?name=</span><span class="si">${</span><span class="nx">term</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
+               <span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">r</span><span class="o">:</span> <span class="nx">Response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span> <span class="nx">as</span> <span class="nx">Hero</span><span class="p">[]);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>这里调用<code>http.get()</code>跟之前是类似的，只是不再调用<code>toPromise</code>了。</p>
+
+<p>创建<code>HeroSearchComponent</code>组件来调用<code>HeroSearchService</code>。</p>
+
+<p><code>HeroSearchComponent</code>的模板和样式：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- app/hero-search.component.html --&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;search-component&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Hero Search<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="err">#</span><span class="na">searchBox</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;search-box&quot;</span> <span class="err">(</span><span class="na">keyup</span><span class="err">)=&quot;</span><span class="na">search</span><span class="err">(</span><span class="na">searchBox</span><span class="err">.</span><span class="na">value</span><span class="err">)&quot;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&quot;let hero of heroes | async&quot;</span>
+         <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">gotoDetail</span><span class="err">(</span><span class="na">hero</span><span class="err">)&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;search-result&quot;</span> <span class="p">&gt;</span>
+      {{hero.name}}
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="c">/* app/hero-search.component.css */</span>
+
+<span class="p">.</span><span class="nc">search-result</span><span class="p">{</span>
+  <span class="k">border-bottom</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">gray</span><span class="p">;</span>
+  <span class="k">border-left</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">gray</span><span class="p">;</span>
+  <span class="k">border-right</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">gray</span><span class="p">;</span>
+  <span class="k">width</span><span class="p">:</span><span class="mi">195</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">height</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">padding</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">#</span><span class="nn">search-box</span><span class="p">{</span>
+  <span class="k">width</span><span class="p">:</span> <span class="mi">200</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">height</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>用户在搜索框中输入关键字，当按键释放时，调用组件的<code>search</code>方法：</p>
+
+<p>由于<code>heroes</code>属性现在是<code>Observable</code>数组，所以要将它经过<code>async</code>管道（AsyncPipe）进行处理。<code>async</code>管道会订阅<code>Observable</code>并产生heroes数组供<code>*ngFor</code>使用。</p>
+
+<p><code>HeroSearchComponent</code>组件类和元数据：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-search.component.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Router</span> <span class="p">}</span>            <span class="nx">from</span> <span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Observable</span> <span class="p">}</span>        <span class="nx">from</span> <span class="s1">&#39;rxjs/Observable&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Subject</span> <span class="p">}</span>           <span class="nx">from</span> <span class="s1">&#39;rxjs/Subject&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroSearchService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero-search.service&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-search&#39;</span><span class="p">,</span>
+  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;hero-search.component.html&#39;</span><span class="p">,</span>
+  <span class="nx">styleUrls</span><span class="o">:</span> <span class="p">[</span> <span class="s1">&#39;hero-search.component.css&#39;</span> <span class="p">],</span>
+  <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span><span class="nx">HeroSearchService</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroSearchComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+  <span class="nx">heroes</span><span class="o">:</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
+  <span class="kr">private</span> <span class="nx">searchTerms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Subject</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">();</span>
+  <span class="nx">constructor</span><span class="p">(</span>
+    <span class="kr">private</span> <span class="nx">heroSearchService</span><span class="o">:</span> <span class="nx">HeroSearchService</span><span class="p">,</span>
+    <span class="kr">private</span> <span class="nx">router</span><span class="o">:</span> <span class="nx">Router</span><span class="p">)</span> <span class="p">{}</span>
+  <span class="c1">// Push a search term into the observable stream.</span>
+  <span class="nx">search</span><span class="p">(</span><span class="nx">term</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">searchTerms</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">term</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="nx">ngOnInit</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">searchTerms</span>
+      <span class="p">.</span><span class="nx">debounceTime</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>        <span class="c1">// wait for 300ms pause in events</span>
+      <span class="p">.</span><span class="nx">distinctUntilChanged</span><span class="p">()</span>   <span class="c1">// ignore if next search term is same as previous</span>
+      <span class="p">.</span><span class="nx">switchMap</span><span class="p">(</span><span class="nx">term</span> <span class="p">=&gt;</span> <span class="nx">term</span>   <span class="c1">// switch to new observable each time</span>
+        <span class="c1">// return the http search observable</span>
+        <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroSearchService</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">term</span><span class="p">)</span>
+        <span class="c1">// or the observable of empty heroes if no search term</span>
+        <span class="o">:</span> <span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">([]))</span>
+      <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
+        <span class="c1">// TODO: real error handling</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">([]);</span>
+      <span class="p">});</span>
+  <span class="p">}</span>
+  <span class="nx">gotoDetail</span><span class="p">(</span><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="kd">let</span> <span class="nx">link</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;/detail&#39;</span><span class="p">,</span> <span class="nx">hero</span><span class="p">.</span><span class="nx">id</span><span class="p">];</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>重点看一下<code>searchTerms</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">private</span> <span class="nx">searchTerms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Subject</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="c1">// Push a search term into the observable stream.</span>
+<span class="nx">search</span><span class="p">(</span><span class="nx">term</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">searchTerms</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">term</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><code>Subject</code>是一个observable事件流的生产者。<code>searchTerms</code>产生一个字符串类型的<code>Observable</code>。</p>
+
+<p>每次调用<code>search</code>时，通过<code>next</code>方法将新的字符串放到subject的observable流中。</p>
+
+<p><code>Subject</code>也是一个<code>Observable</code>。我们想把搜索关键词流转换成Hero数组流，并将结果赋给<code>heroes</code>属性：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">heroes</span><span class="o">:</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="nx">ngOnInit</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">searchTerms</span>
+    <span class="p">.</span><span class="nx">debounceTime</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>        <span class="c1">// wait for 300ms pause in events</span>
+    <span class="p">.</span><span class="nx">distinctUntilChanged</span><span class="p">()</span>   <span class="c1">// ignore if next search term is same as previous</span>
+    <span class="p">.</span><span class="nx">switchMap</span><span class="p">(</span><span class="nx">term</span> <span class="p">=&gt;</span> <span class="nx">term</span>   <span class="c1">// switch to new observable each time</span>
+      <span class="c1">// return the http search observable</span>
+      <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroSearchService</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">term</span><span class="p">)</span>
+      <span class="c1">// or the observable of empty heroes if no search term</span>
+      <span class="o">:</span> <span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">([]))</span>
+    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
+      <span class="c1">// TODO: real error handling</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+      <span class="k">return</span> <span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">([]);</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>如果将每次的用户按键事件都直接调用<code>HeroSearchService</code>，那么会发起大量的HTTP请求。这里用了一些方法来减少请求次数同时有保证请求的相对实时性：</p>
+
+<ul>
+<li><code>debounceTime(300)</code>：在传递最新的字符串之前，字符串事件流每次暂停300毫秒。确保请求的频率不会地狱300毫秒。</li>
+<li><code>distinctUntilChanged</code>：确保只在关键词有变化时才发起请求。</li>
+<li><code>switchMap</code>：对关键词调用查询服务时让它经过<code>debounce</code>和<code>distinctUntilChanged</code>两个处理。它会取消和丢弃之前的查询的observables，只返回用最新的关键字查询得到的observable。</li>
+</ul>
+
+<p>即使请求至少每300毫秒才发起一次，仍有可能多个请求都在路上还没返回。<code>switchMap</code>会只返回最新的那次http请求的observable，之前的请求的结果会被取消和丢弃。</p>
+
+<p>这里还加了一个短路操作。如果关键词为空，那么直接返回一个包含空数组的observable。</p>
+
+<h4 id="引入rxjs操作符">引入RxJS操作符</h4>
+
+<p>Angular核心库不支持RxJS操作符，所以要单独引入。可以在一个单独的文件中引入所有操作符，然后在<code>AppModule</code>中引入这个文件。也可以在用到的时候引入所需要的操作符。（不同的开发者的观点不同）</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/rxjs-extensions.ts</span>
+
+<span class="c1">// Observable class extensions</span>
+<span class="kr">import</span> <span class="s1">&#39;rxjs/add/observable/of&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="s1">&#39;rxjs/add/observable/throw&#39;</span><span class="p">;</span>
+
+<span class="c1">// Observable operators</span>
+<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/catch&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/debounceTime&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/distinctUntilChanged&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/do&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/filter&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/map&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/switchMap&#39;</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.ts (rxjs-extensions)</span>
+
+<span class="kr">import</span> <span class="s1">&#39;./rxjs-extensions&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<h4 id="将搜索组件添加到dashboard">将搜索组件添加到Dashboard</h4>
+
+<p>将<code>hero-search</code>标签添加到<code>DashboardComponent</code>的模板中：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- app/dashboard.component.html --&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Top Heroes<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;grid grid-pad&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">a</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&quot;let hero of heroes&quot;</span>  <span class="err">[</span><span class="na">routerLink</span><span class="err">]=&quot;[&#39;/</span><span class="na">detail</span><span class="err">&#39;,</span> <span class="na">hero</span><span class="err">.</span><span class="na">id</span><span class="err">]&quot;</span>  <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-1-4&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;module hero&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">hero-search</span><span class="p">&gt;&lt;/</span><span class="nt">hero-search</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>在<code>AppModule</code>中引入<code>HeroSearchComponent</code>并将它添加到<code>declarations</code>数组中：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.ts (search)</span>
+
+<span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
+  <span class="nx">AppComponent</span><span class="p">,</span>
+  <span class="nx">DashboardComponent</span><span class="p">,</span>
+  <span class="nx">HeroDetailComponent</span><span class="p">,</span>
+  <span class="nx">HeroesComponent</span><span class="p">,</span>
+  <span class="nx">HeroSearchComponent</span>
+<span class="p">],</span>
+</code></pre></div>
+
+<p>刷新浏览器，打开Dashboard试试效果吧。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://angular.io/docs/ts/latest/tutorial/toh-pt6.html">Angular2 Documentation - Case Study -HTTP</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>266</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

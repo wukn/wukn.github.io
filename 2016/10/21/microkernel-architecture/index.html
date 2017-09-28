@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][软件架构模式]-微内核架构Microkernel Architecture</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 微内核架构有时也被成为插件架构模式（plug-in architecture pattern），通常用于实现基于产品的应用，如Eclipse和Firefox。然而许多公司也将内部的业务软件做成软件产品，提供版本、发版说明和插件特性。微内核架构模式通过插件向核心应用添加额外的功能，提供了可扩展性和功能的独立和分离。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][软件架构模式]-微内核架构Microkernel Architecture" />
+    <meta name="twitter:description" content=" 微内核架构有时也被成为插件架构模式（plug-in architecture pattern），通常用于实现基于产品的应用，如Eclipse和Firefox。然而许多公司也将内部的业务软件做成软件产品，提供版本、发版说明和插件特性。微内核架构模式通过插件向核心应用添加额外的功能，提供了可扩展性和功能的独立和分离。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/10/21/microkernel-architecture/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][软件架构模式]-微内核架构Microkernel Architecture</h1>
+      <p class="post-meta">@wukn · Oct 21, 2016 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>微内核架构有时也被成为插件架构模式（plug-in architecture pattern），通常用于实现基于产品的应用，如Eclipse和Firefox。然而许多公司也将内部的业务软件做成软件产品，提供版本、发版说明和插件特性。微内核架构模式通过插件向核心应用添加额外的功能，提供了可扩展性和功能的独立和分离。</p>
+</blockquote>
+
+<p></p>
+
+<h2 id="模式描述">模式描述</h2>
+
+<p>微内核架构包含两部分组件：核心系统（core system）和插件模块（plug-in modules）。应用逻辑被分割为独立的插件模块和核心系统，提供了可扩展性、灵活性、功能隔离和自定义处理逻辑的特性。</p>
+
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/microkernel_architecture/microkernel_architecture_pattern.png" alt="" />
+图1 微内核架构模式（microkernel architecture pattern）</p>
+
+<p>微内核架构的核心系统通常提供系统运行所需的最小功能集。许多操作系统使用的就是微内核架构，这也是它名字的由来。从商业应用程序的角度来看，核心系统一般是通用业务逻辑，没有特殊情况、特殊规则或复杂情形下的自定义代码。</p>
+
+<p>插件模块是独立的模块，包含特定的处理、额外的功能和自定义代码，来向核心系统增强或扩展额外的业务能力。通常插件模块之间也是独立的，也有一些插件是依赖于若干其它插件的。重要的是，尽量减少插件之间的通信以避免依赖的问题。</p>
+
+<p>核心系统需要知道哪些插件是可用的且如何使用。一种实现的方式是使用插件注册表。注册表中包含插件的一些信息，如名称、数据契约（输入数据和输出数据）、远程访问协议（决定插件如何与核心系统连接，XML或WSDL等）。</p>
+
+<p>插件模块和核心系统的连接方式有多种，包括OSGi (open service gateway initiative)、messaging、web service、甚至点对点绑定（对象实例化）。选择哪种连接方式取决于构件的应用类型和是否分布式部署等特殊需求。</p>
+
+<p>插件和核心系统之间的契约也是各种各样的，既可以是标准的也可以是自定义的。通常在使用第三方插件时需要自定义契约。这种情况下，通常创建一个该插件契约到你的标准契约的适配器，这样核心系统就不需要针对每个插件的定制编码了。创建标准契约时（通常为XML），要记得从一开始就设计好版本策略。</p>
+
+<h2 id="案例">案例</h2>
+
+<p>微内核架构最好的案例也许就是Eclipse啦。下载基础版本的Ecilpse或许只比一个功能花哨的编辑器强一点，一旦装上一些插件，它立刻就变成高度定制化的很有用的产品。浏览器也是微内核架构产品的典型案例。</p>
+
+<p>这样的基于产品的软件例子数不胜数，但是大型商业应用呢？微内核结构也是适用的。这里再以保险公司的索赔处理为例。（书中的例子都不符合国情，看着挺费劲的。）</p>
+
+<p>索赔处理过程很复杂，每个阶段都有很多不同的规则和条例来说明是否应该得到赔偿。例如汽车挡风玻璃被岩石击碎，有的州是允许赔偿的，有的是不允许的。标准的索赔过程几乎有无限的条件。</p>
+
+<p>通常保险索赔应用都会使用一个大型的复杂的规则引擎来处理。但是规则引擎会像滚雪球一样越来越大，修改一个规则可能会影响其它的规则，或者一个简单的规则修改需要很多分析人员、开发人员和测试人员。使用微内核架构模式可以避免这样的问题。</p>
+
+<p>如图2中所示，核心系统claims processing包含了处理索赔过程的基本业务逻辑。每个插件模块包含一个州的特殊规则。这个例子中，插件模块可以通过自定义代码或分离规则引擎实例来实现。最重要的是，每个州的独特的规则从核心系统中剥离出来，可以被添加或移除，修改时不影响或会稍微影响核心系统与其它插件。</p>
+
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/microkernel_architecture/microkernel_architecture_example.png" alt="" />
+图2 微内核架构案例</p>
+
+<h2 id="注意事项">注意事项</h2>
+
+<p>微内核架构模式的一个优秀之处在于它可以嵌入或者作为其它架构模式的一部分。例如事件驱动架构中的事件处理组件就可以使用微内核架构实现。</p>
+
+<p>微内核架构为递进设计和增量开发提供了方便。可以先实现一个稳固的核心系统，然后在不对核心系统进行大量修改的情况下逐渐地增加功能和特性。</p>
+
+<p>对于基于产品的应用，微内核架构是一开始的首选。尤其是这样的产品：随着时间逐渐地发布新功能，而且希望保证所有的用户都能获取到新功能。如果以后发现该架构不符合需求了，可以随时重构成其它架构。</p>
+
+<h2 id="模式分析">模式分析</h2>
+
+<p>下表展示了分层架构模式的通用架构特性的评级和分析。</p>
+
+<p>整体灵活性</p>
+
+<p>评级：高</p>
+
+<p>分析：整体灵活性是对环境变化快速响应的能力。由于插件之间的低耦合，改变通常是隔离的，可以快速实现。通常，核心系统是稳定且快速的，具有一定的健壮性，几乎不需要修改。</p>
+
+<p>易于部署</p>
+
+<p>评级：高</p>
+
+<p>分析：取决于实现方式，插件可以在运行时动态添加（热部署），最小化部署的停机时间。</p>
+
+<p>可测试性</p>
+
+<p>评级：高</p>
+
+<p>分析：插件可以独立测试，也很容易被模拟，不需修改核心系统就可以演示或构建新特性的原型。</p>
+
+<p>性能</p>
+
+<p>评级：高</p>
+
+<p>分析：虽然微内核架构本身不会使应用高性能，但通常使用微内核架构构建的应用性能都还不错，因为可以自定义或者裁剪掉不需要的功能。JBoss应用服务器就是这样的。</p>
+
+<p>可伸缩性</p>
+
+<p>评级：低</p>
+
+<p>分析：因为大部分微内核架构的实现都是基于产品的，一般都很小，是一个独立的单元，因此不具有高可伸缩性。取决于插件的实现方式，有时在插件特性层可以提供伸缩性，但总体上来说该架构还是用于构建高可伸缩性应用的。</p>
+
+<p>开发容易度</p>
+
+<p>评级：低</p>
+
+<p>分析：微内核架构需要深思熟虑的设计和契约的规划管理，因此实现起来比较复杂。契约的版本机制、插件的注册机制、插件的粒度、插件连接方式的选择都使得实现起来是复杂的。</p>
+
+<hr />
+
+<p>参考资料</p>
+
+<p><a href="http://www.oreilly.com/programming/free/software-architecture-patterns.csp">Software Architecture Patterns</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/architecture"><span class="tag">Architecture</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>342</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

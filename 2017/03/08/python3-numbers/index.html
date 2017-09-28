@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Python3] 数值</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" Python中的数值分为整型（int）、浮点型（float）和复数（complex）。还有一个布尔型（bool）是整型的子类型。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Python3] 数值" />
+    <meta name="twitter:description" content=" Python中的数值分为整型（int）、浮点型（float）和复数（complex）。还有一个布尔型（bool）是整型的子类型。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2017/03/08/python3-numbers/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Python3] 数值</h1>
+      <p class="post-meta">@wukn · Mar 8, 2017 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>Python中的数值分为整型（int）、浮点型（float）和复数（complex）。还有一个布尔型（bool）是整型的子类型。</p>
+</blockquote>
+
+<p></p>
+
+<p>数值类型支持的主要操作如下：</p>
+
+<p><img src="https://wukn.github.io/img/post/python3/numbers/python3-numbers.png" alt="" /></p>
+
+<h4 id="布尔型-bool">布尔型（bool）</h4>
+
+<p>布尔型是整型的子类型。布尔值有两个：True和False。布尔值的行为在几乎所有环境下分别类似0和1，例外的情况是转换成字符串的时候分别返回字符串&rdquo;False&rdquo; 或&rdquo;True&rdquo;。</p>
+
+<p>任何对象都可以做真值检测。以下对象的布尔值都是False：</p>
+
+<ul>
+<li>None</li>
+<li>False（布尔型）</li>
+<li>任何等于0的数字类型, 比如, 0，0.0，0j</li>
+<li>任何空的序列, 比如, 空字符串&rdquo;, 空列表(), 空元组[]</li>
+<li>任何空的映射, 比如, 空字典{}</li>
+<li>自定义的类实例，该类定义了方法<code>__nonzero__()</code>或<code>__len__()</code>，并且这个方法返回0或False</li>
+</ul>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
+<span class="bp">False</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">False</span><span class="p">),</span> <span class="nb">bool</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="nb">bool</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span> <span class="nb">bool</span><span class="p">(</span><span class="mf">0.0</span><span class="o">+</span><span class="mf">0.0j</span><span class="p">)</span>
+<span class="p">(</span><span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">bool</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="nb">bool</span><span class="p">([]),</span> <span class="nb">bool</span><span class="p">(()),</span> <span class="nb">bool</span><span class="p">({})</span>
+<span class="p">(</span><span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="bp">True</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</code></pre></div>
+
+<p>以下是Boolean操作, 按照优先级升序排列：</p>
+
+<ul>
+<li>（1） 或操作：<code>x or y</code></li>
+<li>（2） 与操作：<code>x and y</code></li>
+<li>（3） 非操作：<code>not x</code></li>
+</ul>
+
+<p>PS1：或操作和与操作都是短路求值运算符。
+PS2：非操作比非布尔运算符的优先级更低，因此<code>not a == b</code>被解释成<code>not (a == b)</code>, 而<code>a == not b</code>是一个语法错误</p>
+
+<h4 id="整形">整形</h4>
+
+<p>整型可以表示无限大的整数（但受限于机器的虚拟内存大小）。整型字面值的表示方法有3种：十进制（常用）、八进制（以“0o”或“0O”开头）和十六进制（以“0x”或“0X”开头）。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
+<span class="mf">0.5</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span><span class="o">//</span><span class="mi">2</span>
+<span class="mi">0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">3</span>
+<span class="mi">8</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">bin</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span> <span class="nb">oct</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span> <span class="nb">hex</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="p">(</span><span class="s1">&#39;0b10100&#39;</span><span class="p">,</span> <span class="s1">&#39;0o24&#39;</span><span class="p">,</span> <span class="s1">&#39;0x14&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">322</span> <span class="o">**</span> <span class="mi">10</span>
+<span class="mi">11982811207963436516967424</span>
+</code></pre></div>
+
+<h4 id="浮点型">浮点型</h4>
+
+<p>浮点型字面值可以用十进制或科学计数法表示，在科学计数法中，e或E代表10，+（可以省略）或 - 表示指数的正负。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">1e-1</span>
+<span class="mf">20.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">1E-1</span>
+<span class="mf">20.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mf">2.0</span> <span class="o">**</span> <span class="mf">3.0</span> <span class="o">//</span><span class="mi">3</span>
+<span class="mf">2.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">round</span><span class="p">(</span><span class="mf">2.71828</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mf">2.718</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="mf">2.71828</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="o">-</span><span class="mf">2.718</span>
+</code></pre></div>
+
+<h4 id="复数">复数</h4>
+
+<p>复数由实数部分和虚数部分构成，表示为eal+imagj 或 real+imagJ。实部real和虚部imag都是浮点型。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">=-</span><span class="mf">1.2</span> <span class="o">-</span><span class="mf">3.4j</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
+<span class="p">(</span><span class="o">-</span><span class="mf">1.2</span><span class="o">-</span><span class="mf">3.4j</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">real</span>
+<span class="o">-</span><span class="mf">1.2</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">imag</span>
+<span class="o">-</span><span class="mf">3.4</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span> <span class="c1"># 共轭复数</span>
+<span class="p">(</span><span class="o">-</span><span class="mf">1.2</span><span class="o">+</span><span class="mf">3.4j</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># math.sqrt(c.real ** 2 + c.imag ** 2)</span>
+<span class="mf">3.605551275463989</span>
+</code></pre></div>
+
+<h4 id="类型转换">类型转换</h4>
+
+<p>如果参与运算的两个操作数的类型不同，Python会按照以下规则进行自动类型转换：
+* 如果有一个操作数是复数，另一个操作数被转换为复数
+* 否则，如果有一个操作数是浮点型，另一个操作数被转换为浮点型
+* 否则，两者必然都是整型，无须类型转换
+总结一下就是：非复数转复数，非浮点型转浮点型，整型不变。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="mi">4j</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">3</span><span class="o">+</span><span class="mi">4j</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">3</span> <span class="o">+</span> <span class="mf">4.56</span>
+<span class="mf">7.56</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">7</span> <span class="o">+</span> <span class="mi">8</span>
+<span class="mi">15</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">9</span> <span class="o">+</span> <span class="bp">True</span>
+<span class="mi">10</span>
+</code></pre></div>
+
+<p>也可以强制类型转换：</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">bool</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="mi">5</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">long</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>
+<span class="il">5L</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">float</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="mf">5.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">complex</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">)</span>
+<span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">2.3j</span><span class="p">)</span>
+</code></pre></div>
+
+<h4 id="相关模块">相关模块</h4>
+
+<p>Python标准库中与数值类型相关的核心模块有：</p>
+
+<ul>
+<li>numbers：数字型抽象基类</li>
+<li>math和cmath：标准C库数学运算函数。math模块为常规运算，cmath模块为复数运算</li>
+<li>decimal：十进制浮点小数运算</li>
+<li>fractions：分数</li>
+<li>random：生成伪随机数</li>
+<li>statistics：数学统计函数</li>
+</ul>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">=</span><span class="mf">1.23</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">math</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
+<span class="mf">1.23</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">trunc</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 将x截断为整型</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 小于等于x的最大的整数（向下取整）</span>
+<span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 大于等于x的最小的整数（向上取整）</span>
+<span class="mi">2</span>
+</code></pre></div>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://docs.python.org/3.5/">Python3 Documentation</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/python3"><span class="tag">Python3</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>204</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

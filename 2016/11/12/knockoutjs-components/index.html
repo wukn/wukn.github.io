@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][KnockoutJS] Components</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][KnockoutJS] Components" />
+    <meta name="twitter:description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-components/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][KnockoutJS] Components</h1>
+      <p class="post-meta">@wukn · Nov 12, 2016 · 9 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>&ldquo;KnockoutJS文档官网：<a href="http://knockoutjs.com/documentation/introduction.html&quot;">http://knockoutjs.com/documentation/introduction.html&quot;</a></p>
+</blockquote>
+
+<p></p>
+
+<h2 id="组件和自定义元素">组件和自定义元素</h2>
+
+<p>组件的作用有：
+* 构建独立的控件或部件。
+* 拥有自己的视图，通常（但不是必须）包含试图模型。
+* 可以通过AMD或其他模型系统异步加载或预加载（根据需要）。
+* 可以接收参数，可选地可回写变化或调用回调函数。
+* 可以相互组合或嵌套，或继承自其他组件。
+* 可易于打包，项目间可重用。
+* 可自定义配置和加载逻辑</p>
+
+<p>这种模式对于构建大型应用是很有益的。它通过清晰地组织和封装功能与代码简化了开发，同时根据需要增量加载应用代码和模板等也提升了应用的性能。</p>
+
+<p>自定义元素是组件的一个可选的但很便利的语法。与使用<code>&lt;div&gt;</code>注入组件绑定相比，使用自定义元素名称更具有自描述性。</p>
+
+<h3 id="例1-一个喜欢-不喜欢widget">例1：一个喜欢/不喜欢widget</h3>
+
+<p>可以使用<code>ko.components.register</code>来注册一个组件（技术上来说，使用注册是可选的，也是最简单的方式）。一个组件的定义需要指定<code>viewModel</code>和<code>template</code>。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;like-widget&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Data: value is either null, &#39;like&#39;, or &#39;dislike&#39;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">chosenValue</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">value</span><span class="p">;</span>
+
+        <span class="c1">// Behaviors</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">like</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">chosenValue</span><span class="p">(</span><span class="s1">&#39;like&#39;</span><span class="p">);</span> <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">dislike</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">chosenValue</span><span class="p">(</span><span class="s1">&#39;dislike&#39;</span><span class="p">);</span> <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">template</span><span class="o">:</span>
+        <span class="s1">&#39;&lt;div class=&quot;like-or-dislike&quot; data-bind=&quot;visible: !chosenValue()&quot;&gt;\</span>
+<span class="s1">            &lt;button data-bind=&quot;click: like&quot;&gt;Like it&lt;/button&gt;\</span>
+<span class="s1">            &lt;button data-bind=&quot;click: dislike&quot;&gt;Dislike it&lt;/button&gt;\</span>
+<span class="s1">        &lt;/div&gt;\</span>
+<span class="s1">        &lt;div class=&quot;result&quot; data-bind=&quot;visible: chosenValue&quot;&gt;\</span>
+<span class="s1">            You &lt;strong data-bind=&quot;text: chosenValue&quot;&gt;&lt;/strong&gt; it\</span>
+<span class="s1">        &lt;/div&gt;&#39;</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>注意，通常从外部文件加载模板和视图模型。</p>
+
+<p>现在可以使用组件绑定或自定义元素来使用上面定义的绑定了。例如使用自定义元素的方式：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;foreach: products&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;product&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">strong</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: name&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">strong</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">like-widget</span> <span class="na">params</span><span class="o">=</span><span class="s">&quot;value: userRating&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">like-widget</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span><span class="nx">browserify</span>
+<span class="kd">function</span> <span class="nx">Product</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">rating</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">userRating</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="nx">rating</span> <span class="o">||</span> <span class="kc">null</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">MyViewModel</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">products</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="k">new</span> <span class="nx">Product</span><span class="p">(</span><span class="s1">&#39;Garlic bread&#39;</span><span class="p">),</span>
+        <span class="k">new</span> <span class="nx">Product</span><span class="p">(</span><span class="s1">&#39;Pain au chocolat&#39;</span><span class="p">),</span>
+        <span class="k">new</span> <span class="nx">Product</span><span class="p">(</span><span class="s1">&#39;Seagull spaghetti&#39;</span><span class="p">,</span> <span class="s1">&#39;like&#39;</span><span class="p">)</span> <span class="c1">// This one was already &#39;liked&#39;</span>
+    <span class="p">];</span>
+<span class="p">}</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyViewModel</span><span class="p">());</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>例2：从外部文件加载部件</p>
+
+<p>一般组件的视图模型和模板是以单独文件的方式存在的。如果配置ko通过一个AMD模块加载器如require.js来获取它们，那么可以根据需要预加载（或许还打包或压缩了）或者立即加载。</p>
+
+<p>将视图模型和模板的代码分别放到单独的文件中，&rdquo;files/component-like-widget.js&rdquo;和&rdquo;files/component-like-widget.html&rdquo;。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;like-widget&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="p">{</span> <span class="nx">require</span><span class="o">:</span> <span class="s1">&#39;files/component-like-widget&#39;</span> <span class="p">},</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="p">{</span> <span class="nx">require</span><span class="o">:</span> <span class="s1">&#39;text!files/component-like-widget.html&#39;</span> <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h2 id="定义和注册组件">定义和注册组件</h2>
+
+<p>为了让ko能加载并实例化组件，需要使用<code>ko.components.register</code>来注册组件并提供相应的配置。
+注：可以使用自定义的组件加载器代替配置。</p>
+
+<h3 id="将视图模型-模板对作为组件">将视图模型/模板对作为组件</h3>
+
+<p>按如下格式注册一个组件：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;some-component-name&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">see</span> <span class="nx">below</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">see</span> <span class="nx">below</span><span class="o">&gt;</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>建议组件名为小写字母和连接号&rdquo;-&ldquo;组成，这样组件可以以自定义元素方式使用。
+视图模型是可选的。
+模板是必须的。</p>
+
+<h3 id="视图模型">视图模型</h3>
+
+<p>视图模型有以下几种指定方式：</p>
+
+<h4 id="构造器函数">构造器函数</h4>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="kd">function</span> <span class="nx">SomeComponentViewModel</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// &#39;params&#39; is an object whose key/value pairs are the parameters</span>
+    <span class="c1">// passed from the component binding or custom element.</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">someProperty</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">something</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">SomeComponentViewModel</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doSomething</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">};</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="nx">SomeComponentViewModel</span><span class="p">,</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="p">...</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>ko在每次实例化组件时都会调用该构造器函数。结果对象或原型链上的属性在视图的绑定中都是可用的。</p>
+
+<h4 id="共享的对象实例">共享的对象实例</h4>
+
+<p>如果希望所有组件实例共享同一个视图模型对象实例（通常不会希望这样）：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">sharedViewModelInstance</span> <span class="o">=</span> <span class="p">{</span> <span class="p">...</span> <span class="p">};</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="p">{</span> <span class="nx">instance</span><span class="o">:</span> <span class="nx">sharedViewModelInstance</span> <span class="p">},</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="p">...</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h4 id="createviewmodel-工厂函数"><code>createViewModel</code>工厂函数</h4>
+
+<p>如果希望在关联的元素绑定到视图模型之前进行一些处理，或动态选择要实例化的视图模型类：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">createViewModel</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">componentInfo</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// - &#39;params&#39; is an object whose key/value pairs are the parameters</span>
+            <span class="c1">//   passed from the component binding or custom element</span>
+            <span class="c1">// - &#39;componentInfo.element&#39; is the element the component is being</span>
+            <span class="c1">//   injected into. When createViewModel is called, the template has</span>
+            <span class="c1">//   already been injected into this element, but isn&#39;t yet bound.</span>
+            <span class="c1">// - &#39;componentInfo.templateNodes&#39; is an array containing any DOM</span>
+            <span class="c1">//   nodes that have been supplied to the component. See below.</span>
+
+            <span class="c1">// Return the desired view model instance, e.g.:</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nx">MyViewModel</span><span class="p">(</span><span class="nx">params</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="p">...</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>注意，要直接操作DOM元素时，最好使用自定义绑定而不是操作<code>createViewModel</code>内部的<code>componentInfo.element</code>。</p>
+
+<p><code>componentInfo.templateNodes</code>对构建可以接收任意html的组件很有用。（例如将提供的html注入grid，list，dialog或tab）</p>
+
+<h4 id="值指向视图模型的amd模块">值指向视图模型的AMD模块</h4>
+
+<p>如果页面中使用了AMD加载器（如require.js），可以使用它来获取视图模型。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="p">{</span> <span class="nx">require</span><span class="o">:</span> <span class="s1">&#39;some/module/name&#39;</span> <span class="p">},</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="p">...</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>返回的AMD模块对象可以是任意形式的允许的视图模型（构造器函数、共享对象实例、<code>createViewModel</code>工厂函数、甚至另一个AMD模块对象的引用）。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// AMD module whose value is a component viewmodel constructor</span>
+<span class="nx">define</span><span class="p">([</span><span class="s1">&#39;knockout&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ko</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">MyViewModel</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">MyViewModel</span><span class="p">;</span>
+<span class="p">});</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// AMD module whose value is a shared component viewmodel instance</span>
+<span class="nx">define</span><span class="p">([</span><span class="s1">&#39;knockout&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ko</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">MyViewModel</span><span class="p">()</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">instance</span><span class="o">:</span> <span class="k">new</span> <span class="nx">MyViewModel</span><span class="p">()</span> <span class="p">};</span>
+<span class="p">});</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// AMD module whose value is a &#39;createViewModel&#39; function</span>
+<span class="nx">define</span><span class="p">([</span><span class="s1">&#39;knockout&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ko</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">myViewModelFactory</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">componentInfo</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// return something</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">createViewModel</span><span class="o">:</span> <span class="nx">myViewModelFactory</span> <span class="p">};</span>
+<span class="p">});</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// AMD module whose value is a reference to a different AMD module,</span>
+<span class="c1">// which in turn can be in any of these formats</span>
+<span class="nx">define</span><span class="p">([</span><span class="s1">&#39;knockout&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ko</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">module</span><span class="o">:</span> <span class="s1">&#39;some/other/module&#39;</span> <span class="p">};</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h3 id="模板">模板</h3>
+
+<p>模板有以下几种指定方式，最常用的是已存在的元素ID和AMD模块：</p>
+
+<h4 id="已存在的元素id">已存在的元素ID</h4>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">template</span> <span class="na">id</span><span class="o">=</span><span class="s">&#39;my-component-template&#39;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h1</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;text: title&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;click: doSomething&#39;</span><span class="p">&gt;</span>Click me right now<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="p">{</span> <span class="nx">element</span><span class="o">:</span> <span class="s1">&#39;my-component-template&#39;</span> <span class="p">},</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="p">...</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>注意，指定的元素内部的元素才会被复制到组件的实例中，容器元素（<code>&lt;template&gt;</code>不会当做实例的一部分）。
+也可以使用除了<code>&lt;template&gt;</code>的其他元素，但它是很方便的，因为浏览器不会渲染他们。</p>
+
+<h4 id="已存在的元素实例">已存在的元素实例</h4>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">elemInstance</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;my-component-template&#39;</span><span class="p">);</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="p">{</span> <span class="nx">element</span><span class="o">:</span> <span class="nx">elemInstance</span> <span class="p">},</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="p">...</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h4 id="html片段字符串">html片段字符串</h4>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1 data-bind=&quot;text: title&quot;&gt;&lt;/h1&gt;\</span>
+<span class="s1">               &lt;button data-bind=&quot;click: doSomething&quot;&gt;Clickety&lt;/button&gt;&#39;</span><span class="p">,</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="p">...</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h4 id="dom节点数组">DOM节点数组</h4>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">myNodes</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;first-node&#39;</span><span class="p">),</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;second-node&#39;</span><span class="p">),</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;third-node&#39;</span><span class="p">)</span>
+<span class="p">];</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="nx">myNodes</span><span class="p">,</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="p">...</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h4 id="文档片段">文档片段</h4>
+
+<p>如果拥有文档片段对象（DocumentFragment object），可以将它作为组件模板：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="nx">someDocumentFragmentInstance</span><span class="p">,</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="p">...</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h4 id="值指向模板的amd模块">值指向模板的AMD模块</h4>
+
+<p>当页面中使用AMD加载器时：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="p">{</span> <span class="nx">require</span><span class="o">:</span> <span class="s1">&#39;some/template&#39;</span> <span class="p">},</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="p">...</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>返回的AMD模块对象可以是任何格式的允许的模板。因此也可以是一个html片段字符串，如require.js的text插件：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="p">{</span> <span class="nx">require</span><span class="o">:</span> <span class="s1">&#39;text!path/my-html-file.html&#39;</span> <span class="p">},</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="p">...</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h3 id="指定额外的组件选项">指定额外的组件选项</h3>
+
+<p>就像<code>template</code>和<code>viewModel</code>，组件配置对象还可以有额外的任意属性。在自定义组件加载器时可以访问该配置对象。</p>
+
+<h4 id="控制同步-异步加载">控制同步/异步加载</h4>
+
+<p>如果组件配置中有个bool值属性<code>synchronous</code>，ko会根据它决定组件是否允许被同步地加载和注入。默认值是<code>false</code>，强制异步。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="p">{</span> <span class="p">...</span> <span class="nx">anything</span> <span class="p">...</span> <span class="p">},</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="p">{</span> <span class="p">...</span> <span class="nx">anything</span> <span class="p">...</span> <span class="p">},</span>
+    <span class="nx">synchronous</span><span class="o">:</span> <span class="kc">true</span> <span class="c1">// Injects synchronously if possible, otherwise still async</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>为什么默认为强制异步加载？</p>
+
+<p>通常情况下，ko确保组件加载和注入为异步处理，是因为有时候除了异步加载别无选择（例如需要请求服务器）。即使一个组件的实例可以被同步注入，ko也还会异步处理（因为组件定义已经加载了）。这种始终异步处理策略是处于一致性考虑，也是其他异步js技术（如AMD）约定俗成的。该约定是个安全的默认项，因为它降低了开发者有时使用同步处理有时又使用异步处理的潜在bug。</p>
+
+<p>为什么有时需要同步加载？</p>
+
+<p>使用<code>synchonous: true</code>后，ko也许在第一次是异步加载，后续将都是同步加载。如果使用同步加载来，那就要考虑其它等待组件加载的代码。如果组件可以始终是被同步地加载和初始化，那么启用该选项是可以保证始终同步处理。这对于在<code>foreach</code>中使用组件并想用<code>afterAdd</code>或<code>afterRender</code>做后处理时很有用。</p>
+
+<p>在ko v3.4.0版本之前，可以使用同步加载来阻止同时包含多个组件时（如foreach）的&rdquo;multiple DOM reflow&rdquo;。在v3.4.0版本中，组件使用ko的<code>microtasks</code>来确保异步能表现得跟同步一样好。</p>
+
+<h3 id="ko如何通过amd加载组件">ko如何通过AMD加载组件</h3>
+
+<p>当使用<code>require</code>声明来加载视图模型或模板时：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="p">{</span> <span class="nx">require</span><span class="o">:</span> <span class="s1">&#39;some/module/name&#39;</span> <span class="p">},</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="p">{</span> <span class="nx">require</span><span class="o">:</span> <span class="s1">&#39;text!some-template.html&#39;</span> <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>ko所做的工作只是调用<code>require(['some/module/name'], callback)</code>和<code>require(['text!some-template.html'], callback)</code>，然后使用异步返回的对象作为视图模型和模板的定义。</p>
+
+<p>这里并不严格依赖于某一个加载器，只要是提供了AMD类型的<code>require</code>API模块加载器都可以。如果使用其他API的模块加载器，需要实现自定义组件加载器。</p>
+
+<p>ko不会推断模块的名称，只是将它传递给<code>require()</code>。</p>
+
+<p>ko不知道也不关心AMD模块是否为匿名的。实际上将组件定义为匿名模块是最方便的，但这与ko是无关的。</p>
+
+<p>AMD模块仅在需要时被加载</p>
+
+<p>ko只会在组件即将实例化时调用<code>require([moduleName], ...)</code>，这就是组件会根据需要加载，而不是前置加载。
+例如在if绑定中的某个元素内的组件，只会在if值为true时调用AMD模块。另外，当模块已被加载（比如，已在预加载包中），那么<code>require</code>调用时不会再请求http，因此可以根据需要控制什么被预加载和加载。</p>
+
+<h3 id="将组件组件注册为独立的amd模块">将组件组件注册为独立的AMD模块</h3>
+
+<p>为了更好地封装代码，可以将组件打包为独立的自描述的AMD模块，然后引用它：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="nx">require</span><span class="o">:</span> <span class="s1">&#39;some/module&#39;</span> <span class="p">});</span>
+</code></pre></div>
+
+<p>文件&rdquo;some/module.js&rdquo;可能为这样：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// AMD module &#39;some/module.js&#39; encapsulating the configuration for a component</span>
+<span class="nx">define</span><span class="p">([</span><span class="s1">&#39;knockout&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ko</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">MyComponentViewModel</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">personName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">viewModel</span><span class="o">:</span> <span class="nx">MyComponentViewModel</span><span class="p">,</span>
+        <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;The name is &lt;strong data-bind=&quot;text: personName&quot;&gt;&lt;/strong&gt;&#39;</span>
+    <span class="p">};</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>最实用的创建组件的AMD模块是这样的，行内的视图模型类和AMD依赖外部模板文件。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// Recommended AMD module pattern for a Knockout component that:</span>
+<span class="c1">//  - Can be referenced with just a single &#39;require&#39; declaration</span>
+<span class="c1">//  - Can be included in a bundle using the r.js optimizer</span>
+<span class="nx">define</span><span class="p">([</span><span class="s1">&#39;knockout&#39;</span><span class="p">,</span> <span class="s1">&#39;text!./my-component.html&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">ko</span><span class="p">,</span> <span class="nx">htmlString</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">function</span> <span class="nx">MyComponentViewModel</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Set up properties, etc.</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Use prototype to declare any public methods</span>
+    <span class="nx">MyComponentViewModel</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">doSomething</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="p">...</span> <span class="p">};</span>
+
+    <span class="c1">// Return component definition</span>
+    <span class="k">return</span> <span class="p">{</span> <span class="nx">viewModel</span><span class="o">:</span> <span class="nx">MyComponentViewModel</span><span class="p">,</span> <span class="nx">template</span><span class="o">:</span> <span class="nx">htmlString</span> <span class="p">};</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>这样做的好处是：
+* 可以平凡地引用它：<code>ko.components.register('my-component', { require: 'path/my-component' });</code>。
+* 组件只需要两个文件，视图模型文件（path/my-component.js）和模板文件（path/my-component.html）。
+* 对模板的依赖在<code>define</code>中，这与<code>r.js optimizer</code>或其它打包工具是兼容的。视图模型和模板可以在构建时打包到同一个文件。</p>
+
+<h2 id="组件绑定">组件绑定</h2>
+
+<p>见“[绑定-流程控制]”中的“组件绑定”部分。</p>
+
+<h2 id="使用自定义元素">使用自定义元素</h2>
+
+<p>自定义元素提供了一种便捷的向视图注入组件的方式。</p>
+
+<p>自定义元素是组件绑定的另一种语法选择。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- using component binding --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;component: { name: &quot;flight-deals&quot;, params: { from: &quot;lhr&quot;, to: &quot;sfo&quot; } }&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- using custom element --&gt;</span>
+<span class="p">&lt;</span><span class="nt">flight-deals</span> <span class="na">params</span><span class="o">=</span><span class="s">&#39;from: &quot;lhr&quot;, to: &quot;sfo&quot;&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">flight-deals</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>例：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>First instance, without parameters<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">message-editor</span><span class="p">&gt;&lt;/</span><span class="nt">message-editor</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Second instance, passing parameters<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">message-editor</span> <span class="na">params</span><span class="o">=</span><span class="s">&#39;initialText: &quot;Hello, world!&quot;&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">message-editor</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;message-editor&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">initialText</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;Message: &lt;input data-bind=&quot;value: text&quot; /&gt; &#39;</span>
+            <span class="o">+</span> <span class="s1">&#39;(length: &lt;span data-bind=&quot;text: text().length&quot;&gt;&lt;/span&gt;)&#39;</span>
+<span class="p">});</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">();</span>
+</code></pre></div>
+
+<h3 id="向自定义元素传递参数">向自定义元素传递参数</h3>
+
+<p>使用<code>params</code>属性向组件的视图模型传递参数。属性的内容对被解释为js对象字面量（就像<code>data-bind</code>属性）。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">unrealistic-component</span>
+    <span class="na">params</span><span class="o">=</span><span class="s">&#39;stringValue: &quot;hello&quot;,</span>
+<span class="s">            numericValue: 123,</span>
+<span class="s">            boolValue: true,</span>
+<span class="s">            objectValue: { a: 1, b: 2 },</span>
+<span class="s">            dateValue: new Date(),</span>
+<span class="s">            someModelProperty: myModelValue,</span>
+<span class="s">            observableSubproperty: someObservable().subprop&#39;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">unrealistic-component</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<h3 id="父子组件间通信">父子组件间通信</h3>
+
+<p>如果在<code>params</code>属性中引用模型属性，那么是在引用组件外部的视图模型属性，因为组件本身还未实例化。这就是如何从父视图模型向子组件传递属性，如果属性是可监控的，那么父视图模型就能接收自组件对它的修改。</p>
+
+<h3 id="传递监控表达式">传递监控表达式</h3>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">some-component</span>
+    <span class="na">params</span><span class="o">=</span><span class="s">&#39;simpleExpression: 1 + 1,</span>
+<span class="s">            simpleObservable: myObservable,</span>
+<span class="s">            observableExpression: myObservable() + 1&#39;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">some-component</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>上例的<code>params</code>包含三个值：
+* 简单表达式：它将会是数值2。它不是监控属性或计算监控属性，因此不涉及监控。通常如果参数的评估不涉及监控评估，那它的值会被当做字面量传递。如果值是一个对象，那么子组件可以修改它，但父模型不会知道它改变了，因为它不是可监控的。
+* 简单监控变量：它将会是父模型的<code>myObservable</code>的<code>ko.observable</code>实例。它不是包装过的，而是父模型引用的同一个实例。通常如果参数的评估不涉及监控评估（<code>myObservable</code>仅被传递但没有被评估），那它的值会被当做字面量传递。
+* 监控表达式：当表达式被评估时读取了监控属性，那么表达式的值会随着监控属性的变化而变化。为了保证子组件可以处理表达式值的变化，ko会自动将其更新为计算监控属性。因此子组件可以用<code>params.observableExpression()</code>来读取当前值，或者使用<code>params.observableExpression.subscribe(...)</code>。</p>
+
+<h3 id="向组件传递html片段">向组件传递html片段</h3>
+
+<p>有时候希望创建的组件可以接收html片段并作为输出的一部分。比如构建类似grid、list、dialog、tab这样的“容器”元素。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">my-special-list</span> <span class="na">params</span><span class="o">=</span><span class="s">&quot;items: someArrayOfPeople&quot;</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- Look, I&#39;m putting markup inside a custom element --&gt;</span>
+    The person <span class="p">&lt;</span><span class="nt">em</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: name&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">em</span><span class="p">&gt;</span>
+    is <span class="p">&lt;</span><span class="nt">em</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: age&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">em</span><span class="p">&gt;</span> years old.
+<span class="p">&lt;/</span><span class="nt">my-special-list</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>默认情况下，<code>&lt;my-special-list&gt;</code>内的节点会被删除（没有绑定视图模型时）且替换为组件的输出。但是这些节点没有丢失，有两种方式提供给组件：</p>
+
+<ul>
+<li><code>$componentTemplateNodes</code>数组，对组件模板的任意绑定表达式中可用。这是常用的方式。</li>
+<li><code>componentInfo.templateNodes</code>数组被传递给<code>createViewModel</code>函数。</li>
+</ul>
+
+<p>模板可以将提供的DOM节点作为输出的一部分，例如在组件模板的元素上使用<code>template: { nodes: $componentTemplateNodes }</code>。</p>
+
+<p>完整的代码示例如下：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- This could be in a separate file --&gt;</span>
+<span class="p">&lt;</span><span class="nt">template</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;my-special-list-template&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Here is a special list<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+
+    <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;foreach: { data: myItems, as: &#39;myItem&#39; }&quot;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Here is another one of my special items<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+            <span class="c">&lt;!-- ko template: { nodes: $componentTemplateNodes, data: myItem } --&gt;&lt;!-- /ko --&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">my-special-list</span> <span class="na">params</span><span class="o">=</span><span class="s">&quot;items: someArrayOfPeople&quot;</span><span class="p">&gt;</span>
+    <span class="c">&lt;!-- Look, I&#39;m putting markup inside a custom element --&gt;</span>
+    The person <span class="p">&lt;</span><span class="nt">em</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: name&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">em</span><span class="p">&gt;</span>
+    is <span class="p">&lt;</span><span class="nt">em</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: age&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">em</span><span class="p">&gt;</span> years old.
+<span class="p">&lt;/</span><span class="nt">my-special-list</span><span class="p">&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-special-list&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="p">{</span> <span class="nx">element</span><span class="o">:</span> <span class="s1">&#39;my-special-list-template&#39;</span> <span class="p">},</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">myItems</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">items</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">({</span>
+    <span class="nx">someArrayOfPeople</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span>
+        <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Lewis&#39;</span><span class="p">,</span> <span class="nx">age</span><span class="o">:</span> <span class="mi">56</span> <span class="p">},</span>
+        <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Hathaway&#39;</span><span class="p">,</span> <span class="nx">age</span><span class="o">:</span> <span class="mi">34</span> <span class="p">}</span>
+    <span class="p">])</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>注：在使用组件绑定而不是自定义元素时，同样可以传入html片段。</p>
+
+<h3 id="控制自定义元素的tag名称">控制自定义元素的tag名称</h3>
+
+<p>默认情况下，ko将组件注册的名称当成自定义元素的名称。
+可以通过重写<code>getComponentNameForNode</code>来为自定义元素重新命名。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">getComponentNameForNode</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">tagNameLower</span> <span class="o">=</span> <span class="nx">node</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">&amp;&amp;</span> <span class="nx">node</span><span class="p">.</span><span class="nx">tagName</span><span class="p">.</span><span class="nx">toLowerCase</span><span class="p">();</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">isRegistered</span><span class="p">(</span><span class="nx">tagNameLower</span><span class="p">))</span> <span class="p">{</span>
+        <span class="c1">// If the element&#39;s name exactly matches a preregistered</span>
+        <span class="c1">// component, use that component</span>
+        <span class="k">return</span> <span class="nx">tagNameLower</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">tagNameLower</span> <span class="o">===</span> <span class="s2">&quot;special-element&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// For the element &lt;special-element&gt;, use the component</span>
+        <span class="c1">// &quot;MySpecialComponent&quot; (whether or not it was preregistered)</span>
+        <span class="k">return</span> <span class="s2">&quot;MySpecialComponent&quot;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">// Treat anything else as not representing a component</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h3 id="注册自定义元素">注册自定义元素</h3>
+
+<p>如果使用的是默认的组件加载器，那么通过<code>ko.components.register</code>注册自定义元素。</p>
+
+<p>如果使用的是自定义的组件加载器，且没有使用<code>ko.components.register</code>，那么需要告诉ko想当成自定义元素使用的元素名称，同样是调用<code>ko.components.register</code>，但不需要指定任何配置等。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-custom-element&#39;</span><span class="p">,</span> <span class="p">{</span> <span class="cm">/* No config needed */</span> <span class="p">});</span>
+</code></pre></div>
+
+<p>此外，还可以重写<code>getComponentNameForNode</code>来动态控制元素和组件名称的映射。</p>
+
+<h3 id="自定义元素和普通绑定结合">自定义元素和普通绑定结合</h3>
+
+<p>自定义元素除了<code>params</code>属性外，还可以有<code>data-bind</code>属性，</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">products-list</span> <span class="na">params</span><span class="o">=</span><span class="s">&#39;category: chosenCategory&#39;</span>
+               <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;visible: shouldShowProducts&#39;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">products-list</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>但是像这样对自定义元素使用会修改元素内容的绑定是没有意义的，因为他们会覆盖组件注入的模板。</p>
+
+<p>ko会阻止任何使用<code>controlsDescendantBindings</code>的绑定的这种用法，因为可能会在绑定它的视图模型到注入的模板时和组件发生冲突。因此在if和foreach中，必须使用包装的自定义元素，而不是直接使用。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- ko if: someCondition --&gt;</span>
+    <span class="p">&lt;</span><span class="nt">products-list</span><span class="p">&gt;&lt;/</span><span class="nt">products-list</span><span class="p">&gt;</span>
+<span class="c">&lt;!-- /ko --&gt;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;foreach: allProducts&#39;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">product-details</span> <span class="na">params</span><span class="o">=</span><span class="s">&#39;product: $data&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">product-details</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<h3 id="自定义元素不会自关闭">自定义元素不会自关闭</h3>
+
+<p>必须这样写<code>&lt;my-custom-element&gt;&lt;/my-custom-element&gt;</code>，而不能这样写<code>&lt;my-custom-element /&gt;</code>。</p>
+
+<h3 id="ie6-8使用自定义元素">IE6~8使用自定义元素</h3>
+
+<p>IE6~8支持自定义元素，但是必须在html解析器遇到它们之前注册，否则解析器会丢弃不识别的元素。为了保证自定义元素不被丢弃，需要确保在html解析器遇到<code>&lt;your-component&gt;</code>之前调用<code>ko.components.register('your-component')</code>，或者调用<code>document.createElement('your-component')</code>。</p>
+
+<p>例如，页面的代码这样布局是可以的：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;some-script-that-registers-components.js&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">my-custom-element</span><span class="p">&gt;&lt;/</span><span class="nt">my-custom-element</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>使用AMD时可能更希望是这样：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+            <span class="c1">// Since the components aren&#39;t registered until the AMD module</span>
+            <span class="c1">// loads, which is asynchronous, the following prevents IE6-8&#39;s</span>
+            <span class="c1">// parser from discarding the custom element</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;my-custom-element&#39;</span><span class="p">);</span>
+        <span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;require.js&#39;</span> <span class="na">data-main</span><span class="o">=</span><span class="s">&#39;app/startup&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">my-custom-element</span><span class="p">&gt;&lt;/</span><span class="nt">my-custom-element</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>如果不想使用<code>document.createElement</code>，可以在上一层的元素使用组件绑定代替自定义元素。只要所有组件在调用<code>ko.applyBindings</code>之前注册，在IE6~8上都不会有问题。</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+        <span class="c">&lt;!-- The startup module registers all other KO components before calling</span>
+<span class="c">             ko.applyBindings(), so they are OK as custom elements on IE6-8 --&gt;</span>
+        <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#39;require.js&#39;</span> <span class="na">data-main</span><span class="o">=</span><span class="s">&#39;app/startup&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;component: &quot;my-custom-element&quot;&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<h3 id="访问-raw-参数">访问<code>$raw</code>参数</h3>
+
+<p>考虑下面这种不常见的场景，<code>useObservable1</code>、<code>observable1</code>和`observable2都是监控属性：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">some-component</span>
+    <span class="na">params</span><span class="o">=</span><span class="s">&#39;myExpr: useObservable1() ? observable1 : observable2&#39;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">some-component</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>因为评估<code>myExpr</code>需要读取监控属性<code>useObservable1</code>，ko会将该参数作为计算监控属性提供给组件。然而，该计算属性的值本身也是可监控的。这貌似会导致一个尴尬的问题，读取它的值时会double-unwrapping（即<code>params.myExpr()()</code>），第一对括号是给出表达式的值，第二对括号给出监控属性实例的值。</p>
+
+<p>这样的double-unwrapping既丑陋也不方便，也是不期望的。因此ko会自动设置生成的监控属性（param.myExpr）unwrap其值。</p>
+
+<p>在一些不可能的事件中，不希望自动unwrap，因为希望直接访问<code>observable1</code>/<code>observable</code>，那么可以从<code>params.$raw</code>中读取其值。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">MyComponentViewModel</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">currentObservableInstance</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">$raw</span><span class="p">.</span><span class="nx">myExpr</span><span class="p">();</span>
+
+    <span class="c1">// Now currentObservableInstance is either observable1 or observable2</span>
+    <span class="c1">// and you would read its value with &quot;currentObservableInstance()&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="组件加载器">组件加载器</h2>
+
+<p>当使用组件绑定或自定义元素时注入组件时，ko使用一个或多个组件加载器来获取模板和视图模型。组件加载器的工作是异步提供给定名称的组件的模板/视图模型对。</p>
+
+<h3 id="默认的组件加载器">默认的组件加载器</h3>
+
+<p>内建的组件加载器<code>ko.components.defaultLoader</code>是基于组件定义的“注册表”。它需要在使用组件之前明确地注册组件配置。</p>
+
+<h3 id="组件加载器实用函数">组件加载器实用函数</h3>
+
+<p>读写默认的组件加载器注册表：
+* <code>ko.components.register(name, configuration)</code>：注册组件。
+* <code>ko.components.isRegistered(name)</code>：返回指定的组件是否被注册。
+* <code>ko.components.unregister(name)</code>：取消注册组件。</p>
+
+<p>以下方法适用于所有注册的组件加载器列表：
+* <code>ko.components.get(name, callback)</code>：依次询问注册的加载器，找到指定名称的组件的视图模型/模板定义，然后调用<code>callback</code>来返回该视图模型/模板定义。如果没有加载器找到组件则调用<code>callback(null)</code>。
+* <code>ko.components.clearCachedDefinition(name)</code>：通常ko会对每个组件名称询问一次所有的加载器后将结果缓存起来。调用该函数可以清除某个组件的缓存，在下次需要该组件时重新询问加载器。</p>
+
+<p>由于<code>ko.components.defaultLoader</code>也是一个加载器，所以它有以下方法可以调用（例如作为自定义加载器的一部分）：
+* ko.components.defaultLoader.getConfig(name, callback)
+* ko.components.defaultLoader.loadComponent(name, componentConfig, callback)
+* ko.components.defaultLoader.loadTemplate(name, templateConfig, callback)
+* ko.components.defaultLoader.loadViewModel(name, viewModelConfig, callback)</p>
+
+<h3 id="实现一个自定义组件加载器">实现一个自定义组件加载器</h3>
+
+<p>如果希望使用一个命名规范来代替注册法加载组件，或使用第三方库来从外部文件加载视图模型和模板，可以实现一个自定义加载器。</p>
+
+<p>自定义组件加载器时一个对象，其属性是以下函数的任意组合：</p>
+
+<ul>
+<li><p><code>getConfig(name, callback)</code>
+如果希望提供基于名称的代码的方式进行配置（例如，实现一个命名规范），那么定义该函数。
+如果定义了该函数，那么ko在每次实例化组件之前会调用该函数来获取配置对象。
+调用<code>callback(componentConfig)</code>来提供配置。<code>componentConfig</code>是任意可被加载器的<code>loadComponent</code>方法理解的对象。默认的加载器只会提供由<code>ko.components.register</code>注册的对象。
+例如，<code>componentConfig</code>为<code>{ template: 'someElementId', viewModel: { require: 'myModule' } }</code>，可被默认的加载器理解和实例化。
+如果希望自定义的加载器不提供指定名称的组件配置，那么调用<code>callback(null)</code>，ko会继续询问其它加载器，直到某个返回了非空的结果。</p></li>
+
+<li><p><code>loadComponent(name, componentConfig, callback)</code>
+如果希望控制组件配置是如何被解释的，那么定义该函数。
+如果定义了该函数，那么ko会调用它将<code>componentConfig</code>对象转换成视图模型/模板对。
+调用<code>callback(result)</code>来提供视图模型/模板对。<code>result</code>对象由两个属性：
+<code>template</code>是必须的，是DOM节点数组；
+<code>createViewModel(params, componentInfo)</code>是可选的，该函数会在后面被调用来为组件的每个实例提供视图模型对象。
+调用<code>callback(null)</code>来让加载器不提供视图模型/模板对。ko会继续询问其他加载器直到某个返回了非空的结果。</p></li>
+
+<li><p><code>loadTemplate(name, templateConfig, callback)</code>
+使用自定义逻辑根据给定的模板配置提供节点（例如使用ajax请求获取模板）。
+默认的加载器会调用其他注册了的且声明了该函数的加载器来调用该函数，将组件的模板配置转换成DOM节点数组，并缓存起来，被每个组件的是实例复制。
+<code>templateConfig</code>值是任意<code>componentConfig</code>对象的<code>template</code>属性。
+调用<code>callback(domNodeArray)</code>来提供DOM节点数组。
+如果不希望返回结果（例如因为不识别配置格式），调用<code>callback(null)</code>。ko会继续询问其他加载器直到某个返回了非空的结果。</p></li>
+
+<li><p><code>loadViewModel(name, templateConfig, callback)</code>
+使用自定义逻辑根据给定的视图模型配置提供视图模型工厂。
+默认的加载器会调用其他注册了的且声明了该函数的加载器来调用该函数，将组件的视图模型配置转换成视图模型工厂函数，并缓存起来，被每个需要视图模型的组件的是实例调用。
+<code>viewModelConfig</code>值是任意<code>componentConfig</code>对象的<code>viewModel</code>属性。它可以是构造器函数，或者自定义格式，如<code>{ myViewModelType: 'Something', options: {} }</code>。
+调用<code>callback(yourCreateViewModelFunction)</code>来提供视图模型工厂函数。视图模型工厂函数必须接收参数<code>(params, componentInfo)</code>，每次调用时异步返回一个视图模型实例。
+如果不希望返回结果（例如因为不识别配置格式），调用<code>callback(null)</code>。ko会继续询问其他加载器直到某个返回了非空的结果。</p></li>
+</ul>
+
+<h3 id="注册自定义组件加载器">注册自定义组件加载器</h3>
+
+<p>ko允许同时使用多个加载器。
+<code>ko.components.loaders</code>数组包含当前激活的所有加载器。默认只包含<code>ko.components.defaultLoader</code>，要想添加其他加载器，把他们加到该数组中就行了。</p>
+
+<h3 id="控制优先级">控制优先级</h3>
+
+<p>通过改变加载器在<code>ko.components.loaders</code>数组中的位置来改变它们的优先级，越前面的优先级越高。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// Adds myLowPriorityLoader to the end of the loaders array.</span>
+<span class="c1">// It runs after other loaders, only if none of them returned a value.</span>
+<span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">loaders</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">myLowPriorityLoader</span><span class="p">);</span>
+
+<span class="c1">// Adds myHighPriorityLoader to the beginning of the loaders array.</span>
+<span class="c1">// It runs before other loaders, getting the first chance to return values.</span>
+<span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">loaders</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">myHighPriorityLoader</span><span class="p">)</span>
+</code></pre></div>
+
+<p>如果需要，甚至可以将默认加载器移出数组。</p>
+
+<h3 id="调用顺序">调用顺序</h3>
+
+<p>ko第一次需要构建一个指定名称的组件时：
+* 依次调用每个注册的加载器的<code>getConfig</code>函数，直到某个返回了非空的<code>componentConfig</code>。
+* 使用<code>componentConfig</code>对象，依次调用每个注册的加载器的<code>loadComponent</code>函数，直到某个返回了非空的视图模型/模板对。</p>
+
+<p>当默认加载器的<code>loadComponent</code>执行时，它同时：
+* 依次调用每个注册的加载器的<code>loadTemplate</code>函数，直到某个返回了非空的DOM数组。默认加载器自身也有<code>loadTemplate</code>函数。
+* 依次调用每个注册的加载器的<code>loadViewModel</code>函数，直到某个返回了非空的<code>createViewModel</code>函数。默认加载器自身也有<code>createViewModel</code>函数。</p>
+
+<p>自定义加载器可以插入任何处理过程，如提供参数、解释参数、提供DOM节点、提供视图模型工厂函数。通过组件在<code>ko.components.loaders</code>数组中的顺序可以控制不同加载策略的优先级。</p>
+
+<h3 id="例1-设置命名规范的组件加载器">例1：设置命名规范的组件加载器</h3>
+
+<p>为了实现命名规范，自定义加载器只需要实现<code>getConfig</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ar</span> <span class="nx">namingConventionLoader</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">getConfig</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 1. Viewmodels are classes corresponding to the component name.</span>
+        <span class="c1">//    e.g., my-component maps to MyApp.MyComponentViewModel</span>
+        <span class="c1">// 2. Templates are in elements whose ID is the component name</span>
+        <span class="c1">//    plus &#39;-template&#39;.    </span>
+        <span class="kd">var</span> <span class="nx">viewModelConfig</span> <span class="o">=</span> <span class="nx">MyApp</span><span class="p">[</span><span class="nx">toPascalCase</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;ViewModel&#39;</span><span class="p">],</span>
+            <span class="nx">templateConfig</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">element</span><span class="o">:</span> <span class="nx">name</span> <span class="o">+</span> <span class="s1">&#39;-template&#39;</span> <span class="p">};</span>
+
+        <span class="nx">callback</span><span class="p">({</span> <span class="nx">viewModel</span><span class="o">:</span> <span class="nx">viewModelConfig</span><span class="p">,</span> <span class="nx">template</span><span class="o">:</span> <span class="nx">templateConfig</span> <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">toPascalCase</span><span class="p">(</span><span class="nx">dasherized</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">dasherized</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/(^|-)([a-z])/g</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">g</span><span class="p">,</span> <span class="nx">m1</span><span class="p">,</span> <span class="nx">m2</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">m2</span><span class="p">.</span><span class="nx">toUpperCase</span><span class="p">();</span> <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">// Register it. Make it take priority over the default loader.</span>
+<span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">loaders</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">namingConventionLoader</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;component: &#39;my-component&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+
+<span class="c">&lt;!-- Declare template --&gt;</span>
+<span class="p">&lt;</span><span class="nt">template</span> <span class="na">id</span><span class="o">=</span><span class="s">&#39;my-component-template&#39;</span><span class="p">&gt;</span>Hello World!<span class="p">&lt;/</span><span class="nt">template</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+    <span class="c1">// Declare viewmodel</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">MyApp</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">MyApp</span> <span class="o">||</span> <span class="p">{};</span>
+    <span class="nx">MyApp</span><span class="p">.</span><span class="nx">MyComponentViewModel</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<h3 id="例2-使用自定义代码从外部文件加载的组件">例2：使用自定义代码从外部文件加载的组件</h3>
+
+<p>如果自定义组件实现了<code>loadTemplate</code>和/或<code>loadViewModel</code>，那么可以在加载过程中插入自定义代码。也可是使用这两个函数来解释自定义参数格式。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;my-component&#39;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">template</span><span class="o">:</span> <span class="p">{</span> <span class="nx">fromUrl</span><span class="o">:</span> <span class="s1">&#39;file.html&#39;</span><span class="p">,</span> <span class="nx">maxCacheAge</span><span class="o">:</span> <span class="mi">1234</span> <span class="p">},</span>
+    <span class="nx">viewModel</span><span class="o">:</span> <span class="p">{</span> <span class="nx">viaLoader</span><span class="o">:</span> <span class="s1">&#39;/path/myvm.js&#39;</span> <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">templateFromUrlLoader</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">loadTemplate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">templateConfig</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">templateConfig</span><span class="p">.</span><span class="nx">fromUrl</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Uses jQuery&#39;s ajax facility to load the markup from a file</span>
+            <span class="kd">var</span> <span class="nx">fullUrl</span> <span class="o">=</span> <span class="s1">&#39;/templates/&#39;</span> <span class="o">+</span> <span class="nx">templateConfig</span><span class="p">.</span><span class="nx">fromUrl</span> <span class="o">+</span> <span class="s1">&#39;?cacheAge=&#39;</span> <span class="o">+</span> <span class="nx">templateConfig</span><span class="p">.</span><span class="nx">maxCacheAge</span><span class="p">;</span>
+            <span class="nx">$</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">fullUrl</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">markupString</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// We need an array of DOM nodes, not a string.</span>
+                <span class="c1">// We can use the default loader to convert to the</span>
+                <span class="c1">// required format.</span>
+                <span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">defaultLoader</span><span class="p">.</span><span class="nx">loadTemplate</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">markupString</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+            <span class="p">});</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// Unrecognized config format. Let another loader handle it.</span>
+            <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// Register it</span>
+<span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">loaders</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">templateFromUrlLoader</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">viewModelCustomLoader</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">loadViewModel</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">viewModelConfig</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">viewModelConfig</span><span class="p">.</span><span class="nx">viaLoader</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// You could use arbitrary logic, e.g., a third-party</span>
+            <span class="c1">// code loader, to asynchronously supply the constructor.</span>
+            <span class="c1">// For this example, just use a hard-coded constructor function.</span>
+            <span class="kd">var</span> <span class="nx">viewModelConstructor</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">this</span><span class="p">.</span><span class="nx">prop1</span> <span class="o">=</span> <span class="mi">123</span><span class="p">;</span>
+            <span class="p">};</span>
+
+            <span class="c1">// We need a createViewModel function, not a plain constructor.</span>
+            <span class="c1">// We can use the default loader to convert to the</span>
+            <span class="c1">// required format.</span>
+            <span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">defaultLoader</span><span class="p">.</span><span class="nx">loadViewModel</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">viewModelConstructor</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// Unrecognized config format. Let another loader handle it.</span>
+            <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// Register it</span>
+<span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">loaders</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">viewModelCustomLoader</span><span class="p">);</span>
+</code></pre></div>
+
+<p>如果你乐意，也可以将<code>templateFromUrlLoader</code>和<code>viewModelCustomLoader</code>合并为一个。</p>
+
+<h3 id="注-自定义组件加载器和自定义元素">注：自定义组件加载器和自定义元素</h3>
+
+<p>如果使用自定义加载器来来用命名规范方式获取组件，且没有用<code>ko.components.register</code>来注册组件，那么这些组件默认是不能当作自定义元素使用的。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="http://knockoutjs.com/documentation/component-overview.html">KnockoutJS documentation</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/knockoutjs"><span class="tag">KnockoutJS</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>320</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

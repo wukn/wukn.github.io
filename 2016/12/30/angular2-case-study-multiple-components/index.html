@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Angular2] Case Study - Multiple Components and Services</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 使用TypeScript构建Angular2应用。多组件交互和服务。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Angular2] Case Study - Multiple Components and Services" />
+    <meta name="twitter:description" content=" 使用TypeScript构建Angular2应用。多组件交互和服务。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2016/12/30/angular2-case-study-multiple-components/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Angular2] Case Study - Multiple Components and Services</h1>
+      <p class="post-meta">@wukn · Dec 30, 2016 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>使用TypeScript构建Angular2应用。多组件交互和服务。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="多组件">多组件</h3>
+
+<p>随着应用的增长，我们需要将一些功能独立成可复用的组件，这又牵连出组件之间数据交互的问题。让我们把heroes列表和hero详细视图分成两个组件。（单一职责原则）</p>
+
+<p>在<code>app</code>文件夹下创建新的文件<code>hero-detail.component.ts</code>，在文件中定义<code>HeroDetailComponent</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-detail.component.ts(partial)</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-hero-detail&#39;</span><span class="p">,</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroDetailComponent</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>注意看下命名规范。组件<code>AppComponent</code>对应的文件名为<code>app.component.ts</code>，<code>HeroDetailComponent</code>对应的文件名为<code>hero-detail.component.ts</code>。也就是说组件的名字以<code>Component</code>结尾，对应的文件名后缀为<code>.component.ts</code>。组件的名字中各单词的首字母大写；而文件名中全部小写，单词之间用<code>-</code>相连，称为lower dash-case。</p>
+
+<p>目前，Heroes和HeroDetail的视图都在<code>AppComponent</code>的模板中。我们将HeroDetail的视图拆到新的组件<code>HeroDetailComponent</code>中。</p>
+
+<p>在<code>AppComponent</code>我们绑定了<code>selectedHero.name</code>属性。但是在<code>HeroDetailComponent</code>我们定义的属性是<code>hero</code>，所以这里要替换下。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-detail.component.ts(template)</span>
+
+<span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
+<span class="sb">  &lt;div *ngIf=&quot;hero&quot;&gt;</span>
+<span class="sb">    &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;</span>
+<span class="sb">    &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;</span>
+<span class="sb">    &lt;div&gt;</span>
+<span class="sb">      &lt;label&gt;name: &lt;/label&gt;</span>
+<span class="sb">      &lt;input [(ngModel)]=&quot;hero.name&quot; placeholder=&quot;name&quot;/&gt;</span>
+<span class="sb">    &lt;/div&gt;</span>
+<span class="sb">  &lt;/div&gt;</span>
+<span class="sb">  `</span>
+</code></pre></div>
+
+<p>为<code>HeroDetailComponent</code>添加<code>hero</code>属性：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">;</span>
+</code></pre></div>
+
+<p>噢，我们的<code>Hero</code>还定义在<code>app.component.ts</code>文件中。把它也放到单独的文件中吧：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero.ts</span>
+
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">Hero</span> <span class="p">{</span>
+  <span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>分别在<code>app.component.ts</code>和<code>hero-detail.component.ts</code>中添加import：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<p><code>HeroDetailComponent</code>的<code>Hero</code>属性是一个输入属性，是<code>AppComponent</code>告诉它的。<code>AppComponent</code>知道用户选中的是列表中的哪个，在它的<code>selectedHero</code>属性中。所以接下来我们要在<code>AppComponent</code>的模板中将它的<code>selectedHero</code>属性绑定到<code>HeroDetailComponent</code>的<code>hero</code>属性。这个绑定可能看起来是这样的：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">my-hero-detail</span> <span class="err">[</span><span class="na">hero</span><span class="err">]=&quot;</span><span class="na">selectedHero</span><span class="err">&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">my-hero-detail</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>等号左侧的是属性绑定的目标。在Angular中，我们需要将目标属性定义成输入属性（input），否则，Angular就不会绑定并且报错。</p>
+
+<p>将属性声明为input有多中方式。最常用的就是对属性使用<code>@Input</code>装饰器：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Input</span><span class="p">()</span>
+<span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">;</span>
+</code></pre></div>
+
+<p>回到<code>AppModule</code>，我们需要告诉它去使用<code>HeroDetailComponent</code>。引入<code>HeroDetailComponent</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroDetailComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero-detail.component&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>将<code>HeroDetailComponent</code>添加到<code>NgModule</code>的<code>declarations</code>列表中。这个列表包含的是所有我们创建的属于这个应用的组件、管道和指令。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">BrowserModule</span><span class="p">,</span>
+    <span class="nx">FormsModule</span>
+  <span class="p">],</span>
+  <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">AppComponent</span><span class="p">,</span>
+    <span class="nx">HeroDetailComponent</span>
+  <span class="p">],</span>
+  <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>更新<code>AppComponent</code>的模板：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
+<span class="sb">  &lt;h1&gt;{{title}}&lt;/h1&gt;</span>
+<span class="sb">  &lt;h2&gt;My Heroes&lt;/h2&gt;</span>
+<span class="sb">  &lt;ul class=&quot;heroes&quot;&gt;</span>
+<span class="sb">    &lt;li *ngFor=&quot;let hero of heroes&quot;</span>
+<span class="sb">      [class.selected]=&quot;hero === selectedHero&quot;</span>
+<span class="sb">      (click)=&quot;onSelect(hero)&quot;&gt;</span>
+<span class="sb">      &lt;span class=&quot;badge&quot;&gt;{{hero.id}}&lt;/span&gt; {{hero.name}}</span>
+<span class="sb">    &lt;/li&gt;</span>
+<span class="sb">  &lt;/ul&gt;</span>
+<span class="sb">  &lt;my-hero-detail [hero]=&quot;selectedHero&quot;&gt;&lt;/my-hero-detail&gt;</span>
+<span class="sb">`</span><span class="p">,</span>
+</code></pre></div>
+
+<p>现在运行起来效果和之前是一样的。</p>
+
+<h3 id="服务">服务</h3>
+
+<p>目前<code>AppComponent</code>中直接定义了模拟数据用于展示。这里有两个问题：一这些数据的获取不是组件的事儿，二这些数据无法与其它组件和视图共享。</p>
+
+<p>So, 接下来我们将数据处理重构到一个单独的服务中。</p>
+
+<p>数据服务毫无疑问是异步的，所以我们将要完成的是一个基于Promise的数据服务。</p>
+
+<p>在<code>app</code>文件夹下创建<code>hero.service.ts</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroService</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>这里的命名还是文件名为lower dash-case，以<code>.service.ts</code>结尾。例如<code>SpecialSuperHeroService</code>对应的文件名应为<code>special-super-hero.service.ts</code>。</p>
+
+<p>注意这里的<code>@Injectable()</code>装饰器。TypeScript遇到<code>@Injectable()</code>装饰器就会带上该service的元数据，以及该service的依赖的元数据。</p>
+
+<p>添加一个<code>getHeroes</code>空方法：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroService</span> <span class="p">{</span>
+  <span class="nx">getHeroes</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{}</span> <span class="c1">// stub</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>我们将数据的获取交给service去做，这样service的消费者，也就是组件，就不需要知道怎样去获取数据了。</p>
+
+<p>之前我们在<code>AppComponent</code>定义的模拟数据。他不应该在那里，也不应该在service中，我们也将它放到一个单独的文件中。</p>
+
+<p>将<code>app.component.ts</code>中的<code>HEROES</code>数组剪切出来，放到<code>app</code>文件夹下新创建的<code>mock-heroes.ts</code>中：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/mock-heroes.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
+<span class="kr">export</span> <span class="kr">const</span> <span class="nx">HEROES</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Mr. Nice&#39;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Narco&#39;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">13</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Bombasto&#39;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Celeritas&#39;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Magneta&#39;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">16</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;RubberMan&#39;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">17</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dynama&#39;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dr IQ&#39;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">19</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Magma&#39;</span><span class="p">},</span>
+  <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Tornado&#39;</span><span class="p">}</span>
+<span class="p">];</span>
+</code></pre></div>
+
+<p>由于<code>app.component.ts</code>中没有<code>HEROES</code>了，我们暂时将<code>heroes</code>置为未初始化的状态：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">heroes</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">[];</span>
+</code></pre></div>
+
+<p>回到<code>HeroService</code>中，我们引入<code>HEROES</code>，然后在<code>getHeroes</code>中返回它：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero.service.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HEROES</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./mock-heroes&#39;</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroService</span> <span class="p">{</span>
+  <span class="nx">getHeroes</span><span class="p">()</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">[]</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">HEROES</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>现在就可以在<code>AppComponent</code>中使用<code>HeroService</code>了：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>我们需要自己实例化<code>HeroService</code>吗？像这样：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">heroService</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HeroService</span><span class="p">();</span> <span class="c1">// don&#39;t do this</span>
+</code></pre></div>
+
+<p>依赖注入会帮我们完成这样的工作。我们需要在构造函数中定义一个似有属性，并在组件的<code>providers</code>元数据中添加依赖的这个类：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">heroService</span><span class="o">:</span> <span class="nx">HeroService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">providers</span><span class="o">:</span> <span class="p">[</span><span class="nx">HeroService</span><span class="p">]</span>
+</code></pre></div>
+
+<p>在<code>AppComponent</code>中创建<code>getHeroes</code>方法，从service中获取数据：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">getHeroes</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>现在问题来了，我们应该在那里调用这个方法呢？构造函数中？</p>
+
+<p>经验告诉我们，不要在构造函数中写复杂的业务逻辑，特别是那些调用service获取数据的。构造函数应该只是简单的处理一些属性的初始化工作。</p>
+
+<p>不是在构造函数中，那是在哪里调用<code>getHeroes</code>呢？</p>
+
+<p>我们可以实现Angular的ngOnInit钩子（Lifecycle Hook）。Angular提供了一些接口能让我们在组件的生命周期的几个关键的点插入业务逻辑。每个接口对应一个方法。只要实现了接口，Angular就会在相应的时间点调用它。</p>
+
+<p>在<code>AppComponent</code>组件中实现<code>OnInit</code>接口，调用<code>getHeroes</code>方法：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+  <span class="nx">ngOnInit</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>现在运行起来效果和之前还是一样的。</p>
+
+<h4 id="异步service和promise">异步Service和Promise</h4>
+
+<p><code>HeroService</code>中立刻返回了模拟数据，它的<code>getHeroes</code>方法是同步的：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">();</span>
+</code></pre></div>
+
+<p>真实的情况是，我们从远程服务器获取数据。所以需要将<code>getHeroes</code>改成异步模式：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">getHeroes</span><span class="p">()</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">HEROES</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>对应的<code>app.component.ts</code>中调用service的地方也要修改：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.component.ts</span>
+
+<span class="nx">getHeroes</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">heroes</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="nx">heroes</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>程序运行起来效果还是和之前一样的。</p>
+
+<p>附：</p>
+
+<p>我们可以模拟远程请求，让数据获取的慢一些：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">getHeroesSlowly</span><span class="p">()</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Promise</span><span class="p">(</span><span class="nx">resolve</span> <span class="p">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Simulate server latency with 2 second delay</span>
+    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">resolve</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">()),</span> <span class="mi">2000</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://angular.io/docs/ts/latest/tutorial/toh-pt3.html">Angular2 Documentation - Case Study - Multiple Components</a></p>
+
+<p><a href="https://angular.io/docs/ts/latest/tutorial/toh-pt4.html">Angular2 Documentation - Case Study - Services</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>272</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

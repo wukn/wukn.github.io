@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Angular2] Case Study - Routing</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 使用TypeScript构建Angular2应用。使用路由功能在多个视图之间导航。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Angular2] Case Study - Routing" />
+    <meta name="twitter:description" content=" 使用TypeScript构建Angular2应用。使用路由功能在多个视图之间导航。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2017/01/04/angular2-case-study-routing/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Angular2] Case Study - Routing</h1>
+      <p class="post-meta">@wukn · Jan 4, 2017 · 6 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>使用TypeScript构建Angular2应用。使用路由功能在多个视图之间导航。</p>
+</blockquote>
+
+<p></p>
+
+<p>现在我们接收到新的需求：</p>
+
+<ol>
+<li>添加一个Dashboard视图</li>
+<li>在Heroes列表视图和Dashboard视图之间跳转</li>
+<li>点击列表视图或Dashboard视图内的Hero跳转到Hero详细视图</li>
+<li>URL直接访问某个Hero相信信息视图</li>
+</ol>
+
+<p><img src="https://wukn.github.io/img/post/angular2/routing/nav-diagram.png" alt="" /></p>
+
+<p>我们将使用Angular的Router来实现该需求。</p>
+
+<p>我们打算这样做：</p>
+
+<ol>
+<li>将<code>AppComponent</code>组件改成只处理页面跳转的应用程序壳</li>
+<li>将<code>AppComponent</code>中的Heroes相关的业务分离到<code>HeroesComponent</code>中</li>
+<li>添加路由</li>
+<li>创建新的<code>DashboardComponent</code></li>
+<li>将Dashboard添加到导航结构中</li>
+</ol>
+
+<p>注：Routing就是Navigation（导航/跳转）的另一个名字。Router就是从一个视图导航到另一个视图的一种机制。</p>
+
+<h3 id="重构appcomponent">重构AppComponent</h3>
+
+<p>目前应用程序启动<code>AppComponent</code>后会立刻加载和显示heroes列表。我们要将它改成包含一系列视图的壳，然后默认加载某一个视图。</p>
+
+<p><code>AppComponent</code>应该只处理视图间的跳转，因此要将它里面的显示heroes列表的业务逻辑移到<code>HeroesComponent</code>中。</p>
+
+<p>我们<code>app.component.ts</code>重命名为<code>heroes.component.ts</code>，并将该文件中的类名<code>AppComponent</code>改为<code>HeroesComponent</code>，选择器<code>my-app</code>改为<code>my-heroes</code>ruinous创建一个新的<code>app.component.ts</code>文件就可以了。</p>
+
+<p>创建新的文件<code>app/app.component.ts</code>，定义<code>AppComponent</code>类，在模板中使用<code>&lt;my-heroes&gt;</code>元素：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.component.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
+<span class="sb">    &lt;h1&gt;{{title}}&lt;/h1&gt;</span>
+<span class="sb">    &lt;my-heroes&gt;&lt;/my-heroes&gt;</span>
+<span class="sb">  `</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><code>AppModule</code>中也要做一些修改。在<code>declarations</code>数组中添加<code>HeroesComponent</code>，要不Angular不认识<code>my-heroes</code>标签;在<code>providers</code>数组中添加<code>HeroService</code>，因为在其它每个视图中都要用到它；添加相应的文件的import：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>       <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">FormsModule</span> <span class="p">}</span>    <span class="nx">from</span> <span class="s1">&#39;@angular/forms&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>        <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroDetailComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero-detail.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroesComponent</span> <span class="p">}</span>     <span class="nx">from</span> <span class="s1">&#39;./heroes.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span>         <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">BrowserModule</span><span class="p">,</span>
+    <span class="nx">FormsModule</span>
+  <span class="p">],</span>
+  <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">AppComponent</span><span class="p">,</span>
+    <span class="nx">HeroDetailComponent</span><span class="p">,</span>
+    <span class="nx">HeroesComponent</span>
+  <span class="p">],</span>
+  <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">HeroService</span>
+  <span class="p">],</span>
+  <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>还要移除<code>HeroesComponent</code>的模板中<code>&lt;h1&gt;{{title}}&lt;/h1&gt;</code>；移除的<code>providers</code>数组中的<code>HeroService</code>。因为这两个都移到<code>AppComponent</code>中去了。</p>
+
+<p>现在应用程序跑起来还是跟之前的效果是一样的。说明重构生效了。</p>
+
+<h3 id="添加路由">添加路由</h3>
+
+<p>接下来就是添加路由了。</p>
+
+<p>Angular路由器是一个外部的可选模块<code>RouterModule</code>。路由器包括 multiple provided services（<code>RouterModule</code>）、multiple directives（<code>RouterOutlet</code>，<code>RouterLink</code>，<code>RouterLinkActive</code>）和configuration (<code>Routes</code>)。</p>
+
+<h4 id="添加base标签">添加base标签</h4>
+
+<p>在文件<code>index.html</code>的<code>&lt;head&gt;</code>段的顶部添加<code>&lt;base href=&quot;/&quot;&gt;</code>：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">base</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;/&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<h4 id="配置路由">配置路由</h4>
+
+<p>现在应用里还没有路由（Route），我们先创建路由的配置。</p>
+
+<p>路由（Route）是用来告诉路由器（Router）当用户点击某个链接或在浏览器的地址栏输入URL后该显示哪个视图。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">RouterModule</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
+
+<span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">([</span>
+  <span class="p">{</span>
+    <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;heroes&#39;</span><span class="p">,</span>
+    <span class="nx">component</span><span class="o">:</span> <span class="nx">HeroesComponent</span>
+  <span class="p">}</span>
+<span class="p">])</span>
+</code></pre></div>
+
+<p>路由就是一个路由定义数组。目前我们只加了一个路由定义。</p>
+
+<p>路由定义包含两部分：</p>
+
+<ul>
+<li><code>path</code>：路由器使用path来匹配URL</li>
+<li><code>component</code>：当导航到路由时路由器该创建的组件</li>
+</ul>
+
+<h4 id="使用路由器">使用路由器</h4>
+
+<p>我们创建了路由配置。现在需要将它添加到<code>AppModule</code>。我们将配置的<code>RouterModule</code>添加到<code>AppModule</code>的<code>imports</code>数组中。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>       <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">FormsModule</span> <span class="p">}</span>    <span class="nx">from</span> <span class="s1">&#39;@angular/forms&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">RouterModule</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>        <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroDetailComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero-detail.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroesComponent</span> <span class="p">}</span>     <span class="nx">from</span> <span class="s1">&#39;./heroes.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span>         <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">BrowserModule</span><span class="p">,</span>
+    <span class="nx">FormsModule</span><span class="p">,</span>
+    <span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">([</span>
+      <span class="p">{</span>
+        <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;heroes&#39;</span><span class="p">,</span>
+        <span class="nx">component</span><span class="o">:</span> <span class="nx">HeroesComponent</span>
+      <span class="p">}</span>
+    <span class="p">])</span>
+  <span class="p">],</span>
+  <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">AppComponent</span><span class="p">,</span>
+    <span class="nx">HeroDetailComponent</span><span class="p">,</span>
+    <span class="nx">HeroesComponent</span>
+  <span class="p">],</span>
+  <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">HeroService</span>
+  <span class="p">],</span>
+  <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>这里使用了<code>forRoot</code>方法，因为我们是在为应用的根路径提供配置的路由器。</p>
+
+<p>如果我们在浏览器的地址栏中添加<code>/heroes</code>，那么这个URL就匹配到<code>heroes</code>这个路由并显示<code>HeroesComponent</code>。但是在哪里显示呢？</p>
+
+<p>我们必须在模板的底部添加一个<code>&lt;router-outlet&gt;</code>元素来显示路由对应的视图。<code>RouterOutlet</code>是<code>RouterModule</code>提供的一个指令。</p>
+
+<h4 id="路由链接">路由链接</h4>
+
+<p>我们不希望每次用户都得在浏览器的地址栏中去输入和粘贴URL来跳转，所以在模板中添加一个链接标签，点击该链接触发跳转到<code>HeroesComponent</code>。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.component.ts(partial)</span>
+
+<span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
+<span class="sb">   &lt;h1&gt;{{title}}&lt;/h1&gt;</span>
+<span class="sb">   &lt;a routerLink=&quot;/heroes&quot;&gt;Heroes&lt;/a&gt;</span>
+<span class="sb">   &lt;router-outlet&gt;&lt;/router-outlet&gt;</span>
+<span class="sb"> `</span>
+</code></pre></div>
+
+<p>注意，我们绑定的是链接标签的<code>routerLink</code>。<code>RouterLink</code>是<code>RouterModule</code>提供的另一个指令，告诉路由器当用户点击这个链接是该跳转到哪里。</p>
+
+<p>刷新浏览器，我们将应用的标题和heroes链接，不会看到heroes列表。</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/routing/route-root.png" alt="" /></p>
+
+<p>点击链接后，浏览器的地址栏中会更新成<code>/heroes</code>，heroes列表也会显示出来了。</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/routing/route-heroes.png" alt="" /></p>
+
+<h3 id="添加dashboard">添加Dashboard</h3>
+
+<p>路由只有在多个视图需要切换时才有用。所有再创建一个新的视图。</p>
+
+<p>新建<code>app/dashboard.component.ts</code>文件：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/dashboard.component.ts</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-dashboard&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h3&gt;My Dashboard&lt;/h3&gt;&#39;</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">DashboardComponent</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>回到<code>app.module.ts</code>中，在路由定义数组中添加一条路由：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="p">{</span>
+  <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;dashboard&#39;</span><span class="p">,</span>
+  <span class="nx">component</span><span class="o">:</span> <span class="nx">DashboardComponent</span>
+<span class="p">},</span>
+</code></pre></div>
+
+<p>并在<code>declarations</code>数组中添加<code>DashboardComponent</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
+  <span class="nx">AppComponent</span><span class="p">,</span>
+  <span class="nx">DashboardComponent</span><span class="p">,</span>
+  <span class="nx">HeroDetailComponent</span><span class="p">,</span>
+  <span class="nx">HeroesComponent</span>
+<span class="p">],</span>
+</code></pre></div>
+
+<p>我们希望在应用启动的时候就默认显示Dashboard。也就是将<code>/</code>重定向到<code>/dashboard</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="p">{</span>
+  <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
+  <span class="nx">redirectTo</span><span class="o">:</span> <span class="s1">&#39;/dashboard&#39;</span><span class="p">,</span>
+  <span class="nx">pathMatch</span><span class="o">:</span> <span class="s1">&#39;full&#39;</span>
+<span class="p">},</span>
+</code></pre></div>
+
+<p>在模板中添加导航链接：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
+<span class="sb">   &lt;h1&gt;{{title}}&lt;/h1&gt;</span>
+<span class="sb">   &lt;nav&gt;</span>
+<span class="sb">     &lt;a routerLink=&quot;/dashboard&quot;&gt;Dashboard&lt;/a&gt;</span>
+<span class="sb">     &lt;a routerLink=&quot;/heroes&quot;&gt;Heroes&lt;/a&gt;</span>
+<span class="sb">   &lt;/nav&gt;</span>
+<span class="sb">   &lt;router-outlet&gt;&lt;/router-outlet&gt;</span>
+<span class="sb"> `</span>
+</code></pre></div>
+
+<p>这里将两个链接放到了<code>&lt;nav&gt;</code>标签里，是为了方便后面添加样式。</p>
+
+<p>现在显示的效果如下：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/routing/route-dashboard.png" alt="" /></p>
+
+<h4 id="为dashboard添加内容">为Dashboard添加内容</h4>
+
+<p>在Dashboard中显示最前面的四个hero。这里我们将模板放到单独的文件中，创建文件<code>dashboard.component.html</code>：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Top Heroes<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;grid grid-pad&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&quot;let hero of heroes&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-1-4&quot;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;module hero&quot;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>配置<code>DashboardComponent</code>的模板，设置<code>moduleId</code>属性，并将<code>template</code>改成<code>templateUrl</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-dashboard&#39;</span><span class="p">,</span>
+  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;dashboard.component.html&#39;</span><span class="p">,</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<p>修改<code>dashboard.component.ts</code>文件，添加import：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>实现<code>DashboardComponent</code>类：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">export</span> <span class="kr">class</span> <span class="nx">DashboardComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+
+  <span class="nx">heroes</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
+
+  <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">heroService</span><span class="o">:</span> <span class="nx">HeroService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+
+  <span class="nx">ngOnInit</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">()</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">heroes</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="nx">heroes</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>现在刷新浏览器，可以看到Dashboard会显示四个hero。</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/routing/route-dashboard2.png" alt="" /></p>
+
+<h4 id="导航到详细信息视图">导航到详细信息视图</h4>
+
+<p>尽管我们在<code>HeroesComponent</code>中可以显示Hero详细信息视图，但是在需求中制定的三种方式跳转到<code>HeroDetailComponent</code>还没有实现：</p>
+
+<ul>
+<li>从Dashboard选中的Hero</li>
+<li>从Heroes列表中选中的Hero</li>
+<li>URL直接访问Hero</li>
+</ul>
+
+<p>像上面一样，添加一个hero-detail路由。</p>
+
+<p>这里有点特别的是，我们需要告诉<code>HeroDetailComponent</code>该显示哪个Hero，目前<code>HeroesComponent</code>是直接通过属性传递参数的，而<code>DashboardComponent</code>还不知道任何要传递的参数。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="o">&lt;</span><span class="nx">my</span><span class="o">-</span><span class="nx">hero</span><span class="o">-</span><span class="nx">detail</span> <span class="p">[</span><span class="nx">hero</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;selectedHero&quot;</span><span class="o">&gt;&lt;</span><span class="err">/my-hero-detail&gt;</span>
+</code></pre></div>
+
+<p>属性绑定这种方式在路由的场景里似乎也不行。我们不能将整个hero对象放到URL中，也不希望这样做。</p>
+
+<h4 id="参数化的路由">参数化的路由</h4>
+
+<p>我们可以将hero的<code>id</code>放到URL中作为参数。比如访问<code>id</code>为11的hero：</p>
+
+<pre><code>/detail/11
+</code></pre>
+
+<p>添加路由定义：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="p">{</span>
+  <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;detail/:id&#39;</span><span class="p">,</span>
+  <span class="nx">component</span><span class="o">:</span> <span class="nx">HeroDetailComponent</span>
+<span class="p">},</span>
+</code></pre></div>
+
+<p><code>:id</code>表示这是一个路由参数，当导航到<code>HeroDetailComponent</code>时将<code>id</code>值传给该组件。</p>
+
+<p>现在路由是不可用的，<code>HeroDetailComponent</code>还需要很大的修整。</p>
+
+<p>目前的<code>hero-detail.component.ts</code>是这样的：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-hero-detail&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
+<span class="sb">    &lt;div *ngIf=&quot;hero&quot;&gt;</span>
+<span class="sb">      &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;</span>
+<span class="sb">      &lt;div&gt;</span>
+<span class="sb">        &lt;label&gt;id: &lt;/label&gt;{{hero.id}}</span>
+<span class="sb">      &lt;/div&gt;</span>
+<span class="sb">      &lt;div&gt;</span>
+<span class="sb">        &lt;label&gt;name: &lt;/label&gt;</span>
+<span class="sb">        &lt;input [(ngModel)]=&quot;hero.name&quot; placeholder=&quot;name&quot;/&gt;</span>
+<span class="sb">      &lt;/div&gt;</span>
+<span class="sb">    &lt;/div&gt;</span>
+<span class="sb">  `</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroDetailComponent</span> <span class="p">{</span>
+  <span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>新的<code>HeroDetailComponent</code>应该不再接受Hero对象作为参数，而是从<code>ActivatedRoute</code>的<code>params</code>中得到的参数<code>id</code>，然后使用<code>HeroService</code>获取对应id的hero。</p>
+
+<p>添加相应的import：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// Keep the Input import for now, we&#39;ll remove it later:</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">ActivatedRoute</span><span class="p">,</span> <span class="nx">Params</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">Location</span> <span class="p">}</span>                 <span class="nx">from</span> <span class="s1">&#39;@angular/common&#39;</span><span class="p">;</span>
+
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>在构造函数中注入<code>ActivatedRoute</code>、<code>HeroService</code>和<code>Location</code>这三个服务：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">constructor</span><span class="p">(</span>
+  <span class="kr">private</span> <span class="nx">heroService</span><span class="o">:</span> <span class="nx">HeroService</span><span class="p">,</span>
+  <span class="kr">private</span> <span class="nx">route</span><span class="o">:</span> <span class="nx">ActivatedRoute</span><span class="p">,</span>
+  <span class="kr">private</span> <span class="nx">location</span><span class="o">:</span> <span class="nx">Location</span>
+<span class="p">)</span> <span class="p">{}</span>
+</code></pre></div>
+
+<p>还要引入<code>switchMap</code>操作符，处理路由的参数<code>Observable</code>时要用到：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/switchMap&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<p>实现<code>OnInit</code>接口：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroDetailComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
+  <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ngOnInit</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">.</span><span class="nx">params</span>
+    <span class="p">.</span><span class="nx">switchMap</span><span class="p">((</span><span class="nx">params</span><span class="o">:</span> <span class="nx">Params</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHero</span><span class="p">(</span><span class="o">+</span><span class="nx">params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]))</span>
+    <span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">hero</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">hero</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>注意，<code>switchMap</code>操作符将路由参数observable中的id映射成一个新的<code>Observable</code>，也就是<code>HeroService.getHero</code>方法的返回值。</p>
+
+<p>如果用户重新导航到该组件个<code>getHero</code>方法还没执行完，那么<code>switchMap</code>会在重新调用<code>HeroService.getHero</code>之前取消旧的请求。</p>
+
+<p>Hero的<code>id</code>属性是数字，而路由参数始终是字符串。这里用JavaScript的<code>+</code>操作符将字符串转换成数字。</p>
+
+<p><code>Router</code>会管理它提供的observables并使得订阅局部化。当组件被销毁时订阅也会被清除，为了避免内存泄露。</p>
+
+<p>添加<code>HeroService.getHero</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">getHero</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">()</span>
+             <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">heroes</span> <span class="p">=&gt;</span> <span class="nx">heroes</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">hero</span> <span class="p">=&gt;</span> <span class="nx">hero</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">id</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>我们有好几种方式导航到<code>HeroDetailComponent</code>，但是当我们完成操作后想跳转到其它地方怎么办？</p>
+
+<p>一种方法是点击<code>AppComponent</code>上面的两个链接。我们还可以添加一个<code>goBack</code>方法跳转回之前的页面：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-detail.component.ts (goBack)</span>
+
+<span class="nx">goBack</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">back</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>在模板中添加回退按钮：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">goBack</span><span class="err">()&quot;</span><span class="p">&gt;</span>Back<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>这里我们顺便做一下重构，将模板放到独立的文件中：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- app/hero-detail.component.html --&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&quot;hero&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>{{hero.name}} details!<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>id: <span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>{{hero.id}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>name: <span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]=&quot;</span><span class="na">hero</span><span class="err">.</span><span class="na">name</span><span class="err">&quot;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&quot;name&quot;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">goBack</span><span class="err">()&quot;</span><span class="p">&gt;</span>Back<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>配置组件元数据中的<code>moduleId</code>和<code>templateUrl</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-hero-detail&#39;</span><span class="p">,</span>
+  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;hero-detail.component.html&#39;</span><span class="p">,</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<h4 id="dashboard跳转到详细信息视图">Dashboard跳转到详细信息视图</h4>
+
+<p>当我们在Dashboard视图中点击一个Hero时也应该跳转到对应的<code>HeroDetailComponent</code>视图。</p>
+
+<p>修改<code>dashboard.component.html</code>，将<code>&lt;div *ngFor...&gt;</code>标签改成可点击的<code>&lt;a&gt;</code>标签，并为每个hero添加路由链接：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&quot;let hero of heroes&quot;</span>  <span class="err">[</span><span class="na">routerLink</span><span class="err">]=&quot;[&#39;/</span><span class="na">detail</span><span class="err">&#39;,</span> <span class="na">hero</span><span class="err">.</span><span class="na">id</span><span class="err">]&quot;</span>  <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-1-4&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>看这里的<code>[routerLink]</code>绑定。之前绑定的都是固定链接，如/dashboard&rdquo;和&rdquo;/heroes&rdquo;。这里绑定的是一个包含链接参数数组的表达式。数组包含两个元素，path是目标路由，路由参数会赋值对应的hero的id值。</p>
+
+<p>刷新浏览器可以看到效果。</p>
+
+<h3 id="重构路由模块">重构路由模块</h3>
+
+<p>现在<code>AppModule</code>中有很大一部分的代码都是路由相关的。大多数应用会有很多路由配置，并且会添加安全拂来来避免未授权的链接等。这样就违背了<code>AppModule</code>的本意：为Angular编译器和整个应用建立连接。</p>
+
+<p>所以我们要将路由配置重构到单独的类中。那么这个类是什么类型呢？<code>RouterModule.forRoot()</code>产生的是<code>ModuleWithProviders</code>。这意味着路由配置的类应该是某个模块。实际上应该是路由模块（Routing Module）。</p>
+
+<p>创建<code>app-routing.module.ts</code>文件：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>             <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">RouterModule</span><span class="p">,</span> <span class="nx">Routes</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">DashboardComponent</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;./dashboard.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroesComponent</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;./heroes.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroDetailComponent</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;./hero-detail.component&#39;</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">routes</span><span class="o">:</span> <span class="nx">Routes</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="nx">redirectTo</span><span class="o">:</span> <span class="s1">&#39;/dashboard&#39;</span><span class="p">,</span> <span class="nx">pathMatch</span><span class="o">:</span> <span class="s1">&#39;full&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;dashboard&#39;</span><span class="p">,</span>  <span class="nx">component</span><span class="o">:</span> <span class="nx">DashboardComponent</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;detail/:id&#39;</span><span class="p">,</span> <span class="nx">component</span><span class="o">:</span> <span class="nx">HeroDetailComponent</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;heroes&#39;</span><span class="p">,</span>     <span class="nx">component</span><span class="o">:</span> <span class="nx">HeroesComponent</span> <span class="p">}</span>
+<span class="p">];</span>
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span> <span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">routes</span><span class="p">)</span> <span class="p">],</span>
+  <span class="nx">exports</span><span class="o">:</span> <span class="p">[</span> <span class="nx">RouterModule</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppRoutingModule</span> <span class="p">{}</span>
+</code></pre></div>
+
+<p>值得注意的地方有，一般路由模块会：</p>
+
+<ul>
+<li>将路由定义到一个变量中。未来可以将它export。</li>
+<li>在<code>imports</code>中添加<code>RouterModule.forRoot(routes)</code>。</li>
+<li>在<code>exports</code>中添加<code>RouterModule</code>。这个该模块相关的模块就可以直接使用<code>RouterLink</code>和<code>RouterOutlet</code>等。</li>
+<li>没有<code>declarations</code>。这是相关模块的职责。</li>
+<li>如果有一些安全性的service，添加到<code>providers</code>。本例中没有。</li>
+</ul>
+
+<p>将<code>AppModule</code>中的路由配置删掉，再引入<code>AppRoutingModule</code>：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>       <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">FormsModule</span> <span class="p">}</span>    <span class="nx">from</span> <span class="s1">&#39;@angular/forms&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>         <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">DashboardComponent</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;./dashboard.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroDetailComponent</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;./hero-detail.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroesComponent</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;./heroes.component&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span>          <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span>
+<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppRoutingModule</span> <span class="p">}</span>     <span class="nx">from</span> <span class="s1">&#39;./app-routing.module&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">BrowserModule</span><span class="p">,</span>
+    <span class="nx">FormsModule</span><span class="p">,</span>
+    <span class="nx">AppRoutingModule</span>
+  <span class="p">],</span>
+  <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">AppComponent</span><span class="p">,</span>
+    <span class="nx">DashboardComponent</span><span class="p">,</span>
+    <span class="nx">HeroDetailComponent</span><span class="p">,</span>
+    <span class="nx">HeroesComponent</span>
+  <span class="p">],</span>
+  <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">HeroService</span> <span class="p">],</span>
+  <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
+
+<h4 id="heroescomponent跳转到详细信息视图">HeroesComponent跳转到详细信息视图</h4>
+
+<p>跟Dashboard一样，我们要处理一下<code>HeroesComponent</code>中点击某个Hero后的跳转。</p>
+
+<p>目前<code>HeroesComponent</code>的模板是master/detail样式的。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
+<span class="sb">  &lt;h1&gt;{{title}}&lt;/h1&gt;</span>
+<span class="sb">  &lt;h2&gt;My Heroes&lt;/h2&gt;</span>
+<span class="sb">  &lt;ul class=&quot;heroes&quot;&gt;</span>
+<span class="sb">    &lt;li *ngFor=&quot;let hero of heroes&quot;</span>
+<span class="sb">      [class.selected]=&quot;hero === selectedHero&quot;</span>
+<span class="sb">      (click)=&quot;onSelect(hero)&quot;&gt;</span>
+<span class="sb">      &lt;span class=&quot;badge&quot;&gt;{{hero.id}}&lt;/span&gt; {{hero.name}}</span>
+<span class="sb">    &lt;/li&gt;</span>
+<span class="sb">  &lt;/ul&gt;</span>
+<span class="sb">  &lt;my-hero-detail [hero]=&quot;selectedHero&quot;&gt;&lt;/my-hero-detail&gt;</span>
+<span class="sb">`</span><span class="p">,</span>
+</code></pre></div>
+
+<p>我们的目标是当用户决定要编辑选中的hero时跳转到详细视图。</p>
+
+<p>将顶部的<code>&lt;h1&gt;</code>标题删掉，标题移到<code>AppComponent</code>中了。删除最后一行<code>&lt;my-hero-detail&gt;</code>标签，我们不再需要在这里显示<code>HeroDetailComponent</code>了。</p>
+
+<p>我们将这个视图里的detail改成一个mini的只读的视图。将之前<code>&lt;my-hero-detail&gt;</code>的地方替换成下面的内容：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&quot;selectedHero&quot;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>
+    {{selectedHero.name | uppercase}} is my hero
+  <span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">gotoDetail</span><span class="err">()&quot;</span><span class="p">&gt;</span>View Details<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<p>现在点击后的效果如下：</p>
+
+<p><img src="https://wukn.github.io/img/post/angular2/routing/mini-detail.png" alt="" /></p>
+
+<p>还没完呢。我们还要处理View Details按钮的点击事件。</p>
+
+<p>但是现在这个文件的内容已经很多了，所以我们重构一下：</p>
+
+<ol>
+<li>将模板放到单独的<code>heroes.component.html</code>文件中</li>
+<li>将样式放到单独的<code>heroes.component.css</code>文件中</li>
+<li>将元数据的<code>templateUrl</code>和<code>styleUrls</code>指向对应的文件</li>
+<li>设置<code>moduleId</code>属性值为<code>module.id</code>，这样<code>templateUrl</code>和<code>styleUrls</code>才跟组件相关联</li>
+</ol>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-heroes&#39;</span><span class="p">,</span>
+  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;heroes.component.html&#39;</span><span class="p">,</span>
+  <span class="nx">styleUrls</span><span class="o">:</span> <span class="p">[</span> <span class="s1">&#39;heroes.component.css&#39;</span> <span class="p">]</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<p><code>HeroesComponent</code>跳转到<code>HeroDetailComponent</code>是通过点击按钮的。按钮绑定了<code>gotoDetail</code>方法：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/heroes.component.ts (gotoDetail)</span>
+
+<span class="nx">gotoDetail</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">([</span><span class="s1">&#39;/detail&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span><span class="p">.</span><span class="nx">id</span><span class="p">]);</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>在这个方法之前要先引入<code>Router</code>并在构造函数中注入。</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Router</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">constructor</span><span class="p">(</span>
+  <span class="kr">private</span> <span class="nx">router</span><span class="o">:</span> <span class="nx">Router</span><span class="p">,</span>
+  <span class="kr">private</span> <span class="nx">heroService</span><span class="o">:</span> <span class="nx">HeroService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
+
+<p>注意<code>gotoDetail</code>方法中的<code>navigate</code>，我们传递的参数是包含两个元素的链接参数数组，路径和路由参数。</p>
+
+<p>到这里我们就实现了所有的需求。可以在浏览器中看一下效果。</p>
+
+<h3 id="添加样式">添加样式</h3>
+
+<p><code>dashboard.component.css</code>：</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="o">[</span><span class="nt">class</span><span class="o">*=</span><span class="s1">&#39;col-&#39;</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">float</span><span class="p">:</span> <span class="kc">left</span><span class="p">;</span>
+  <span class="k">padding-right</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">padding-bottom</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">[</span><span class="nt">class</span><span class="o">*=</span><span class="s1">&#39;col-&#39;</span><span class="o">]</span><span class="p">:</span><span class="nd">last-of-type</span> <span class="p">{</span>
+  <span class="k">padding-right</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">a</span> <span class="p">{</span>
+  <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="o">*,</span> <span class="o">*</span><span class="p">:</span><span class="nd">after</span><span class="o">,</span> <span class="o">*</span><span class="p">:</span><span class="nd">before</span> <span class="p">{</span>
+  <span class="kp">-webkit-</span><span class="k">box-sizing</span><span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span>
+  <span class="kp">-moz-</span><span class="k">box-sizing</span><span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span>
+  <span class="k">box-sizing</span><span class="p">:</span> <span class="kc">border-box</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h3</span> <span class="p">{</span>
+  <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span> <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h4</span> <span class="p">{</span>
+  <span class="k">position</span><span class="p">:</span> <span class="kc">relative</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">grid</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">col-1-4</span> <span class="p">{</span>
+  <span class="k">width</span><span class="p">:</span> <span class="mi">25</span><span class="kt">%</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">module</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">text-align</span><span class="p">:</span> <span class="kc">center</span><span class="p">;</span>
+  <span class="k">color</span><span class="p">:</span> <span class="mh">#eee</span><span class="p">;</span>
+  <span class="k">max-height</span><span class="p">:</span> <span class="mi">120</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">min-width</span><span class="p">:</span> <span class="mi">120</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#607D8B</span><span class="p">;</span>
+  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">2</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">module</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#EEE</span><span class="p">;</span>
+  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span>
+  <span class="k">color</span><span class="p">:</span> <span class="mh">#607d8b</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">grid-pad</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">.</span><span class="nc">grid-pad</span> <span class="o">&gt;</span> <span class="o">[</span><span class="nt">class</span><span class="o">*=</span><span class="s1">&#39;col-&#39;</span><span class="o">]</span><span class="p">:</span><span class="nd">last-of-type</span> <span class="p">{</span>
+  <span class="k">padding-right</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">600px</span><span class="o">)</span> <span class="p">{</span>
+  <span class="p">.</span><span class="nc">module</span> <span class="p">{</span>
+    <span class="k">font-size</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+    <span class="k">max-height</span><span class="p">:</span> <span class="mi">75</span><span class="kt">px</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span>
+<span class="p">@</span><span class="k">media</span> <span class="o">(</span><span class="nt">max-width</span><span class="o">:</span> <span class="nt">1024px</span><span class="o">)</span> <span class="p">{</span>
+  <span class="p">.</span><span class="nc">grid</span> <span class="p">{</span>
+    <span class="k">margin</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="p">.</span><span class="nc">module</span> <span class="p">{</span>
+    <span class="k">min-width</span><span class="p">:</span> <span class="mi">60</span><span class="kt">px</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><code>hero-detail.component.css</code>：</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="nt">label</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">inline-block</span><span class="p">;</span>
+  <span class="k">width</span><span class="p">:</span> <span class="mi">3</span><span class="kt">em</span><span class="p">;</span>
+  <span class="k">margin</span><span class="p">:</span> <span class="mf">.5</span><span class="kt">em</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">color</span><span class="p">:</span> <span class="mh">#607D8B</span><span class="p">;</span>
+  <span class="k">font-weight</span><span class="p">:</span> <span class="kc">bold</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">input</span> <span class="p">{</span>
+  <span class="k">height</span><span class="p">:</span> <span class="mi">2</span><span class="kt">em</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="p">:</span> <span class="mi">1</span><span class="kt">em</span><span class="p">;</span>
+  <span class="k">padding-left</span><span class="p">:</span> <span class="mf">.4</span><span class="kt">em</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">button</span> <span class="p">{</span>
+  <span class="k">margin-top</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#eee</span><span class="p">;</span>
+  <span class="k">border</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+  <span class="k">padding</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span> <span class="k">cursor</span><span class="p">:</span> <span class="n">hand</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">button</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#cfd8dc</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">button</span><span class="p">:</span><span class="nd">disabled</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#eee</span><span class="p">;</span>
+  <span class="k">color</span><span class="p">:</span> <span class="mh">#ccc</span><span class="p">;</span>
+  <span class="k">cursor</span><span class="p">:</span> <span class="kc">auto</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p><code>app.component.css</code>：</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="nt">h1</span> <span class="p">{</span>
+  <span class="k">font-size</span><span class="p">:</span> <span class="mf">1.2</span><span class="kt">em</span><span class="p">;</span>
+  <span class="k">color</span><span class="p">:</span> <span class="mh">#999</span><span class="p">;</span>
+  <span class="k">margin-bottom</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h2</span> <span class="p">{</span>
+  <span class="k">font-size</span><span class="p">:</span> <span class="mi">2</span><span class="kt">em</span><span class="p">;</span>
+  <span class="k">margin-top</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="k">padding-top</span><span class="p">:</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nt">a</span> <span class="p">{</span>
+  <span class="k">padding</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">text-decoration</span><span class="p">:</span> <span class="kc">none</span><span class="p">;</span>
+  <span class="k">margin-top</span><span class="p">:</span> <span class="mi">10</span><span class="kt">px</span><span class="p">;</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">inline-block</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#eee</span><span class="p">;</span>
+  <span class="k">border-radius</span><span class="p">:</span> <span class="mi">4</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nt">a</span><span class="p">:</span><span class="nd">visited</span><span class="o">,</span> <span class="nt">a</span><span class="p">:</span><span class="nd">link</span> <span class="p">{</span>
+  <span class="k">color</span><span class="p">:</span> <span class="mh">#607D8B</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nt">a</span><span class="p">:</span><span class="nd">hover</span> <span class="p">{</span>
+  <span class="k">color</span><span class="p">:</span> <span class="mh">#039be5</span><span class="p">;</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#CFD8DC</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">nav</span> <span class="nt">a</span><span class="p">.</span><span class="nc">active</span> <span class="p">{</span>
+  <span class="k">color</span><span class="p">:</span> <span class="mh">#039be5</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>记得在Component类的元数据中配置<code>StyleUrls</code>。<code>AppComponent</code>还要配置<code>moduleId</code>。</p>
+
+<h4 id="routerlinkactive">routerLinkActive</h4>
+
+<p>Angular的路由器提供了一个<code>routerLinkActive</code>指令，可用来为激活的那个路由添加样式：</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
+<span class="sb">  &lt;h1&gt;{{title}}&lt;/h1&gt;</span>
+<span class="sb">  &lt;nav&gt;</span>
+<span class="sb">    &lt;a routerLink=&quot;/dashboard&quot; routerLinkActive=&quot;active&quot;&gt;Dashboard&lt;/a&gt;</span>
+<span class="sb">    &lt;a routerLink=&quot;/heroes&quot; routerLinkActive=&quot;active&quot;&gt;Heroes&lt;/a&gt;</span>
+<span class="sb">  &lt;/nav&gt;</span>
+<span class="sb">  &lt;router-outlet&gt;&lt;/router-outlet&gt;</span>
+<span class="sb">`</span><span class="p">,</span>
+</code></pre></div>
+
+<h4 id="全局样式">全局样式</h4>
+
+<p><code>style.css</code>：</p>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="c">/* Master Styles */</span>
+<span class="nt">h1</span> <span class="p">{</span>
+  <span class="k">color</span><span class="p">:</span> <span class="mh">#369</span><span class="p">;</span>
+  <span class="k">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="kc">sans-serif</span><span class="p">;</span>
+  <span class="k">font-size</span><span class="p">:</span> <span class="mi">250</span><span class="kt">%</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">h2</span><span class="o">,</span> <span class="nt">h3</span> <span class="p">{</span>
+  <span class="k">color</span><span class="p">:</span> <span class="mh">#444</span><span class="p">;</span>
+  <span class="k">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="kc">sans-serif</span><span class="p">;</span>
+  <span class="k">font-weight</span><span class="p">:</span> <span class="kc">lighter</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">body</span> <span class="p">{</span>
+  <span class="k">margin</span><span class="p">:</span> <span class="mi">2</span><span class="kt">em</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nt">body</span><span class="o">,</span> <span class="nt">input</span><span class="o">[</span><span class="nt">text</span><span class="o">],</span> <span class="nt">button</span> <span class="p">{</span>
+  <span class="k">color</span><span class="p">:</span> <span class="mh">#888</span><span class="p">;</span>
+  <span class="k">font-family</span><span class="p">:</span> <span class="n">Cambria</span><span class="p">,</span> <span class="n">Georgia</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="c">/* . . . */</span>
+<span class="c">/* everywhere else */</span>
+<span class="o">*</span> <span class="p">{</span>
+  <span class="k">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="kc">sans-serif</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>在<code>index.html</code>中引用：</p>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;styles.css&quot;</span><span class="p">&gt;</span>
+</code></pre></div>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://angular.io/docs/ts/latest/tutorial/toh-pt5.html">Angular2 Documentation - Case Study - Routing</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>267</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[译][Python3] 简介</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" Python是一门功能强大的编程语言，它具有高效的高级数据结构和简单而有效的面向对象编程的特性。Python优雅的语法和动态类型、以及其解释性的性质，决定了它适合脚本编写和快速开发应用。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[译][Python3] 简介" />
+    <meta name="twitter:description" content=" Python是一门功能强大的编程语言，它具有高效的高级数据结构和简单而有效的面向对象编程的特性。Python优雅的语法和动态类型、以及其解释性的性质，决定了它适合脚本编写和快速开发应用。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2017/03/07/python3-introduction/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[译][Python3] 简介</h1>
+      <p class="post-meta">@wukn · Mar 7, 2017 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>Python是一门功能强大的编程语言，它具有高效的高级数据结构和简单而有效的面向对象编程的特性。Python优雅的语法和动态类型、以及其解释性的性质，决定了它适合脚本编写和快速开发应用。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="行结构">行结构</h3>
+
+<h4 id="逻辑行和物理行">逻辑行和物理行</h4>
+
+<p>一个Python程序被分成若干逻辑行。</p>
+
+<p>逻辑行的结束由NEWLINE词符表示。除非语法允许NEWLINE（如复合语句的语句之间），否则语句不能跨越逻辑行的边界。通过遵循显式或隐式的行连接规则，一个逻辑行由一个或多个物理行构成。</p>
+
+<p>一个物理行是一个被行结束序列终止的字符序列。不同操作系统的行终止序列不一样：Unix方式使用ASCII的LF（换行），Windows方式使用ASCII序列CR LF(回车和换行)，旧的Macintosh方式使用ASCII的CR（回车）字符。</p>
+
+<h4 id="注释">注释</h4>
+
+<p>Python中的注释以非字符串字面值中<code>#</code>开始，直到物理行的结束。除非引起隐式的行连接规则，否则注释意味着逻辑行的结束。</p>
+
+<h4 id="编码声明">编码声明</h4>
+
+<p>Python源文件默认以UTF-8编码。如果需要使用不同的编码时，可以在文件头部指定，方法是在 #! 行的后面再增加一行特殊的注释来定义源文件的编码。这个特殊的编码注释必须位于文件的第一或者第二行。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># -*- coding: &lt;encoding-name&gt; -*-</span>
+</code></pre></div>
+
+<p>编码将用于所有的词法分析，包括字符串字面量、注释和标识符。</p>
+
+<h4 id="显式行连接">显式行连接</h4>
+
+<p>两个或多个物理行可以使用反斜杠字符()连接成一个逻辑行，方式如下：当一个物理行以一个不在字符串中或注释中的反斜杠结束时，它会和接下来的一行连接形成一个单独的逻辑行，反斜杠和后面的换行符会被删掉。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="k">if</span> <span class="mi">1900</span> <span class="o">&lt;</span> <span class="n">year</span> <span class="o">&lt;</span> <span class="mi">2100</span> <span class="ow">and</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">month</span> <span class="o">&lt;=</span> <span class="mi">12</span> \
+   <span class="ow">and</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">day</span> <span class="o">&lt;=</span> <span class="mi">31</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">24</span> \
+   <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">minute</span> <span class="o">&lt;</span> <span class="mi">60</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">second</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">:</span>   <span class="c1"># Looks like a valid date</span>
+        <span class="k">return</span> <span class="mi">1</span>
+</code></pre></div>
+
+<p>以反斜杠结束的行不能带有注释。反斜杠不能延续注释。反斜杠不能延续除字符串字面量以外的词符（即不是字符串字面量的词符不能使用反斜杠跨多个物理行）。 一行中位于字符串字面值以外其它地方的反斜杠是非法的。(也就是说，\在字符串中是转义字符，在一行尾部是链接符，其他地方就是非法的。)</p>
+
+<h4 id="隐式行连接">隐式行连接</h4>
+
+<p>圆括号、方括号以及花括号中的表达式可以分割成多个物理行而不使用反斜杠。</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="n">month_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Januari&#39;</span><span class="p">,</span> <span class="s1">&#39;Februari&#39;</span><span class="p">,</span> <span class="s1">&#39;Maart&#39;</span><span class="p">,</span>      <span class="c1"># These are the</span>
+               <span class="s1">&#39;April&#39;</span><span class="p">,</span>   <span class="s1">&#39;Mei&#39;</span><span class="p">,</span>      <span class="s1">&#39;Juni&#39;</span><span class="p">,</span>       <span class="c1"># Dutch names</span>
+               <span class="s1">&#39;Juli&#39;</span><span class="p">,</span>    <span class="s1">&#39;Augustus&#39;</span><span class="p">,</span> <span class="s1">&#39;September&#39;</span><span class="p">,</span>  <span class="c1"># for the months</span>
+               <span class="s1">&#39;Oktober&#39;</span><span class="p">,</span> <span class="s1">&#39;November&#39;</span><span class="p">,</span> <span class="s1">&#39;December&#39;</span><span class="p">]</span>   <span class="c1"># of the year</span>
+</code></pre></div>
+
+<p>隐式的续行可以带注释。续行的缩进不重要。允许空白的续行。隐式的续行也可以发生在三引号的字符串中，但这时它们不可以带注释。</p>
+
+<h4 id="空白行">空白行</h4>
+
+<p>只包含空格符、制表符、换页符和注释的逻辑行会被忽略。</p>
+
+<h4 id="缩进">缩进</h4>
+
+<p>Python使用缩进表示代码的层级。逻辑行开始的前导空白（空格和制表符）用来计算行的缩进层级，然后用它决定语句的分组。</p>
+
+<h4 id="标识符">标识符</h4>
+
+<p>标识符的合法字符为：大写和小写的A 到Z、下划线_ 和不是首字母的数字0 到9。</p>
+
+<p>标识符区分大小写。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://docs.python.org/3.5/">Python3 Documentation</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/python3"><span class="tag">Python3</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>205</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
