@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Angular2 on wukn blog</title>
+    <link>https://wukn.github.io/tags/angular2/</link>
+    <description>Recent content in Angular2 on wukn blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Mon, 06 Mar 2017 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://wukn.github.io/tags/angular2/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[译][Angular2] Hierarchical Injectors</title>
+      <link>https://wukn.github.io/2017/03/06/angular2-hierarchical-injectors/</link>
+      <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2017/03/06/angular2-hierarchical-injectors/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Angular的层级依赖注入系统支持与组件树并行的嵌套注入。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Component Styles</title>
+      <link>https://wukn.github.io/2017/03/04/angular2-component-styles/</link>
+      <pubDate>Sat, 04 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2017/03/04/angular2-component-styles/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;让我们来看看如何为组件添加CSS样式。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Attribute Directives</title>
+      <link>https://wukn.github.io/2017/03/01/angular2-attribute-directives/</link>
+      <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2017/03/01/angular2-attribute-directives/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;属性指令用于改变DOM元素的外观或行为。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Animations</title>
+      <link>https://wukn.github.io/2017/01/14/angular2-animations/</link>
+      <pubDate>Sat, 14 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2017/01/14/angular2-animations/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;看一看Angular2的动画系统。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] NgModule</title>
+      <link>https://wukn.github.io/2017/01/11/angular2-ngmodules/</link>
+      <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2017/01/11/angular2-ngmodules/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;使用@NgModule定义应用的模块。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Case Study -HTTP</title>
+      <link>https://wukn.github.io/2017/01/05/angular2-case-study-http/</link>
+      <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2017/01/05/angular2-case-study-http/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;使用TypeScript构建Angular2应用。将服务改成HTTP服务。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Case Study - Routing</title>
+      <link>https://wukn.github.io/2017/01/04/angular2-case-study-routing/</link>
+      <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2017/01/04/angular2-case-study-routing/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;使用TypeScript构建Angular2应用。使用路由功能在多个视图之间导航。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Structural Directives</title>
+      <link>https://wukn.github.io/2017/01/03/angular2-structural-directives/</link>
+      <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2017/01/03/angular2-structural-directives/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Angular提供了一个强大的模板引擎供去我们来操作DOM结构中的元素。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Case Study - Multiple Components and Services</title>
+      <link>https://wukn.github.io/2016/12/30/angular2-case-study-multiple-components/</link>
+      <pubDate>Fri, 30 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/12/30/angular2-case-study-multiple-components/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;使用TypeScript构建Angular2应用。多组件交互和服务。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Case Study</title>
+      <link>https://wukn.github.io/2016/12/26/angular2-case-study/</link>
+      <pubDate>Mon, 26 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/12/26/angular2-case-study/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;用一个案例学习如何构建Angular2应用。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Template Syntax</title>
+      <link>https://wukn.github.io/2016/12/25/angular2-template-syntax/</link>
+      <pubDate>Sun, 25 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/12/25/angular2-template-syntax/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;让我们看看如何编写模板来展示数据和利用数据绑定处理用户事件。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Dependency Injection</title>
+      <link>https://wukn.github.io/2016/12/24/angular2-dependency-injection/</link>
+      <pubDate>Sat, 24 Dec 2016 01:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/12/24/angular2-dependency-injection/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Angular的依赖注入系统会准时（just-in-time）创建和传递依赖的服务。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Forms</title>
+      <link>https://wukn.github.io/2016/12/24/angular2-forms/</link>
+      <pubDate>Sat, 24 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/12/24/angular2-forms/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Angular表单通常包含控件数据绑定、变化跟踪、输入验证、错误展示等。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] User Input</title>
+      <link>https://wukn.github.io/2016/12/21/angular2-user-input/</link>
+      <pubDate>Wed, 21 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/12/21/angular2-user-input/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;用户操作出发DOM事件。我们通过事件绑定来监听事件，将更新的值回写到组件和数据模型中。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Displaying Data</title>
+      <link>https://wukn.github.io/2016/12/14/angular2-displaying-data/</link>
+      <pubDate>Wed, 14 Dec 2016 01:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/12/14/angular2-displaying-data/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;利用属性绑定在UI中显示数据。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Root Module</title>
+      <link>https://wukn.github.io/2016/12/14/angular2-root-module/</link>
+      <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/12/14/angular2-root-module/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;根模块是用来告诉Angular如何构建和启动应用的。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Architecture Overview</title>
+      <link>https://wukn.github.io/2016/11/30/angular2-architecture-overview/</link>
+      <pubDate>Wed, 30 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/11/30/angular2-architecture-overview/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Angular是一个使用HTML和JavaScript或能编译成JavaScript的TypeScript等编写客户端应用的框架。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][Angular2] Quick Start</title>
+      <link>https://wukn.github.io/2016/11/29/angluar2-quick-start/</link>
+      <pubDate>Tue, 29 Nov 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/11/29/angluar2-quick-start/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;使用TypeScript构建Angular2应用。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

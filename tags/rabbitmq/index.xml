@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Rabbitmq on wukn blog</title>
+    <link>https://wukn.github.io/tags/rabbitmq/</link>
+    <description>Recent content in Rabbitmq on wukn blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Mon, 24 Oct 2016 04:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://wukn.github.io/tags/rabbitmq/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[译][RabbitMQ] Clustering and High Availability</title>
+      <link>https://wukn.github.io/2016/10/21/rabbitmq-clustering-ha/</link>
+      <pubDate>Mon, 24 Oct 2016 04:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/10/21/rabbitmq-clustering-ha/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;使用RabitMQ构建RPC应用。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][RabbitMQ] Remote Procedure Call</title>
+      <link>https://wukn.github.io/2016/10/24/rabbitmq-rpc/</link>
+      <pubDate>Mon, 24 Oct 2016 03:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/10/24/rabbitmq-rpc/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;使用RabitMQ构建RPC应用。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][RabbitMQ] Publish/Subscribe、Routing、Topic</title>
+      <link>https://wukn.github.io/2016/10/24/rabbitmq-publish-subscribe-routing-topic/</link>
+      <pubDate>Mon, 24 Oct 2016 02:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/10/24/rabbitmq-publish-subscribe-routing-topic/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;发布订阅模式下，一个消息会被传递给多个consumer。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][RabbitMQ] Work Queues</title>
+      <link>https://wukn.github.io/2016/10/24/rabbitmq-work-queues/</link>
+      <pubDate>Mon, 24 Oct 2016 01:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/10/24/rabbitmq-work-queues/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;RabbitMQ是一个message broker，本质上就是接收producer的消息，传递给consumer，其中可以根据给定的需要设置消息路由、缓存、持久化。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>[译][RabbitMQ] Introduction</title>
+      <link>https://wukn.github.io/2016/10/24/rabbitmq-introduction/</link>
+      <pubDate>Mon, 24 Oct 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://wukn.github.io/2016/10/24/rabbitmq-introduction/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;RabbitMQ是一个messaging broker，一个消息传递的中介。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
