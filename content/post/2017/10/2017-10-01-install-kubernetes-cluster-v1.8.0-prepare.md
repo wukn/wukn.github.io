@@ -116,8 +116,8 @@ EOF
 ls -l ca-csr.json
 ```
 
-* `CN`即Common Name，kube-apiserver从证书中提取该字段作为请求的用户名(User Name)；浏览器使用该字段验证网站是否合法
-* `O`即Organization，kube-apiserver从证书中提取该字段作为请求用户所属的组(Group)
+* `CN`即Common Name，kube-apiserver从证书中提取该字段作为请求的UserName；浏览器使用该字段验证网站是否合法
+* `O`即Organization，kube-apiserver从证书中提取该字段作为请求用户所属的Group
 
 生成证书和密钥：
 
@@ -178,7 +178,7 @@ EOF
 ls -l admin-csr.json
 ```
 
-* 后续kube-apiserver使用RBAC对客户端(如kubelet、kube-proxy、Pod)请求进行授权
+* 后续kube-apiserver使用RBAC对客户端（如kubelet、kube-proxy、Pod）请求进行授权
 * kube-apiserver预定义了一些RBAC使用的RoleBindings，如cluster-admin将Group`system:masters`与Role`cluster-admin`绑定，该Role授予了调用kube-apiserver所有API的权限
 * `O`指定该证书的Group为system:masters，kubelet使用该证书访问kube-apiserver时，由于证书被CA签名，所以认证通过，同时由于证书用户组为经过预授权的system:masters，所以被授予访问所有API的权限
 * `hosts`为空列表
