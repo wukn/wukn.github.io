@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[k8s] 部署kubernetes集群——（一）准备工作</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" Kubernetes集群节点分为master和node角色，master节点上需要kube-apiserver、kube-scheduler、kube-controller-manager。node节点上需要flannel、docker、kubelet、kube-proxy。master的高可用依赖etcd。集群内容器通信使用flannel搭建的vxlan网络。组件之间的通信使用TLS证书进行加密。使用时通常还需要kubedns、dashboard、heapster、docker registry等组组件。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[k8s] 部署kubernetes集群——（一）准备工作" />
+    <meta name="twitter:description" content=" Kubernetes集群节点分为master和node角色，master节点上需要kube-apiserver、kube-scheduler、kube-controller-manager。node节点上需要flannel、docker、kubelet、kube-proxy。master的高可用依赖etcd。集群内容器通信使用flannel搭建的vxlan网络。组件之间的通信使用TLS证书进行加密。使用时通常还需要kubedns、dashboard、heapster、docker registry等组组件。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.27.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-prepare/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[k8s] 部署kubernetes集群——（一）准备工作</h1>
+      <p class="post-meta">@wukn · Oct 1, 2017 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>Kubernetes集群节点分为master和node角色，master节点上需要kube-apiserver、kube-scheduler、kube-controller-manager。node节点上需要flannel、docker、kubelet、kube-proxy。master的高可用依赖etcd。集群内容器通信使用flannel搭建的vxlan网络。组件之间的通信使用TLS证书进行加密。使用时通常还需要kubedns、dashboard、heapster、docker registry等组组件。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="集群机器">集群机器</h3>
+
+<p>OS：CentOS 7.3.1611</p>
+
+<p>kubernetes master、etcd：</p>
+
+<ul>
+<li>172.10.26.101</li>
+<li>172.10.26.102</li>
+<li>172.10.26.103</li>
+</ul>
+
+<p>kubernetes node：</p>
+
+<ul>
+<li>172.10.26.104</li>
+<li>172.10.26.105</li>
+</ul>
+
+<p>Kubernetes系统的各个组件需要使用TLS证书对通信进行加密。我们可以使用CloudFlare的cfssl来生成CA证书和密钥。CA是自签名证书，用来签名后续创建的其它TLS证书。</p>
+
+<h3 id="创建ca证书和密钥">创建CA证书和密钥</h3>
+
+<h4 id="安装cfssl">安装cfssl</h4>
+
+<p>下载cfss、cfssljson和cfssl-certinfo，生成默认的配置文件和csr文件：</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>curl -O https://pkg.cfssl.org/R1.2/cfssl_linux-amd64
+chmod +x cfssl_linux-amd64
+mv cfssl_linux-amd64 /usr/local/bin/cfssl
+
+curl -O https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
+chmod +x cfssljson_linux-amd64
+mv cfssljson_linux-amd64 /usr/local/bin/cfssljson
+
+curl -O https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64
+chmod +x cfssl-certinfo_linux-amd64
+mv cfssl-certinfo_linux-amd64 /usr/local/bin/cfssl-certinfo
+
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/local/bin:<span class="nv">$PATH</span>
+mkdir -p ssl
+<span class="nb">cd</span> ssl
+cfssl print-defaults config &gt; config.json
+cfssl print-defaults csr &gt; csr.json
+</code></pre></div>
+
+<h3 id="创建ca证书">创建CA证书</h3>
+
+<p>创建CA配置文件<code>ca-config.json</code>：</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>cat <span class="s">&lt;&lt; EOF &gt; ca-config.json</span>
+<span class="s">{</span>
+<span class="s">  &quot;signing&quot;: {</span>
+<span class="s">    &quot;default&quot;: {</span>
+<span class="s">      &quot;expiry&quot;: &quot;8760h&quot;</span>
+<span class="s">    },</span>
+<span class="s">    &quot;profiles&quot;: {</span>
+<span class="s">      &quot;kubernetes&quot;: {</span>
+<span class="s">        &quot;usages&quot;: [</span>
+<span class="s">            &quot;signing&quot;,</span>
+<span class="s">            &quot;key encipherment&quot;,</span>
+<span class="s">            &quot;server auth&quot;,</span>
+<span class="s">            &quot;client auth&quot;</span>
+<span class="s">        ],</span>
+<span class="s">        &quot;expiry&quot;: &quot;8760h&quot;</span>
+<span class="s">      }</span>
+<span class="s">    }</span>
+<span class="s">  }</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+
+ls -l ca-config.json
+</code></pre></div>
+
+<p>证书中可以定义多个profile，分别指定不同的使用场景和过期时间。后续在给证书签名时使用某个profile。</p>
+
+<ul>
+<li><code>signing</code>表示该证书可以用于签名其它证书</li>
+<li><code>server auth</code>表示client可以用该CA对server提供的证书进行验证</li>
+<li><code>client auth</code>表示server可以用该CA对client提供的证书进行验证</li>
+</ul>
+
+<p>创建CA证书签名请求<code>ca-csr.json</code>：</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>cat <span class="s">&lt;&lt; EOF &gt; ca-csr.json</span>
+<span class="s">{</span>
+<span class="s">  &quot;CN&quot;: &quot;kubernetes&quot;,</span>
+<span class="s">  &quot;key&quot;: {</span>
+<span class="s">    &quot;algo&quot;: &quot;rsa&quot;,</span>
+<span class="s">    &quot;size&quot;: 2048</span>
+<span class="s">  },</span>
+<span class="s">  &quot;names&quot;: [</span>
+<span class="s">    {</span>
+<span class="s">      &quot;C&quot;: &quot;CN&quot;,</span>
+<span class="s">      &quot;L&quot;: &quot;NanJing&quot;,</span>
+<span class="s">      &quot;ST&quot;: &quot;NanJing&quot;,</span>
+<span class="s">      &quot;O&quot;: &quot;k8s&quot;,</span>
+<span class="s">      &quot;OU&quot;: &quot;System&quot;</span>
+<span class="s">    }</span>
+<span class="s">  ]</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+
+ls -l ca-csr.json
+</code></pre></div>
+
+<ul>
+<li><code>CN</code>即Common Name，kube-apiserver从证书中提取该字段作为请求的用户名(User Name)；浏览器使用该字段验证网站是否合法</li>
+<li><code>O</code>即Organization，kube-apiserver从证书中提取该字段作为请求用户所属的组(Group)</li>
+</ul>
+
+<p>生成证书和密钥：</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>cfssl gencert -initca ca-csr.json <span class="p">|</span> cfssljson -bare ca
+</code></pre></div>
+
+<p>将证书分发到所有机器的<code>/etc/kubernetes/ssl</code>目录下：</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>mkdir -p /etc/kubernetes/ssl
+cp ca* /etc/kubernetes/ssl
+
+scp /etc/kubernetes/ssl/* <span class="m">172</span>.10.26.102:/etc/kubernetes/ssl/
+scp /etc/kubernetes/ssl/* <span class="m">172</span>.10.26.103:/etc/kubernetes/ssl/
+</code></pre></div>
+
+<h3 id="安装集群管理工具kubectl">安装集群管理工具kubectl</h3>
+
+<p>kubectl是管理kubernetes集群的命令行工具。我们在三个master节点都都安装一下。</p>
+
+<h4 id="下载kubectl">下载kubectl</h4>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>curl -LO https://dl.k8s.io/v1.8.0/kubernetes-client-linux-amd64.tar.gz
+tar xvf kubernetes-client-linux-amd64.tar.gz
+cp kubernetes/client/bin/kube* /usr/local/bin/
+chmod a+x /usr/local/bin/kube*
+</code></pre></div>
+
+<h4 id="创建admin证书">创建admin证书</h4>
+
+<p>kubectl与kube-apiserver通信需要tls证书确保安全通信。</p>
+
+<p>在上面创建的ssl目录下创建admin证书签名请求<code>admin-csr.json</code>：</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>cat <span class="s">&lt;&lt; EOF &gt; admin-csr.json</span>
+<span class="s">{</span>
+<span class="s">  &quot;CN&quot;: &quot;admin&quot;,</span>
+<span class="s">  &quot;hosts&quot;: [],</span>
+<span class="s">  &quot;key&quot;: {</span>
+<span class="s">    &quot;algo&quot;: &quot;rsa&quot;,</span>
+<span class="s">    &quot;size&quot;: 2048</span>
+<span class="s">  },</span>
+<span class="s">  &quot;names&quot;: [</span>
+<span class="s">    {</span>
+<span class="s">      &quot;C&quot;: &quot;CN&quot;,</span>
+<span class="s">      &quot;L&quot;: &quot;NanJing&quot;,</span>
+<span class="s">      &quot;ST&quot;: &quot;NanJing&quot;,</span>
+<span class="s">      &quot;O&quot;: &quot;system:masters&quot;,</span>
+<span class="s">      &quot;OU&quot;: &quot;System&quot;</span>
+<span class="s">    }</span>
+<span class="s">  ]</span>
+<span class="s">}</span>
+<span class="s">EOF</span>
+
+ls -l admin-csr.json
+</code></pre></div>
+
+<ul>
+<li>后续kube-apiserver使用RBAC对客户端(如kubelet、kube-proxy、Pod)请求进行授权</li>
+<li>kube-apiserver预定义了一些RBAC使用的RoleBindings，如cluster-admin将Group<code>system:masters</code>与Role<code>cluster-admin</code>绑定，该Role授予了调用kube-apiserver所有API的权限</li>
+<li><code>O</code>指定该证书的Group为system:masters，kubelet使用该证书访问kube-apiserver时，由于证书被CA签名，所以认证通过，同时由于证书用户组为经过预授权的system:masters，所以被授予访问所有API的权限</li>
+<li><code>hosts</code>为空列表</li>
+</ul>
+
+<p>生成admin证书和密钥：</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>cfssl gencert -ca<span class="o">=</span>/etc/kubernetes/ssl/ca.pem <span class="se">\</span>
+  -ca-key<span class="o">=</span>/etc/kubernetes/ssl/ca-key.pem <span class="se">\</span>
+  -config<span class="o">=</span>/etc/kubernetes/ssl/ca-config.json <span class="se">\</span>
+  -profile<span class="o">=</span>kubernetes admin-csr.json <span class="p">|</span> cfssljson -bare admin
+
+mv admin*.pem /etc/kubernetes/ssl/
+
+scp /etc/kubernetes/ssl/admin* <span class="m">172</span>.10.26.102:/etc/kubernetes/ssl/
+scp /etc/kubernetes/ssl/admin* <span class="m">172</span>.10.26.103:/etc/kubernetes/ssl/
+</code></pre></div>
+
+<h4 id="创建kubectl配置文件">创建kubectl配置文件</h4>
+
+<p>kubectl的默认配置文件路径为<code>~/.kube/config</code>，其中包含kube-apiserver地址、证书、用户名等信息。</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># 注意将IP地址改成当前集群中任一master的IP</span>
+<span class="nv">KUBE_APISERVER</span><span class="o">=</span><span class="s2">&quot;https://172.10.26.103:6443&quot;</span>
+
+<span class="c1"># 设置集群参数</span>
+kubectl config set-cluster kubernetes <span class="se">\</span>
+    --certificate-authority<span class="o">=</span>/etc/kubernetes/ssl/ca.pem <span class="se">\</span>
+    --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+    --server<span class="o">=</span><span class="si">${</span><span class="nv">KUBE_APISERVER</span><span class="si">}</span>
+
+<span class="c1"># 设置客户端认证参数</span>
+kubectl config set-credentials admin <span class="se">\</span>
+    --client-certificate<span class="o">=</span>/etc/kubernetes/ssl/admin.pem <span class="se">\</span>
+    --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
+    --client-key<span class="o">=</span>/etc/kubernetes/ssl/admin-key.pem
+
+<span class="c1"># 设置上下文参数</span>
+kubectl config set-context kubernetes <span class="se">\</span>
+    --cluster<span class="o">=</span>kubernetes <span class="se">\</span>
+    --user<span class="o">=</span>admin
+
+<span class="c1"># 设置默认上下文</span>
+kubectl config use-context kubernetes
+</code></pre></div>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://github.com/opsnull/follow-me-install-kubernetes-cluster">https://github.com/opsnull/follow-me-install-kubernetes-cluster</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/k8s"><span class="tag">K8s</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\(','\)']]}
+});
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

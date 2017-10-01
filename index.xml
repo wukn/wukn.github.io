@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 24 Sep 2017 17:52:44 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 01 Oct 2017 15:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[k8s] 部署kubernetes集群——（一）准备工作</title>
+      <link>https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-prepare/</link>
+      <pubDate>Sun, 01 Oct 2017 15:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-prepare/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Kubernetes集群节点分为master和node角色，master节点上需要kube-apiserver、kube-scheduler、kube-controller-manager。node节点上需要flannel、docker、kubelet、kube-proxy。master的高可用依赖etcd。集群内容器通信使用flannel搭建的vxlan网络。组件之间的通信使用TLS证书进行加密。使用时通常还需要kubedns、dashboard、heapster、docker registry等组组件。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>About</title>
