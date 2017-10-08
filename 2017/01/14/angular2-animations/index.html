@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/01/14/angular2-animations/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][Angular2] Animations</h1>
-      <p class="post-meta">@wukn · Jan 14, 2017 · 3 min read</p>
+      <p class="post-meta">@wukn · Jan 14, 2017 · 2 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>看一看Angular2的动画系统。</p>
@@ -212,92 +212,88 @@
 <p><img src="https://wukn.github.io/img/post/angular2/animations/animation_basic_click.gif" alt="" /></p>
 
 <p>动画是在<code>@Component</code>的元数据内定义的。在添加动画之前需要引入一些相关的函数：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span>
-  <span class="nx">Component</span><span class="p">,</span>
-  <span class="nx">Input</span><span class="p">,</span>
-  <span class="nx">trigger</span><span class="p">,</span>
-  <span class="nx">state</span><span class="p">,</span>
-  <span class="nx">style</span><span class="p">,</span>
-  <span class="nx">transition</span><span class="p">,</span>
-  <span class="nx">animate</span>
-<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">Component</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">Input</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">trigger</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">state</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">style</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">transition</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">animate</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span></code></pre>
+</div>
 <p>有了这些以后，可以在组件的元数据中定义一个<code>heroState</code>动画触发器（animation trigger）。使用动画在<code>active</code>和<code>inactive</code>两个状态之间切换。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">animations</span><span class="o">:</span> <span class="p">[</span>
-  <span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;heroState&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;inactive&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span>
-      <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#eee&#39;</span><span class="p">,</span>
-      <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;scale(1)&#39;</span>
-    <span class="p">})),</span>
-    <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span>   <span class="nx">style</span><span class="p">({</span>
-      <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#cfd8dc&#39;</span><span class="p">,</span>
-      <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;scale(1.1)&#39;</span>
-    <span class="p">})),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive =&gt; active&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-in&#39;</span><span class="p">)),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;active =&gt; inactive&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-out&#39;</span><span class="p">))</span>
-  <span class="p">])</span>
-<span class="p">]</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">animations</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">trigger</span><span class="s1388">(</span><span class="sc1c">&#39;heroState&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">state</span><span class="s1388">(</span><span class="sc1c">&#39;inactive&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">backgroundColor</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;#eee&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;scale(1)&#39;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">})),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">state</span><span class="s1388">(</span><span class="sc1c">&#39;active&#39;</span><span class="s1388">,</span><span class="s1f40">   </span><span class="s7df">style</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">backgroundColor</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;#cfd8dc&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;scale(1.1)&#39;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">})),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;inactive =&gt; active&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;100ms ease-in&#39;</span><span class="s1388">)),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;active =&gt; inactive&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;100ms ease-out&#39;</span><span class="s1388">))</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">]</span></code></pre>
+</div>
 <p>使用<code>[@triggerName]</code>语法为元素添加动画：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
-<span class="sb">  &lt;ul&gt;</span>
-<span class="sb">    &lt;li *ngFor=&quot;let hero of heroes&quot;</span>
-<span class="sb">        [@heroState]=&quot;hero.state&quot;</span>
-<span class="sb">        (click)=&quot;hero.toggleState()&quot;&gt;</span>
-<span class="sb">      {{hero.name}}</span>
-<span class="sb">    &lt;/li&gt;</span>
-<span class="sb">  &lt;/ul&gt;</span>
-<span class="sb">`</span><span class="p">,</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">`
+</span><span class="sc1c">  &lt;ul&gt;
+</span><span class="sc1c">    &lt;li *ngFor=&#34;let hero of heroes&#34;
+</span><span class="sc1c">        [@heroState]=&#34;hero.state&#34;
+</span><span class="sc1c">        (click)=&#34;hero.toggleState()&#34;&gt;
+</span><span class="sc1c">      {{hero.name}}
+</span><span class="sc1c">    &lt;/li&gt;
+</span><span class="sc1c">  &lt;/ul&gt;
+</span><span class="sc1c">`</span><span class="s1388">,</span></code></pre>
+</div>
 <p>这里为每个元素都添加了动画，属性值绑定的是表达式<code>hero.state</code>，它的值要么是<code>active</code>要么是<code>inactive</code>。</p>
 
 <p>这样就完成了动画的添加。完整的代码如下：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span>
-  <span class="nx">Component</span><span class="p">,</span>
-  <span class="nx">Input</span><span class="p">,</span>
-  <span class="nx">trigger</span><span class="p">,</span>
-  <span class="nx">state</span><span class="p">,</span>
-  <span class="nx">style</span><span class="p">,</span>
-  <span class="nx">transition</span><span class="p">,</span>
-  <span class="nx">animate</span>
-<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Heroes</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span>
-<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
-  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
-  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-list-basic&#39;</span><span class="p">,</span>
-  <span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
-<span class="sb">    &lt;ul&gt;</span>
-<span class="sb">      &lt;li *ngFor=&quot;let hero of heroes&quot;</span>
-<span class="sb">          [@heroState]=&quot;hero.state&quot;</span>
-<span class="sb">          (click)=&quot;hero.toggleState()&quot;&gt;</span>
-<span class="sb">        {{hero.name}}</span>
-<span class="sb">      &lt;/li&gt;</span>
-<span class="sb">    &lt;/ul&gt;</span>
-<span class="sb">  `</span><span class="p">,</span>
-  <span class="nx">styleUrls</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;hero-list.component.css&#39;</span><span class="p">],</span>
-  <span class="nx">animations</span><span class="o">:</span> <span class="p">[</span>
-    <span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;heroState&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;inactive&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span>
-        <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#eee&#39;</span><span class="p">,</span>
-        <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;scale(1)&#39;</span>
-      <span class="p">})),</span>
-      <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span>   <span class="nx">style</span><span class="p">({</span>
-        <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#cfd8dc&#39;</span><span class="p">,</span>
-        <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;scale(1.1)&#39;</span>
-      <span class="p">})),</span>
-      <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive =&gt; active&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-in&#39;</span><span class="p">)),</span>
-      <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;active =&gt; inactive&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-out&#39;</span><span class="p">))</span>
-    <span class="p">])</span>
-  <span class="p">]</span>
-<span class="p">})</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroListBasicComponent</span> <span class="p">{</span>
-  <span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">heroes</span><span class="o">:</span> <span class="nx">Heroes</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">Component</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">Input</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">trigger</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">state</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">style</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">transition</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">animate</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Heroes</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero.service&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">moduleId</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">module</span><span class="s1388">.</span><span class="s7df">id</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;hero-list-basic&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">`
+</span><span class="sc1c">    &lt;ul&gt;
+</span><span class="sc1c">      &lt;li *ngFor=&#34;let hero of heroes&#34;
+</span><span class="sc1c">          [@heroState]=&#34;hero.state&#34;
+</span><span class="sc1c">          (click)=&#34;hero.toggleState()&#34;&gt;
+</span><span class="sc1c">        {{hero.name}}
+</span><span class="sc1c">      &lt;/li&gt;
+</span><span class="sc1c">    &lt;/ul&gt;
+</span><span class="sc1c">  `</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">styleUrls</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">&#39;hero-list.component.css&#39;</span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">animations</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">trigger</span><span class="s1388">(</span><span class="sc1c">&#39;heroState&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">state</span><span class="s1388">(</span><span class="sc1c">&#39;inactive&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">backgroundColor</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;#eee&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;scale(1)&#39;</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">})),</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">state</span><span class="s1388">(</span><span class="sc1c">&#39;active&#39;</span><span class="s1388">,</span><span class="s1f40">   </span><span class="s7df">style</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">backgroundColor</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;#cfd8dc&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;scale(1.1)&#39;</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">})),</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;inactive =&gt; active&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;100ms ease-in&#39;</span><span class="s1388">)),</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;active =&gt; inactive&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;100ms ease-out&#39;</span><span class="s1388">))</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">HeroListBasicComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="ss4">@</span><span class="s7df">Input</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s7df">heroes</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Heroes</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <h3 id="状态和切换">状态和切换</h3>
 
 <p>Angular的动画定义分为逻辑状态和状态之间的切换。</p>
@@ -305,45 +301,40 @@
 <p>动画状态是代码中定义的一个字符串值，例如上面的<code>active</code>和<code>inactive</code>。状态的来源可以是对象的属性，也可以是一个方法计算出来的值。重要的是要能在组件的模板中读到这个值。</p>
 
 <p>可以为动画的每个状态定义样式，当元素切换到某个状态时就使用相应的样式：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">state</span><span class="p">(</span><span class="s1">&#39;inactive&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span>
-  <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#eee&#39;</span><span class="p">,</span>
-  <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;scale(1)&#39;</span>
-<span class="p">})),</span>
-<span class="nx">state</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span>   <span class="nx">style</span><span class="p">({</span>
-  <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#cfd8dc&#39;</span><span class="p">,</span>
-  <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;scale(1.1)&#39;</span>
-<span class="p">})),</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">state</span><span class="s1388">(</span><span class="sc1c">&#39;inactive&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">backgroundColor</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;#eee&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;scale(1)&#39;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})),</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">state</span><span class="s1388">(</span><span class="sc1c">&#39;active&#39;</span><span class="s1388">,</span><span class="s1f40">   </span><span class="s7df">style</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">backgroundColor</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;#cfd8dc&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;scale(1.1)&#39;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})),</span></code></pre>
+</div>
 <p>定义完状态后就要定义状态之间的切换，每个transition控制状态之间的切换时间：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive =&gt; active&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-in&#39;</span><span class="p">)),</span>
-<span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;active =&gt; inactive&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-out&#39;</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;inactive =&gt; active&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;100ms ease-in&#39;</span><span class="s1388">)),</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;active =&gt; inactive&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;100ms ease-out&#39;</span><span class="s1388">))</span></code></pre>
+</div>
 <p><img src="https://wukn.github.io/img/post/angular2/animations/ng_animate_transitions_inactive_active.png" alt="" /></p>
 
 <p>如果多个transition的动画内容相同，可以将它们合并到同一个定义中：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive =&gt; active, active =&gt; inactive&#39;</span><span class="p">,</span>
- <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-out&#39;</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;inactive =&gt; active, active =&gt; inactive&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40"> </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;100ms ease-out&#39;</span><span class="s1388">))</span></code></pre>
+</div>
 <p>如果两个方向的转换的动画内容相同，还可以使用简写<code>&lt;=&gt;</code>：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive &lt;=&gt; active&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-out&#39;</span><span class="p">))</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;inactive &lt;=&gt; active&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;100ms ease-out&#39;</span><span class="s1388">))</span></code></pre>
+</div>
 <p>在动画的过程中添加样式，但是它不会覆盖元素的最终样式。可以在<code>transition</code>中以行内的方式定义中间样式。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive =&gt; active&#39;</span><span class="p">,</span> <span class="p">[</span>
-  <span class="nx">style</span><span class="p">({</span>
-    <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#cfd8dc&#39;</span><span class="p">,</span>
-    <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;scale(1.3)&#39;</span>
-  <span class="p">}),</span>
-  <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;80ms ease-in&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span>
-    <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#eee&#39;</span><span class="p">,</span>
-    <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;scale(1)&#39;</span>
-  <span class="p">}))</span>
-<span class="p">]),</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;inactive =&gt; active&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">style</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">backgroundColor</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;#cfd8dc&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;scale(1.3)&#39;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}),</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;80ms ease-in&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">backgroundColor</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;#eee&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;scale(1)&#39;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}))</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">]),</span></code></pre>
+</div>
 <h4 id="通配状态">通配状态*</h4>
 
 <p>通配符*匹配任意的动画状态。例如：</p>
@@ -370,27 +361,25 @@
 <p>使用<code>void</code>和<code>*</code>可以定义元素进入和离开的动画。进入为<code>void =&gt; *</code>，离开为<code>* =&gt; void</code>。</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/animations/animation_enter_leave.gif" alt="" /></p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">animations</span><span class="o">:</span> <span class="p">[</span>
-  <span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;flyInOut&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0)&#39;</span><span class="p">})),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;void =&gt; *&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(-100%)&#39;</span><span class="p">}),</span>
-      <span class="nx">animate</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-    <span class="p">]),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;* =&gt; void&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">animate</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(100%)&#39;</span><span class="p">}))</span>
-    <span class="p">])</span>
-  <span class="p">])</span>
-<span class="p">]</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">animations</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">trigger</span><span class="s1388">(</span><span class="sc1c">&#39;flyInOut&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">state</span><span class="s1388">(</span><span class="sc1c">&#39;in&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(0)&#39;</span><span class="s1388">})),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;void =&gt; *&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(-100%)&#39;</span><span class="s1388">}),</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc80">100</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">]),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;* =&gt; void&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc80">100</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(100%)&#39;</span><span class="s1388">}))</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">]</span></code></pre>
+</div>
 <p>注意上面void状态的样式是直接在transition中定义的，而不是单独定义一个<code>state(void)</code>。这样，进入和离开的动画就不一样，从左边进入，从右边离开。</p>
 
 <p>这两种常见的动画有个别名：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;:enter&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="p">...</span> <span class="p">]);</span> <span class="c1">// void =&gt; *</span>
-<span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;:leave&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="p">...</span> <span class="p">]);</span> <span class="c1">// * =&gt; void</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;:enter&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s1388">...</span><span class="s1f40"> </span><span class="s1388">]);</span><span class="s1f40"> </span><span class="s1770">// void =&gt; *
+</span><span class="s1770"></span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;:leave&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s1388">...</span><span class="s1f40"> </span><span class="s1388">]);</span><span class="s1f40"> </span><span class="ss4">// * =&gt; void</span></code></pre>
+</div>
 <h3 id="案例-从不同的状态进入和离开">案例：从不同的状态进入和离开</h3>
 
 <p>结合之前的状态可以定义不同状态的元素的进入和离开动画。</p>
@@ -407,30 +396,29 @@
 <p>这样我们可以设计出更精细的动画：</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/animations/ng_animate_transitions_inactive_active_void.png" alt="" /></p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">animations</span><span class="o">:</span> <span class="p">[</span>
-  <span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;heroState&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;inactive&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0) scale(1)&#39;</span><span class="p">})),</span>
-    <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span>   <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0) scale(1.1)&#39;</span><span class="p">})),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive =&gt; active&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-in&#39;</span><span class="p">)),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;active =&gt; inactive&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-out&#39;</span><span class="p">)),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;void =&gt; inactive&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(-100%) scale(1)&#39;</span><span class="p">}),</span>
-      <span class="nx">animate</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
-    <span class="p">]),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive =&gt; void&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">animate</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(100%) scale(1)&#39;</span><span class="p">}))</span>
-    <span class="p">]),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;void =&gt; active&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0) scale(0)&#39;</span><span class="p">}),</span>
-      <span class="nx">animate</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
-    <span class="p">]),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;active =&gt; void&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">animate</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0) scale(0)&#39;</span><span class="p">}))</span>
-    <span class="p">])</span>
-  <span class="p">])</span>
-<span class="p">]</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">animations</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">trigger</span><span class="s1388">(</span><span class="sc1c">&#39;heroState&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">state</span><span class="s1388">(</span><span class="sc1c">&#39;inactive&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(0) scale(1)&#39;</span><span class="s1388">})),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">state</span><span class="s1388">(</span><span class="sc1c">&#39;active&#39;</span><span class="s1388">,</span><span class="s1f40">   </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(0) scale(1.1)&#39;</span><span class="s1388">})),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;inactive =&gt; active&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;100ms ease-in&#39;</span><span class="s1388">)),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;active =&gt; inactive&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;100ms ease-out&#39;</span><span class="s1388">)),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;void =&gt; inactive&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(-100%) scale(1)&#39;</span><span class="s1388">}),</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc80">100</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">]),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;inactive =&gt; void&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc80">100</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(100%) scale(1)&#39;</span><span class="s1388">}))</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">]),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;void =&gt; active&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(0) scale(0)&#39;</span><span class="s1388">}),</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc80">200</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">]),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;active =&gt; void&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc80">200</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(0) scale(0)&#39;</span><span class="s1388">}))</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">]</span></code></pre>
+</div>
 <h3 id="可作为动画的属性和单位">可作为动画的属性和单位</h3>
 
 <p>由于Angular的动画是基于Web Animations的，我们可以使用任何浏览器认为可作为动画（animatable）的属性。这包括位置、大小、转换、颜色、边框、等等。W3C维护了一个<a href="https://www.w3.org/TR/css3-transitions/#animatable-properties">可作为动画的属性</a>列表。</p>
@@ -446,17 +434,16 @@
 <p>这种情况下可以使用特殊的<code>*</code>属性值，这样就是在运行时计算出这个属性值并添加到动画中。</p>
 
 <p>上面图片这个例子中，元素离开的动画，不管在离开之前元素的高度是多少，都从那个高度切换到0。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">animations</span><span class="o">:</span> <span class="p">[</span>
-  <span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;shrinkOut&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">height</span><span class="o">:</span> <span class="s1">&#39;*&#39;</span><span class="p">})),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;* =&gt; void&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">style</span><span class="p">({</span><span class="nx">height</span><span class="o">:</span> <span class="s1">&#39;*&#39;</span><span class="p">}),</span>
-      <span class="nx">animate</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">height</span><span class="o">:</span> <span class="mi">0</span><span class="p">}))</span>
-    <span class="p">])</span>
-  <span class="p">])</span>
-<span class="p">]</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">animations</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">trigger</span><span class="s1388">(</span><span class="sc1c">&#39;shrinkOut&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">state</span><span class="s1388">(</span><span class="sc1c">&#39;in&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">height</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;*&#39;</span><span class="s1388">})),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;* =&gt; void&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">height</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;*&#39;</span><span class="s1388">}),</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc80">250</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">height</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1388">}))</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">]</span></code></pre>
+</div>
 <h3 id="动画的定时">动画的定时</h3>
 
 <p>每个transition可以定义三种时间属性，持续时间（duration）、延迟时间（delay）和缓冲函数（easing function）。它们是在一个transition的定时字符串中。</p>
@@ -493,26 +480,25 @@
 <p>下面这个例子中，进入和离开动画的持续时间都是200ms，但是缓冲特效不一样。</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/animations/animation_timings.gif" alt="" /></p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">animations</span><span class="o">:</span> <span class="p">[</span>
-  <span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;flyInOut&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0)&#39;</span><span class="p">})),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;void =&gt; *&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">style</span><span class="p">({</span>
-        <span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(-100%)&#39;</span>
-      <span class="p">}),</span>
-      <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;0.2s ease-in&#39;</span><span class="p">)</span>
-    <span class="p">]),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;* =&gt; void&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;0.2s 10 ease-out&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span>
-        <span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(100%)&#39;</span>
-      <span class="p">}))</span>
-    <span class="p">])</span>
-  <span class="p">])</span>
-<span class="p">]</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">animations</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">trigger</span><span class="s1388">(</span><span class="sc1c">&#39;flyInOut&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">state</span><span class="s1388">(</span><span class="sc1c">&#39;in&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">opacity</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(0)&#39;</span><span class="s1388">})),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;void =&gt; *&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">style</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">opacity</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(-100%)&#39;</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">}),</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;0.2s ease-in&#39;</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">]),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;* =&gt; void&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;0.2s 10 ease-out&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">opacity</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(100%)&#39;</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">}))</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">]</span></code></pre>
+</div>
 <h3 id="多步骤动画">多步骤动画</h3>
 
 <p>动画关键帧（keyframes）将一个简单的切换变成了有一个或多个中间样式的复杂的动画。</p>
@@ -522,27 +508,26 @@
 <p>例如，使用关键帧为进入和离开动画添加弹跳效果。</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/animations/animation_multistep.gif" alt="" /></p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">animations</span><span class="o">:</span> <span class="p">[</span>
-  <span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;flyInOut&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0)&#39;</span><span class="p">})),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;void =&gt; *&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">animate</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="nx">keyframes</span><span class="p">([</span>
-        <span class="nx">style</span><span class="p">({</span><span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(-100%)&#39;</span><span class="p">,</span> <span class="nx">offset</span><span class="o">:</span> <span class="mi">0</span><span class="p">}),</span>
-        <span class="nx">style</span><span class="p">({</span><span class="nx">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(15px)&#39;</span><span class="p">,</span>  <span class="nx">offset</span><span class="o">:</span> <span class="mf">0.3</span><span class="p">}),</span>
-        <span class="nx">style</span><span class="p">({</span><span class="nx">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0)&#39;</span><span class="p">,</span>     <span class="nx">offset</span><span class="o">:</span> <span class="mf">1.0</span><span class="p">})</span>
-      <span class="p">]))</span>
-    <span class="p">]),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;* =&gt; void&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">animate</span><span class="p">(</span><span class="mi">300</span><span class="p">,</span> <span class="nx">keyframes</span><span class="p">([</span>
-        <span class="nx">style</span><span class="p">({</span><span class="nx">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0)&#39;</span><span class="p">,</span>     <span class="nx">offset</span><span class="o">:</span> <span class="mi">0</span><span class="p">}),</span>
-        <span class="nx">style</span><span class="p">({</span><span class="nx">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(-15px)&#39;</span><span class="p">,</span> <span class="nx">offset</span><span class="o">:</span> <span class="mf">0.7</span><span class="p">}),</span>
-        <span class="nx">style</span><span class="p">({</span><span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(100%)&#39;</span><span class="p">,</span>  <span class="nx">offset</span><span class="o">:</span> <span class="mf">1.0</span><span class="p">})</span>
-      <span class="p">]))</span>
-    <span class="p">])</span>
-  <span class="p">])</span>
-<span class="p">]</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">animations</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">trigger</span><span class="s1388">(</span><span class="sc1c">&#39;flyInOut&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">state</span><span class="s1388">(</span><span class="sc1c">&#39;in&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(0)&#39;</span><span class="s1388">})),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;void =&gt; *&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc80">300</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">keyframes</span><span class="s1388">([</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">opacity</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(-100%)&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">offset</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1388">}),</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">opacity</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(15px)&#39;</span><span class="s1388">,</span><span class="s1f40">  </span><span class="s7df">offset</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">0.3</span><span class="s1388">}),</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">opacity</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(0)&#39;</span><span class="s1388">,</span><span class="s1f40">     </span><span class="s7df">offset</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1.0</span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">]))</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">]),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;* =&gt; void&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc80">300</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">keyframes</span><span class="s1388">([</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">opacity</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(0)&#39;</span><span class="s1388">,</span><span class="s1f40">     </span><span class="s7df">offset</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1388">}),</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">opacity</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(-15px)&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">offset</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">0.7</span><span class="s1388">}),</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">opacity</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(100%)&#39;</span><span class="s1388">,</span><span class="s1f40">  </span><span class="s7df">offset</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1.0</span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">]))</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">]</span></code></pre>
+</div>
 <p>关键帧的offset参数可以忽略。如果忽略那么就是每个关键帧之间时间间隔相等。例如，三个没有offset的关键帧将会接收到0、0.5和1作为offset。</p>
 
 <h3 id="并行动画组">并行动画组</h3>
@@ -554,36 +539,35 @@
 <p>这种场景可以使用动画组（group）。例如，为进入和离开动画使用两个不同的定时效果，它们会并行的作用在同一个元素上，但是是分开执行的。</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/animations/animation_groups.gif" alt="" /></p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">animations</span><span class="o">:</span> <span class="p">[</span>
-  <span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;flyInOut&#39;</span><span class="p">,</span> <span class="p">[</span>
-    <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">width</span><span class="o">:</span> <span class="mi">120</span><span class="p">,</span> <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0)&#39;</span><span class="p">,</span> <span class="nx">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="p">})),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;void =&gt; *&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">style</span><span class="p">({</span><span class="nx">width</span><span class="o">:</span> <span class="mi">10</span><span class="p">,</span> <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(50px)&#39;</span><span class="p">,</span> <span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span><span class="p">}),</span>
-      <span class="nx">group</span><span class="p">([</span>
-        <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;0.3s 0.1s ease&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span>
-          <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0)&#39;</span><span class="p">,</span>
-          <span class="nx">width</span><span class="o">:</span> <span class="mi">120</span>
-        <span class="p">})),</span>
-        <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;0.3s ease&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span>
-          <span class="nx">opacity</span><span class="o">:</span> <span class="mi">1</span>
-        <span class="p">}))</span>
-      <span class="p">])</span>
-    <span class="p">]),</span>
-    <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;* =&gt; void&#39;</span><span class="p">,</span> <span class="p">[</span>
-      <span class="nx">group</span><span class="p">([</span>
-        <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;0.3s ease&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span>
-          <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(50px)&#39;</span><span class="p">,</span>
-          <span class="nx">width</span><span class="o">:</span> <span class="mi">10</span>
-        <span class="p">})),</span>
-        <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;0.3s 0.2s ease&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span>
-          <span class="nx">opacity</span><span class="o">:</span> <span class="mi">0</span>
-        <span class="p">}))</span>
-      <span class="p">])</span>
-    <span class="p">])</span>
-  <span class="p">])</span>
-<span class="p">]</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">animations</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">trigger</span><span class="s1388">(</span><span class="sc1c">&#39;flyInOut&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">state</span><span class="s1388">(</span><span class="sc1c">&#39;in&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">width</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">120</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(0)&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">opacity</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">})),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;void =&gt; *&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">style</span><span class="s1388">({</span><span class="s7df">width</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">10</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(50px)&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">opacity</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1388">}),</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">group</span><span class="s1388">([</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;0.3s 0.1s ease&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(0)&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7df">width</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">120</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">})),</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;0.3s ease&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7df">opacity</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">}))</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">]),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">transition</span><span class="s1388">(</span><span class="sc1c">&#39;* =&gt; void&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7df">group</span><span class="s1388">([</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;0.3s ease&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7df">transform</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;translateX(50px)&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7df">width</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">10</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">})),</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">animate</span><span class="s1388">(</span><span class="sc1c">&#39;0.3s 0.2s ease&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">style</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7df">opacity</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">}))</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">]</span></code></pre>
+</div>
 <p>一个组作用于元素的转换和宽度，另一个组作用于调整元素的透明度。</p>
 
 <h3 id="动画回调">动画回调</h3>
@@ -591,18 +575,17 @@
 <p>动画开始和结束的时候会触发回调。</p>
 
 <p>在关键帧那个例子中，我们可以有一个名为<code>@flyInOut</code>的触发器。可以这样添加回调函数：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
-<span class="sb">  &lt;ul&gt;</span>
-<span class="sb">    &lt;li *ngFor=&quot;let hero of heroes&quot;</span>
-<span class="sb">        (@flyInOut.start)=&quot;animationStarted($event)&quot;</span>
-<span class="sb">        (@flyInOut.done)=&quot;animationDone($event)&quot;</span>
-<span class="sb">        [@flyInOut]=&quot;&#39;in&#39;&quot;&gt;</span>
-<span class="sb">      {{hero.name}}</span>
-<span class="sb">    &lt;/li&gt;</span>
-<span class="sb">  &lt;/ul&gt;</span>
-<span class="sb">`</span><span class="p">,</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">`
+</span><span class="sc1c">  &lt;ul&gt;
+</span><span class="sc1c">    &lt;li *ngFor=&#34;let hero of heroes&#34;
+</span><span class="sc1c">        (@flyInOut.start)=&#34;animationStarted($event)&#34;
+</span><span class="sc1c">        (@flyInOut.done)=&#34;animationDone($event)&#34;
+</span><span class="sc1c">        [@flyInOut]=&#34;&#39;in&#39;&#34;&gt;
+</span><span class="sc1c">      {{hero.name}}
+</span><span class="sc1c">    &lt;/li&gt;
+</span><span class="sc1c">  &lt;/ul&gt;
+</span><span class="sc1c">`</span><span class="s1388">,</span></code></pre>
+</div>
 <p>回调函数接受一个<code>AnimationTransitionEvent</code>，它包含一些有用的属性，如<code>fromState</code>、<code>toState</code>和<code>totalTime</code>。</p>
 
 <p>Those callbacks will fire whether or not an animation is picked up.</p>
@@ -621,7 +604,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>260</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>267</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

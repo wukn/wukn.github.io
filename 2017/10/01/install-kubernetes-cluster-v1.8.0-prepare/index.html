@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-prepare/" />
@@ -227,52 +227,50 @@
 <h4 id="安装cfssl">安装cfssl</h4>
 
 <p>下载cfss、cfssljson和cfssl-certinfo，生成默认的配置文件和csr文件：</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>curl -O https://pkg.cfssl.org/R1.2/cfssl_linux-amd64
-chmod +x cfssl_linux-amd64
-mv cfssl_linux-amd64 /usr/local/bin/cfssl
-
-curl -O https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
-chmod +x cfssljson_linux-amd64
-mv cfssljson_linux-amd64 /usr/local/bin/cfssljson
-
-curl -O https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64
-chmod +x cfssl-certinfo_linux-amd64
-mv cfssl-certinfo_linux-amd64 /usr/local/bin/cfssl-certinfo
-
-<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span>/usr/local/bin:<span class="nv">$PATH</span>
-mkdir -p ssl
-<span class="nb">cd</span> ssl
-cfssl print-defaults config &gt; config.json
-cfssl print-defaults csr &gt; csr.json
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">curl -O https://pkg.cfssl.org/R1.2/cfssl_linux-amd64
+</span><span class="s1f40">chmod +x cfssl_linux-amd64
+</span><span class="s1f40">mv cfssl_linux-amd64 /usr/local/bin/cfssl
+</span><span class="s1f40">
+</span><span class="s1f40">curl -O https://pkg.cfssl.org/R1.2/cfssljson_linux-amd64
+</span><span class="s1f40">chmod +x cfssljson_linux-amd64
+</span><span class="s1f40">mv cfssljson_linux-amd64 /usr/local/bin/cfssljson
+</span><span class="s1f40">
+</span><span class="s1f40">curl -O https://pkg.cfssl.org/R1.2/cfssl-certinfo_linux-amd64
+</span><span class="s1f40">chmod +x cfssl-certinfo_linux-amd64
+</span><span class="s1f40">mv cfssl-certinfo_linux-amd64 /usr/local/bin/cfssl-certinfo
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7d0">export</span><span class="s1f40"> </span><span class="s7d0">PATH</span><span class="s1f40"></span><span class="sfa0">=</span><span class="s1f40">/usr/local/bin:</span><span class="s7d0">$PATH</span><span class="s1f40">
+</span><span class="s1f40">mkdir -p ssl
+</span><span class="s1f40"></span><span class="s7d0">cd</span><span class="s1f40"> ssl
+</span><span class="s1f40">cfssl print-defaults config &gt; config.json
+</span><span class="s1f40">cfssl print-defaults csr &gt; csr.json</span></code></pre>
+</div>
 <h3 id="创建ca证书">创建CA证书</h3>
 
 <p>创建CA配置文件<code>ca-config.json</code>：</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>cat <span class="s">&lt;&lt; EOF &gt; ca-config.json</span>
-<span class="s">{</span>
-<span class="s">  &quot;signing&quot;: {</span>
-<span class="s">    &quot;default&quot;: {</span>
-<span class="s">      &quot;expiry&quot;: &quot;8760h&quot;</span>
-<span class="s">    },</span>
-<span class="s">    &quot;profiles&quot;: {</span>
-<span class="s">      &quot;kubernetes&quot;: {</span>
-<span class="s">        &quot;usages&quot;: [</span>
-<span class="s">            &quot;signing&quot;,</span>
-<span class="s">            &quot;key encipherment&quot;,</span>
-<span class="s">            &quot;server auth&quot;,</span>
-<span class="s">            &quot;client auth&quot;</span>
-<span class="s">        ],</span>
-<span class="s">        &quot;expiry&quot;: &quot;8760h&quot;</span>
-<span class="s">      }</span>
-<span class="s">    }</span>
-<span class="s">  }</span>
-<span class="s">}</span>
-<span class="s">EOF</span>
-
-ls -l ca-config.json
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat </span><span class="sc1c">&lt;&lt; EOF &gt; ca-config.json
+</span><span class="sc1c">{
+</span><span class="sc1c">  &#34;signing&#34;: {
+</span><span class="sc1c">    &#34;default&#34;: {
+</span><span class="sc1c">      &#34;expiry&#34;: &#34;8760h&#34;
+</span><span class="sc1c">    },
+</span><span class="sc1c">    &#34;profiles&#34;: {
+</span><span class="sc1c">      &#34;kubernetes&#34;: {
+</span><span class="sc1c">        &#34;usages&#34;: [
+</span><span class="sc1c">            &#34;signing&#34;,
+</span><span class="sc1c">            &#34;key encipherment&#34;,
+</span><span class="sc1c">            &#34;server auth&#34;,
+</span><span class="sc1c">            &#34;client auth&#34;
+</span><span class="sc1c">        ],
+</span><span class="sc1c">        &#34;expiry&#34;: &#34;8760h&#34;
+</span><span class="sc1c">      }
+</span><span class="sc1c">    }
+</span><span class="sc1c">  }
+</span><span class="sc1c">}
+</span><span class="sc1c">EOF</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">ls -l ca-config.json</span></code></pre>
+</div>
 <p>证书中可以定义多个profile，分别指定不同的使用场景和过期时间。后续在给证书签名时使用某个profile。</p>
 
 <ul>
@@ -282,84 +280,79 @@ ls -l ca-config.json
 </ul>
 
 <p>创建CA证书签名请求<code>ca-csr.json</code>：</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>cat <span class="s">&lt;&lt; EOF &gt; ca-csr.json</span>
-<span class="s">{</span>
-<span class="s">  &quot;CN&quot;: &quot;kubernetes&quot;,</span>
-<span class="s">  &quot;key&quot;: {</span>
-<span class="s">    &quot;algo&quot;: &quot;rsa&quot;,</span>
-<span class="s">    &quot;size&quot;: 2048</span>
-<span class="s">  },</span>
-<span class="s">  &quot;names&quot;: [</span>
-<span class="s">    {</span>
-<span class="s">      &quot;C&quot;: &quot;CN&quot;,</span>
-<span class="s">      &quot;L&quot;: &quot;NanJing&quot;,</span>
-<span class="s">      &quot;ST&quot;: &quot;NanJing&quot;,</span>
-<span class="s">      &quot;O&quot;: &quot;k8s&quot;,</span>
-<span class="s">      &quot;OU&quot;: &quot;System&quot;</span>
-<span class="s">    }</span>
-<span class="s">  ]</span>
-<span class="s">}</span>
-<span class="s">EOF</span>
-
-ls -l ca-csr.json
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat </span><span class="sc1c">&lt;&lt; EOF &gt; ca-csr.json
+</span><span class="sc1c">{
+</span><span class="sc1c">  &#34;CN&#34;: &#34;kubernetes&#34;,
+</span><span class="sc1c">  &#34;key&#34;: {
+</span><span class="sc1c">    &#34;algo&#34;: &#34;rsa&#34;,
+</span><span class="sc1c">    &#34;size&#34;: 2048
+</span><span class="sc1c">  },
+</span><span class="sc1c">  &#34;names&#34;: [
+</span><span class="sc1c">    {
+</span><span class="sc1c">      &#34;C&#34;: &#34;CN&#34;,
+</span><span class="sc1c">      &#34;L&#34;: &#34;NanJing&#34;,
+</span><span class="sc1c">      &#34;ST&#34;: &#34;NanJing&#34;,
+</span><span class="sc1c">      &#34;O&#34;: &#34;k8s&#34;,
+</span><span class="sc1c">      &#34;OU&#34;: &#34;System&#34;
+</span><span class="sc1c">    }
+</span><span class="sc1c">  ]
+</span><span class="sc1c">}
+</span><span class="sc1c">EOF</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">ls -l ca-csr.json</span></code></pre>
+</div>
 <ul>
 <li><code>CN</code>即Common Name，kube-apiserver从证书中提取该字段作为请求的UserName；浏览器使用该字段验证网站是否合法</li>
 <li><code>O</code>即Organization，kube-apiserver从证书中提取该字段作为请求用户所属的Group</li>
 </ul>
 
 <p>生成证书和密钥：</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>cfssl gencert -initca ca-csr.json <span class="p">|</span> cfssljson -bare ca
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cfssl gencert -initca ca-csr.json </span><span class="s1388">|</span><span class="s1f40"> cfssljson -bare ca</span></code></pre>
+</div>
 <p>将证书分发到所有机器的<code>/etc/kubernetes/ssl</code>目录下：</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>mkdir -p /etc/kubernetes/ssl
-cp ca* /etc/kubernetes/ssl
-
-scp /etc/kubernetes/ssl/* <span class="m">172</span>.10.26.102:/etc/kubernetes/ssl/
-scp /etc/kubernetes/ssl/* <span class="m">172</span>.10.26.103:/etc/kubernetes/ssl/
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">mkdir -p /etc/kubernetes/ssl
+</span><span class="s1f40">cp ca* /etc/kubernetes/ssl
+</span><span class="s1f40">
+</span><span class="s1f40">scp /etc/kubernetes/ssl/* </span><span class="sc80">172</span><span class="s1f40">.10.26.102:/etc/kubernetes/ssl/
+</span><span class="s1f40">scp /etc/kubernetes/ssl/* </span><span class="sc80">172</span><span class="s1f40">.10.26.103:/etc/kubernetes/ssl/</span></code></pre>
+</div>
 <h3 id="安装集群管理工具kubectl">安装集群管理工具kubectl</h3>
 
 <p>kubectl是管理kubernetes集群的命令行工具。我们在三个master节点都都安装一下。</p>
 
 <h4 id="下载kubectl">下载kubectl</h4>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>curl -LO https://dl.k8s.io/v1.8.0/kubernetes-client-linux-amd64.tar.gz
-tar xvf kubernetes-client-linux-amd64.tar.gz
-cp kubernetes/client/bin/kube* /usr/local/bin/
-chmod a+x /usr/local/bin/kube*
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">curl -LO https://dl.k8s.io/v1.8.0/kubernetes-client-linux-amd64.tar.gz
+</span><span class="s1f40">tar xvf kubernetes-client-linux-amd64.tar.gz
+</span><span class="s1f40">cp kubernetes/client/bin/kube* /usr/local/bin/
+</span><span class="s1f40">chmod a+x /usr/local/bin/kube*</span></code></pre>
+</div>
 <h4 id="创建admin证书">创建admin证书</h4>
 
 <p>kubectl与kube-apiserver通信需要tls证书确保安全通信。</p>
 
 <p>在上面创建的ssl目录下创建admin证书签名请求<code>admin-csr.json</code>：</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>cat <span class="s">&lt;&lt; EOF &gt; admin-csr.json</span>
-<span class="s">{</span>
-<span class="s">  &quot;CN&quot;: &quot;admin&quot;,</span>
-<span class="s">  &quot;hosts&quot;: [],</span>
-<span class="s">  &quot;key&quot;: {</span>
-<span class="s">    &quot;algo&quot;: &quot;rsa&quot;,</span>
-<span class="s">    &quot;size&quot;: 2048</span>
-<span class="s">  },</span>
-<span class="s">  &quot;names&quot;: [</span>
-<span class="s">    {</span>
-<span class="s">      &quot;C&quot;: &quot;CN&quot;,</span>
-<span class="s">      &quot;L&quot;: &quot;NanJing&quot;,</span>
-<span class="s">      &quot;ST&quot;: &quot;NanJing&quot;,</span>
-<span class="s">      &quot;O&quot;: &quot;system:masters&quot;,</span>
-<span class="s">      &quot;OU&quot;: &quot;System&quot;</span>
-<span class="s">    }</span>
-<span class="s">  ]</span>
-<span class="s">}</span>
-<span class="s">EOF</span>
-
-ls -l admin-csr.json
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat </span><span class="sc1c">&lt;&lt; EOF &gt; admin-csr.json
+</span><span class="sc1c">{
+</span><span class="sc1c">  &#34;CN&#34;: &#34;admin&#34;,
+</span><span class="sc1c">  &#34;hosts&#34;: [],
+</span><span class="sc1c">  &#34;key&#34;: {
+</span><span class="sc1c">    &#34;algo&#34;: &#34;rsa&#34;,
+</span><span class="sc1c">    &#34;size&#34;: 2048
+</span><span class="sc1c">  },
+</span><span class="sc1c">  &#34;names&#34;: [
+</span><span class="sc1c">    {
+</span><span class="sc1c">      &#34;C&#34;: &#34;CN&#34;,
+</span><span class="sc1c">      &#34;L&#34;: &#34;NanJing&#34;,
+</span><span class="sc1c">      &#34;ST&#34;: &#34;NanJing&#34;,
+</span><span class="sc1c">      &#34;O&#34;: &#34;system:masters&#34;,
+</span><span class="sc1c">      &#34;OU&#34;: &#34;System&#34;
+</span><span class="sc1c">    }
+</span><span class="sc1c">  ]
+</span><span class="sc1c">}
+</span><span class="sc1c">EOF</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">ls -l admin-csr.json</span></code></pre>
+</div>
 <ul>
 <li>后续kube-apiserver使用RBAC对客户端（如kubelet、kube-proxy、Pod）请求进行授权</li>
 <li>kube-apiserver预定义了一些RBAC使用的RoleBindings，如cluster-admin将Group<code>system:masters</code>与Role<code>cluster-admin</code>绑定，该Role授予了调用kube-apiserver所有API的权限</li>
@@ -368,44 +361,42 @@ ls -l admin-csr.json
 </ul>
 
 <p>生成admin证书和密钥：</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>cfssl gencert -ca<span class="o">=</span>/etc/kubernetes/ssl/ca.pem <span class="se">\</span>
-  -ca-key<span class="o">=</span>/etc/kubernetes/ssl/ca-key.pem <span class="se">\</span>
-  -config<span class="o">=</span>/etc/kubernetes/ssl/ca-config.json <span class="se">\</span>
-  -profile<span class="o">=</span>kubernetes admin-csr.json <span class="p">|</span> cfssljson -bare admin
-
-mv admin*.pem /etc/kubernetes/ssl/
-
-scp /etc/kubernetes/ssl/admin* <span class="m">172</span>.10.26.102:/etc/kubernetes/ssl/
-scp /etc/kubernetes/ssl/admin* <span class="m">172</span>.10.26.103:/etc/kubernetes/ssl/
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cfssl gencert -ca</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca.pem </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">  -ca-key</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca-key.pem </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">  -config</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca-config.json </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">  -profile</span><span class="sfa0">=</span><span class="s1f40">kubernetes admin-csr.json </span><span class="s1388">|</span><span class="s1f40"> cfssljson -bare admin
+</span><span class="s1f40">
+</span><span class="s1f40">mv admin*.pem /etc/kubernetes/ssl/
+</span><span class="s1f40">
+</span><span class="s1f40">scp /etc/kubernetes/ssl/admin* </span><span class="sc80">172</span><span class="s1f40">.10.26.102:/etc/kubernetes/ssl/
+</span><span class="s1f40">scp /etc/kubernetes/ssl/admin* </span><span class="sc80">172</span><span class="s1f40">.10.26.103:/etc/kubernetes/ssl/</span></code></pre>
+</div>
 <h4 id="创建kubectl配置文件">创建kubectl配置文件</h4>
 
 <p>kubectl的默认配置文件路径为<code>~/.kube/config</code>，其中包含kube-apiserver地址、证书、用户名等信息。</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># 注意将IP地址改成当前集群中任一master的IP</span>
-<span class="nv">KUBE_APISERVER</span><span class="o">=</span><span class="s2">&quot;https://172.10.26.103:6443&quot;</span>
-
-<span class="c1"># 设置集群参数</span>
-kubectl config set-cluster kubernetes <span class="se">\</span>
-    --certificate-authority<span class="o">=</span>/etc/kubernetes/ssl/ca.pem <span class="se">\</span>
-    --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
-    --server<span class="o">=</span><span class="si">${</span><span class="nv">KUBE_APISERVER</span><span class="si">}</span>
-
-<span class="c1"># 设置客户端认证参数</span>
-kubectl config set-credentials admin <span class="se">\</span>
-    --client-certificate<span class="o">=</span>/etc/kubernetes/ssl/admin.pem <span class="se">\</span>
-    --embed-certs<span class="o">=</span><span class="nb">true</span> <span class="se">\</span>
-    --client-key<span class="o">=</span>/etc/kubernetes/ssl/admin-key.pem
-
-<span class="c1"># 设置上下文参数</span>
-kubectl config set-context kubernetes <span class="se">\</span>
-    --cluster<span class="o">=</span>kubernetes <span class="se">\</span>
-    --user<span class="o">=</span>admin
-
-<span class="c1"># 设置默认上下文</span>
-kubectl config use-context kubernetes
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1770"># 注意将IP地址改成当前集群中任一master的IP
+</span><span class="s1770"></span><span class="s7d0">KUBE_APISERVER</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;https://172.10.26.103:6443&#34;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 设置集群参数
+</span><span class="s1770"></span><span class="s1f40">kubectl config set-cluster kubernetes </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --certificate-authority</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca.pem </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --embed-certs</span><span class="sfa0">=</span><span class="s7d0">true</span><span class="s1f40"> </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --server</span><span class="sfa0">=</span><span class="sc1c">${</span><span class="s7d0">KUBE_APISERVER</span><span class="sc1c">}</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 设置客户端认证参数
+</span><span class="s1770"></span><span class="s1f40">kubectl config set-credentials admin </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --client-certificate</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/admin.pem </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --embed-certs</span><span class="sfa0">=</span><span class="s7d0">true</span><span class="s1f40"> </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --client-key</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/admin-key.pem
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 设置上下文参数
+</span><span class="s1770"></span><span class="s1f40">kubectl config set-context kubernetes </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --cluster</span><span class="sfa0">=</span><span class="s1f40">kubernetes </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --user</span><span class="sfa0">=</span><span class="s1f40">admin
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 设置默认上下文
+</span><span class="s1770"></span><span class="s1f40">kubectl config use-context kubernetes</span></code></pre>
+</div>
 <hr />
 
 <p>参考资料：</p>

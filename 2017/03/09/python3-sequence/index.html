@@ -35,7 +35,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/03/09/python3-sequence/" />
@@ -195,7 +195,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][Python3] 序列</h1>
-      <p class="post-meta">@wukn · Mar 9, 2017 · 2 min read</p>
+      <p class="post-meta">@wukn · Mar 9, 2017 · 1 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>序列类型（Sequence Types）是包含一组成员的连续列表，这些成员紧邻排列，并且可以通过序号（下标偏移量）访问其中的一个或多个成员。</p>
@@ -225,55 +225,50 @@
 </ul>
 
 <p>PS1:<code>s * n</code>或<code>n * s</code>中，n小于0时会被当作0，也就是返回一个跟s相同类型的空序列。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">*</span> <span class="mi">0</span>
-<span class="p">[]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">list</span><span class="s1">&#39;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span> <span class="o">*</span> <span class="mi">0</span><span class="p">)</span>
-<span class="o">&lt;</span><span class="k">class</span> <span class="err">&#39;</span><span class="nc">list</span><span class="s1">&#39;&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc80">1</span><span class="s1388">,</span><span class="sc80">2</span><span class="s1388">,</span><span class="sc80">3</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">[]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">type</span><span class="s1388">(</span><span class="s7d0">s</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s3e8">class</span><span class="s1f40"> </span><span class="ss4">&#39;</span><span class="s7d4">list</span><span class="sc1c"></span><span class="sc1c">&#39;&gt;</span><span class="ss4">
+</span><span class="ss4"></span><span class="sc1c">&gt;&gt;&gt; type(s * 0)</span><span class="ss4">
+</span><span class="ss4"></span><span class="sc1c">&lt;class &#39;</span><span class="s7d0">list</span><span class="sc1c"></span><span class="sc1c">&#39;&gt;</span></code></pre>
+</div>
 <p>PS2:<code>s * n</code>或<code>n * s</code>中，复制为浅拷贝模式，嵌套的结构不会被拷贝过去。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[[]]</span> <span class="o">*</span> <span class="mi">3</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span>
-<span class="p">[[],</span> <span class="p">[],</span> <span class="p">[]]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span>
-<span class="p">[[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]]</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[[]]</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">[[],</span><span class="s1f40"> </span><span class="s1388">[],</span><span class="s1f40"> </span><span class="s1388">[]]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1388">[</span><span class="sc80">0</span><span class="s1388">]</span><span class="sfa0">.</span><span class="s7d0">append</span><span class="s1388">(</span><span class="sc80">3</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">[[</span><span class="sc80">3</span><span class="s1388">],</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc80">3</span><span class="s1388">],</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc80">3</span><span class="s1388">]]</span></code></pre>
+</div>
 <p>因为<code>[[]]</code>是包含一个空列表元素的列表，由于是浅拷贝，<code>[[]] * 3</code>中的三个元素都指向同一个空列表。要想创建元素为不同类表的列表，可以这样：</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">lists</span>
-<span class="p">[[</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">]]</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">lists</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[[]</span><span class="s1f40"> </span><span class="s3e8">for</span><span class="s1f40"> </span><span class="s7d0">i</span><span class="s1f40"> </span><span class="sfa0">in</span><span class="s1f40"> </span><span class="s7d0">range</span><span class="s1388">(</span><span class="sc80">3</span><span class="s1388">)]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">lists</span><span class="s1388">[</span><span class="sc80">0</span><span class="s1388">]</span><span class="sfa0">.</span><span class="s7d0">append</span><span class="s1388">(</span><span class="sc80">3</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">lists</span><span class="s1388">[</span><span class="sc80">1</span><span class="s1388">]</span><span class="sfa0">.</span><span class="s7d0">append</span><span class="s1388">(</span><span class="sc80">5</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">lists</span><span class="s1388">[</span><span class="sc80">2</span><span class="s1388">]</span><span class="sfa0">.</span><span class="s7d0">append</span><span class="s1388">(</span><span class="sc80">7</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">lists</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">[[</span><span class="sc80">3</span><span class="s1388">],</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc80">5</span><span class="s1388">],</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc80">7</span><span class="s1388">]]</span></code></pre>
+</div>
 <p>PS3:序列支持负数索引。当索引i为负数时，相当于<code>len(s) + i</code>。也就是从序列的尾部开始计算，最后一个元素的索引为-1。如果i非负，那么0 &lt;= i &lt;= len(s)，如果i为负，那么-len(s) &lt;= i &lt;= -1，否则会引发索引越界异常。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">25</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-<span class="mi">25</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
-<span class="mi">16</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc80">1</span><span class="s1388">,</span><span class="sc80">4</span><span class="s1388">,</span><span class="sc80">9</span><span class="s1388">,</span><span class="sc80">16</span><span class="s1388">,</span><span class="sc80">25</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1388">[</span><span class="sfa0">-</span><span class="sc80">1</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">25</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1388">[</span><span class="sfa0">-</span><span class="sc80">2</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">16</span></code></pre>
+</div>
 <p>PS4:<code>s[i:j]</code>切片操作，就是取索引k符合i &lt;= k &lt; j的所有元素。如果i或j大于s的长度len(s)，那么就取len(s)。如果i被省略了或者为None则取0;如果j被省略了或者为None则取len(s)。如果i大于或等于j，那么切片为空。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">16</span><span class="p">,</span><span class="mi">25</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">4</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">25</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
-<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">:]</span>
-<span class="p">[</span><span class="mi">16</span><span class="p">,</span> <span class="mi">25</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
-<span class="p">[]</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc80">1</span><span class="s1388">,</span><span class="sc80">4</span><span class="s1388">,</span><span class="sc80">9</span><span class="s1388">,</span><span class="sc80">16</span><span class="s1388">,</span><span class="sc80">25</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1388">[</span><span class="sc80">1</span><span class="s1388">:</span><span class="sc80">2</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">[</span><span class="sc80">4</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1388">[</span><span class="sc80">2</span><span class="s1388">:</span><span class="sc80">10</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">[</span><span class="sc80">9</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">16</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">25</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1388">[:</span><span class="sc80">2</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">[</span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">4</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1388">[</span><span class="sc80">3</span><span class="s1388">:]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">[</span><span class="sc80">16</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">25</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">s</span><span class="s1388">[</span><span class="sc80">4</span><span class="s1388">:</span><span class="sc80">4</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">[]</span></code></pre>
+</div>
 <p>PS5:带步长的切片<code>s[i:j:k]</code>，就是取索引x符合x = i + n*k 且0 &lt;= n &lt; (j-i)/k的所有元素。</p>
 
 <blockquote>
@@ -347,7 +342,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>206</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>213</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/03/10/python3-sequence-string/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][Python3] 序列（字符串）</h1>
-      <p class="post-meta">@wukn · Mar 10, 2017 · 2 min read</p>
+      <p class="post-meta">@wukn · Mar 10, 2017 · 1 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>Python3 序列——字符串。</p>
@@ -204,35 +204,31 @@
 <p>字符串有几种方法来表示：用单引号(&lsquo;&hellip;&rsquo;)或双引号(&ldquo;&hellip;&rdquo;)括起来。</p>
 
 <p>常规字符串中可以使用<code>\</code>转义字符。原始字符串为在字符串开始的引号之前加上<code>r</code>，可以取消<code>\</code>转义。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="s1">&#39;C:\some</span><span class="se">\n</span><span class="s1">ame&#39;</span><span class="p">)</span>  <span class="c1"># here \n means newline!</span>
-<span class="n">C</span><span class="p">:</span>\<span class="n">some</span>
-<span class="n">ame</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;C:\some\name&#39;</span><span class="p">)</span>  <span class="c1"># note the r before the quote</span>
-<span class="n">C</span><span class="p">:</span>\<span class="n">some</span>\<span class="n">name</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s3e8">print</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;C:\some</span><span class="sc25">\n</span><span class="sc1c">ame&#39;</span><span class="s1388">)</span><span class="s1f40">  </span><span class="s1770"># here \n means newline!</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7d0">C</span><span class="s1388">:</span><span class="s1f40">\</span><span class="s7d0">some</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7d0">ame</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s3e8">print</span><span class="s1388">(</span><span class="sc1c">r</span><span class="sc1c">&#39;C:\some\name&#39;</span><span class="s1388">)</span><span class="s1f40">  </span><span class="s1770"># note the r before the quote</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7d0">C</span><span class="s1388">:</span><span class="s1f40">\</span><span class="s7d0">some</span><span class="s1f40">\</span><span class="s7d0">name</span></code></pre>
+</div>
 <p>字符串可以跨多行。一种方法是使用三引号：&rdquo;&ldquo;&rdquo;&hellip;&ldquo;&rdquo;&ldquo;或者&rdquo;&lsquo;&hellip;&ldquo;&lsquo;。行尾换行符会被自动包含到字符串中，但是可以在行尾加上<code>\</code>(续行符)来避免这个行为。</p>
 
 <p>字符串可以用 + 操作符联接，也可以用 * 操作符重复多次：</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">3</span> <span class="o">*</span> <span class="s1">&#39;un&#39;</span> <span class="o">+</span> <span class="s1">&#39;ium&#39;</span>
-<span class="s1">&#39;unununium&#39;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;un&#39;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;ium&#39;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc1c"></span><span class="sc1c">&#39;unununium&#39;</span></code></pre>
+</div>
 <p>相邻的两个或多个字符串字面量（用引号引起来的）会自动连接。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;Py&#39;</span> <span class="s1">&#39;thon&#39;</span>
-<span class="s1">&#39;Python&#39;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Py&#39;</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;thon&#39;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc1c"></span><span class="sc1c">&#39;Python&#39;</span></code></pre>
+</div>
 <p>这种方式只能用于两个字符串的连接，变量或者表达式是不行的。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">prefix</span> <span class="o">=</span> <span class="s1">&#39;Py&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">prefix</span> <span class="s1">&#39;thon&#39;</span>  <span class="c1"># can&#39;t concatenate a variable and a string literal</span>
-  <span class="o">...</span>
-<span class="ne">SyntaxError</span><span class="p">:</span> <span class="n">invalid</span> <span class="n">syntax</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="p">(</span><span class="s1">&#39;un&#39;</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="s1">&#39;ium&#39;</span>
-  <span class="o">...</span>
-<span class="ne">SyntaxError</span><span class="p">:</span> <span class="n">invalid</span> <span class="n">syntax</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">prefix</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Py&#39;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">prefix</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;thon&#39;</span><span class="s1f40">  </span><span class="s1770"># can&#39;t concatenate a variable and a string literal</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="sfa0">...</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7d8">SyntaxError</span><span class="s1388">:</span><span class="s1f40"> </span><span class="s7d0">invalid</span><span class="s1f40"> </span><span class="s7d0">syntax</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;un&#39;</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1388">)</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;ium&#39;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="sfa0">...</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7d8">SyntaxError</span><span class="s1388">:</span><span class="s1f40"> </span><span class="s7d0">invalid</span><span class="s1f40"> </span><span class="s7d0">syntax</span></code></pre>
+</div>
 <p>除了序列所支持的那些操作，字符串还支持以下字符串操作：</p>
 
 <ul>
@@ -246,14 +242,13 @@
 <li><code>str.find(sub[, start[, end]])</code>：返回sub子串在str[start:end]中的最小索引，不存在则返回-1</li>
 <li><code>str.format(*args, **kwargs)</code>：字符串格式化。将字符串中使用大括号{}定义的替换域（Replacement Field）替换为相应索引的位置参数（Positional Argument）的或者相应名称的关键字参数Keyword Argument）。在替换域中，支持访问参数的属性或成员</li>
 </ul>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;The result of 1 + 2 is {}, 1 * 2 is {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
-<span class="s1">&#39;The result of 1 + 2 is 3, 1 * 2 is 2&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;The result of 1 + 2 is {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
-<span class="s1">&#39;The result of 1 + 2 is 3&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="s2">&quot;The result of 1 + 2 is {result1}, 1 * 2 is {result1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">result1</span><span class="o">=</span><span class="mi">1</span><span class="o">+</span><span class="mi">2</span><span class="p">,</span> <span class="n">result2</span><span class="o">=</span><span class="mi">1</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span>
-<span class="s1">&#39;The result of 1 + 2 is 3, 1 * 2 is 2&#39;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#34;The result of 1 + 2 is {}, 1 * 2 is {}&#34;</span><span class="sfa0">.</span><span class="s7d0">format</span><span class="s1388">(</span><span class="sc80">1</span><span class="sfa0">+</span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">1</span><span class="sfa0">*</span><span class="sc80">2</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc1c"></span><span class="sc1c">&#39;The result of 1 + 2 is 3, 1 * 2 is 2&#39;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#34;The result of 1 + 2 is {0}&#34;</span><span class="sfa0">.</span><span class="s7d0">format</span><span class="s1388">(</span><span class="sc80">1</span><span class="sfa0">+</span><span class="sc80">2</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc1c"></span><span class="sc1c">&#39;The result of 1 + 2 is 3&#39;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#34;The result of 1 + 2 is {result1}, 1 * 2 is {result1}&#34;</span><span class="sfa0">.</span><span class="s7d0">format</span><span class="s1388">(</span><span class="s7d0">result1</span><span class="sfa0">=</span><span class="sc80">1</span><span class="sfa0">+</span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">result2</span><span class="sfa0">=</span><span class="sc80">1</span><span class="sfa0">*</span><span class="sc80">2</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc1c"></span><span class="sc1c">&#39;The result of 1 + 2 is 3, 1 * 2 is 2&#39;</span></code></pre>
+</div>
 <ul>
 <li><code>str.format_map(mapping)</code>：跟<code>str.format(**mapping)</code>相似</li>
 <li><code>str.index(sub[, start[, end]])</code>：返回sub子串在str[start:end]中的最小索引，不存在则抛出ValueError异常</li>
@@ -290,12 +285,11 @@
 <li><code>str.upper()</code>：返回字符串的一个副本，该副本中的所有小写字母变为大写</li>
 <li><code>str.zfill(width)</code>：返回字符串的一个副本，该副本的长度为width，左侧补&rsquo;0&rsquo;</li>
 </ul>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;42&#39;</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="s1">&#39;00042&#39;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="s1">&#39;-42&#39;</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="s1">&#39;-0042&#39;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;42&#39;</span><span class="sfa0">.</span><span class="s7d0">zfill</span><span class="s1388">(</span><span class="sc80">5</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc1c"></span><span class="sc1c">&#39;00042&#39;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;-42&#39;</span><span class="sfa0">.</span><span class="s7d0">zfill</span><span class="s1388">(</span><span class="sc80">5</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc1c"></span><span class="sc1c">&#39;-0042&#39;</span></code></pre>
+</div>
 <h3 id="相关模块">相关模块</h3>
 
 <p>Python标准库中跟字符串相关的<a href="https://docs.python.org/3.5/library/text.html">模块</a>有：</p>
@@ -325,7 +319,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>205</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>212</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

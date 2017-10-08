@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/12/14/angular2-root-module/" />
@@ -202,20 +202,19 @@
 <p></p>
 
 <p>一个Angular的模块类描述了应用的各部分是如何组装在一起的。每个应用至少有一个模块，那就是负责启动应用的根模块。根模块的名字可以任意取，通常命名为<code>AppModule</code>。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.js</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span>
-
-<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
-  <span class="nx">imports</span><span class="o">:</span>      <span class="p">[</span> <span class="nx">BrowserModule</span> <span class="p">],</span>
-  <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">],</span>
-  <span class="nx">bootstrap</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
-<span class="p">})</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/app.module.js
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">NgModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">      </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">BrowserModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/platform-browser&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">  </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./app.component&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">NgModule</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">imports</span><span class="sfa0">:</span><span class="s1f40">      </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">BrowserModule</span><span class="s1f40"> </span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">declarations</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">bootstrap</span><span class="sfa0">:</span><span class="s1f40">    </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppModule</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s1388">}</span></code></pre>
+</div>
 <p>在<code>import</code>语句后是一个带有<code>@NgModule</code>装饰器的类。</p>
 
 <p><code>@NgModule</code>装饰器表明<code>AppModule</code>是一个Angular模块类（也叫<a href="https://angular.io/docs/ts/latest/guide/ngmodule.html">NgModule</a>类）。<code>@NgModule</code>接收的元数据对象可以告诉Angular如何编译和启动应用。</p>
@@ -255,22 +254,20 @@
 <p>其实启动应用的方式有很多种，取决于你想怎样编译应用和运行它。</p>
 
 <p>之前我们是用JIT编译器动态编译然后在浏览器中运行的。对于JIT编译好的浏览器应用，推荐将启动的代码放在一个单独的文件<code>app/main.ts</code>中。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/main.ts</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">platformBrowserDynamic</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser-dynamic&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppModule</span> <span class="p">}</span>              <span class="nx">from</span> <span class="s1">&#39;./app.module&#39;</span><span class="p">;</span>
-
-<span class="nx">platformBrowserDynamic</span><span class="p">().</span><span class="nx">bootstrapModule</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/main.ts
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">platformBrowserDynamic</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/platform-browser-dynamic&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">AppModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">              </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./app.module&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">platformBrowserDynamic</span><span class="s1388">().</span><span class="s7df">bootstrapModule</span><span class="s1388">(</span><span class="s7df">AppModule</span><span class="s1388">);</span></code></pre>
+</div>
 <p>上面的代码创建了一个可动态编译和启动<code>AppModule</code>的平台。</p>
 
 <p>启动的过程是，设置执行的环境，找到<code>AppModule</code>模块的<code>bootstrap</code>数组中的根组件<code>AppComponent</code>，创建一个组件实例并添加到这个组件的<code>selector</code>所标识的元素标签中。</p>
 
 <p>例如，<code>AppComponent</code>的selector是<code>my-app</code>，那么Angular就会在<code>index.html</code>中寻找<code>&lt;my-app&gt;</code>标签：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">my-app</span><span class="p">&gt;</span><span class="c">&lt;!-- content managed by Angular --&gt;</span><span class="p">&lt;/</span><span class="nt">my-app</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">my-app</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1770">&lt;!-- content managed by Angular --&gt;</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">my-app</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <p>然后在这个标签里显示<code>AppComponent</code>。</p>
 
 <p><code>main.ts</code>这个文件通常设置好了之后就不会再动它了。</p>
@@ -289,7 +286,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>291</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>298</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-bindings-syntax/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][KnockoutJS] Bindings - Syntax</h1>
-      <p class="post-meta">@wukn · Nov 12, 2016 · 3 min read</p>
+      <p class="post-meta">@wukn · Nov 12, 2016 · 2 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>&ldquo;KnockoutJS文档官网：<a href="http://knockoutjs.com/documentation/introduction.html&quot;">http://knockoutjs.com/documentation/introduction.html&quot;</a></p>
@@ -206,17 +206,15 @@
 <h2 id="data-bind语法">data-bind语法</h2>
 
 <p>一个绑定由两部分组成，名称和值，用分号隔开。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span>Today&#39;s message is: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: myMessage&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1f40">Today&#39;s message is: </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: myMessage&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <p>一个元素可以由多个绑定，绑定之间使用逗号隔开。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- related bindings: valueUpdate is a parameter for value --&gt;</span>
-Your value: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;value: someValue, valueUpdate: &#39;afterkeydown&#39;&quot;</span> <span class="p">/&gt;</span>
-
-<span class="c">&lt;!-- unrelated bindings --&gt;</span>
-Cellphone: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;value: cellphoneNumber, enable: hasCellphone&quot;</span> <span class="p">/&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1770">&lt;!-- related bindings: valueUpdate is a parameter for value --&gt;</span><span class="s1f40">
+</span><span class="s1f40">Your value: </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">input</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;value: someValue, valueUpdate: &#39;afterkeydown&#39;&#34;</span><span class="s1f40"> </span><span class="s1388">/</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">&lt;!-- unrelated bindings --&gt;</span><span class="s1f40">
+</span><span class="s1f40">Cellphone: </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">input</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;value: cellphoneNumber, enable: hasCellphone&#34;</span><span class="s1f40"> </span><span class="s1388">/</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <p>绑定的名称应该与一个注册的绑定处理器（包括ko内建的和自定义的）匹配，或者是另一个绑定的参数。否则会被忽略（没有错误或警告）。</p>
 
 <p>绑定的值可以是值、变量或字面量（<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types">value、variable、literal</a>），或者是任何有效的js表达式（<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Guide/Expressions_and_Operators">Javacript Expression</a>）。</p>
@@ -224,41 +222,38 @@ Cellphone: <span class="p">&lt;</span><span class="nt">input</span> <span class=
 <p>当值是对象字面量时，对象的属性名必须是有效的js标识符，否则需要放在引号中。</p>
 
 <p>当值是无效的js表达式或引用的是未知的变量时，ko会输出错误并停止绑定处理。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- variable (usually a property of the current view model --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;visible: shouldShowMessage&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-<span class="c">&lt;!-- comparison and conditional --&gt;</span>
-The item is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: price() &gt; 50 ? &#39;expensive&#39; : &#39;cheap&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>.
-
-<span class="c">&lt;!-- function call and comparison --&gt;</span>
-<span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;enable: parseAreaCode(cellphoneNumber()) != &#39;555&#39;&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-
-<span class="c">&lt;!-- function expression --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;click: function (data) { myFunction(&#39;param1&#39;, data) }&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-<span class="c">&lt;!-- object literal (with unquoted and quoted property names) --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;with: {emotion: &#39;happy&#39;, &#39;facial-expression&#39;: &#39;smile&#39;}&quot;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1770">&lt;!-- variable (usually a property of the current view model --&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;visible: shouldShowMessage&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">...</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">&lt;!-- comparison and conditional --&gt;</span><span class="s1f40">
+</span><span class="s1f40">The item is </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: price() &gt; 50 ? &#39;expensive&#39; : &#39;cheap&#39;&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">.
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">&lt;!-- function call and comparison --&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">button</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;enable: parseAreaCode(cellphoneNumber()) != &#39;555&#39;&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">...</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">button</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">&lt;!-- function expression --&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;click: function (data) { myFunction(&#39;param1&#39;, data) }&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">...</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">&lt;!-- object literal (with unquoted and quoted property names) --&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;with: {emotion: &#39;happy&#39;, &#39;facial-expression&#39;: &#39;smile&#39;}&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">...</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <p>绑定中可以包含任意数量的空字符（whitespace：spaces、tab、newlines），因此绑定中可以根据需要来排版。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- no spaces --&gt;</span>
-<span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;options:availableCountries,optionsText:&#39;countryName&#39;,value:selectedCountry,optionsCaption:&#39;Choose...&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
-
-<span class="c">&lt;!-- some spaces --&gt;</span>
-<span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;options : availableCountries, optionsText : &#39;countryName&#39;, value : selectedCountry, optionsCaption : &#39;Choose...&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
-
-<span class="c">&lt;!-- spaces and newlines --&gt;</span>
-<span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;</span>
-<span class="s">    options: availableCountries,</span>
-<span class="s">    optionsText: &#39;countryName&#39;,</span>
-<span class="s">    value: selectedCountry,</span>
-<span class="s">    optionsCaption: &#39;Choose...&#39;&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1770">&lt;!-- no spaces --&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">select</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;options:availableCountries,optionsText:&#39;countryName&#39;,value:selectedCountry,optionsCaption:&#39;Choose...&#39;&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">select</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">&lt;!-- some spaces --&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">select</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;options : availableCountries, optionsText : &#39;countryName&#39;, value : selectedCountry, optionsCaption : &#39;Choose...&#39;&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">select</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">&lt;!-- spaces and newlines --&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">select</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;
+</span><span class="sc1c">    options: availableCountries,
+</span><span class="sc1c">    optionsText: &#39;countryName&#39;,
+</span><span class="sc1c">    value: selectedCountry,
+</span><span class="sc1c">    optionsCaption: &#39;Choose...&#39;&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">select</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <p>注：ko V3.0之后，可以声明没有值的绑定，值会被赋为undefined。这对绑定预处理是有很用的。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text&quot;</span><span class="p">&gt;</span>Text that will be cleared when bindings are applied.<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Text that will be cleared when bindings are applied.</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <h2 id="绑定上下文-binding-context">绑定上下文（binding context）</h2>
 
 <p>绑定上下文是可以在绑定内引用的包含数据的对象。使用绑定时，ko会自动创建和管理绑定上下文的层级关系。层级关系的根就是应用绑定<code>ko.applyBindings(viewModel)</code>的视图viewModel。然后每使用一个流程控制绑定（如with或foreach），就会创建一个指向嵌套的视图模型数据的子绑定上下文。</p>
@@ -276,11 +271,10 @@ The item is <span class="p">&lt;</span><span class="nt">span</span> <span class=
 
 <li><p>$data 它指向当前上下文的视图模型对象。在根上下文中$data和$root是一样的。在嵌套的绑定中，该参数会被设置为当前数据项，当需要引用视图模型本身而不是视图模型的属性时，就可以用$data。</p></li>
 </ul>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;foreach: [&#39;cats&#39;, &#39;dogs&#39;, &#39;fish&#39;]&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>The value is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: $data&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">ul</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;foreach: [&#39;cats&#39;, &#39;dogs&#39;, &#39;fish&#39;]&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">li</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">The value is </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: $data&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">li</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">ul</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <ul>
 <li><p>$index 它是foreach绑定中当前数组项的索引（从0开始）。与其他上下文属性不同，$index是可监控的，会随着数组项索引的变化而更新。</p></li>
 
@@ -299,19 +293,17 @@ The item is <span class="p">&lt;</span><span class="nt">span</span> <span class=
 
 <li><p>element 它指向当前绑定的与元素DOM对象（element DOM object），或者虚拟元素的注释DOM对象（comment DOM object）。在需要访问当前元素的属性时很有用。</p></li>
 </ul>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;item1&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: $element.id&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">id</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;item1&#34;</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: $element.id&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <p>注：与with和foreach类似，在自定义绑定中可以改变子元素的绑定上下文，或者扩展绑定上下文对象来提供特殊的属性。</p>
 
 <h2 id="非侵入式事件绑定">非侵入式事件绑定</h2>
 
 <p>在大部分情况下，<code>data-bind</code>属性提供了一种简洁的方式来绑定视图模型。但是在绑定事件处理函数时，在<code>data-bind</code>中通常使用匿名函数来传递参数。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&quot;#&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;click: function() { viewModel.items.remove($data); }&quot;</span><span class="p">&gt;</span>
-    remove
-<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">a</span><span class="s1f40"> </span><span class="s7d1">href</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;#&#34;</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;click: function() { viewModel.items.remove($data); }&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    remove
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">a</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <p>此外，Ko还提供了两个实用函数来获取DOM元素关联的数据。</p>
 
 <ul>
@@ -320,88 +312,84 @@ The item is <span class="p">&lt;</span><span class="nt">span</span> <span class=
 </ul>
 
 <p>这两个函数可以在非侵入式事件绑定时使用，如jquery的bind或click。</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.remove&quot;</span><span class="p">).</span><span class="nx">click</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">ko</span><span class="p">.</span><span class="nx">dataFor</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
-<span class="p">});</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s7df">$</span><span class="s1388">(</span><span class="sc1c">&#34;.remove&#34;</span><span class="s1388">).</span><span class="s7df">click</span><span class="s1388">(</span><span class="s3e8">function</span><span class="s1f40"> </span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">viewModel</span><span class="s1388">.</span><span class="s7df">items</span><span class="s1388">.</span><span class="s7df">remove</span><span class="s1388">(</span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">dataFor</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">));</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">});</span></code></pre>
+</div>
 <p>此外也可以在事件代理中使用，如jquery的live/delegate/on。这样绑定的事件对动态添加的元素也是生效的。</p>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="nx">$</span><span class="p">(</span><span class="s2">&quot;.container&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="s2">&quot;.remove&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">ko</span><span class="p">.</span><span class="nx">dataFor</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
-<span class="p">});</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s7df">$</span><span class="s1388">(</span><span class="sc1c">&#34;.container&#34;</span><span class="s1388">).</span><span class="s7df">on</span><span class="s1388">(</span><span class="sc1c">&#34;click&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#34;.remove&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">viewModel</span><span class="s1388">.</span><span class="s7df">items</span><span class="s1388">.</span><span class="s7df">remove</span><span class="s1388">(</span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">dataFor</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">));</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">});</span></code></pre>
+</div>
 <p>例：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;people&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;template: { name: &quot;personTmpl&quot;, foreach: people }&#39;</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;personTmpl&quot;</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/html&quot;</span><span class="p">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span>
-        <span class="o">&lt;</span><span class="nx">a</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;remove&quot;</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="o">&gt;</span> <span class="nx">x</span> <span class="o">&lt;</span><span class="err">/a&gt;</span>
-        <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">data</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s1">&#39;text: name&#39;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;</span>
-        <span class="o">&lt;</span><span class="nx">a</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;add&quot;</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&quot;#&quot;</span><span class="o">&gt;</span> <span class="nx">add</span> <span class="nx">child</span> <span class="o">&lt;</span><span class="err">/a&gt;</span>
-        <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">data</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s1">&#39;template: { name: &quot;personTmpl&quot;, foreach: children }&#39;</span><span class="o">&gt;&lt;</span><span class="err">/ul&gt;</span>
-    <span class="o">&lt;</span><span class="err">/li&gt;</span>
-<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">children</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">(</span><span class="nx">children</span> <span class="o">||</span> <span class="p">[]);</span>
-<span class="p">};</span>
-
-<span class="kd">var</span> <span class="nx">PeopleModel</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">people</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span>
-        <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Bob&quot;</span><span class="p">,</span> <span class="p">[</span>
-            <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Jan&quot;</span><span class="p">),</span>
-            <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Don&quot;</span><span class="p">,</span> <span class="p">[</span>
-                <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Ted&quot;</span><span class="p">),</span>
-                <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Ben&quot;</span><span class="p">,</span> <span class="p">[</span>
-                    <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Joe&quot;</span><span class="p">,</span> <span class="p">[</span>
-                        <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Ali&quot;</span><span class="p">),</span>
-                        <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Ken&quot;</span><span class="p">)</span>
-                    <span class="p">])</span>
-                <span class="p">]),</span>
-                <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Doug&quot;</span><span class="p">)</span>
-            <span class="p">])</span>
-        <span class="p">]),</span>
-        <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Ann&quot;</span><span class="p">,</span> <span class="p">[</span>
-            <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Eve&quot;</span><span class="p">),</span>
-            <span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="s2">&quot;Hal&quot;</span><span class="p">)</span>
-        <span class="p">])</span>
-    <span class="p">]);</span>
-
-    <span class="k">this</span><span class="p">.</span><span class="nx">addChild</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">parentArray</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">parentArray</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="k">new</span> <span class="nx">Person</span><span class="p">(</span><span class="nx">name</span><span class="p">));</span>
-    <span class="p">};</span>
-<span class="p">};</span>
-
-<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="k">new</span> <span class="nx">PeopleModel</span><span class="p">());</span>
-
-<span class="c1">//attach event handlers</span>
-<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="s2">&quot;.remove&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">//retrieve the context</span>
-    <span class="kd">var</span> <span class="nx">context</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">contextFor</span><span class="p">(</span><span class="k">this</span><span class="p">),</span>
-        <span class="nx">parentArray</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">$parent</span><span class="p">.</span><span class="nx">people</span> <span class="o">||</span> <span class="nx">context</span><span class="p">.</span><span class="nx">$parent</span><span class="p">.</span><span class="nx">children</span><span class="p">;</span>
-
-    <span class="c1">//remove the data (context.$data) from the appropriate array on its parent (context.$parent)</span>
-    <span class="nx">parentArray</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">$data</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-<span class="p">});</span>
-
-<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;#people&quot;</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="s2">&quot;.add&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">//retrieve the context</span>
-    <span class="kd">var</span> <span class="nx">context</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">contextFor</span><span class="p">(</span><span class="k">this</span><span class="p">),</span>
-        <span class="nx">childName</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">$data</span><span class="p">.</span><span class="nx">name</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; child&quot;</span><span class="p">,</span>
-        <span class="nx">parentArray</span> <span class="o">=</span> <span class="nx">context</span><span class="p">.</span><span class="nx">$data</span><span class="p">.</span><span class="nx">people</span> <span class="o">||</span> <span class="nx">context</span><span class="p">.</span><span class="nx">$data</span><span class="p">.</span><span class="nx">children</span><span class="p">;</span>
-
-    <span class="c1">//add a child to the appropriate parent, calling a method off of the main view model (context.$root)</span>
-    <span class="nx">context</span><span class="p">.</span><span class="nx">$root</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="nx">childName</span><span class="p">,</span> <span class="nx">parentArray</span><span class="p">);</span>
-
-    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
-<span class="p">});</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">ul</span><span class="s1f40"> </span><span class="s7d1">id</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;people&#34;</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#39;template: { name: &#34;personTmpl&#34;, foreach: people }&#39;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">ul</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">script</span><span class="s1f40"> </span><span class="s7d1">id</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;personTmpl&#34;</span><span class="s1f40"> </span><span class="s7d1">type</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text/html&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="sfa0">&lt;</span><span class="s7df">li</span><span class="sfa0">&gt;</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="sfa0">&lt;</span><span class="s7df">a</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="sfa0">=</span><span class="sc1c">&#34;remove&#34;</span><span class="s1f40"> </span><span class="s7df">href</span><span class="sfa0">=</span><span class="sc1c">&#34;#&#34;</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s7df">x</span><span class="s1f40"> </span><span class="sfa0">&lt;</span><span class="s1f40"></span><span class="ss4">/a&gt;</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="sfa0">&lt;</span><span class="s7df">span</span><span class="s1f40"> </span><span class="s7df">data</span><span class="sfa0">-</span><span class="s7df">bind</span><span class="sfa0">=</span><span class="sc1c">&#39;text: name&#39;</span><span class="sfa0">&gt;&lt;</span><span class="s1f40"></span><span class="ss4">/span&gt;</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="sfa0">&lt;</span><span class="s7df">a</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="sfa0">=</span><span class="sc1c">&#34;add&#34;</span><span class="s1f40"> </span><span class="s7df">href</span><span class="sfa0">=</span><span class="sc1c">&#34;#&#34;</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s7df">add</span><span class="s1f40"> </span><span class="s7df">child</span><span class="s1f40"> </span><span class="sfa0">&lt;</span><span class="s1f40"></span><span class="ss4">/a&gt;</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="sfa0">&lt;</span><span class="s7df">ul</span><span class="s1f40"> </span><span class="s7df">data</span><span class="sfa0">-</span><span class="s7df">bind</span><span class="sfa0">=</span><span class="sc1c">&#39;template: { name: &#34;personTmpl&#34;, foreach: children }&#39;</span><span class="sfa0">&gt;&lt;</span><span class="s1f40"></span><span class="ss4">/ul&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="sfa0">&lt;</span><span class="s1f40"></span><span class="ss4">/li&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">script</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">Person</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">name</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">children</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">name</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observable</span><span class="s1388">(</span><span class="s7df">name</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">children</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observableArray</span><span class="s1388">(</span><span class="s7df">children</span><span class="s1f40"> </span><span class="sfa0">||</span><span class="s1f40"> </span><span class="s1388">[]);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">PeopleModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">people</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observableArray</span><span class="s1388">([</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Person</span><span class="s1388">(</span><span class="sc1c">&#34;Bob&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Person</span><span class="s1388">(</span><span class="sc1c">&#34;Jan&#34;</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Person</span><span class="s1388">(</span><span class="sc1c">&#34;Don&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">                </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Person</span><span class="s1388">(</span><span class="sc1c">&#34;Ted&#34;</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">                </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Person</span><span class="s1388">(</span><span class="sc1c">&#34;Ben&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">                    </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Person</span><span class="s1388">(</span><span class="sc1c">&#34;Joe&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">                        </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Person</span><span class="s1388">(</span><span class="sc1c">&#34;Ali&#34;</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">                        </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Person</span><span class="s1388">(</span><span class="sc1c">&#34;Ken&#34;</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">                    </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40">                </span><span class="s1388">]),</span><span class="s1f40">
+</span><span class="s1f40">                </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Person</span><span class="s1388">(</span><span class="sc1c">&#34;Doug&#34;</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">]),</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Person</span><span class="s1388">(</span><span class="sc1c">&#34;Ann&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Person</span><span class="s1388">(</span><span class="sc1c">&#34;Eve&#34;</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Person</span><span class="s1388">(</span><span class="sc1c">&#34;Hal&#34;</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">])</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">]);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">addChild</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">name</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">parentArray</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">parentArray</span><span class="s1388">.</span><span class="s7df">push</span><span class="s1388">(</span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Person</span><span class="s1388">(</span><span class="s7df">name</span><span class="s1388">));</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">applyBindings</span><span class="s1388">(</span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">PeopleModel</span><span class="s1388">());</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">//attach event handlers
+</span><span class="s1770"></span><span class="s7df">$</span><span class="s1388">(</span><span class="sc1c">&#34;#people&#34;</span><span class="s1388">).</span><span class="s7df">on</span><span class="s1388">(</span><span class="sc1c">&#34;click&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#34;.remove&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">//retrieve the context
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">context</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">contextFor</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">parentArray</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">context</span><span class="s1388">.</span><span class="s7df">$parent</span><span class="s1388">.</span><span class="s7df">people</span><span class="s1f40"> </span><span class="sfa0">||</span><span class="s1f40"> </span><span class="s7df">context</span><span class="s1388">.</span><span class="s7df">$parent</span><span class="s1388">.</span><span class="s7df">children</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">//remove the data (context.$data) from the appropriate array on its parent (context.$parent)
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s7df">parentArray</span><span class="s1388">.</span><span class="s7df">remove</span><span class="s1388">(</span><span class="s7df">context</span><span class="s1388">.</span><span class="s7df">$data</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">});</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">$</span><span class="s1388">(</span><span class="sc1c">&#34;#people&#34;</span><span class="s1388">).</span><span class="s7df">on</span><span class="s1388">(</span><span class="sc1c">&#34;click&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#34;.add&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">//retrieve the context
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">context</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">contextFor</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">childName</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">context</span><span class="s1388">.</span><span class="s7df">$data</span><span class="s1388">.</span><span class="s7df">name</span><span class="s1388">()</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#34; child&#34;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">parentArray</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">context</span><span class="s1388">.</span><span class="s7df">$data</span><span class="s1388">.</span><span class="s7df">people</span><span class="s1f40"> </span><span class="sfa0">||</span><span class="s1f40"> </span><span class="s7df">context</span><span class="s1388">.</span><span class="s7df">$data</span><span class="s1388">.</span><span class="s7df">children</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">//add a child to the appropriate parent, calling a method off of the main view model (context.$root)
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s7df">context</span><span class="s1388">.</span><span class="s7df">$root</span><span class="s1388">.</span><span class="s7df">addChild</span><span class="s1388">(</span><span class="s7df">childName</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">parentArray</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">});</span></code></pre>
+</div>
 <hr />
 
 <p>参考资料：</p>
@@ -416,7 +404,7 @@ The item is <span class="p">&lt;</span><span class="nt">span</span> <span class=
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>323</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>330</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

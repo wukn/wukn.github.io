@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/01/05/angular2-case-study-http/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][Angular2] Case Study -HTTP</h1>
-      <p class="post-meta">@wukn · Jan 5, 2017 · 6 min read</p>
+      <p class="post-meta">@wukn · Jan 5, 2017 · 2 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>使用TypeScript构建Angular2应用。将服务改成HTTP服务。</p>
@@ -214,145 +214,139 @@
 <p>我们的应用将依赖http服务，而它又依赖一些其它的支撑服务。<code>HttpModule</code>包含了所有http服务相关的provider。</p>
 
 <p>在<code>HttpModule</code>中引入<code>HttpModule</code>，这样整个应用就能使用这些服务了。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.ts</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">FormsModule</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;@angular/forms&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">HttpModule</span> <span class="p">}</span>    <span class="nx">from</span> <span class="s1">&#39;@angular/http&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppRoutingModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./app-routing.module&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>         <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">DashboardComponent</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;./dashboard.component&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroesComponent</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;./heroes.component&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroDetailComponent</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;./hero-detail.component&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span>          <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span>
-<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
-  <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span>
-    <span class="nx">BrowserModule</span><span class="p">,</span>
-    <span class="nx">FormsModule</span><span class="p">,</span>
-    <span class="nx">HttpModule</span><span class="p">,</span>
-    <span class="nx">AppRoutingModule</span>
-  <span class="p">],</span>
-  <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
-    <span class="nx">AppComponent</span><span class="p">,</span>
-    <span class="nx">DashboardComponent</span><span class="p">,</span>
-    <span class="nx">HeroDetailComponent</span><span class="p">,</span>
-    <span class="nx">HeroesComponent</span><span class="p">,</span>
-  <span class="p">],</span>
-  <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">HeroService</span> <span class="p">],</span>
-  <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
-<span class="p">})</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/app.module.ts
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">NgModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">      </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">BrowserModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/platform-browser&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">FormsModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">   </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/forms&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">HttpModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">    </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/http&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">AppRoutingModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./app-routing.module&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">         </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./app.component&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">DashboardComponent</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">   </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./dashboard.component&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">HeroesComponent</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">      </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./heroes.component&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">HeroDetailComponent</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">  </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero-detail.component&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">HeroService</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">          </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero.service&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">NgModule</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">imports</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">BrowserModule</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">FormsModule</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">HttpModule</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">AppRoutingModule</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">declarations</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">AppComponent</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">DashboardComponent</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">HeroDetailComponent</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">HeroesComponent</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">providers</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">HeroService</span><span class="s1f40"> </span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">bootstrap</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppModule</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s1388">}</span></code></pre>
+</div>
 <h3 id="模拟web-api">模拟Web API</h3>
 
 <p>我们的应用离真实的场景还远着呢。我们都还没有可以处理请求的Web服务器呢。先模拟一个吧。</p>
 
 <p>我们这里从一个模拟的service中数据的获取和保存，一个内存中的Web API。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.ts</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">FormsModule</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;@angular/forms&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">HttpModule</span> <span class="p">}</span>    <span class="nx">from</span> <span class="s1">&#39;@angular/http&#39;</span><span class="p">;</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppRoutingModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./app-routing.module&#39;</span><span class="p">;</span>
-
-<span class="c1">// Imports for loading &amp; configuring the in-memory web api</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">InMemoryWebApiModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;angular-in-memory-web-api&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">InMemoryDataService</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;./in-memory-data.service&#39;</span><span class="p">;</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>         <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">DashboardComponent</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;./dashboard.component&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroesComponent</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;./heroes.component&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroDetailComponent</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;./hero-detail.component&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span>          <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span>
-
-<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
-  <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span>
-    <span class="nx">BrowserModule</span><span class="p">,</span>
-    <span class="nx">FormsModule</span><span class="p">,</span>
-    <span class="nx">HttpModule</span><span class="p">,</span>
-    <span class="nx">InMemoryWebApiModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">InMemoryDataService</span><span class="p">),</span>
-    <span class="nx">AppRoutingModule</span>
-  <span class="p">],</span>
-  <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
-    <span class="nx">AppComponent</span><span class="p">,</span>
-    <span class="nx">DashboardComponent</span><span class="p">,</span>
-    <span class="nx">HeroDetailComponent</span><span class="p">,</span>
-    <span class="nx">HeroesComponent</span><span class="p">,</span>
-  <span class="p">],</span>
-  <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">HeroService</span> <span class="p">],</span>
-  <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
-<span class="p">})</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/app.module.ts
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">NgModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">      </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">BrowserModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/platform-browser&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">FormsModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">   </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/forms&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">HttpModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">    </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/http&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">AppRoutingModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./app-routing.module&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">// Imports for loading &amp; configuring the in-memory web api
+</span><span class="s1770"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">InMemoryWebApiModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;angular-in-memory-web-api&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">InMemoryDataService</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">  </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./in-memory-data.service&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">         </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./app.component&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">DashboardComponent</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">   </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./dashboard.component&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">HeroesComponent</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">      </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./heroes.component&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">HeroDetailComponent</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">  </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero-detail.component&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">HeroService</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">          </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero.service&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">NgModule</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">imports</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">BrowserModule</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">FormsModule</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">HttpModule</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">InMemoryWebApiModule</span><span class="s1388">.</span><span class="s7df">forRoot</span><span class="s1388">(</span><span class="s7df">InMemoryDataService</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">AppRoutingModule</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">declarations</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">AppComponent</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">DashboardComponent</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">HeroDetailComponent</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">HeroesComponent</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">providers</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">HeroService</span><span class="s1f40"> </span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">bootstrap</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppModule</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s1388">}</span></code></pre>
+</div>
 <p>这里是用<code>InMemoryWebApiModule</code>模拟服务器API的。<code>InMemoryWebApiModule.forRoot(InMemoryDataService)</code>中的参数<code>InMemoryDataService</code>是一个提供内存数据库初始值的类：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/in-memory-data.service.ts</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">InMemoryDbService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;angular-in-memory-web-api&#39;</span><span class="p">;</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">InMemoryDataService</span> <span class="kr">implements</span> <span class="nx">InMemoryDbService</span> <span class="p">{</span>
-  <span class="nx">createDb</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">heroes</span> <span class="o">=</span> <span class="p">[</span>
-      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Mr. Nice&#39;</span><span class="p">},</span>
-      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Narco&#39;</span><span class="p">},</span>
-      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">13</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Bombasto&#39;</span><span class="p">},</span>
-      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Celeritas&#39;</span><span class="p">},</span>
-      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Magneta&#39;</span><span class="p">},</span>
-      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">16</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;RubberMan&#39;</span><span class="p">},</span>
-      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">17</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dynama&#39;</span><span class="p">},</span>
-      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dr IQ&#39;</span><span class="p">},</span>
-      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">19</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Magma&#39;</span><span class="p">},</span>
-      <span class="p">{</span><span class="nx">id</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Tornado&#39;</span><span class="p">}</span>
-    <span class="p">];</span>
-    <span class="k">return</span> <span class="p">{</span><span class="nx">heroes</span><span class="p">};</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/in-memory-data.service.ts
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">InMemoryDbService</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;angular-in-memory-web-api&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">InMemoryDataService</span><span class="s1f40"> </span><span class="s3e8">implements</span><span class="s1f40"> </span><span class="s7df">InMemoryDbService</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">createDb</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">let</span><span class="s1f40"> </span><span class="s7df">heroes</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">{</span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">11</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Mr. Nice&#39;</span><span class="s1388">},</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">{</span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">12</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Narco&#39;</span><span class="s1388">},</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">{</span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">13</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Bombasto&#39;</span><span class="s1388">},</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">{</span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">14</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Celeritas&#39;</span><span class="s1388">},</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">{</span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">15</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Magneta&#39;</span><span class="s1388">},</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">{</span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">16</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;RubberMan&#39;</span><span class="s1388">},</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">{</span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">17</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Dynama&#39;</span><span class="s1388">},</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">{</span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">18</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Dr IQ&#39;</span><span class="s1388">},</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">{</span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">19</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Magma&#39;</span><span class="s1388">},</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">{</span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">20</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Tornado&#39;</span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">];</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s7df">heroes</span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>现在可以删掉<code>mock-heroes.ts</code>了。</p>
 
 <h3 id="http">HTTP</h3>
 
 <p>看一下目前<code>HeroService</code>中的实现：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">getHeroes</span><span class="p">()</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">HEROES</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">getHeroes</span><span class="s1388">()</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="sfa0">&lt;</span><span class="s7df">Hero</span><span class="s1388">[]</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="s1388">.</span><span class="s7df">resolve</span><span class="s1388">(</span><span class="s7df">HEROES</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>我们用模拟数据返回了一个resloved Promise。那么现在要改成从HTTP客户端异步获取数据：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero.service.ts (updated getHeroes and new class members)</span>
-
-<span class="kr">private</span> <span class="nx">heroesUrl</span> <span class="o">=</span> <span class="s1">&#39;api/heroes&#39;</span><span class="p">;</span>  <span class="c1">// URL to web api</span>
-
-<span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">http</span><span class="o">:</span> <span class="nx">Http</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
-
-<span class="nx">getHeroes</span><span class="p">()</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">heroesUrl</span><span class="p">)</span>
-             <span class="p">.</span><span class="nx">toPromise</span><span class="p">()</span>
-             <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span> <span class="nx">as</span> <span class="nx">Hero</span><span class="p">[])</span>
-             <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="kr">private</span> <span class="nx">handleError</span><span class="p">(</span><span class="nx">error</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;An error occurred&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span> <span class="c1">// for demo purposes only</span>
-  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="o">||</span> <span class="nx">error</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero.service.ts (updated getHeroes and new class members)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">heroesUrl</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;api/heroes&#39;</span><span class="s1388">;</span><span class="s1f40">  </span><span class="s1770">// URL to web api
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">constructor</span><span class="s1388">(</span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">http</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Http</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">getHeroes</span><span class="s1388">()</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="sfa0">&lt;</span><span class="s7df">Hero</span><span class="s1388">[]</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">http</span><span class="s1388">.</span><span class="s7df">get</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroesUrl</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">             </span><span class="s1388">.</span><span class="s7df">toPromise</span><span class="s1388">()</span><span class="s1f40">
+</span><span class="s1f40">             </span><span class="s1388">.</span><span class="s7df">then</span><span class="s1388">(</span><span class="s7df">response</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s7df">response</span><span class="s1388">.</span><span class="s7df">json</span><span class="s1388">().</span><span class="s7df">data</span><span class="s1f40"> </span><span class="s7df">as</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">[])</span><span class="s1f40">
+</span><span class="s1f40">             </span><span class="s1388">.</span><span class="s3e8">catch</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">handleError</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">handleError</span><span class="s1388">(</span><span class="s7df">error</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">any</span><span class="s1388">)</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="sfa0">&lt;</span><span class="s7df">any</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">console</span><span class="s1388">.</span><span class="s7df">error</span><span class="s1388">(</span><span class="sc1c">&#39;An error occurred&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">error</span><span class="s1388">);</span><span class="s1f40"> </span><span class="s1770">// for demo purposes only
+</span><span class="s1770"></span><span class="s1f40">  </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="s1388">.</span><span class="s7df">reject</span><span class="s1388">(</span><span class="s7df">error</span><span class="s1388">.</span><span class="s7df">message</span><span class="s1f40"> </span><span class="sfa0">||</span><span class="s1f40"> </span><span class="s7df">error</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>同时还要更新下import：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero.service.ts (updated imports)</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span>    <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Headers</span><span class="p">,</span> <span class="nx">Http</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/http&#39;</span><span class="p">;</span>
-
-<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/toPromise&#39;</span><span class="p">;</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero.service.ts (updated imports)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Injectable</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">    </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Headers</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">Http</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/http&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="sc1c">&#39;rxjs/add/operator/toPromise&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero&#39;</span><span class="s1388">;</span></code></pre>
+</div>
 <p>刷新浏览器，数据可以成功地从模拟的server中获取。</p>
 
 <h4 id="http-promise">HTTP Promise</h4>
@@ -364,72 +358,65 @@
 <h4 id="在then的回调中抽取数据">在then的回调中抽取数据</h4>
 
 <p>在promise的<code>then</code>回调中我们用HTTP <code>Response</code>的<code>json</code>方法来获取数据。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span> <span class="nx">as</span> <span class="nx">Hero</span><span class="p">[])</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1388">.</span><span class="s7df">then</span><span class="s1388">(</span><span class="s7df">response</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s7df">response</span><span class="s1388">.</span><span class="s7df">json</span><span class="s1388">().</span><span class="s7df">data</span><span class="s1f40"> </span><span class="s7df">as</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">[])</span></code></pre>
+</div>
 <p>响应结果JSON中有个data属性，这个属性的值就是Web API返回的值。在这里正好是我们想要的数组，所以直接将它作为resolved Promise值返回。</p>
 
 <h4 id="错误处理">错误处理</h4>
 
 <p>在<code>getHeroes()</code>方法的结尾我们<code>catch</code>了服务器的错误并提供了一个错误处理函数：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1388">.</span><span class="s3e8">catch</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">handleError</span><span class="s1388">);</span></code></pre>
+</div>
 <p>这一步很重要。我们必须假定HTTP调用失败是很常见的。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">private</span> <span class="nx">handleError</span><span class="p">(</span><span class="nx">error</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;An error occurred&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span> <span class="c1">// for demo purposes only</span>
-  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="o">||</span> <span class="nx">error</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">handleError</span><span class="s1388">(</span><span class="s7df">error</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">any</span><span class="s1388">)</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="sfa0">&lt;</span><span class="s7df">any</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">console</span><span class="s1388">.</span><span class="s7df">error</span><span class="s1388">(</span><span class="sc1c">&#39;An error occurred&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">error</span><span class="s1388">);</span><span class="s1f40"> </span><span class="s1770">// for demo purposes only
+</span><span class="s1770"></span><span class="s1f40">  </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="s1388">.</span><span class="s7df">reject</span><span class="s1388">(</span><span class="s7df">error</span><span class="s1388">.</span><span class="s7df">message</span><span class="s1f40"> </span><span class="sfa0">||</span><span class="s1f40"> </span><span class="s7df">error</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>这里我们只是记录了错误到console中，同时返回一个rejected promise，这样调用者可以将错误显示给用户。</p>
 
 <h4 id="gethero-by-id">getHero by id</h4>
 
 <p>目前<code>HeroService</code>中的<code>getHero</code>是把所有数据获取过来之后再做查询的。实际情况中一般是不会这样做的。一般Web API都会支持get-by-id方式的请求，<code>api/hero/:id</code>（例如<code>api/hero/11</code>）：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">getHero</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">heroesUrl</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
-  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">url</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">toPromise</span><span class="p">()</span>
-    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span> <span class="nx">as</span> <span class="nx">Hero</span><span class="p">)</span>
-    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">getHero</span><span class="s1388">(</span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">number</span><span class="s1388">)</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="sfa0">&lt;</span><span class="s7df">Hero</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">url</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">`</span><span class="sc1c">${</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroesUrl</span><span class="sc1c">}</span><span class="sc1c">/</span><span class="sc1c">${</span><span class="s7df">id</span><span class="sc1c">}</span><span class="sc1c">`</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">http</span><span class="s1388">.</span><span class="s7df">get</span><span class="s1388">(</span><span class="s7df">url</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">toPromise</span><span class="s1388">()</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">then</span><span class="s1388">(</span><span class="s7df">response</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s7df">response</span><span class="s1388">.</span><span class="s7df">json</span><span class="s1388">().</span><span class="s7df">data</span><span class="s1f40"> </span><span class="s7df">as</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s3e8">catch</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">handleError</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <h3 id="保存更新后的数据">保存更新后的数据</h3>
 
 <p>现在我们可以在Hero的详细信息视图中更新数据，但是这只是在当前视图中，跳转到其它页面后更新就丢失了，因为我们的修改没有写回服务器中。</p>
 
 <p>在模板中添加一个保存按钮：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- app/hero-detail.component.html (save) --&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">save</span><span class="err">()&quot;</span><span class="p">&gt;</span>Save<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1770">&lt;!-- app/hero-detail.component.html (save) --&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">button</span><span class="s1f40"> </span><span class="ss4">(</span><span class="s7d1">click</span><span class="ss4">)=&#34;</span><span class="s7d1">save</span><span class="ss4">()&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Save</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">button</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <p>在<code>save</code>方法中调用service的<code>update</code>方法：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-detail.component.ts (save)</span>
-
-<span class="nx">save</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">hero</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">goBack</span><span class="p">());</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero-detail.component.ts (save)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">save</span><span class="s1388">()</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroService</span><span class="s1388">.</span><span class="s7df">update</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">hero</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">then</span><span class="s1388">(()</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">goBack</span><span class="s1388">());</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>service中的<code>update</code>方法如下：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero.service.ts (update)</span>
-
-<span class="kr">private</span> <span class="nx">headers</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Headers</span><span class="p">({</span><span class="s1">&#39;Content-Type&#39;</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span><span class="p">});</span>
-
-<span class="nx">update</span><span class="p">(</span><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">heroesUrl</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">hero</span><span class="p">.</span><span class="nx">id</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
-  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">http</span>
-    <span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">hero</span><span class="p">),</span> <span class="p">{</span><span class="nx">headers</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">headers</span><span class="p">})</span>
-    <span class="p">.</span><span class="nx">toPromise</span><span class="p">()</span>
-    <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">hero</span><span class="p">)</span>
-    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero.service.ts (update)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">headers</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Headers</span><span class="s1388">({</span><span class="sc1c">&#39;Content-Type&#39;</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;application/json&#39;</span><span class="s1388">});</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">update</span><span class="s1388">(</span><span class="s7df">hero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">)</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="sfa0">&lt;</span><span class="s7df">Hero</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">url</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">`</span><span class="sc1c">${</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroesUrl</span><span class="sc1c">}</span><span class="sc1c">/</span><span class="sc1c">${</span><span class="s7df">hero</span><span class="s1388">.</span><span class="s7df">id</span><span class="sc1c">}</span><span class="sc1c">`</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">http</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">put</span><span class="s1388">(</span><span class="s7df">url</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">JSON</span><span class="s1388">.</span><span class="s7df">stringify</span><span class="s1388">(</span><span class="s7df">hero</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s7df">headers</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">headers</span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">toPromise</span><span class="s1388">()</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">then</span><span class="s1388">(()</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s7df">hero</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s3e8">catch</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">handleError</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>通过URL中的id指定我们要修改的hero，把修改后的hero转换成JSON字符串放在POST请求的body中，并在请求的Herder中制定了内容的类型。</p>
 
 <p>刷新浏览器试一试，现在修改数据后可以保存了。</p>
@@ -437,42 +424,39 @@
 <h3 id="添加hero">添加Hero</h3>
 
 <p>添加一个Hero只需要知道它的name就行了，所以在<code>heroes.component.html</code>中加一个input元素和一个按钮：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- app/heroes.component.html (add) --&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>Hero name:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">input</span> <span class="err">#</span><span class="na">heroName</span> <span class="p">/&gt;</span>
-  <span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">add</span><span class="err">(</span><span class="na">heroName</span><span class="err">.</span><span class="na">value</span><span class="err">);</span> <span class="na">heroName</span><span class="err">.</span><span class="na">value</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="err">&quot;</span><span class="p">&gt;</span>
-    Add
-  <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1770">&lt;!-- app/heroes.component.html (add) --&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">label</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Hero name:</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">label</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40"> </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">input</span><span class="s1f40"> </span><span class="ss4">#</span><span class="s7d1">heroName</span><span class="s1f40"> </span><span class="s1388">/</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">button</span><span class="s1f40"> </span><span class="ss4">(</span><span class="s7d1">click</span><span class="ss4">)=&#34;</span><span class="s7d1">add</span><span class="ss4">(</span><span class="s7d1">heroName</span><span class="ss4">.</span><span class="s7d1">value</span><span class="ss4">);</span><span class="s1f40"> </span><span class="s7d1">heroName</span><span class="ss4">.</span><span class="s7d1">value</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#39;&#39;</span><span class="ss4">&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    Add
+</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">button</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <p>点击添加按钮后调用组件的<code>add</code>方法，保存数据并晴空input文本框：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/heroes.component.ts (add)</span>
-
-<span class="nx">add</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
-  <span class="nx">name</span> <span class="o">=</span> <span class="nx">name</span><span class="p">.</span><span class="nx">trim</span><span class="p">();</span>
-  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span>
-    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">hero</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">hero</span><span class="p">);</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
-    <span class="p">});</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/heroes.component.ts (add)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">add</span><span class="s1388">(</span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">string</span><span class="s1388">)</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">name</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">name</span><span class="s1388">.</span><span class="s7df">trim</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s1388">(</span><span class="sfa0">!</span><span class="s7df">name</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s3e8">return</span><span class="s1388">;</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroService</span><span class="s1388">.</span><span class="s7df">create</span><span class="s1388">(</span><span class="s7df">name</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">then</span><span class="s1388">(</span><span class="s7df">hero</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroes</span><span class="s1388">.</span><span class="s7df">push</span><span class="s1388">(</span><span class="s7df">hero</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">selectedHero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">});</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p><code>HeroService</code>中的<code>create</code>方法：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero.service.ts (create)</span>
-
-<span class="nx">create</span><span class="p">(</span><span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">http</span>
-    <span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">heroesUrl</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="nx">name</span><span class="o">:</span> <span class="nx">name</span><span class="p">}),</span> <span class="p">{</span><span class="nx">headers</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">headers</span><span class="p">})</span>
-    <span class="p">.</span><span class="nx">toPromise</span><span class="p">()</span>
-    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="p">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span><span class="p">)</span>
-    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero.service.ts (create)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">create</span><span class="s1388">(</span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">string</span><span class="s1388">)</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="sfa0">&lt;</span><span class="s7df">Hero</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">http</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">post</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroesUrl</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">JSON</span><span class="s1388">.</span><span class="s7df">stringify</span><span class="s1388">({</span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">name</span><span class="s1388">}),</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s7df">headers</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">headers</span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">toPromise</span><span class="s1388">()</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">then</span><span class="s1388">(</span><span class="s7df">res</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s7df">res</span><span class="s1388">.</span><span class="s7df">json</span><span class="s1388">().</span><span class="s7df">data</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s3e8">catch</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">handleError</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>刷新浏览器，试试效果。</p>
 
 <h3 id="删除hero">删除Hero</h3>
@@ -480,58 +464,54 @@
 <p>在heroes列表视图中添加删除功能。</p>
 
 <p>在列表的<code>&lt;li&gt;</code>标签内的最后加一个删除按钮：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/heroes.component.html (li-element)</span>
-
-<span class="o">&lt;</span><span class="nx">li</span> <span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">&quot;let hero of heroes&quot;</span> <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">&quot;onSelect(hero)&quot;</span>
-    <span class="p">[</span><span class="kr">class</span><span class="p">.</span><span class="nx">selected</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;hero === selectedHero&quot;</span><span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="nx">span</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;badge&quot;</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">hero</span><span class="p">.</span><span class="nx">id</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
-  <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">hero</span><span class="p">.</span><span class="nx">name</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
-  <span class="o">&lt;</span><span class="nx">button</span> <span class="kr">class</span><span class="o">=</span><span class="s2">&quot;delete&quot;</span>
-    <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">&quot;delete(hero); $event.stopPropagation()&quot;</span><span class="o">&gt;</span><span class="nx">x</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
-<span class="o">&lt;</span><span class="err">/li&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/heroes.component.html (li-element)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s7df">li</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s7df">ngFor</span><span class="sfa0">=</span><span class="sc1c">&#34;let hero of heroes&#34;</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">click</span><span class="s1388">)</span><span class="sfa0">=</span><span class="sc1c">&#34;onSelect(hero)&#34;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">[</span><span class="s3e8">class</span><span class="s1388">.</span><span class="s7df">selected</span><span class="s1388">]</span><span class="sfa0">=</span><span class="sc1c">&#34;hero === selectedHero&#34;</span><span class="sfa0">&gt;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="sfa0">&lt;</span><span class="s7df">span</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="sfa0">=</span><span class="sc1c">&#34;badge&#34;</span><span class="sfa0">&gt;</span><span class="s1388">{{</span><span class="s7df">hero</span><span class="s1388">.</span><span class="s7df">id</span><span class="s1388">}}</span><span class="sfa0">&lt;</span><span class="s1f40"></span><span class="ss4">/span&gt;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="sfa0">&lt;</span><span class="s7df">span</span><span class="sfa0">&gt;</span><span class="s1388">{{</span><span class="s7df">hero</span><span class="s1388">.</span><span class="s7df">name</span><span class="s1388">}}</span><span class="sfa0">&lt;</span><span class="s1f40"></span><span class="ss4">/span&gt;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="sfa0">&lt;</span><span class="s7df">button</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="sfa0">=</span><span class="sc1c">&#34;delete&#34;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">(</span><span class="s7df">click</span><span class="s1388">)</span><span class="sfa0">=</span><span class="sc1c">&#34;delete(hero); $event.stopPropagation()&#34;</span><span class="sfa0">&gt;</span><span class="s7df">x</span><span class="sfa0">&lt;</span><span class="s1f40"></span><span class="ss4">/button&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s1f40"></span><span class="ss4">/li&gt;</span></code></pre>
+</div>
 <p>删除按钮点击后，除了调用组件的<code>delete</code>方法，还要阻止事件往上层冒泡。我们不希望在点击删除按钮后还会出发<code>&lt;li&gt;</code>的点击事件。</p>
 
 <p>组件的<code>delete</code>方法：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/heroes.component.ts (delete)</span>
-
-<span class="k">delete</span><span class="p">(</span><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span>
-      <span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">hero</span><span class="p">.</span><span class="nx">id</span><span class="p">)</span>
-      <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">h</span> <span class="p">=&gt;</span> <span class="nx">h</span> <span class="o">!==</span> <span class="nx">hero</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">===</span> <span class="nx">hero</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="p">}</span>
-      <span class="p">});</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/heroes.component.ts (delete)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">delete</span><span class="s1388">(</span><span class="s7df">hero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">)</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroService</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">.</span><span class="s3e8">delete</span><span class="s1388">(</span><span class="s7df">hero</span><span class="s1388">.</span><span class="s7df">id</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">.</span><span class="s7df">then</span><span class="s1388">(()</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroes</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroes</span><span class="s1388">.</span><span class="s7df">filter</span><span class="s1388">(</span><span class="s7df">h</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s7df">h</span><span class="s1f40"> </span><span class="sfa0">!==</span><span class="s1f40"> </span><span class="s7df">hero</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">selectedHero</span><span class="s1f40"> </span><span class="sfa0">===</span><span class="s1f40"> </span><span class="s7df">hero</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">selectedHero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="s1388">;</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">});</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>这里调用service的<code>delete</code>方法，但是界面上的更新还是要组件自己负责，从数组中移除已删除的，并且根据需要重置<code>selectedHero</code>。</p>
 
 <p>给删除按钮加个样式，让它显示在最后面：</p>
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="c">/* app/heroes.component.css (additions) */</span>
-
-<span class="nt">button</span><span class="p">.</span><span class="nc">delete</span> <span class="p">{</span>
-  <span class="k">float</span><span class="p">:</span><span class="kc">right</span><span class="p">;</span>
-  <span class="k">margin-top</span><span class="p">:</span> <span class="mi">2</span><span class="kt">px</span><span class="p">;</span>
-  <span class="k">margin-right</span><span class="p">:</span> <span class="mf">.8</span><span class="kt">em</span><span class="p">;</span>
-  <span class="k">background-color</span><span class="p">:</span> <span class="kc">gray</span> <span class="cp">!important</span><span class="p">;</span>
-  <span class="k">color</span><span class="p">:</span><span class="kc">white</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="s1770">/* app/heroes.component.css (additions) */</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7e2">button</span><span class="s1388">.</span><span class="s7d4">delete</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">float</span><span class="s1f40"></span><span class="s1388">:</span><span class="s3e8">right</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">margin-top</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s3e8">px</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">margin-right</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">.8</span><span class="s3e8">em</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">background-color</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="s3e8">gray</span><span class="s1f40"> </span><span class="s1770">!important</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">color</span><span class="s1f40"></span><span class="s1388">:</span><span class="s3e8">white</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p><code>heroService</code>中的<code>delete</code>方法：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero.service.ts (delete)</span>
-
-<span class="k">delete</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span> <span class="p">{</span>
-  <span class="kr">const</span> <span class="nx">url</span> <span class="o">=</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">heroesUrl</span><span class="si">}</span><span class="sb">/</span><span class="si">${</span><span class="nx">id</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
-  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">http</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="nx">url</span><span class="p">,</span> <span class="p">{</span><span class="nx">headers</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">headers</span><span class="p">})</span>
-    <span class="p">.</span><span class="nx">toPromise</span><span class="p">()</span>
-    <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="kc">null</span><span class="p">)</span>
-    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero.service.ts (delete)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">delete</span><span class="s1388">(</span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">number</span><span class="s1388">)</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7d0">Promise</span><span class="sfa0">&lt;</span><span class="s3e8">void</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">url</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">`</span><span class="sc1c">${</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroesUrl</span><span class="sc1c">}</span><span class="sc1c">/</span><span class="sc1c">${</span><span class="s7df">id</span><span class="sc1c">}</span><span class="sc1c">`</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">http</span><span class="s1388">.</span><span class="s3e8">delete</span><span class="s1388">(</span><span class="s7df">url</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s7df">headers</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">headers</span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">toPromise</span><span class="s1388">()</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">then</span><span class="s1388">(()</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s3e8">catch</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">handleError</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>刷新浏览器，看一下效果。</p>
 
 <h3 id="observables">Observables</h3>
@@ -557,144 +537,138 @@
 <p>接下来为应用添加一个搜索功能。</p>
 
 <p>先创建一个<code>HeroSearchService</code>向Web API发送查询：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-search.service.ts</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span>     <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Http</span><span class="p">,</span> <span class="nx">Response</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/http&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Observable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;rxjs&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span>           <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
-<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroSearchService</span> <span class="p">{</span>
-  <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">http</span><span class="o">:</span> <span class="nx">Http</span><span class="p">)</span> <span class="p">{}</span>
-  <span class="nx">search</span><span class="p">(</span><span class="nx">term</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">http</span>
-               <span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="sb">`app/heroes/?name=</span><span class="si">${</span><span class="nx">term</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
-               <span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">r</span><span class="o">:</span> <span class="nx">Response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span> <span class="nx">as</span> <span class="nx">Hero</span><span class="p">[]);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero-search.service.ts
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Injectable</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">     </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Http</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">Response</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/http&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Observable</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;rxjs&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">           </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">Injectable</span><span class="s1388">()</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">HeroSearchService</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">constructor</span><span class="s1388">(</span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">http</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Http</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">search</span><span class="s1388">(</span><span class="s7df">term</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">string</span><span class="s1388">)</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Observable</span><span class="sfa0">&lt;</span><span class="s7df">Hero</span><span class="s1388">[]</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">http</span><span class="s1f40">
+</span><span class="s1f40">               </span><span class="s1388">.</span><span class="s7df">get</span><span class="s1388">(</span><span class="sc1c">`app/heroes/?name=</span><span class="sc1c">${</span><span class="s7df">term</span><span class="sc1c">}</span><span class="sc1c">`</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">               </span><span class="s1388">.</span><span class="s7df">map</span><span class="s1388">((</span><span class="s7df">r</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Response</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s7df">r</span><span class="s1388">.</span><span class="s7df">json</span><span class="s1388">().</span><span class="s7df">data</span><span class="s1f40"> </span><span class="s7df">as</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">[]);</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>这里调用<code>http.get()</code>跟之前是类似的，只是不再调用<code>toPromise</code>了。</p>
 
 <p>创建<code>HeroSearchComponent</code>组件来调用<code>HeroSearchService</code>。</p>
 
 <p><code>HeroSearchComponent</code>的模板和样式：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- app/hero-search.component.html --&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;search-component&quot;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Hero Search<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">input</span> <span class="err">#</span><span class="na">searchBox</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;search-box&quot;</span> <span class="err">(</span><span class="na">keyup</span><span class="err">)=&quot;</span><span class="na">search</span><span class="err">(</span><span class="na">searchBox</span><span class="err">.</span><span class="na">value</span><span class="err">)&quot;</span> <span class="p">/&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&quot;let hero of heroes | async&quot;</span>
-         <span class="err">(</span><span class="na">click</span><span class="err">)=&quot;</span><span class="na">gotoDetail</span><span class="err">(</span><span class="na">hero</span><span class="err">)&quot;</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;search-result&quot;</span> <span class="p">&gt;</span>
-      {{hero.name}}
-    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-css" data-lang="css"><span></span><span class="c">/* app/hero-search.component.css */</span>
-
-<span class="p">.</span><span class="nc">search-result</span><span class="p">{</span>
-  <span class="k">border-bottom</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">gray</span><span class="p">;</span>
-  <span class="k">border-left</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">gray</span><span class="p">;</span>
-  <span class="k">border-right</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">gray</span><span class="p">;</span>
-  <span class="k">width</span><span class="p">:</span><span class="mi">195</span><span class="kt">px</span><span class="p">;</span>
-  <span class="k">height</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
-  <span class="k">padding</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span><span class="p">;</span>
-  <span class="k">background-color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
-  <span class="k">cursor</span><span class="p">:</span> <span class="kc">pointer</span><span class="p">;</span>
-<span class="p">}</span>
-<span class="p">#</span><span class="nn">search-box</span><span class="p">{</span>
-  <span class="k">width</span><span class="p">:</span> <span class="mi">200</span><span class="kt">px</span><span class="p">;</span>
-  <span class="k">height</span><span class="p">:</span> <span class="mi">20</span><span class="kt">px</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1770">&lt;!-- app/hero-search.component.html --&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">id</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;search-component&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">h4</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Hero Search</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">h4</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">input</span><span class="s1f40"> </span><span class="ss4">#</span><span class="s7d1">searchBox</span><span class="s1f40"> </span><span class="s7d1">id</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;search-box&#34;</span><span class="s1f40"> </span><span class="ss4">(</span><span class="s7d1">keyup</span><span class="ss4">)=&#34;</span><span class="s7d1">search</span><span class="ss4">(</span><span class="s7d1">searchBox</span><span class="ss4">.</span><span class="s7d1">value</span><span class="ss4">)&#34;</span><span class="s1f40"> </span><span class="s1388">/</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="ss4">*</span><span class="s7d1">ngFor</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;let hero of heroes | async&#34;</span><span class="s1f40">
+</span><span class="s1f40">         </span><span class="ss4">(</span><span class="s7d1">click</span><span class="ss4">)=&#34;</span><span class="s7d1">gotoDetail</span><span class="ss4">(</span><span class="s7d1">hero</span><span class="ss4">)&#34;</span><span class="s1f40"> </span><span class="s7d1">class</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;search-result&#34;</span><span class="s1f40"> </span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">      {{hero.name}}
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div><div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="s1770">/* app/hero-search.component.css */</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">.</span><span class="s7d4">search-result</span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">border-bottom</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s3e8">px</span><span class="s1f40"> </span><span class="s3e8">solid</span><span class="s1f40"> </span><span class="s3e8">gray</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">border-left</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s3e8">px</span><span class="s1f40"> </span><span class="s3e8">solid</span><span class="s1f40"> </span><span class="s3e8">gray</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">border-right</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s3e8">px</span><span class="s1f40"> </span><span class="s3e8">solid</span><span class="s1f40"> </span><span class="s3e8">gray</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">width</span><span class="s1f40"></span><span class="s1388">:</span><span class="sc80">195</span><span class="s3e8">px</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">height</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">20</span><span class="s3e8">px</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">padding</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">5</span><span class="s3e8">px</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">background-color</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="s3e8">white</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">cursor</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="s3e8">pointer</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">#</span><span class="s7d0">search-box</span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">width</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">200</span><span class="s3e8">px</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">height</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">20</span><span class="s3e8">px</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>用户在搜索框中输入关键字，当按键释放时，调用组件的<code>search</code>方法：</p>
 
 <p>由于<code>heroes</code>属性现在是<code>Observable</code>数组，所以要将它经过<code>async</code>管道（AsyncPipe）进行处理。<code>async</code>管道会订阅<code>Observable</code>并产生heroes数组供<code>*ngFor</code>使用。</p>
 
 <p><code>HeroSearchComponent</code>组件类和元数据：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-search.component.ts</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Router</span> <span class="p">}</span>            <span class="nx">from</span> <span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Observable</span> <span class="p">}</span>        <span class="nx">from</span> <span class="s1">&#39;rxjs/Observable&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Subject</span> <span class="p">}</span>           <span class="nx">from</span> <span class="s1">&#39;rxjs/Subject&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroSearchService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero-search.service&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
-<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
-  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
-  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-search&#39;</span><span class="p">,</span>
-  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;hero-search.component.html&#39;</span><span class="p">,</span>
-  <span class="nx">styleUrls</span><span class="o">:</span> <span class="p">[</span> <span class="s1">&#39;hero-search.component.css&#39;</span> <span class="p">],</span>
-  <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span><span class="nx">HeroSearchService</span><span class="p">]</span>
-<span class="p">})</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroSearchComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
-  <span class="nx">heroes</span><span class="o">:</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
-  <span class="kr">private</span> <span class="nx">searchTerms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Subject</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">();</span>
-  <span class="nx">constructor</span><span class="p">(</span>
-    <span class="kr">private</span> <span class="nx">heroSearchService</span><span class="o">:</span> <span class="nx">HeroSearchService</span><span class="p">,</span>
-    <span class="kr">private</span> <span class="nx">router</span><span class="o">:</span> <span class="nx">Router</span><span class="p">)</span> <span class="p">{}</span>
-  <span class="c1">// Push a search term into the observable stream.</span>
-  <span class="nx">search</span><span class="p">(</span><span class="nx">term</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">searchTerms</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">term</span><span class="p">);</span>
-  <span class="p">}</span>
-  <span class="nx">ngOnInit</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">searchTerms</span>
-      <span class="p">.</span><span class="nx">debounceTime</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>        <span class="c1">// wait for 300ms pause in events</span>
-      <span class="p">.</span><span class="nx">distinctUntilChanged</span><span class="p">()</span>   <span class="c1">// ignore if next search term is same as previous</span>
-      <span class="p">.</span><span class="nx">switchMap</span><span class="p">(</span><span class="nx">term</span> <span class="p">=&gt;</span> <span class="nx">term</span>   <span class="c1">// switch to new observable each time</span>
-        <span class="c1">// return the http search observable</span>
-        <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroSearchService</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">term</span><span class="p">)</span>
-        <span class="c1">// or the observable of empty heroes if no search term</span>
-        <span class="o">:</span> <span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">([]))</span>
-      <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
-        <span class="c1">// TODO: real error handling</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">([]);</span>
-      <span class="p">});</span>
-  <span class="p">}</span>
-  <span class="nx">gotoDetail</span><span class="p">(</span><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
-    <span class="kd">let</span> <span class="nx">link</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;/detail&#39;</span><span class="p">,</span> <span class="nx">hero</span><span class="p">.</span><span class="nx">id</span><span class="p">];</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero-search.component.ts
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Component</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">OnInit</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Router</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">            </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/router&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Observable</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">        </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;rxjs/Observable&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Subject</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">           </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;rxjs/Subject&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">HeroSearchService</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero-search.service&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">moduleId</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">module</span><span class="s1388">.</span><span class="s7df">id</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;hero-search&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">templateUrl</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;hero-search.component.html&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">styleUrls</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40"> </span><span class="sc1c">&#39;hero-search.component.css&#39;</span><span class="s1f40"> </span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">providers</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s7df">HeroSearchService</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">HeroSearchComponent</span><span class="s1f40"> </span><span class="s3e8">implements</span><span class="s1f40"> </span><span class="s7df">OnInit</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">heroes</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Observable</span><span class="sfa0">&lt;</span><span class="s7df">Hero</span><span class="s1388">[]</span><span class="sfa0">&gt;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">searchTerms</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Subject</span><span class="sfa0">&lt;</span><span class="s7df">string</span><span class="sfa0">&gt;</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">constructor</span><span class="s1388">(</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">heroSearchService</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">HeroSearchService</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">router</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Router</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1770">// Push a search term into the observable stream.
+</span><span class="s1770"></span><span class="s1f40">  </span><span class="s7df">search</span><span class="s1388">(</span><span class="s7df">term</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">string</span><span class="s1388">)</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">searchTerms</span><span class="s1388">.</span><span class="s7df">next</span><span class="s1388">(</span><span class="s7df">term</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">ngOnInit</span><span class="s1388">()</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroes</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">searchTerms</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">.</span><span class="s7df">debounceTime</span><span class="s1388">(</span><span class="sc80">300</span><span class="s1388">)</span><span class="s1f40">        </span><span class="s1770">// wait for 300ms pause in events
+</span><span class="s1770"></span><span class="s1f40">      </span><span class="s1388">.</span><span class="s7df">distinctUntilChanged</span><span class="s1388">()</span><span class="s1f40">   </span><span class="s1770">// ignore if next search term is same as previous
+</span><span class="s1770"></span><span class="s1f40">      </span><span class="s1388">.</span><span class="s7df">switchMap</span><span class="s1388">(</span><span class="s7df">term</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s7df">term</span><span class="s1f40">   </span><span class="s1770">// switch to new observable each time
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s1770">// return the http search observable
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="sfa0">?</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroSearchService</span><span class="s1388">.</span><span class="s7df">search</span><span class="s1388">(</span><span class="s7df">term</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// or the observable of empty heroes if no search term
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Observable</span><span class="s1388">.</span><span class="s3e8">of</span><span class="sfa0">&lt;</span><span class="s7df">Hero</span><span class="s1388">[]</span><span class="sfa0">&gt;</span><span class="s1388">([]))</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">.</span><span class="s3e8">catch</span><span class="s1388">(</span><span class="s7df">error</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// TODO: real error handling
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s7df">console</span><span class="s1388">.</span><span class="s7df">log</span><span class="s1388">(</span><span class="s7df">error</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7df">Observable</span><span class="s1388">.</span><span class="s3e8">of</span><span class="sfa0">&lt;</span><span class="s7df">Hero</span><span class="s1388">[]</span><span class="sfa0">&gt;</span><span class="s1388">([]);</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">});</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">gotoDetail</span><span class="s1388">(</span><span class="s7df">hero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">)</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">let</span><span class="s1f40"> </span><span class="s7df">link</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">&#39;/detail&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">hero</span><span class="s1388">.</span><span class="s7df">id</span><span class="s1388">];</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">router</span><span class="s1388">.</span><span class="s7df">navigate</span><span class="s1388">(</span><span class="s7df">link</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>重点看一下<code>searchTerms</code>：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">private</span> <span class="nx">searchTerms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Subject</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">();</span>
-
-<span class="c1">// Push a search term into the observable stream.</span>
-<span class="nx">search</span><span class="p">(</span><span class="nx">term</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">searchTerms</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">term</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">searchTerms</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Subject</span><span class="sfa0">&lt;</span><span class="s7df">string</span><span class="sfa0">&gt;</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">// Push a search term into the observable stream.
+</span><span class="s1770"></span><span class="s7df">search</span><span class="s1388">(</span><span class="s7df">term</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">string</span><span class="s1388">)</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">searchTerms</span><span class="s1388">.</span><span class="s7df">next</span><span class="s1388">(</span><span class="s7df">term</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p><code>Subject</code>是一个observable事件流的生产者。<code>searchTerms</code>产生一个字符串类型的<code>Observable</code>。</p>
 
 <p>每次调用<code>search</code>时，通过<code>next</code>方法将新的字符串放到subject的observable流中。</p>
 
 <p><code>Subject</code>也是一个<code>Observable</code>。我们想把搜索关键词流转换成Hero数组流，并将结果赋给<code>heroes</code>属性：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">heroes</span><span class="o">:</span> <span class="nx">Observable</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">;</span>
-
-<span class="nx">ngOnInit</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
-  <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">searchTerms</span>
-    <span class="p">.</span><span class="nx">debounceTime</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>        <span class="c1">// wait for 300ms pause in events</span>
-    <span class="p">.</span><span class="nx">distinctUntilChanged</span><span class="p">()</span>   <span class="c1">// ignore if next search term is same as previous</span>
-    <span class="p">.</span><span class="nx">switchMap</span><span class="p">(</span><span class="nx">term</span> <span class="p">=&gt;</span> <span class="nx">term</span>   <span class="c1">// switch to new observable each time</span>
-      <span class="c1">// return the http search observable</span>
-      <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroSearchService</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">term</span><span class="p">)</span>
-      <span class="c1">// or the observable of empty heroes if no search term</span>
-      <span class="o">:</span> <span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">([]))</span>
-    <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="c1">// TODO: real error handling</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
-      <span class="k">return</span> <span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">([]);</span>
-    <span class="p">});</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">heroes</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Observable</span><span class="sfa0">&lt;</span><span class="s7df">Hero</span><span class="s1388">[]</span><span class="sfa0">&gt;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">ngOnInit</span><span class="s1388">()</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroes</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">searchTerms</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">debounceTime</span><span class="s1388">(</span><span class="sc80">300</span><span class="s1388">)</span><span class="s1f40">        </span><span class="s1770">// wait for 300ms pause in events
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">distinctUntilChanged</span><span class="s1388">()</span><span class="s1f40">   </span><span class="s1770">// ignore if next search term is same as previous
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1388">.</span><span class="s7df">switchMap</span><span class="s1388">(</span><span class="s7df">term</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s7df">term</span><span class="s1f40">   </span><span class="s1770">// switch to new observable each time
+</span><span class="s1770"></span><span class="s1f40">      </span><span class="s1770">// return the http search observable
+</span><span class="s1770"></span><span class="s1f40">      </span><span class="sfa0">?</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroSearchService</span><span class="s1388">.</span><span class="s7df">search</span><span class="s1388">(</span><span class="s7df">term</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1770">// or the observable of empty heroes if no search term
+</span><span class="s1770"></span><span class="s1f40">      </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Observable</span><span class="s1388">.</span><span class="s3e8">of</span><span class="sfa0">&lt;</span><span class="s7df">Hero</span><span class="s1388">[]</span><span class="sfa0">&gt;</span><span class="s1388">([]))</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">.</span><span class="s3e8">catch</span><span class="s1388">(</span><span class="s7df">error</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1770">// TODO: real error handling
+</span><span class="s1770"></span><span class="s1f40">      </span><span class="s7df">console</span><span class="s1388">.</span><span class="s7df">log</span><span class="s1388">(</span><span class="s7df">error</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7df">Observable</span><span class="s1388">.</span><span class="s3e8">of</span><span class="sfa0">&lt;</span><span class="s7df">Hero</span><span class="s1388">[]</span><span class="sfa0">&gt;</span><span class="s1388">([]);</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">});</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>如果将每次的用户按键事件都直接调用<code>HeroSearchService</code>，那么会发起大量的HTTP请求。这里用了一些方法来减少请求次数同时有保证请求的相对实时性：</p>
 
 <ul>
@@ -710,54 +684,50 @@
 <h4 id="引入rxjs操作符">引入RxJS操作符</h4>
 
 <p>Angular核心库不支持RxJS操作符，所以要单独引入。可以在一个单独的文件中引入所有操作符，然后在<code>AppModule</code>中引入这个文件。也可以在用到的时候引入所需要的操作符。（不同的开发者的观点不同）</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/rxjs-extensions.ts</span>
-
-<span class="c1">// Observable class extensions</span>
-<span class="kr">import</span> <span class="s1">&#39;rxjs/add/observable/of&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="s1">&#39;rxjs/add/observable/throw&#39;</span><span class="p">;</span>
-
-<span class="c1">// Observable operators</span>
-<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/catch&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/debounceTime&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/distinctUntilChanged&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/do&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/filter&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/map&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="s1">&#39;rxjs/add/operator/switchMap&#39;</span><span class="p">;</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.ts (rxjs-extensions)</span>
-
-<span class="kr">import</span> <span class="s1">&#39;./rxjs-extensions&#39;</span><span class="p">;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/rxjs-extensions.ts
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">// Observable class extensions
+</span><span class="s1770"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="sc1c">&#39;rxjs/add/observable/of&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="sc1c">&#39;rxjs/add/observable/throw&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">// Observable operators
+</span><span class="s1770"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="sc1c">&#39;rxjs/add/operator/catch&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="sc1c">&#39;rxjs/add/operator/debounceTime&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="sc1c">&#39;rxjs/add/operator/distinctUntilChanged&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="sc1c">&#39;rxjs/add/operator/do&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="sc1c">&#39;rxjs/add/operator/filter&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="sc1c">&#39;rxjs/add/operator/map&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="sc1c">&#39;rxjs/add/operator/switchMap&#39;</span><span class="s1388">;</span></code></pre>
+</div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/app.module.ts (rxjs-extensions)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="sc1c">&#39;./rxjs-extensions&#39;</span><span class="s1388">;</span></code></pre>
+</div>
 <h4 id="将搜索组件添加到dashboard">将搜索组件添加到Dashboard</h4>
 
 <p>将<code>hero-search</code>标签添加到<code>DashboardComponent</code>的模板中：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- app/dashboard.component.html --&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Top Heroes<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;grid grid-pad&quot;</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">a</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&quot;let hero of heroes&quot;</span>  <span class="err">[</span><span class="na">routerLink</span><span class="err">]=&quot;[&#39;/</span><span class="na">detail</span><span class="err">&#39;,</span> <span class="na">hero</span><span class="err">.</span><span class="na">id</span><span class="err">]&quot;</span>  <span class="na">class</span><span class="o">=</span><span class="s">&quot;col-1-4&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;module hero&quot;</span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-  <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">hero-search</span><span class="p">&gt;&lt;/</span><span class="nt">hero-search</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1770">&lt;!-- app/dashboard.component.html --&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">h3</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Top Heroes</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">h3</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">class</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;grid grid-pad&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">a</span><span class="s1f40"> </span><span class="ss4">*</span><span class="s7d1">ngFor</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;let hero of heroes&#34;</span><span class="s1f40">  </span><span class="ss4">[</span><span class="s7d1">routerLink</span><span class="ss4">]=&#34;[&#39;/</span><span class="s7d1">detail</span><span class="ss4">&#39;,</span><span class="s1f40"> </span><span class="s7d1">hero</span><span class="ss4">.</span><span class="s7d1">id</span><span class="ss4">]&#34;</span><span class="s1f40">  </span><span class="s7d1">class</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;col-1-4&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">class</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;module hero&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">h4</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">{{hero.name}}</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">h4</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">a</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">hero-search</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">hero-search</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <p>在<code>AppModule</code>中引入<code>HeroSearchComponent</code>并将它添加到<code>declarations</code>数组中：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.ts (search)</span>
-
-<span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
-  <span class="nx">AppComponent</span><span class="p">,</span>
-  <span class="nx">DashboardComponent</span><span class="p">,</span>
-  <span class="nx">HeroDetailComponent</span><span class="p">,</span>
-  <span class="nx">HeroesComponent</span><span class="p">,</span>
-  <span class="nx">HeroSearchComponent</span>
-<span class="p">],</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/app.module.ts (search)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">declarations</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">AppComponent</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">DashboardComponent</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">HeroDetailComponent</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">HeroesComponent</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">HeroSearchComponent</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">],</span></code></pre>
+</div>
 <p>刷新浏览器，打开Dashboard试试效果吧。</p>
 
 <hr />
@@ -774,7 +744,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>269</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>276</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

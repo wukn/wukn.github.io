@@ -7,10 +7,27 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Mon, 02 Oct 2017 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 08 Oct 2017 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[k8s] 部署kubernetes集群——（三）部署Master节点</title>
+      <link>https://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-master/</link>
+      <pubDate>Sun, 08 Oct 2017 00:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-master/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Kubernetes master节点上需要kube-apiserver、kube-scheduler、kube-controller-manager。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;同一时刻只有一个kube-scheduler和kube-controller-manager实例处于工作状态。为了master的高可用，我们会在每个master节点上都部署一套kube-scheduler和kube-controller-manager，它们之间通过选举产生一个leader。&lt;/p&gt;
+
+&lt;p&gt;master节点与node节点上的Pods通过pod网络通信，因此需要在master节点上部署flannel网络。上一篇已经说了。&lt;/p&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[k8s] 部署kubernetes集群——（二）部署etcd和flannel</title>

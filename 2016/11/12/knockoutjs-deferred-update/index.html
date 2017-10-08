@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-deferred-update/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][KnockoutJS] Deferred update</h1>
-      <p class="post-meta">@wukn · Nov 12, 2016 · 2 min read</p>
+      <p class="post-meta">@wukn · Nov 12, 2016 · 1 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>&ldquo;KnockoutJS文档官网：<a href="http://knockoutjs.com/documentation/introduction.html&quot;">http://knockoutjs.com/documentation/introduction.html&quot;</a></p>
@@ -213,126 +213,117 @@
 <h2 id="启用deferred更新">启用deferred更新</h2>
 
 <p>默认deferred更新是关闭的。要使用它，必须在初始化视图模型前启用：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">deferUpdates</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">options</span><span class="s1388">.</span><span class="s7df">deferUpdates</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="s1388">;</span></code></pre>
+</div>
 <p>当deferUpdates启用了，所有的监控属性、计算监控属性和绑定都被设置为延迟更新和通知。在创建基于ko的应用之前启用该特性可以不用担心中间值更新问题了。但是，要注意的是，在已有的应用中启用延迟更新可能会破坏原代码中依赖的同步更新或中间值通知。</p>
 
 <h3 id="例-避免ui多次更新">例：避免UI多次更新</h3>
 
 <p>下面的例子是刻意地为了演示deferred更新的功能和对性能的提高。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!--ko foreach: $root--&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;example&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">tbody</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;foreach: data&#39;</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: name&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: position&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: location&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
-            <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
-        <span class="p">&lt;/</span><span class="nt">tbody</span><span class="p">&gt;</span>
-    <span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;click: flipData, text: &#39;Flip &#39; + type&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&quot;time&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: (data(), timing() + &#39; ms&#39;)&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="c">&lt;!--/ko--&gt;</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">AppViewModel</span><span class="p">(</span><span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">type</span> <span class="o">=</span> <span class="nx">type</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span>
-        <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Alfred&#39;</span><span class="p">,</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;Butler&#39;</span><span class="p">,</span> <span class="nx">location</span><span class="o">:</span> <span class="s1">&#39;London&#39;</span> <span class="p">},</span>
-        <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Bruce&#39;</span><span class="p">,</span> <span class="nx">position</span><span class="o">:</span> <span class="s1">&#39;Chairman&#39;</span><span class="p">,</span> <span class="nx">location</span><span class="o">:</span> <span class="s1">&#39;New York&#39;</span> <span class="p">}</span>
-    <span class="p">]);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">flipData</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">starttime</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">();</span>
-        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">();</span>
-        <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="mi">999</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">([]);</span>
-            <span class="k">this</span><span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">reverse</span><span class="p">());</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">timing</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">starttime</span> <span class="o">?</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">()</span> <span class="o">-</span> <span class="k">this</span><span class="p">.</span><span class="nx">starttime</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="p">};</span>
-<span class="p">}</span>
-
-<span class="nx">ko</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">deferUpdates</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">vmDeferred</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppViewModel</span><span class="p">(</span><span class="s1">&#39;deferred&#39;</span><span class="p">);</span>
-
-<span class="nx">ko</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">deferUpdates</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">vmStandard</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppViewModel</span><span class="p">(</span><span class="s1">&#39;standard&#39;</span><span class="p">);</span>
-
-<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">([</span><span class="nx">vmStandard</span><span class="p">,</span> <span class="nx">vmDeferred</span><span class="p">]);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1770">&lt;!--ko foreach: $root--&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">class</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;example&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">table</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">tbody</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#39;foreach: data&#39;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">tr</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">                </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">td</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: name&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">td</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">                </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">td</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: position&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">td</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">                </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">td</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: location&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">td</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">tr</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">tbody</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">table</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">button</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;click: flipData, text: &#39;Flip &#39; + type&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">button</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">class</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;time&#34;</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: (data(), timing() + &#39; ms&#39;)&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">&lt;!--/ko--&gt;</span></code></pre>
+</div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">function</span><span class="s1f40"> </span><span class="s7df">AppViewModel</span><span class="s1388">(</span><span class="s7df">type</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">type</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">type</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observableArray</span><span class="s1388">([</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Alfred&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">position</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Butler&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">location</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;London&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Bruce&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">position</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Chairman&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">location</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;New York&#39;</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">]);</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">flipData</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1f40"> </span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">starttime</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Date</span><span class="s1388">().</span><span class="s7df">getTime</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">data</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">for</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">i</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1388">;</span><span class="s1f40"> </span><span class="s7df">i</span><span class="s1f40"> </span><span class="sfa0">&lt;</span><span class="s1f40"> </span><span class="sc80">999</span><span class="s1388">;</span><span class="s1f40"> </span><span class="s7df">i</span><span class="sfa0">++</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">data</span><span class="s1388">([]);</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">data</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">.</span><span class="s7df">reverse</span><span class="s1388">());</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">timing</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1f40"> </span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">starttime</span><span class="s1f40"> </span><span class="sfa0">?</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Date</span><span class="s1388">().</span><span class="s7df">getTime</span><span class="s1388">()</span><span class="s1f40"> </span><span class="sfa0">-</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">starttime</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">options</span><span class="s1388">.</span><span class="s7df">deferUpdates</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">vmDeferred</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">AppViewModel</span><span class="s1388">(</span><span class="sc1c">&#39;deferred&#39;</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">options</span><span class="s1388">.</span><span class="s7df">deferUpdates</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">vmStandard</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">AppViewModel</span><span class="s1388">(</span><span class="sc1c">&#39;standard&#39;</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">applyBindings</span><span class="s1388">([</span><span class="s7df">vmStandard</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">vmDeferred</span><span class="s1388">]);</span></code></pre>
+</div>
 <h2 id="为指定监控属性使用deferred更新">为指定监控属性使用deferred更新</h2>
 
 <p>不希望对整个应用使用deferred更新时，也可以为指定监控属性使用，通过使用<code>deferred</code>扩展器（对监控属性、计算监控属性和监控数组都适用）：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">().</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">deferred</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observableArray</span><span class="s1388">().</span><span class="s7df">extend</span><span class="s1388">({</span><span class="s1f40"> </span><span class="s7df">deferred</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="s1f40"> </span><span class="s1388">});</span></code></pre>
+</div>
 <h3 id="例-避免多次ajax请求">例：避免多次ajax请求</h3>
 
 <p>下面的模型表示一个可以渲染成分页列表的数据：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">GridViewModel</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">pageSize</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="mi">20</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">pageIndex</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">currentPageData</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">();</span>
-
-    <span class="c1">// Query /Some/Json/Service whenever pageIndex or pageSize changes,</span>
-    <span class="c1">// and use the results to update currentPageData</span>
-    <span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">page</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">pageIndex</span><span class="p">(),</span> <span class="nx">size</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">pageSize</span><span class="p">()</span> <span class="p">};</span>
-        <span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s1">&#39;/Some/Json/Service&#39;</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentPageData</span><span class="p">);</span>
-    <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">function</span><span class="s1f40"> </span><span class="s7df">GridViewModel</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">pageSize</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observable</span><span class="s1388">(</span><span class="sc80">20</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">pageIndex</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observable</span><span class="s1388">(</span><span class="sc80">1</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">currentPageData</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observableArray</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">// Query /Some/Json/Service whenever pageIndex or pageSize changes,
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1770">// and use the results to update currentPageData
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">computed</span><span class="s1388">(</span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">params</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">page</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">pageIndex</span><span class="s1388">(),</span><span class="s1f40"> </span><span class="s7df">size</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">pageSize</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">$</span><span class="s1388">.</span><span class="s7df">getJSON</span><span class="s1388">(</span><span class="sc1c">&#39;/Some/Json/Service&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">params</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">currentPageData</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">},</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>可以看到，计算监控属性同时依赖于<code>pageIndex</code>和<code>pageSize</code>，因此在模型第一次实例化和以后<code>pageIndex</code>或<code>pageSize</code>更新时，代码会使用getJSON来重新加载<code>currentPageData</code>。</p>
 
 <p>这时有个潜在的效率问题，例如同时改变<code>pageIndex</code>和<code>pageSize</code>的值时，会触发两次ajax请求：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="k">this</span><span class="p">.</span><span class="nx">setPageSize</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">newPageSize</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Whenever you change the page size, we always reset the page index to 1</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">pageSize</span><span class="p">(</span><span class="nx">newPageSize</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">pageIndex</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">setPageSize</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">newPageSize</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">// Whenever you change the page size, we always reset the page index to 1
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">pageSize</span><span class="s1388">(</span><span class="s7df">newPageSize</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">pageIndex</span><span class="s1388">(</span><span class="sc80">1</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>这会浪费带宽和服务器资源，并且导致不可预知的竞态条件。</p>
 
 <p>对计算监控属性使用deferred更新可以保证当前任务中的依赖多次改变时只出发一次更新。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// This evaluation logic is exactly the same as before</span>
-    <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">page</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">pageIndex</span><span class="p">(),</span> <span class="nx">size</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">pageSize</span><span class="p">()</span> <span class="p">};</span>
-    <span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s1">&#39;/Some/Json/Service&#39;</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentPageData</span><span class="p">);</span>
-<span class="p">},</span> <span class="k">this</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">deferred</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">computed</span><span class="s1388">(</span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">// This evaluation logic is exactly the same as before
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">params</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">page</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">pageIndex</span><span class="s1388">(),</span><span class="s1f40"> </span><span class="s7df">size</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">pageSize</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">$</span><span class="s1388">.</span><span class="s7df">getJSON</span><span class="s1388">(</span><span class="sc1c">&#39;/Some/Json/Service&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">params</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">currentPageData</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">},</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">).</span><span class="s7df">extend</span><span class="s1388">({</span><span class="s1f40"> </span><span class="s7df">deferred</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="s1f40"> </span><span class="s1388">});</span></code></pre>
+</div>
 <h3 id="强制deferred更新提前发生">强制deferred更新提前发生</h3>
 
 <p>尽管可以延迟更新，更少的UI更新让异步通知看起来更好，但是如果想立刻更新UI怎么办？这种情况下可以使用<code>ko.tasks.runEarly method</code>：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// remove an item from an array</span>
-<span class="kd">var</span> <span class="nx">items</span> <span class="o">=</span> <span class="nx">myArray</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">sourceIndex</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-
-<span class="c1">// force updates so the UI will see a delete/add rather than a move</span>
-<span class="nx">ko</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">runEarly</span><span class="p">();</span>
-
-<span class="c1">// add the item in a new location</span>
-<span class="nx">myArray</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">targetIndex</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// remove an item from an array
+</span><span class="s1770"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">items</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">myArray</span><span class="s1388">.</span><span class="s7df">splice</span><span class="s1388">(</span><span class="s7df">sourceIndex</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">// force updates so the UI will see a delete/add rather than a move
+</span><span class="s1770"></span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">tasks</span><span class="s1388">.</span><span class="s7df">runEarly</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">// add the item in a new location
+</span><span class="s1770"></span><span class="s7df">myArray</span><span class="s1388">.</span><span class="s7df">splice</span><span class="s1388">(</span><span class="s7df">targetIndex</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">items</span><span class="s1388">[</span><span class="sc80">0</span><span class="s1388">]);</span></code></pre>
+</div>
 <h3 id="强制延迟更新的监控属性始终通知订阅者">强制延迟更新的监控属性始终通知订阅者</h3>
 
 <p>当监控属性的值是原始类型时（数字、字符串、bool值、null），监控属性只会在设置的值与之前的值不一样时才通知依赖者。因此，原始值得监控属性延迟更新时，只会在当前任务结束前，值的确不一样了才发出通知。也就是说如果原始类型监控属性延迟更新，当值变化了又变回原来的值，是不会通知更新的。</p>
 
 <p>为了保证订阅者始终能收更新到通知，即使值一样，可以使用<code>notify</code>扩展器：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">deferUpdates</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-
-<span class="nx">myViewModel</span><span class="p">.</span><span class="nx">fullName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">pureComputed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">myViewModel</span><span class="p">.</span><span class="nx">firstName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span> <span class="o">+</span> <span class="nx">myViewModel</span><span class="p">.</span><span class="nx">lastName</span><span class="p">();</span>
-<span class="p">}).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">notify</span><span class="o">:</span> <span class="s1">&#39;always&#39;</span> <span class="p">});</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">options</span><span class="s1388">.</span><span class="s7df">deferUpdates</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">myViewModel</span><span class="s1388">.</span><span class="s7df">fullName</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">pureComputed</span><span class="s1388">(</span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7df">myViewModel</span><span class="s1388">.</span><span class="s7df">firstName</span><span class="s1388">()</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#34; &#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7df">myViewModel</span><span class="s1388">.</span><span class="s7df">lastName</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}).</span><span class="s7df">extend</span><span class="s1388">({</span><span class="s1f40"> </span><span class="s7df">notify</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;always&#39;</span><span class="s1f40"> </span><span class="s1388">});</span></code></pre>
+</div>
 <hr />
 
 <p>参考资料：</p>
@@ -347,7 +338,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>323</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>329</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-bindings-creating-custom-binding/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][KnockoutJS] Bindings - Creating custom binding</h1>
-      <p class="post-meta">@wukn · Nov 12, 2016 · 6 min read</p>
+      <p class="post-meta">@wukn · Nov 12, 2016 · 4 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>&ldquo;KnockoutJS文档官网：<a href="http://knockoutjs.com/documentation/introduction.html&quot;">http://knockoutjs.com/documentation/introduction.html&quot;</a></p>
@@ -206,23 +206,21 @@
 <h3 id="注册自定义绑定">注册自定义绑定</h3>
 
 <p>向<code>ko.bindingHandles</code>添加一个子属性来注册一个绑定。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">yourBindingName</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">,</span> <span class="nx">allBindings</span><span class="p">,</span> <span class="nx">viewModel</span><span class="p">,</span> <span class="nx">bindingContext</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// This will be called when the binding is first applied to an element</span>
-        <span class="c1">// Set up any initial state, event handlers, etc. here</span>
-    <span class="p">},</span>
-    <span class="nx">update</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">,</span> <span class="nx">allBindings</span><span class="p">,</span> <span class="nx">viewModel</span><span class="p">,</span> <span class="nx">bindingContext</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// This will be called once when the binding is first applied to an element,</span>
-        <span class="c1">// and again whenever any observables/computeds that are accessed change</span>
-        <span class="c1">// Update the DOM element based on the supplied values here.</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">bindingHandlers</span><span class="s1388">.</span><span class="s7df">yourBindingName</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">init</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">allBindings</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">bindingContext</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// This will be called when the binding is first applied to an element
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s1770">// Set up any initial state, event handlers, etc. here
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1388">},</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">update</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">allBindings</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">bindingContext</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// This will be called once when the binding is first applied to an element,
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s1770">// and again whenever any observables/computeds that are accessed change
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s1770">// Update the DOM element based on the supplied values here.
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">};</span></code></pre>
+</div>
 <p>然后就可以向DOM元素使用它了。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;yourBindingName: someValue&quot;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;yourBindingName: someValue&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40"> </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <h3 id="回调函数">回调函数</h3>
 
 <p>创建自定义绑定时需要提供回调函数<code>init</code>和<code>update</code>，可以只提供其中一个。</p>
@@ -238,230 +236,214 @@
 * bindingContext：包含该元素的绑定可用的上下文的对象。（在v3版本之前，该参数是绑定的试图模型<code>viewModel</code>，现在可用<code>bindingContext.$data</code>或<code>bindingContext.$rawData</code>来代替。）</p>
 
 <p>例如，可以用<code>visible</code>绑定来控制元素的可见性，但希望在元素状态变化时添加动画。可以使用jQuery的<code>slideUp</code>/<code>slideDown</code>创建一个自定义绑定。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">slideVisible</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">update</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">,</span> <span class="nx">allBindings</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// First get the latest data that we&#39;re bound to</span>
-        <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">valueAccessor</span><span class="p">();</span>
-
-        <span class="c1">// Next, whether or not the supplied model property is observable, get its current value</span>
-        <span class="kd">var</span> <span class="nx">valueUnwrapped</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">unwrap</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
-
-        <span class="c1">// Grab some more data from another binding property</span>
-        <span class="kd">var</span> <span class="nx">duration</span> <span class="o">=</span> <span class="nx">allBindings</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;slideDuration&#39;</span><span class="p">)</span> <span class="o">||</span> <span class="mi">400</span><span class="p">;</span> <span class="c1">// 400ms is default duration unless otherwise specified</span>
-
-        <span class="c1">// Now manipulate the DOM element</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">valueUnwrapped</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span>
-            <span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">).</span><span class="nx">slideDown</span><span class="p">(</span><span class="nx">duration</span><span class="p">);</span> <span class="c1">// Make the element visible</span>
-        <span class="k">else</span>
-            <span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">).</span><span class="nx">slideUp</span><span class="p">(</span><span class="nx">duration</span><span class="p">);</span>   <span class="c1">// Make the element invisible</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;slideVisible: giftWrap, slideDuration:600&quot;</span><span class="p">&gt;</span>You have selected the option<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;checked: giftWrap&quot;</span> <span class="p">/&gt;</span> Gift wrap<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
-    <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="nx">giftWrap</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-    <span class="p">};</span>
-    <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span>
-<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">bindingHandlers</span><span class="s1388">.</span><span class="s7df">slideVisible</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">update</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">allBindings</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// First get the latest data that we&#39;re bound to
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">value</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// Next, whether or not the supplied model property is observable, get its current value
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">valueUnwrapped</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">unwrap</span><span class="s1388">(</span><span class="s7df">value</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// Grab some more data from another binding property
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">duration</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">allBindings</span><span class="s1388">.</span><span class="s7df">get</span><span class="s1388">(</span><span class="sc1c">&#39;slideDuration&#39;</span><span class="s1388">)</span><span class="s1f40"> </span><span class="sfa0">||</span><span class="s1f40"> </span><span class="sc80">400</span><span class="s1388">;</span><span class="s1f40"> </span><span class="s1770">// 400ms is default duration unless otherwise specified
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// Now manipulate the DOM element
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">valueUnwrapped</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">$</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">).</span><span class="s7df">slideDown</span><span class="s1388">(</span><span class="s7df">duration</span><span class="s1388">);</span><span class="s1f40"> </span><span class="s1770">// Make the element visible
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s3e8">else</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">$</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">).</span><span class="s7df">slideUp</span><span class="s1388">(</span><span class="s7df">duration</span><span class="s1388">);</span><span class="s1f40">   </span><span class="s1770">// Make the element invisible
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">};</span></code></pre>
+</div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;slideVisible: giftWrap, slideDuration:600&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">You have selected the option</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">label</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s7e2">input</span><span class="s1f40"> </span><span class="s7d1">type</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;checkbox&#34;</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;checked: giftWrap&#34;</span><span class="s1f40"> </span><span class="s1388">/</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40"> Gift wrap</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">label</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">script</span><span class="s1f40"> </span><span class="s7d1">type</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text/javascript&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">giftWrap</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observable</span><span class="s1388">(</span><span class="s3e8">true</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">applyBindings</span><span class="s1388">(</span><span class="s7df">viewModel</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">script</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <p>如果希望<code>slideVisible</code>在页面第一次加载时不使用动画，只是在用户改变模型状态时才出现动画，可以添加<code>init</code>方法:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">slideVisible</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">unwrap</span><span class="p">(</span><span class="nx">valueAccessor</span><span class="p">());</span> <span class="c1">// Get the current value of the current property we&#39;re bound to</span>
-        <span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">).</span><span class="nx">toggle</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span> <span class="c1">// jQuery will hide/show the element depending on whether &quot;value&quot; or true or false</span>
-    <span class="p">},</span>
-    <span class="nx">update</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">,</span> <span class="nx">allBindings</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Leave as before</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">bindingHandlers</span><span class="s1388">.</span><span class="s7df">slideVisible</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">init</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">value</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">unwrap</span><span class="s1388">(</span><span class="s7df">valueAccessor</span><span class="s1388">());</span><span class="s1f40"> </span><span class="s1770">// Get the current value of the current property we&#39;re bound to
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s7df">$</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">).</span><span class="s7df">toggle</span><span class="s1388">(</span><span class="s7df">value</span><span class="s1388">);</span><span class="s1f40"> </span><span class="s1770">// jQuery will hide/show the element depending on whether &#34;value&#34; or true or false
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1388">},</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">update</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">allBindings</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// Leave as before
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">};</span></code></pre>
+</div>
 <h3 id="dom变化后更新监控属性">DOM变化后更新监控属性</h3>
 
 <p>上面展示了如何使用<code>update</code>来根据监控属性变化更新DOM元素，那怎样在用户操作DOM元素之后更新关联的监控属性呢？
 可以在<code>init</code>中注册一些事件的回调函数来更新监控属性。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">hasFocus</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">).</span><span class="nx">focus</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">valueAccessor</span><span class="p">();</span>
-            <span class="nx">value</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
-        <span class="p">});</span>
-        <span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">).</span><span class="nx">blur</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">valueAccessor</span><span class="p">();</span>
-            <span class="nx">value</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span>
-        <span class="p">});</span>
-    <span class="p">},</span>
-    <span class="nx">update</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">valueAccessor</span><span class="p">();</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">ko</span><span class="p">.</span><span class="nx">unwrap</span><span class="p">(</span><span class="nx">value</span><span class="p">))</span>
-            <span class="nx">element</span><span class="p">.</span><span class="nx">focus</span><span class="p">();</span>
-        <span class="k">else</span>
-            <span class="nx">element</span><span class="p">.</span><span class="nx">blur</span><span class="p">();</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Name: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;hasFocus: editingName&quot;</span> <span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
-
-<span class="c">&lt;!-- Showing that we can both read and write the focus state --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;visible: editingName&quot;</span><span class="p">&gt;</span>You&#39;re editing the name<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;enable: !editingName(), click:function() { editingName(true) }&quot;</span><span class="p">&gt;</span>Edit name<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;text/javascript&quot;</span><span class="p">&gt;</span>
-    <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="nx">editingName</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">()</span>
-    <span class="p">};</span>
-    <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span>
-<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">bindingHandlers</span><span class="s1388">.</span><span class="s7df">hasFocus</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">init</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">$</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">).</span><span class="s7df">focus</span><span class="s1388">(</span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">value</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">value</span><span class="s1388">(</span><span class="s3e8">true</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">});</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">$</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">).</span><span class="s7df">blur</span><span class="s1388">(</span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">value</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">value</span><span class="s1388">(</span><span class="s3e8">false</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">});</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">},</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">update</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">value</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">unwrap</span><span class="s1388">(</span><span class="s7df">value</span><span class="s1388">))</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">element</span><span class="s1388">.</span><span class="s7df">focus</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">else</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">element</span><span class="s1388">.</span><span class="s7df">blur</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">};</span></code></pre>
+</div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">p</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Name: </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">input</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;hasFocus: editingName&#34;</span><span class="s1f40"> </span><span class="s1388">/</span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">p</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">&lt;!-- Showing that we can both read and write the focus state --&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;visible: editingName&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">You&#39;re editing the name</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">button</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;enable: !editingName(), click:function() { editingName(true) }&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Edit name</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">button</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">script</span><span class="s1f40"> </span><span class="s7d1">type</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text/javascript&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">editingName</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observable</span><span class="s1388">()</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">applyBindings</span><span class="s1388">(</span><span class="s7df">viewModel</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">script</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <h2 id="控制后代的自定义绑定">控制后代的自定义绑定</h2>
 
 <p>默认情况下，绑定只会作用于应用它的元素。如果希望作用于所有后代元素，只需在<code>init</code>中<code>return { controlsDescendantBindings: true }</code>。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">allowBindings</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Let bindings proceed as normal *only if* my value is false</span>
-        <span class="kd">var</span> <span class="nx">shouldAllowBindings</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">unwrap</span><span class="p">(</span><span class="nx">valueAccessor</span><span class="p">());</span>
-        <span class="k">return</span> <span class="p">{</span> <span class="nx">controlsDescendantBindings</span><span class="o">:</span> <span class="o">!</span><span class="nx">shouldAllowBindings</span> <span class="p">};</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;allowBindings: true&quot;</span><span class="p">&gt;</span>
-    <span class="c">&lt;!-- This will display Replacement, because bindings are applied --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: &#39;Replacement&#39;&quot;</span><span class="p">&gt;</span>Original<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;allowBindings: false&quot;</span><span class="p">&gt;</span>
-    <span class="c">&lt;!-- This will display Original, because bindings are not applied --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: &#39;Replacement&#39;&quot;</span><span class="p">&gt;</span>Original<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">bindingHandlers</span><span class="s1388">.</span><span class="s7df">allowBindings</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">init</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">elem</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// Let bindings proceed as normal *only if* my value is false
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">shouldAllowBindings</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">unwrap</span><span class="s1388">(</span><span class="s7df">valueAccessor</span><span class="s1388">());</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">controlsDescendantBindings</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sfa0">!</span><span class="s7df">shouldAllowBindings</span><span class="s1f40"> </span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">};</span></code></pre>
+</div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;allowBindings: true&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">&lt;!-- This will display Replacement, because bindings are applied --&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: &#39;Replacement&#39;&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Original</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;allowBindings: false&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">&lt;!-- This will display Original, because bindings are not applied --&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: &#39;Replacement&#39;&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Original</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <h3 id="向后代绑定传递额外参数">向后代绑定传递额外参数</h3>
 
 <p>通常使用<code>controlsDescendantBindings</code>的绑定也会调用<code>ko.applyBindingsToDescendants(someBindingContext, element)</code>，使后代绑定应用于一些修改的上下文。</p>
 
 <p>例如，自定义的绑定<code>withProperties</code>向绑定上下文附加一些额外的属性，以便在后代绑定中能访问。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">withProperties</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">,</span> <span class="nx">allBindings</span><span class="p">,</span> <span class="nx">viewModel</span><span class="p">,</span> <span class="nx">bindingContext</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Make a modified binding context, with a extra properties, and apply it to descendant elements</span>
-        <span class="kd">var</span> <span class="nx">innerBindingContext</span> <span class="o">=</span> <span class="nx">bindingContext</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">valueAccessor</span><span class="p">);</span>
-        <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindingsToDescendants</span><span class="p">(</span><span class="nx">innerBindingContext</span><span class="p">,</span> <span class="nx">element</span><span class="p">);</span>
-
-        <span class="c1">// Also tell KO *not* to bind the descendants itself, otherwise they will be bound twice</span>
-        <span class="k">return</span> <span class="p">{</span> <span class="nx">controlsDescendantBindings</span><span class="o">:</span> <span class="kc">true</span> <span class="p">};</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">bindingHandlers</span><span class="s1388">.</span><span class="s7df">withProperties</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">init</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">allBindings</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">bindingContext</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// Make a modified binding context, with a extra properties, and apply it to descendant elements
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">innerBindingContext</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">bindingContext</span><span class="s1388">.</span><span class="s7df">extend</span><span class="s1388">(</span><span class="s7df">valueAccessor</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">applyBindingsToDescendants</span><span class="s1388">(</span><span class="s7df">innerBindingContext</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">element</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// Also tell KO *not* to bind the descendants itself, otherwise they will be bound twice
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">controlsDescendantBindings</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="s1f40"> </span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">};</span></code></pre>
+</div>
 <p>可以看到，绑定上下文有个<code>extend</code>方法，返回一个复制的并带有额外属性的上下文。<code>extend</code>方法接受的参数要么是一个带有属性的对象，要么是能返回这样的对象的函数。建议使用函数作为参数，这样后续的绑定值变化也会更新到绑定上下文中，并且不影响当前的绑定上下文，也就是说不影响兄弟层级的元素，只会影响后代元素。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;withProperties: { emotion: &#39;happy&#39; }&quot;</span><span class="p">&gt;</span>
-    Today I feel <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: emotion&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>. <span class="c">&lt;!-- Displays: happy --&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;withProperties: { emotion: &#39;whimsical&#39; }&quot;</span><span class="p">&gt;</span>
-    Today I feel <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: emotion&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>. <span class="c">&lt;!-- Displays: whimsical --&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;withProperties: { emotion: &#39;happy&#39; }&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    Today I feel </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: emotion&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">. </span><span class="s1770">&lt;!-- Displays: happy --&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;withProperties: { emotion: &#39;whimsical&#39; }&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    Today I feel </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: emotion&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">. </span><span class="s1770">&lt;!-- Displays: whimsical --&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <h3 id="在绑定上下文中添加额外的层级">在绑定上下文中添加额外的层级</h3>
 
 <p><code>with</code>和<code>foreach</code>绑定会在绑定上下文中添加额外的层级。这意味着它们的后代能够使用<code>$parent</code>、<code>$parents</code>、<code>$root</code>或<code>$parentContext</code>来访问外层数据。</p>
 
 <p>如果在自定义绑定中实现该功能，除了使用<code>bindingContext.extend()</code>，还可以使用<code>bindingContext.createChildContext(someData)</code>。它会返回一个新上下文，该上下文的视图模型是<code>someData</code>，父上下文<code>$parentContext</code>是<code>bindingContext</code>。如果需要，还可以使用<code>ko.utils.extend</code>为该子上下文扩展额外的属性。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">withProperties</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">,</span> <span class="nx">allBindings</span><span class="p">,</span> <span class="nx">viewModel</span><span class="p">,</span> <span class="nx">bindingContext</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Make a modified binding context, with a extra properties, and apply it to descendant elements</span>
-        <span class="kd">var</span> <span class="nx">childBindingContext</span> <span class="o">=</span> <span class="nx">bindingContext</span><span class="p">.</span><span class="nx">createChildContext</span><span class="p">(</span>
-            <span class="nx">bindingContext</span><span class="p">.</span><span class="nx">$rawData</span><span class="p">,</span>
-            <span class="kc">null</span><span class="p">,</span> <span class="c1">// Optionally, pass a string here as an alias for the data item in descendant contexts</span>
-            <span class="kd">function</span><span class="p">(</span><span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">ko</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">context</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">());</span>
-            <span class="p">});</span>
-        <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindingsToDescendants</span><span class="p">(</span><span class="nx">childBindingContext</span><span class="p">,</span> <span class="nx">element</span><span class="p">);</span>
-
-        <span class="c1">// Also tell KO *not* to bind the descendants itself, otherwise they will be bound twice</span>
-        <span class="k">return</span> <span class="p">{</span> <span class="nx">controlsDescendantBindings</span><span class="o">:</span> <span class="kc">true</span> <span class="p">};</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">bindingHandlers</span><span class="s1388">.</span><span class="s7df">withProperties</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">init</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">allBindings</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">bindingContext</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// Make a modified binding context, with a extra properties, and apply it to descendant elements
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">childBindingContext</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">bindingContext</span><span class="s1388">.</span><span class="s7df">createChildContext</span><span class="s1388">(</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">bindingContext</span><span class="s1388">.</span><span class="s7df">$rawData</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s3e8">null</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1770">// Optionally, pass a string here as an alias for the data item in descendant contexts
+</span><span class="s1770"></span><span class="s1f40">            </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">context</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">                </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">utils</span><span class="s1388">.</span><span class="s7df">extend</span><span class="s1388">(</span><span class="s7df">context</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">());</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s1388">});</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">applyBindingsToDescendants</span><span class="s1388">(</span><span class="s7df">childBindingContext</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">element</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// Also tell KO *not* to bind the descendants itself, otherwise they will be bound twice
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">controlsDescendantBindings</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="s1f40"> </span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">};</span></code></pre>
+</div>
 <p>这样，<code>withProperties</code>绑定就可以嵌套使用了，并且每个嵌套层级可以通过<code>$parentContext</code>访问父层。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;withProperties: { displayMode: &#39;twoColumn&#39; }&quot;</span><span class="p">&gt;</span>
-    The outer display mode is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: displayMode&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>.
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;withProperties: { displayMode: &#39;doubleWidth&#39; }&quot;</span><span class="p">&gt;</span>
-        The inner display mode is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: displayMode&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>, but I haven&#39;t forgotten
-        that the outer display mode is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: $parentContext.displayMode&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>.
-    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;withProperties: { displayMode: &#39;twoColumn&#39; }&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    The outer display mode is </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: displayMode&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">.
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;withProperties: { displayMode: &#39;doubleWidth&#39; }&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">        The inner display mode is </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: displayMode&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">, but I haven&#39;t forgotten
+</span><span class="s1f40">        that the outer display mode is </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: $parentContext.displayMode&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">.
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <h2 id="支持虚拟元素的自定义绑定">支持虚拟元素的自定义绑定</h2>
 
 <p>使用<code>ko.virtualElements.allowedBindings</code>告诉ko自定义绑定能够识别虚拟元素。</p>
 
 <p>例如，创建一个对DOM节点随机排序的自定义绑定：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">randomOrder</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Pull out each of the child elements into an array</span>
-        <span class="kd">var</span> <span class="nx">childElems</span> <span class="o">=</span> <span class="p">[];</span>
-        <span class="k">while</span><span class="p">(</span><span class="nx">elem</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">)</span>
-            <span class="nx">childElems</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">elem</span><span class="p">.</span><span class="nx">removeChild</span><span class="p">(</span><span class="nx">elem</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">));</span>
-
-        <span class="c1">// Put them back in a random order</span>
-        <span class="k">while</span><span class="p">(</span><span class="nx">childElems</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">randomIndex</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">childElems</span><span class="p">.</span><span class="nx">length</span><span class="p">),</span>
-                <span class="nx">chosenChild</span> <span class="o">=</span> <span class="nx">childElems</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">randomIndex</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-            <span class="nx">elem</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">chosenChild</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">bindingHandlers</span><span class="s1388">.</span><span class="s7df">randomOrder</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">init</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">elem</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// Pull out each of the child elements into an array
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">childElems</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[];</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">while</span><span class="s1388">(</span><span class="s7df">elem</span><span class="s1388">.</span><span class="s7df">firstChild</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">childElems</span><span class="s1388">.</span><span class="s7df">push</span><span class="s1388">(</span><span class="s7df">elem</span><span class="s1388">.</span><span class="s7df">removeChild</span><span class="s1388">(</span><span class="s7df">elem</span><span class="s1388">.</span><span class="s7df">firstChild</span><span class="s1388">));</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// Put them back in a random order
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s3e8">while</span><span class="s1388">(</span><span class="s7df">childElems</span><span class="s1388">.</span><span class="s7df">length</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">randomIndex</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">Math</span><span class="s1388">.</span><span class="s7df">floor</span><span class="s1388">(</span><span class="s7d0">Math</span><span class="s1388">.</span><span class="s7df">random</span><span class="s1388">()</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s1f40"> </span><span class="s7df">childElems</span><span class="s1388">.</span><span class="s7df">length</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">                </span><span class="s7df">chosenChild</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">childElems</span><span class="s1388">.</span><span class="s7df">splice</span><span class="s1388">(</span><span class="s7df">randomIndex</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">elem</span><span class="s1388">.</span><span class="s7df">appendChild</span><span class="s1388">(</span><span class="s7df">chosenChild</span><span class="s1388">[</span><span class="sc80">0</span><span class="s1388">]);</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">};</span></code></pre>
+</div>
 <p>这对普通DOM元素是可用的：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;randomOrder: true&quot;</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>First<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Second<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Third<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;randomOrder: true&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">First</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Second</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Third</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <p>但是对虚拟元素却不起作用，会报错“The binding &lsquo;randomOrder&rsquo; cannot be used with virtual elements”：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- ko randomOrder: true --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>First<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Second<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Third<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="c">&lt;!-- /ko --&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1770">&lt;!-- ko randomOrder: true --&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">First</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Second</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Third</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">&lt;!-- /ko --&gt;</span></code></pre>
+</div>
 <p>要想<code>randomOrder</code>支持虚拟元素，需要配置ko：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">virtualElements</span><span class="p">.</span><span class="nx">allowedBindings</span><span class="p">.</span><span class="nx">randomOrder</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">virtualElements</span><span class="s1388">.</span><span class="s7df">allowedBindings</span><span class="s1388">.</span><span class="s7df">randomOrder</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="s1388">;</span></code></pre>
+</div>
 <p>这样就不会报错了，但仍然不起作用，因为绑定中调用的是普通DOM的API，不识别虚拟元素。这就是为什么ko要求显式地声明支持虚拟元素。使用虚拟元素API更新自定义绑定：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">randomOrder</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// Build an array of child elements</span>
-        <span class="kd">var</span> <span class="nx">child</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">virtualElements</span><span class="p">.</span><span class="nx">firstChild</span><span class="p">(</span><span class="nx">elem</span><span class="p">),</span>
-            <span class="nx">childElems</span> <span class="o">=</span> <span class="p">[];</span>
-        <span class="k">while</span> <span class="p">(</span><span class="nx">child</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">childElems</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">child</span><span class="p">);</span>
-            <span class="nx">child</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">virtualElements</span><span class="p">.</span><span class="nx">nextSibling</span><span class="p">(</span><span class="nx">child</span><span class="p">);</span>
-        <span class="p">}</span>
-
-        <span class="c1">// Remove them all, then put them back in a random order</span>
-        <span class="nx">ko</span><span class="p">.</span><span class="nx">virtualElements</span><span class="p">.</span><span class="nx">emptyNode</span><span class="p">(</span><span class="nx">elem</span><span class="p">);</span>
-        <span class="k">while</span><span class="p">(</span><span class="nx">childElems</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
-            <span class="kd">var</span> <span class="nx">randomIndex</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">floor</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">()</span> <span class="o">*</span> <span class="nx">childElems</span><span class="p">.</span><span class="nx">length</span><span class="p">),</span>
-                <span class="nx">chosenChild</span> <span class="o">=</span> <span class="nx">childElems</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">randomIndex</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-            <span class="nx">ko</span><span class="p">.</span><span class="nx">virtualElements</span><span class="p">.</span><span class="nx">prepend</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span> <span class="nx">chosenChild</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">bindingHandlers</span><span class="s1388">.</span><span class="s7df">randomOrder</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">init</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">elem</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// Build an array of child elements
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">child</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">virtualElements</span><span class="s1388">.</span><span class="s7df">firstChild</span><span class="s1388">(</span><span class="s7df">elem</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">childElems</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[];</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">while</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">child</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">childElems</span><span class="s1388">.</span><span class="s7df">push</span><span class="s1388">(</span><span class="s7df">child</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">child</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">virtualElements</span><span class="s1388">.</span><span class="s7df">nextSibling</span><span class="s1388">(</span><span class="s7df">child</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1770">// Remove them all, then put them back in a random order
+</span><span class="s1770"></span><span class="s1f40">        </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">virtualElements</span><span class="s1388">.</span><span class="s7df">emptyNode</span><span class="s1388">(</span><span class="s7df">elem</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">while</span><span class="s1388">(</span><span class="s7df">childElems</span><span class="s1388">.</span><span class="s7df">length</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">randomIndex</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">Math</span><span class="s1388">.</span><span class="s7df">floor</span><span class="s1388">(</span><span class="s7d0">Math</span><span class="s1388">.</span><span class="s7df">random</span><span class="s1388">()</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s1f40"> </span><span class="s7df">childElems</span><span class="s1388">.</span><span class="s7df">length</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">                </span><span class="s7df">chosenChild</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">childElems</span><span class="s1388">.</span><span class="s7df">splice</span><span class="s1388">(</span><span class="s7df">randomIndex</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">virtualElements</span><span class="s1388">.</span><span class="s7df">prepend</span><span class="s1388">(</span><span class="s7df">elem</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">chosenChild</span><span class="s1388">[</span><span class="sc80">0</span><span class="s1388">]);</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">};</span></code></pre>
+</div>
 <p>现在该绑定对普通DOM元素和虚拟元素都支持了，因为<code>ko.virtualElements</code>的API是兼容普通DOM元素的。</p>
 
 <h3 id="虚拟元素api">虚拟元素API</h3>
@@ -512,31 +494,29 @@
 <h3 id="为元素的释放注册回调函数">为元素的释放注册回调函数</h3>
 
 <p>调用<code>ko.utils.domNodeDisposal.addDisposeCallback(node, callback)</code>来注册节点被删除的回调函数。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">myWidget</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">options</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">unwrap</span><span class="p">(</span><span class="nx">valueAccessor</span><span class="p">()),</span>
-            <span class="nx">$el</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">);</span>
-
-        <span class="nx">$el</span><span class="p">.</span><span class="nx">myWidget</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
-
-        <span class="nx">ko</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">domNodeDisposal</span><span class="p">.</span><span class="nx">addDisposeCallback</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-            <span class="c1">// This will be called when the element is removed by Knockout or</span>
-            <span class="c1">// if some other part of your code calls ko.removeNode(element)</span>
-            <span class="nx">$el</span><span class="p">.</span><span class="nx">myWidget</span><span class="p">(</span><span class="s2">&quot;destroy&quot;</span><span class="p">);</span>
-        <span class="p">});</span>
-    <span class="p">}</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">bindingHandlers</span><span class="s1388">.</span><span class="s7df">myWidget</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">init</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">valueAccessor</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">options</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">unwrap</span><span class="s1388">(</span><span class="s7df">valueAccessor</span><span class="s1388">()),</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">$el</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">$</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">$el</span><span class="s1388">.</span><span class="s7df">myWidget</span><span class="s1388">(</span><span class="s7df">options</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">utils</span><span class="s1388">.</span><span class="s7df">domNodeDisposal</span><span class="s1388">.</span><span class="s7df">addDisposeCallback</span><span class="s1388">(</span><span class="s7df">element</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s1770">// This will be called when the element is removed by Knockout or
+</span><span class="s1770"></span><span class="s1f40">            </span><span class="s1770">// if some other part of your code calls ko.removeNode(element)
+</span><span class="s1770"></span><span class="s1f40">            </span><span class="s7df">$el</span><span class="s1388">.</span><span class="s7df">myWidget</span><span class="s1388">(</span><span class="sc1c">&#34;destroy&#34;</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">});</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">};</span></code></pre>
+</div>
 <h3 id="覆盖外部数据的清除逻辑">覆盖外部数据的清除逻辑</h3>
 
 <p>当ko移除元素时会执行清除逻辑来清除该元素关联的任何数据。在清除逻辑中，如果jQuery可用，那么是通过调用jQuery的<code>cleanData</code>方法。在一些高级的应用场景中，可能希望阻止或自定义数据移除的方式。可以通过覆盖<code>ko.utils.domNodeDisposal.cleanExternalData(node)</code>支持自定义逻辑。例如，要阻止调用<code>cleanData</code>，可以用一个空函数来替代标准的<code>cleanExternalData</code>实现。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">domNodeDisposal</span><span class="p">.</span><span class="nx">cleanExternalData</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// Do nothing. Now any jQuery data associated with elements will</span>
-    <span class="c1">// not be cleaned up when the elements are removed from the DOM.</span>
-<span class="p">};</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">utils</span><span class="s1388">.</span><span class="s7df">domNodeDisposal</span><span class="s1388">.</span><span class="s7df">cleanExternalData</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1f40"> </span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">// Do nothing. Now any jQuery data associated with elements will
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1770">// not be cleaned up when the elements are removed from the DOM.
+</span><span class="s1770"></span><span class="s1388">};</span></code></pre>
+</div>
 <p>###使用预处理（preprocessing）扩展ko的绑定语法</p>
 
 <p>从ko V3.0版本开始，ko支持通过添加一个可以在绑定过程中重写DOM节点并绑定字符串的回调函数来定义一个自定义语法。</p>
@@ -546,35 +526,30 @@
 <p>可以为某个绑定处理器（click、visible或自定义绑定）提供一个绑定预处理器（binding preprocessor）来链接到ko的<code>data-bind</code>解释逻辑中。</p>
 
 <p>通过对绑定处理器添加<code>preprocess</code>函数。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">yourBindingHandler</span><span class="p">.</span><span class="nx">preprocess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">stringFromMarkup</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Return stringFromMarkup if you don&#39;t want to change anything, or return</span>
-    <span class="c1">// some other string if you want Knockout to behave as if that was the</span>
-    <span class="c1">// syntax provided in the original HTML</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">bindingHandlers</span><span class="s1388">.</span><span class="s7df">yourBindingHandler</span><span class="s1388">.</span><span class="s7df">preprocess</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">stringFromMarkup</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">// Return stringFromMarkup if you don&#39;t want to change anything, or return
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1770">// some other string if you want Knockout to behave as if that was the
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1770">// syntax provided in the original HTML
+</span><span class="s1770"></span><span class="s1388">}</span></code></pre>
+</div>
 <h3 id="例1-为绑定设置默认值">例1：为绑定设置默认值</h3>
 
 <p>如果绑定是没有指定value，会默认为<code>undefined</code>。可以使用预处理器使绑定有个初始值。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">uniqueName</span><span class="p">.</span><span class="nx">preprocess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">val</span> <span class="o">||</span> <span class="s1">&#39;true&#39;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">bindingHandlers</span><span class="s1388">.</span><span class="s7df">uniqueName</span><span class="s1388">.</span><span class="s7df">preprocess</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">val</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7df">val</span><span class="s1f40"> </span><span class="sfa0">||</span><span class="s1f40"> </span><span class="sc1c">&#39;true&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p><code>uniqueName</code>将允许绑定时不指定value，而默认为<code>true</code>。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;value: someModelProperty, uniqueName&quot;</span> <span class="p">/&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">input</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;value: someModelProperty, uniqueName&#34;</span><span class="s1f40"> </span><span class="s1388">/</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <h3 id="例2-为事件绑定表达式">例2：为事件绑定表达式</h3>
 
 <p>如果希望为<code>click</code>事件绑定表达式（而不是ko期望的函数引用），可以使用预处理器。</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span>ko.bindingHandlers.click.preprocess = function(val) {
-    return &#39;function($data,$event){ &#39; + val + &#39; }&#39;;
-}
-</code></pre></div>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&quot;button&quot;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;click: myCount(myCount()+1)&quot;</span><span class="p">&gt;</span>Increment<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1f40">ko.bindingHandlers.click.preprocess = function(val) {
+</span><span class="s1f40">    return &#39;function($data,$event){ &#39; + val + &#39; }&#39;;
+</span><span class="s1f40">}</span></code></pre>
+</div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">button</span><span class="s1f40"> </span><span class="s7d1">type</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;button&#34;</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;click: myCount(myCount()+1)&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Increment</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">button</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <h3 id="绑定预处理器">绑定预处理器</h3>
 
 <p>ko.bindingHandlers.<name>.preprocess(value, name, addBindingCallback)</p>
@@ -592,43 +567,40 @@
 
 <p>可以提供一个节点预处理器（node preprocessor）来链接到ko的DOM处理中。ko会在遍历每个DOM节点时调用该函数一次，包括初次绑定UI，和后续的任意DOM子树被注入时。
 通过向<code>bindingProvider</code>提供一个<code>preprocessNode</code>：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingProvider</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">preprocessNode</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Use DOM APIs such as setAttribute to modify &#39;node&#39; if you wish.</span>
-    <span class="c1">// If you want to leave &#39;node&#39; in the DOM, return null or have no &#39;return&#39; statement.</span>
-    <span class="c1">// If you want to replace &#39;node&#39; with some other set of nodes,</span>
-    <span class="c1">//    - Use DOM APIs such as insertChild to inject the new nodes</span>
-    <span class="c1">//      immediately before &#39;node&#39;</span>
-    <span class="c1">//    - Use DOM APIs such as removeChild to remove &#39;node&#39; if required</span>
-    <span class="c1">//    - Return an array of any new nodes that you&#39;ve just inserted</span>
-    <span class="c1">//      so that Knockout can apply any bindings to them</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">bindingProvider</span><span class="s1388">.</span><span class="s7df">instance</span><span class="s1388">.</span><span class="s7df">preprocessNode</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">node</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">// Use DOM APIs such as setAttribute to modify &#39;node&#39; if you wish.
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1770">// If you want to leave &#39;node&#39; in the DOM, return null or have no &#39;return&#39; statement.
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1770">// If you want to replace &#39;node&#39; with some other set of nodes,
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1770">//    - Use DOM APIs such as insertChild to inject the new nodes
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1770">//      immediately before &#39;node&#39;
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1770">//    - Use DOM APIs such as removeChild to remove &#39;node&#39; if required
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1770">//    - Return an array of any new nodes that you&#39;ve just inserted
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1770">//      so that Knockout can apply any bindings to them
+</span><span class="s1770"></span><span class="s1388">}</span></code></pre>
+</div>
 <h3 id="例3-虚拟模板元素">例3：虚拟模板元素</h3>
 
 <p>用常规的语法在虚拟元素上使用模板时比较复杂。通过使用预处理，可以添加一个使用单注解的模板格式：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingProvider</span><span class="p">.</span><span class="nx">instance</span><span class="p">.</span><span class="nx">preprocessNode</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Only react if this is a comment node of the form &lt;!-- template: ... --&gt;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">nodeType</span> <span class="o">==</span> <span class="mi">8</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">var</span> <span class="nx">match</span> <span class="o">=</span> <span class="nx">node</span><span class="p">.</span><span class="nx">nodeValue</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^\s*(template\s*:[\s\S]+)/</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
-            <span class="c1">// Create a pair of comments to replace the single comment</span>
-            <span class="kd">var</span> <span class="nx">c1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createComment</span><span class="p">(</span><span class="s2">&quot;ko &quot;</span> <span class="o">+</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
-                <span class="nx">c2</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createComment</span><span class="p">(</span><span class="s2">&quot;/ko&quot;</span><span class="p">);</span>
-            <span class="nx">node</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">insertBefore</span><span class="p">(</span><span class="nx">c1</span><span class="p">,</span> <span class="nx">node</span><span class="p">);</span>
-            <span class="nx">node</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">.</span><span class="nx">replaceChild</span><span class="p">(</span><span class="nx">c2</span><span class="p">,</span> <span class="nx">node</span><span class="p">);</span>
-
-            <span class="c1">// Tell Knockout about the new nodes so that it can apply bindings to them</span>
-            <span class="k">return</span> <span class="p">[</span><span class="nx">c1</span><span class="p">,</span> <span class="nx">c2</span><span class="p">];</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">bindingProvider</span><span class="s1388">.</span><span class="s7df">instance</span><span class="s1388">.</span><span class="s7df">preprocessNode</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">node</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">// Only react if this is a comment node of the form &lt;!-- template: ... --&gt;
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">node</span><span class="s1388">.</span><span class="s7df">nodeType</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s1f40"> </span><span class="sc80">8</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">match</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">node</span><span class="s1388">.</span><span class="s7df">nodeValue</span><span class="s1388">.</span><span class="s7df">match</span><span class="s1388">(</span><span class="sc1c">/^\s*(template\s*:[\s\S]+)/</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">match</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s1770">// Create a pair of comments to replace the single comment
+</span><span class="s1770"></span><span class="s1f40">            </span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">c1</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">document</span><span class="s1388">.</span><span class="s7df">createComment</span><span class="s1388">(</span><span class="sc1c">&#34;ko &#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7df">match</span><span class="s1388">[</span><span class="sc80">1</span><span class="s1388">]),</span><span class="s1f40">
+</span><span class="s1f40">                </span><span class="s7df">c2</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">document</span><span class="s1388">.</span><span class="s7df">createComment</span><span class="s1388">(</span><span class="sc1c">&#34;/ko&#34;</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">node</span><span class="s1388">.</span><span class="s7df">parentNode</span><span class="s1388">.</span><span class="s7df">insertBefore</span><span class="s1388">(</span><span class="s7df">c1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">node</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s7df">node</span><span class="s1388">.</span><span class="s7df">parentNode</span><span class="s1388">.</span><span class="s7df">replaceChild</span><span class="s1388">(</span><span class="s7df">c2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">node</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">            </span><span class="s1770">// Tell Knockout about the new nodes so that it can apply bindings to them
+</span><span class="s1770"></span><span class="s1f40">            </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s7df">c1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">c2</span><span class="s1388">];</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>然后可以在视图中这样使用模板：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="c">&lt;!-- template: &#39;some-template&#39; --&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1770">&lt;!-- template: &#39;some-template&#39; --&gt;</span></code></pre>
+</div>
 <h2 id="ko-bindingprovider-instance-preprocessnode-node">ko.bindingProvider.instance.preprocessNode(node)</h2>
 
 <p>在绑定处理前每个DOM节点都会调用该函数。它可以修改、移除或替换节点<code>node</code>。任何新节点回被立刻插入到<code>node</code>之前，并且如果有节点被添加或<code>node</code>被移除，该函数必须返回html文档中<code>node</code>位置的新的节点数组。</p>
@@ -647,7 +619,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>323</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>330</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

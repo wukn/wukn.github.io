@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/30/angular2-architecture-overview/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][Angular2] Architecture Overview</h1>
-      <p class="post-meta">@wukn · Nov 30, 2016 · 2 min read</p>
+      <p class="post-meta">@wukn · Nov 30, 2016 · 1 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>Angular是一个使用HTML和JavaScript或能编译成JavaScript的TypeScript等编写客户端应用的框架。</p>
@@ -241,42 +241,38 @@
 </ul>
 
 <p>一个简单的根模块：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.ts</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
-<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
-  <span class="nx">imports</span><span class="o">:</span>      <span class="p">[</span> <span class="nx">BrowserModule</span> <span class="p">],</span>
-  <span class="nx">providers</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">Logger</span> <span class="p">],</span>
-  <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">],</span>
-  <span class="nx">exports</span><span class="o">:</span>      <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">],</span>
-  <span class="nx">bootstrap</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
-<span class="p">})</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/app.module.ts
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">NgModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">      </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">BrowserModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/platform-browser&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">NgModule</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">imports</span><span class="sfa0">:</span><span class="s1f40">      </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">BrowserModule</span><span class="s1f40"> </span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">providers</span><span class="sfa0">:</span><span class="s1f40">    </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">Logger</span><span class="s1f40"> </span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">declarations</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">exports</span><span class="sfa0">:</span><span class="s1f40">      </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">bootstrap</span><span class="sfa0">:</span><span class="s1f40">    </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppModule</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s1388">}</span></code></pre>
+</div>
 <p>PS：这里只是为了展示export的用法，其实不需要export AppComponent。一个根模块不需要export任何东西，因为没有其它模块会import根模块。</p>
 
 <p>通过引导根模块来启动应用。例如在<code>main.ts</code>文件中引导<code>AppModule</code>：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/main.ts</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">platformBrowserDynamic</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser-dynamic&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./app.module&#39;</span><span class="p">;</span>
-
-<span class="nx">platformBrowserDynamic</span><span class="p">().</span><span class="nx">bootstrapModule</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/main.ts
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">platformBrowserDynamic</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/platform-browser-dynamic&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">AppModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./app.module&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">platformBrowserDynamic</span><span class="s1388">().</span><span class="s7df">bootstrapModule</span><span class="s1388">(</span><span class="s7df">AppModule</span><span class="s1388">);</span></code></pre>
+</div>
 <h4 id="angular模块-vs-javascript模块">Angular模块 vs. JavaScript模块</h4>
 
 <p>Angular模块是带有<code>@NgModule</code>装饰器的类，它是Angular的一个特性。</p>
 
 <p>JavaScript也有它自己的模块系统。在JavaScript中，每一个文件就是一个模块，所有在该文件内定义的对象都属于该模块。使用关键字export将模块中的对象声明为public类型。使用import来访问其它模块的public类型的对象。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>     <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">NgModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">     </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./app.component&#39;</span><span class="s1388">;</span></code></pre>
+</div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppModule</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s1388">}</span></code></pre>
+</div>
 <h4 id="angluar-libraries">Angluar Libraries</h4>
 
 <p><img src="https://wukn.github.io/img/post/angular2/architecture/library-module.png" alt="" /></p>
@@ -284,17 +280,14 @@
 <p>Angular内置了很多JavaScript模块，它们的名字以<code>@angular</code>开头。可以使用npm包管理器来安装他们，然后用JavaScript的<code>import</code>语句导入他们。</p>
 
 <p>例如，从<code>@angular/core</code>中引入Angularde<code>Component</code>装饰器：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Component</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span></code></pre>
+</div>
 <p>还有，使用JavaScript的import语句从Angular库中引入Angular模块：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">BrowserModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/platform-browser&#39;</span><span class="s1388">;</span></code></pre>
+</div>
 <p>这是之前根模块的简单例子，该模块需要调用<code>BrowserModule</code>，在它的<code>@NgModule</code>元数据的<code>imports</code>属性中添加：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">imports</span><span class="o">:</span>      <span class="p">[</span> <span class="nx">BrowserModule</span> <span class="p">],</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">imports</span><span class="sfa0">:</span><span class="s1f40">      </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">BrowserModule</span><span class="s1f40"> </span><span class="s1388">],</span></code></pre>
+</div>
 <p>这种方式是将Angular模块和JavaScript模块系统结合起来使用的。</p>
 
 <h3 id="组件-component">组件（Component）</h3>
@@ -302,22 +295,21 @@
 <p>组件控制屏幕以部分区域的显示，这个屏幕显示区域被称为视图。</p>
 
 <p>我们在组件类中定义组件的业务逻辑，描述它如何与视图交互。例如，<code>HeroListComponent</code>有个属性<code>heroes</code>，这个属性返回的值是从一个服务获取的heroes数组。<code>HeroListComponent</code>还有一个方法<code>selectHero()</code>在用户点击列表中的一个<code>hero</code>之后设置<code>selectedHero</code>属性。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-list.component.ts (class)</span>
-
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroListComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
-  <span class="nx">heroes</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">[];</span>
-  <span class="nx">selectedHero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">;</span>
-
-  <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">service</span><span class="o">:</span> <span class="nx">HeroService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
-
-  <span class="nx">ngOnInit</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">service</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">();</span>
-  <span class="p">}</span>
-
-  <span class="nx">selectHero</span><span class="p">(</span><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero-list.component.ts (class)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">HeroListComponent</span><span class="s1f40"> </span><span class="s3e8">implements</span><span class="s1f40"> </span><span class="s7df">OnInit</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">heroes</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">[];</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">selectedHero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">constructor</span><span class="s1388">(</span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">service</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">HeroService</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">ngOnInit</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroes</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">service</span><span class="s1388">.</span><span class="s7df">getHeroes</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">selectHero</span><span class="s1388">(</span><span class="s7df">hero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">selectedHero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">hero</span><span class="s1388">;</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>Angular会根据用户的操作创建、更新以及销毁组件。可以使用生命周期钩子（lifecycle hook）看看组件的每个生命周期阶段。</p>
 
 <h3 id="模板-template">模板（Template）</h3>
@@ -325,18 +317,17 @@
 <p>创建组件的同时会创建组件的视图，也就是模板。模板是一个HTML表单，用来告诉Angular如何渲染组件。</p>
 
 <p>模板看起来根标准的HTML有些相似，但是也有些区别。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-list.component.html</span>
-
-<span class="o">&lt;</span><span class="nx">h2</span><span class="o">&gt;</span><span class="nx">Hero</span> <span class="nx">List</span><span class="o">&lt;</span><span class="err">/h2&gt;</span>
-<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">Pick</span> <span class="nx">a</span> <span class="nx">hero</span> <span class="nx">from</span> <span class="nx">the</span> <span class="nx">list</span><span class="o">&lt;</span><span class="err">/i&gt;&lt;/p&gt;</span>
-<span class="o">&lt;</span><span class="nx">ul</span><span class="o">&gt;</span>
-  <span class="o">&lt;</span><span class="nx">li</span> <span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">&quot;let hero of heroes&quot;</span> <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">&quot;selectHero(hero)&quot;</span><span class="o">&gt;</span>
-    <span class="p">{{</span><span class="nx">hero</span><span class="p">.</span><span class="nx">name</span><span class="p">}}</span>
-  <span class="o">&lt;</span><span class="err">/li&gt;</span>
-<span class="o">&lt;</span><span class="err">/ul&gt;</span>
-<span class="o">&lt;</span><span class="nx">hero</span><span class="o">-</span><span class="nx">detail</span> <span class="o">*</span><span class="nx">ngIf</span><span class="o">=</span><span class="s2">&quot;selectedHero&quot;</span> <span class="p">[</span><span class="nx">hero</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;selectedHero&quot;</span><span class="o">&gt;&lt;</span><span class="err">/hero-detail&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero-list.component.html
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s7df">h2</span><span class="sfa0">&gt;</span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="s7df">List</span><span class="sfa0">&lt;</span><span class="s1f40"></span><span class="ss4">/h2&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s7df">p</span><span class="sfa0">&gt;&lt;</span><span class="s7df">i</span><span class="sfa0">&gt;</span><span class="s7df">Pick</span><span class="s1f40"> </span><span class="s7df">a</span><span class="s1f40"> </span><span class="s7df">hero</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="s7df">the</span><span class="s1f40"> </span><span class="s7df">list</span><span class="sfa0">&lt;</span><span class="s1f40"></span><span class="ss4">/i&gt;&lt;/p&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s7df">ul</span><span class="sfa0">&gt;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="sfa0">&lt;</span><span class="s7df">li</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s7df">ngFor</span><span class="sfa0">=</span><span class="sc1c">&#34;let hero of heroes&#34;</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">click</span><span class="s1388">)</span><span class="sfa0">=</span><span class="sc1c">&#34;selectHero(hero)&#34;</span><span class="sfa0">&gt;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1388">{{</span><span class="s7df">hero</span><span class="s1388">.</span><span class="s7df">name</span><span class="s1388">}}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="sfa0">&lt;</span><span class="s1f40"></span><span class="ss4">/li&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s1f40"></span><span class="ss4">/ul&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s7df">hero</span><span class="sfa0">-</span><span class="s7df">detail</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s7df">ngIf</span><span class="sfa0">=</span><span class="sc1c">&#34;selectedHero&#34;</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s7df">hero</span><span class="s1388">]</span><span class="sfa0">=</span><span class="sc1c">&#34;selectedHero&#34;</span><span class="sfa0">&gt;&lt;</span><span class="s1f40"></span><span class="ss4">/hero-detail&gt;</span></code></pre>
+</div>
 <p>代码中的<code>*ngFor</code>、<code>{{hero.name}}</code>、<code>(click)</code>、<code>[hero]</code>和<code>&lt;hero-detail&gt;</code>这些都是Angular的<a href="https://angular.io/docs/ts/latest/guide/template-syntax.html">模板语法</a>。</p>
 
 <p>最后一行的<code>&lt;hero-detail&gt;</code>标签是一个自定义元素，代表一个组件<code>HeroDetailComponent</code>。</p>
@@ -354,17 +345,16 @@
 <p>为了告诉Angular <code>HeroListComponent</code>是一个组件，我们需要给类附加一些元数据。</p>
 
 <p>在TypeScript中，我们可以使用装饰器来附加元数据。例如：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
-  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
-  <span class="nx">selector</span><span class="o">:</span>    <span class="s1">&#39;hero-list&#39;</span><span class="p">,</span>
-  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;hero-list.component.html&#39;</span><span class="p">,</span>
-  <span class="nx">providers</span><span class="o">:</span>  <span class="p">[</span> <span class="nx">HeroService</span> <span class="p">]</span>
-<span class="p">})</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroListComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
-<span class="cm">/* . . . */</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">moduleId</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">module</span><span class="s1388">.</span><span class="s7df">id</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40">    </span><span class="sc1c">&#39;hero-list&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">templateUrl</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;hero-list.component.html&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">providers</span><span class="sfa0">:</span><span class="s1f40">  </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">HeroService</span><span class="s1f40"> </span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">HeroListComponent</span><span class="s1f40"> </span><span class="s3e8">implements</span><span class="s1f40"> </span><span class="s7df">OnInit</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">/* . . . */</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>装饰器<code>@Component</code>标识这个类是一个组件类。</p>
 
 <p>装饰器<code>@Component</code>接受一个配置对象作为参数，Angular根据这个参数来创建和展示这个组件和它的视图。</p>
@@ -389,13 +379,12 @@
 <p><img src="https://wukn.github.io/img/post/angular2/architecture/data-binding.png" alt="" /></p>
 
 <p>例如，<code>HeroListComponent</code>的模板包括三个元素：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-list.component.html (binding)</span>
-
-<span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">hero</span><span class="p">.</span><span class="nx">name</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
-<span class="o">&lt;</span><span class="nx">hero</span><span class="o">-</span><span class="nx">detail</span> <span class="p">[</span><span class="nx">hero</span><span class="p">]</span><span class="o">=</span><span class="s2">&quot;selectedHero&quot;</span><span class="o">&gt;&lt;</span><span class="err">/hero-detail&gt;</span>
-<span class="o">&lt;</span><span class="nx">li</span> <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">&quot;selectHero(hero)&quot;</span><span class="o">&gt;&lt;</span><span class="err">/li&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero-list.component.html (binding)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s7df">li</span><span class="sfa0">&gt;</span><span class="s1388">{{</span><span class="s7df">hero</span><span class="s1388">.</span><span class="s7df">name</span><span class="s1388">}}</span><span class="sfa0">&lt;</span><span class="s1f40"></span><span class="ss4">/li&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s7df">hero</span><span class="sfa0">-</span><span class="s7df">detail</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s7df">hero</span><span class="s1388">]</span><span class="sfa0">=</span><span class="sc1c">&#34;selectedHero&#34;</span><span class="sfa0">&gt;&lt;</span><span class="s1f40"></span><span class="ss4">/hero-detail&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s7df">li</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">click</span><span class="s1388">)</span><span class="sfa0">=</span><span class="sc1c">&#34;selectHero(hero)&#34;</span><span class="sfa0">&gt;&lt;</span><span class="s1f40"></span><span class="ss4">/li&gt;</span></code></pre>
+</div>
 <p><code>{{hero.name}}</code>插值表达式，将组件的<code>hero.name</code>属性值显示在<code>&lt;li&gt;</code>标签内。</p>
 
 <p><code>[hero]</code>属性绑定，将父组件<code>HeroListComponent</code>的<code>selectedHero</code>赋给子组件<code>HeroDetailComponent</code>的<code>hero</code>属性。</p>
@@ -403,11 +392,10 @@
 <p><code>(click)</code>事件绑定，当用户点击时调用组件的<code>selectHero</code>方法。</p>
 
 <p>还有一种方式为双向数据绑定，使用<code>ngModel</code>指令，将属性绑定和事件绑定合并到一个记号中。例如：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-detail.component.html (ngModel)</span>
-
-<span class="o">&lt;</span><span class="nx">input</span> <span class="p">[(</span><span class="nx">ngModel</span><span class="p">)]</span><span class="o">=</span><span class="s2">&quot;hero.name&quot;</span><span class="o">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero-detail.component.html (ngModel)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s7df">input</span><span class="s1f40"> </span><span class="s1388">[(</span><span class="s7df">ngModel</span><span class="s1388">)]</span><span class="sfa0">=</span><span class="sc1c">&#34;hero.name&#34;</span><span class="sfa0">&gt;</span></code></pre>
+</div>
 <p>Angular会在每个JavaScript事件循环中处理所有的数据绑定，从组件树的根开始遍历所有组件。</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/architecture/parent-child-binding.png" alt="" /></p>
@@ -425,57 +413,53 @@
 <p>另外两种指令是结构指令（structural directive）和属性指令（attribute directive）。它们通常作为元素标签的属性出现，有时是元素名称，但大部分情况下是绑定的目标对象。</p>
 
 <p><strong>结构指令</strong> 通过添加、删除和替换DOM中的元素来修改页面内容。例如：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-list.component.html (structural)</span>
-
-<span class="o">&lt;</span><span class="nx">li</span> <span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">&quot;let hero of heroes&quot;</span><span class="o">&gt;&lt;</span><span class="err">/li&gt;</span>
-<span class="o">&lt;</span><span class="nx">hero</span><span class="o">-</span><span class="nx">detail</span> <span class="o">*</span><span class="nx">ngIf</span><span class="o">=</span><span class="s2">&quot;selectedHero&quot;</span><span class="o">&gt;&lt;</span><span class="err">/hero-detail&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero-list.component.html (structural)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s7df">li</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s7df">ngFor</span><span class="sfa0">=</span><span class="sc1c">&#34;let hero of heroes&#34;</span><span class="sfa0">&gt;&lt;</span><span class="s1f40"></span><span class="ss4">/li&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s7df">hero</span><span class="sfa0">-</span><span class="s7df">detail</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s7df">ngIf</span><span class="sfa0">=</span><span class="sc1c">&#34;selectedHero&#34;</span><span class="sfa0">&gt;&lt;</span><span class="s1f40"></span><span class="ss4">/hero-detail&gt;</span></code></pre>
+</div>
 <p>× <code>*ngFor</code>告诉Angular为<code>heroes</code>列表中的每一个<code>hero</code>创建一个<code>&lt;li&gt;</code>标签。
 * <code>*ngIf</code>当组件的selectedHero存在时显示一个<code>HeroDetail</code>组件</p>
 
 <p><strong>属性指令</strong> 用于改变一个已经存在的元素的外观或行为。在模板中它们看起来就像是标准的HTML属性，包括名称也是。</p>
 
 <p>用于双向数据绑定的<code>ngModel</code>就是一个属性指令。它可以通过设置显示值和相应事件来修改一个已经存在的元素的行为。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-detail.component.html (ngModel)</span>
-
-<span class="o">&lt;</span><span class="nx">input</span> <span class="p">[(</span><span class="nx">ngModel</span><span class="p">)]</span><span class="o">=</span><span class="s2">&quot;hero.name&quot;</span><span class="o">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero-detail.component.html (ngModel)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s7df">input</span><span class="s1f40"> </span><span class="s1388">[(</span><span class="s7df">ngModel</span><span class="s1388">)]</span><span class="sfa0">=</span><span class="sc1c">&#34;hero.name&#34;</span><span class="sfa0">&gt;</span></code></pre>
+</div>
 <p>其它常用的指令有<code>ngSwitch</code>、<code>ngStyle</code>和<code>ngClass</code>。</p>
 
 <h3 id="服务-service">服务（Service）</h3>
 
 <p>服务是应用所需的一些值、函数或功能等。Angular本身并没有定义service。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/logger.service.ts</span>
-
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">Logger</span> <span class="p">{</span>
-  <span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span>   <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">}</span>
-  <span class="nx">error</span><span class="p">(</span><span class="nx">msg</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">}</span>
-  <span class="nx">warn</span><span class="p">(</span><span class="nx">msg</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span>  <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/logger.service.ts
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">Logger</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">log</span><span class="s1388">(</span><span class="s7df">msg</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">any</span><span class="s1388">)</span><span class="s1f40">   </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">console</span><span class="s1388">.</span><span class="s7df">log</span><span class="s1388">(</span><span class="s7df">msg</span><span class="s1388">);</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">error</span><span class="s1388">(</span><span class="s7df">msg</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">any</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">console</span><span class="s1388">.</span><span class="s7df">error</span><span class="s1388">(</span><span class="s7df">msg</span><span class="s1388">);</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">warn</span><span class="s1388">(</span><span class="s7df">msg</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">any</span><span class="s1388">)</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">console</span><span class="s1388">.</span><span class="s7df">warn</span><span class="s1388">(</span><span class="s7df">msg</span><span class="s1388">);</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p><code>HeroService</code>获取数据并返回一个Promise。该服务依赖于<code>LogService</code>和<code>BackendService</code>。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero.service.ts</span>
-
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroService</span> <span class="p">{</span>
-  <span class="kr">private</span> <span class="nx">heroes</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[];</span>
-
-  <span class="nx">constructor</span><span class="p">(</span>
-    <span class="kr">private</span> <span class="nx">backend</span><span class="o">:</span> <span class="nx">BackendService</span><span class="p">,</span>
-    <span class="kr">private</span> <span class="nx">logger</span><span class="o">:</span> <span class="nx">Logger</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
-
-  <span class="nx">getHeroes</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">backend</span><span class="p">.</span><span class="nx">getAll</span><span class="p">(</span><span class="nx">Hero</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span> <span class="p">(</span><span class="nx">heroes</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">[])</span> <span class="p">=&gt;</span> <span class="p">{</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Fetched </span><span class="si">${</span><span class="nx">heroes</span><span class="p">.</span><span class="nx">length</span><span class="si">}</span><span class="sb"> heroes.`</span><span class="p">);</span>
-      <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span><span class="p">.</span><span class="nx">push</span><span class="p">(...</span><span class="nx">heroes</span><span class="p">);</span> <span class="c1">// fill cache</span>
-    <span class="p">});</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero.service.ts
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">HeroService</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">heroes</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">[]</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[];</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">constructor</span><span class="s1388">(</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">backend</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">BackendService</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">logger</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Logger</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">getHeroes</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">backend</span><span class="s1388">.</span><span class="s7df">getAll</span><span class="s1388">(</span><span class="s7df">Hero</span><span class="s1388">).</span><span class="s7df">then</span><span class="s1388">(</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">heroes</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">[])</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">logger</span><span class="s1388">.</span><span class="s7df">log</span><span class="s1388">(</span><span class="sc1c">`Fetched </span><span class="sc1c">${</span><span class="s7df">heroes</span><span class="s1388">.</span><span class="s7df">length</span><span class="sc1c">}</span><span class="sc1c"> heroes.`</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroes</span><span class="s1388">.</span><span class="s7df">push</span><span class="s1388">(...</span><span class="s7df">heroes</span><span class="s1388">);</span><span class="s1f40"> </span><span class="s1770">// fill cache
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1388">});</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroes</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>组件类经保持简单，它不应该处理从服务器获取数据、校验输入数据、记录日志等。这些任务应该委托给服务来处理。组件应该只是视图和应用逻辑的中间人。</p>
 
 <p>一个好的组件应该只为数据绑定提供属性和方法，将所有其它不相关的事情委托给服务来处理。</p>
@@ -487,11 +471,10 @@
 <p>依赖注入是为一个新实例化的类提供所有它所需要的依赖。大部分依赖都是服务。</p>
 
 <p>Angular会根据构造函数的参数类型分辨所需要的服务组件。例如：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-list.component (constructor)</span>
-
-<span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">_service</span><span class="o">:</span> <span class="nx">HeroService</span><span class="p">){</span> <span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero-list.component (constructor)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">constructor</span><span class="s1388">(</span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">_service</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">HeroService</span><span class="s1388">){</span><span class="s1f40"> </span><span class="s1388">}</span></code></pre>
+</div>
 <p>当Angular创建组件时，它向Injector询问组件所需的服务。Injector维护一个它创建的服务实例的容器。当请求的服务实例不在容器中时，injector就创建一个并添加到容器中，然后将服务返回给Angular。当所有所需的服务都返回了，Angular就可以用这些服务作为参数调用组件的构造函数了。</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/architecture/injector-injects.png" alt="" /></p>
@@ -499,26 +482,24 @@
 <p>如果Injector不包含一个服务时，它怎么知道如何创建该服务呢？因此，需要在这之前为Injector注册一个该服务的提供者。提供者是一个可以创建服务的某个东西，通常是服务本身。</p>
 
 <p>可以在模块或组件中注册提供者。通常在根模块中注册，这样该服务的实例可以在应用的任何地方使用。相当于一个单例服务了。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/app.module.ts (module providers)</span>
-
-<span class="nx">providers</span><span class="o">:</span> <span class="p">[</span>
-  <span class="nx">BackendService</span><span class="p">,</span>
-  <span class="nx">HeroService</span><span class="p">,</span>
-  <span class="nx">Logger</span>
-<span class="p">],</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/app.module.ts (module providers)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">providers</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">BackendService</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">HeroService</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">Logger</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">],</span></code></pre>
+</div>
 <p>此外，也可以在组件层面注册：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero-list.component.ts (component providers)</span>
-
-<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
-  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
-  <span class="nx">selector</span><span class="o">:</span>    <span class="s1">&#39;hero-list&#39;</span><span class="p">,</span>
-  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;hero-list.component.html&#39;</span><span class="p">,</span>
-  <span class="nx">providers</span><span class="o">:</span>  <span class="p">[</span> <span class="nx">HeroService</span> <span class="p">]</span>
-<span class="p">})</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero-list.component.ts (component providers)
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">moduleId</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">module</span><span class="s1388">.</span><span class="s7df">id</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40">    </span><span class="sc1c">&#39;hero-list&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">templateUrl</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;hero-list.component.html&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">providers</span><span class="sfa0">:</span><span class="s1f40">  </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">HeroService</span><span class="s1f40"> </span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})</span></code></pre>
+</div>
 <p>在组件层面注册意味着每一个新的组件实例都有一个新的服务实例。</p>
 
 <p>关于依赖注入，要注意的以下几点：</p>
@@ -544,7 +525,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>305</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>312</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/03/13/python3-map-dict/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][Python3] 映射（字典）</h1>
-      <p class="post-meta">@wukn · Mar 13, 2017 · 2 min read</p>
+      <p class="post-meta">@wukn · Mar 13, 2017 · 1 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>Python3 映射——字典。</p>
@@ -224,15 +224,14 @@
 <p>如果没有给位置参数，那么创建的是空字典。如果位置参数是一个映射对象，那么创建的字典的键值对跟这个映射对象是相同的。另外，位置参数也可能是个迭代对象（iterable object），iterable内的每个元素必须是正好包含两个对象的迭代对象，元素的第一个对象作为字典的键，第二个对象作为字典的值。如果一个键出现多次，那么最后出现的对应的值将成为字典中这个键对应的值。</p>
 
 <p>如果指定了关键字参数，关键字参数和它们的值将添加到由位置参数创建的字典中，如果关键字参数中出现已经存在的键，那么它对应的值将覆盖之前位置参数中的值。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">two</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">three</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">e</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">({</span><span class="s1">&#39;three&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span> <span class="o">==</span> <span class="n">c</span> <span class="o">==</span> <span class="n">d</span> <span class="o">==</span> <span class="n">e</span>
-<span class="bp">True</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">a</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">dict</span><span class="s1388">(</span><span class="s7d0">one</span><span class="sfa0">=</span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">two</span><span class="sfa0">=</span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">three</span><span class="sfa0">=</span><span class="sc80">3</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">b</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="sc1c"></span><span class="sc1c">&#39;one&#39;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;two&#39;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;three&#39;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">c</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">dict</span><span class="s1388">(</span><span class="s7d0">zip</span><span class="s1388">([</span><span class="sc1c"></span><span class="sc1c">&#39;one&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;two&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;three&#39;</span><span class="s1388">],</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1388">]))</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">d</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">dict</span><span class="s1388">([(</span><span class="sc1c"></span><span class="sc1c">&#39;two&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;one&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;three&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1388">)])</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">e</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">dict</span><span class="s1388">({</span><span class="sc1c"></span><span class="sc1c">&#39;three&#39;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;one&#39;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;two&#39;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">a</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s1f40"> </span><span class="s7d0">b</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s1f40"> </span><span class="s7d0">c</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s1f40"> </span><span class="s7d0">d</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s1f40"> </span><span class="s7d0">e</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7d0">True</span></code></pre>
+</div>
 <h3 id="字典操作">字典操作</h3>
 
 <p>字典支持的操作如下：</p>
@@ -273,49 +272,47 @@
 </ul>
 
 <p>键视图跟集合很像，因为它的条目是唯一且可哈希的。如果所有值都是可哈希的，那么元素视图也是跟集合相似的。值视图由于很可能有重复的，它并不被当成集合相似的。对于集合相似的视图，抽象基类collections.abc.Set定义的操作都支持，例如<code>==</code>、<code>&lt;</code>或<code>^</code>。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">dishes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;eggs&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;sausage&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;bacon&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;spam&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">}</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">keys</span> <span class="o">=</span> <span class="n">dishes</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">values</span> <span class="o">=</span> <span class="n">dishes</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-
-<span class="o">&gt;&gt;&gt;</span> <span class="c1"># iteration</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
-<span class="o">...</span>     <span class="n">n</span> <span class="o">+=</span> <span class="n">val</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
-<span class="mi">504</span>
-
-<span class="o">&gt;&gt;&gt;</span> <span class="c1"># keys and values are iterated over in the same order</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
-<span class="p">[</span><span class="s1">&#39;eggs&#39;</span><span class="p">,</span> <span class="s1">&#39;bacon&#39;</span><span class="p">,</span> <span class="s1">&#39;sausage&#39;</span><span class="p">,</span> <span class="s1">&#39;spam&#39;</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
-<span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">500</span><span class="p">]</span>
-
-<span class="o">&gt;&gt;&gt;</span> <span class="c1"># view objects are dynamic and reflect dict changes</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">dishes</span><span class="p">[</span><span class="s1">&#39;eggs&#39;</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">dishes</span><span class="p">[</span><span class="s1">&#39;sausage&#39;</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
-<span class="p">[</span><span class="s1">&#39;spam&#39;</span><span class="p">,</span> <span class="s1">&#39;bacon&#39;</span><span class="p">]</span>
-
-<span class="o">&gt;&gt;&gt;</span> <span class="c1"># set operations</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">keys</span> <span class="o">&amp;</span> <span class="p">{</span><span class="s1">&#39;eggs&#39;</span><span class="p">,</span> <span class="s1">&#39;bacon&#39;</span><span class="p">,</span> <span class="s1">&#39;salad&#39;</span><span class="p">}</span>
-<span class="p">{</span><span class="s1">&#39;bacon&#39;</span><span class="p">}</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">keys</span> <span class="o">^</span> <span class="p">{</span><span class="s1">&#39;sausage&#39;</span><span class="p">,</span> <span class="s1">&#39;juice&#39;</span><span class="p">}</span>
-<span class="p">{</span><span class="s1">&#39;juice&#39;</span><span class="p">,</span> <span class="s1">&#39;sausage&#39;</span><span class="p">,</span> <span class="s1">&#39;bacon&#39;</span><span class="p">,</span> <span class="s1">&#39;spam&#39;</span><span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">dishes</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="sc1c"></span><span class="sc1c">&#39;eggs&#39;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;sausage&#39;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;bacon&#39;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;spam&#39;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">500</span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">keys</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">dishes</span><span class="sfa0">.</span><span class="s7d0">keys</span><span class="s1388">()</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">values</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">dishes</span><span class="sfa0">.</span><span class="s7d0">values</span><span class="s1388">()</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s1770"># iteration</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">n</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s3e8">for</span><span class="s1f40"> </span><span class="s7d0">val</span><span class="s1f40"> </span><span class="sfa0">in</span><span class="s1f40"> </span><span class="s7d0">values</span><span class="s1388">:</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">...</span><span class="s1f40">     </span><span class="s7d0">n</span><span class="s1f40"> </span><span class="sfa0">+=</span><span class="s1f40"> </span><span class="s7d0">val</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s3e8">print</span><span class="s1388">(</span><span class="s7d0">n</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">504</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s1770"># keys and values are iterated over in the same order</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">list</span><span class="s1388">(</span><span class="s7d0">keys</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">[</span><span class="sc1c"></span><span class="sc1c">&#39;eggs&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;bacon&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;sausage&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;spam&#39;</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">list</span><span class="s1388">(</span><span class="s7d0">values</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">[</span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">500</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s1770"># view objects are dynamic and reflect dict changes</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s3e8">del</span><span class="s1f40"> </span><span class="s7d0">dishes</span><span class="s1388">[</span><span class="sc1c"></span><span class="sc1c">&#39;eggs&#39;</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s3e8">del</span><span class="s1f40"> </span><span class="s7d0">dishes</span><span class="s1388">[</span><span class="sc1c"></span><span class="sc1c">&#39;sausage&#39;</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">list</span><span class="s1388">(</span><span class="s7d0">keys</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">[</span><span class="sc1c"></span><span class="sc1c">&#39;spam&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;bacon&#39;</span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s1770"># set operations</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">keys</span><span class="s1f40"> </span><span class="sfa0">&amp;</span><span class="s1f40"> </span><span class="s1388">{</span><span class="sc1c"></span><span class="sc1c">&#39;eggs&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;bacon&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;salad&#39;</span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">{</span><span class="sc1c"></span><span class="sc1c">&#39;bacon&#39;</span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">keys</span><span class="s1f40"> </span><span class="sfa0">^</span><span class="s1f40"> </span><span class="s1388">{</span><span class="sc1c"></span><span class="sc1c">&#39;sausage&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;juice&#39;</span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">{</span><span class="sc1c"></span><span class="sc1c">&#39;juice&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;sausage&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;bacon&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;spam&#39;</span><span class="s1388">}</span></code></pre>
+</div>
 <h3 id="稀疏矩阵">稀疏矩阵</h3>
 
 <p>使用元组作为字典的键，可以构建类似稀疏矩阵的数据结构：</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">matrix</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">matrix</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">88</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">matrix</span><span class="p">[(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">99</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">matrix</span>
-<span class="p">{(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span> <span class="mi">88</span><span class="p">,</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span> <span class="mi">99</span><span class="p">}</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">matrix</span><span class="p">[(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">)]</span>
-<span class="mi">88</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">matrix</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">matrix</span><span class="s1388">[(</span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">4</span><span class="s1388">)]</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc80">88</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">matrix</span><span class="s1388">[(</span><span class="sc80">7</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">8</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">9</span><span class="s1388">)]</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc80">99</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">matrix</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">{(</span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">4</span><span class="s1388">):</span><span class="s1f40"> </span><span class="sc80">88</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">(</span><span class="sc80">7</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">8</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">9</span><span class="s1388">):</span><span class="s1f40"> </span><span class="sc80">99</span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">y</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">z</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">4</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">matrix</span><span class="s1388">[(</span><span class="s7d0">x</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">y</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">z</span><span class="s1388">)]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">88</span></code></pre>
+</div>
 <hr />
 
 <p>参考资料：</p>
@@ -332,7 +329,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>202</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>209</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

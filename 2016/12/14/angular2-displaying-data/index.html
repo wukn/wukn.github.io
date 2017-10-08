@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/12/14/angular2-displaying-data/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][Angular2] Displaying Data</h1>
-      <p class="post-meta">@wukn · Dec 14, 2016 · 2 min read</p>
+      <p class="post-meta">@wukn · Dec 14, 2016 · 1 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>利用属性绑定在UI中显示数据。</p>
@@ -210,20 +210,19 @@
 <h2 id="插值法-interpolation-显示组件属性">插值法(interpolation)显示组件属性</h2>
 
 <p>显示组件属性最简单的方法就是使用插值法（interpolation）。插值方法就是将组件属性直接放在双层大括号里：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
-  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
-  <span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
-<span class="sb">    &lt;h1&gt;{{title}}&lt;/h1&gt;</span>
-<span class="sb">    &lt;h2&gt;My favorite hero is: {{myHero}}&lt;/h2&gt;</span>
-<span class="sb">    `</span>
-<span class="p">})</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
-  <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
-  <span class="nx">myHero</span> <span class="o">=</span> <span class="s1">&#39;Windstorm&#39;</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Component</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;my-app&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">`
+</span><span class="sc1c">    &lt;h1&gt;{{title}}&lt;/h1&gt;
+</span><span class="sc1c">    &lt;h2&gt;My favorite hero is: {{myHero}}&lt;/h2&gt;
+</span><span class="sc1c">    `</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">title</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;Tour of Heroes&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">myHero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;Windstorm&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>我们为组件添加了两个属性：<code>title</code>和<code>myHero</code>。同时在模板中添加了这两个属性的显示。</p>
 
 <p>在应用运行过程中，Angular会自动读取组件的属性，接将属性值添加到浏览器中。这些属性变化时Angular也会更新UI。准确地说，属性的更新显示发生在与视图相关的某些异步事件之后，如击键、timer完成、异步XHR响应。</p>
@@ -237,41 +236,39 @@
 <p>PS：构造函数初始化还是变量初始化？</p>
 
 <p>尽管上面的例子中用的是变量初始化方式，我们也可以改成在构造函数中中初始化属性：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppCtorComponent</span> <span class="p">{</span>
-  <span class="nx">title</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
-  <span class="nx">myHero</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
-
-  <span class="nx">constructor</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">myHero</span> <span class="o">=</span> <span class="s1">&#39;Windstorm&#39;</span><span class="p">;</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppCtorComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">title</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">string</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">myHero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">string</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">constructor</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">title</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;Tour of Heroes&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">myHero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;Windstorm&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <h3 id="ngfor显示组件的数组属性">NgFor显示组件的数组属性</h3>
 
 <p>我们为组件添加一个数组属性<code>heroes</code>，然后将<code>myHero</code>重定义为数组的第一个元素。在模板中使用<code>NgFor</code>指令显示数组中的每一项数据。</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
-  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
-  <span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
-<span class="sb">    &lt;h1&gt;{{title}}&lt;/h1&gt;</span>
-<span class="sb">    &lt;h2&gt;My favorite hero is: {{myHero}}&lt;/h2&gt;</span>
-<span class="sb">    &lt;p&gt;Heroes:&lt;/p&gt;</span>
-<span class="sb">    &lt;ul&gt;</span>
-<span class="sb">      &lt;li *ngFor=&quot;let hero of heroes&quot;&gt;</span>
-<span class="sb">        {{ hero }}</span>
-<span class="sb">      &lt;/li&gt;</span>
-<span class="sb">    &lt;/ul&gt;</span>
-<span class="sb">    `</span>
-<span class="p">})</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
-  <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
-  <span class="nx">heroes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Windstorm&#39;</span><span class="p">,</span> <span class="s1">&#39;Bombasto&#39;</span><span class="p">,</span> <span class="s1">&#39;Magneta&#39;</span><span class="p">,</span> <span class="s1">&#39;Tornado&#39;</span><span class="p">];</span>
-  <span class="nx">myHero</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Component</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;my-app&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">`
+</span><span class="sc1c">    &lt;h1&gt;{{title}}&lt;/h1&gt;
+</span><span class="sc1c">    &lt;h2&gt;My favorite hero is: {{myHero}}&lt;/h2&gt;
+</span><span class="sc1c">    &lt;p&gt;Heroes:&lt;/p&gt;
+</span><span class="sc1c">    &lt;ul&gt;
+</span><span class="sc1c">      &lt;li *ngFor=&#34;let hero of heroes&#34;&gt;
+</span><span class="sc1c">        {{ hero }}
+</span><span class="sc1c">      &lt;/li&gt;
+</span><span class="sc1c">    &lt;/ul&gt;
+</span><span class="sc1c">    `</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">title</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;Tour of Heroes&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">heroes</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">&#39;Windstorm&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#39;Bombasto&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#39;Magneta&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#39;Tornado&#39;</span><span class="s1388">];</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">myHero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroes</span><span class="s1388">[</span><span class="sc80">0</span><span class="s1388">];</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>在<code>&lt;li&gt;</code>标签上使用了<code>*ngFor</code>，意思是将<code>&lt;li&gt;</code>元素（以及它的子元素）作为迭代模板。</p>
 
 <p>指令中的<code>hero</code>是定义了一个模板输入变量（template input variable），详情请看<a href="https://angular.io/docs/ts/latest/guide/template-syntax.html">模板语法</a>中的<a href="https://angular.io/docs/ts/latest/guide/template-syntax.html#ngForMicrosyntax">microsyntax</a>。</p>
@@ -283,15 +280,14 @@
 <h3 id="创建数据类">创建数据类</h3>
 
 <p>这里是将数据定义在属性中。实际上通常要显示的数据是对象，也就是类的实例。接下来创建<code>hero.ts</code>文件，定义<code>Hero</code>类：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// app/hero.ts</span>
-
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">Hero</span> <span class="p">{</span>
-  <span class="nx">constructor</span><span class="p">(</span>
-    <span class="kr">public</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">,</span>
-    <span class="kr">public</span> <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// app/hero.ts
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">constructor</span><span class="s1388">(</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">number</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">string</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>看起来好像我们没有定义属性，其实这里是利用的TypeScript的缩写方式。看构造函数的第一个参数<code>public id: number,</code>，实际上它有三层含义：</p>
 
 <ul>
@@ -301,43 +297,41 @@
 </ul>
 
 <p>修改<code>app.component.ts</code>，使用<code>Hero</code>对象，并更新模板中的绑定为对象的属性：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
-
-<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
-  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
-  <span class="nx">template</span><span class="o">:</span> <span class="sb">`</span>
-<span class="sb">    &lt;h1&gt;{{title}}&lt;/h1&gt;</span>
-<span class="sb">    &lt;h2&gt;My favorite hero is: {{myHero.name}}&lt;/h2&gt;</span>
-<span class="sb">    &lt;p&gt;Heroes:&lt;/p&gt;</span>
-<span class="sb">    &lt;ul&gt;</span>
-<span class="sb">      &lt;li *ngFor=&quot;let hero of heroes&quot;&gt;</span>
-<span class="sb">        {{ hero.name }}</span>
-<span class="sb">        &lt;/li&gt;</span>
-<span class="sb">    &lt;/ul&gt;</span>
-<span class="sb">  `</span>
-<span class="p">})</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
-  <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
-  <span class="nx">heroes</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="k">new</span> <span class="nx">Hero</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Windstorm&#39;</span><span class="p">),</span>
-    <span class="k">new</span> <span class="nx">Hero</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="s1">&#39;Bombasto&#39;</span><span class="p">),</span>
-    <span class="k">new</span> <span class="nx">Hero</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;Magneta&#39;</span><span class="p">),</span>
-    <span class="k">new</span> <span class="nx">Hero</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;Tornado&#39;</span><span class="p">)</span>
-  <span class="p">];</span>
-  <span class="nx">myHero</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Component</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;my-app&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">`
+</span><span class="sc1c">    &lt;h1&gt;{{title}}&lt;/h1&gt;
+</span><span class="sc1c">    &lt;h2&gt;My favorite hero is: {{myHero.name}}&lt;/h2&gt;
+</span><span class="sc1c">    &lt;p&gt;Heroes:&lt;/p&gt;
+</span><span class="sc1c">    &lt;ul&gt;
+</span><span class="sc1c">      &lt;li *ngFor=&#34;let hero of heroes&#34;&gt;
+</span><span class="sc1c">        {{ hero.name }}
+</span><span class="sc1c">        &lt;/li&gt;
+</span><span class="sc1c">    &lt;/ul&gt;
+</span><span class="sc1c">  `</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">title</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;Tour of Heroes&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">heroes</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">(</span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#39;Windstorm&#39;</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">(</span><span class="sc80">13</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#39;Bombasto&#39;</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">(</span><span class="sc80">15</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#39;Magneta&#39;</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">(</span><span class="sc80">20</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#39;Tornado&#39;</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">];</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">myHero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroes</span><span class="s1388">[</span><span class="sc80">0</span><span class="s1388">];</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>显示效果与上面是一样的。</p>
 
 <h2 id="ngif条件显示">NgIf条件显示</h2>
 
 <p>有时候，应用在某些特定条件满足时才显示某些视图。<code>NgIf</code>指令会根据条件表达式的值决定是添加视图还是移除视图。
 在模板最后添加：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="o">&lt;</span><span class="nx">p</span> <span class="o">*</span><span class="nx">ngIf</span><span class="o">=</span><span class="s2">&quot;heroes.length &gt; 3&quot;</span><span class="o">&gt;</span><span class="nx">There</span> <span class="nx">are</span> <span class="nx">many</span> <span class="nx">heroes</span><span class="o">!&lt;</span><span class="err">/p&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="sfa0">&lt;</span><span class="s7df">p</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s7df">ngIf</span><span class="sfa0">=</span><span class="sc1c">&#34;heroes.length &gt; 3&#34;</span><span class="sfa0">&gt;</span><span class="s7df">There</span><span class="s1f40"> </span><span class="s7df">are</span><span class="s1f40"> </span><span class="s7df">many</span><span class="s1f40"> </span><span class="s7df">heroes</span><span class="sfa0">!&lt;</span><span class="s1f40"></span><span class="ss4">/p&gt;</span></code></pre>
+</div>
 <p><code>*ngIf=&quot;heroes.length &gt; 3&quot;</code>的双引号里是模板表达式，看起来跟TypeScript很像。当该表达式成立时，Angular会将这个标签添加到DOM中，显示这条信息。表达式不成立时，Angular会忽略这个标签，就不显示这条信息了。</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/display-data/final.png" alt="" /></p>
@@ -362,7 +356,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>291</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>298</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

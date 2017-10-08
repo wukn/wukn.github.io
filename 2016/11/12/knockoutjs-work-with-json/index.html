@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-work-with-json/" />
@@ -206,19 +206,17 @@
 <p>ko不限定使用任何数据加载或保存的技术。最常用是jQuery的ajax方法，如getJSON、post和ajax。</p>
 
 <p>例如，从服务器加载数据：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&quot;/some/url&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Now use this data to update your view models,</span>
-    <span class="c1">// and Knockout will update your UI automatically</span>
-<span class="p">})</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">$</span><span class="s1388">.</span><span class="s7df">getJSON</span><span class="s1388">(</span><span class="sc1c">&#34;/some/url&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">// Now use this data to update your view models,
+</span><span class="s1770"></span><span class="s1f40">    </span><span class="s1770">// and Knockout will update your UI automatically
+</span><span class="s1770"></span><span class="s1388">})</span></code></pre>
+</div>
 <p>保存数据到服务器：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="cm">/* Your data in JSON format - see below */</span><span class="p">;</span>
-<span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&quot;/some/url&quot;</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">returnedData</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// This callback is executed if the post was successful     </span>
-<span class="p">})</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1770">/* Your data in JSON format - see below */</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">$</span><span class="s1388">.</span><span class="s7df">post</span><span class="s1388">(</span><span class="sc1c">&#34;/some/url&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">returnedData</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s1770">// This callback is executed if the post was successful     
+</span><span class="s1770"></span><span class="s1388">})</span></code></pre>
+</div>
 <p>除了jQuery也可以用其它的方式加载和保存数据。ko要做的就是：
 * 保存时，将视图模型数据转换成简单的json格式。
 * 加载时，用接收的数据更新到视图模型。</p>
@@ -235,54 +233,49 @@
 </ul>
 
 <p>例如，定义视图模型：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="nx">firstName</span> <span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s2">&quot;Bert&quot;</span><span class="p">),</span>
-    <span class="nx">lastName</span> <span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s2">&quot;Smith&quot;</span><span class="p">),</span>
-    <span class="nx">pets</span> <span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span><span class="s2">&quot;Cat&quot;</span><span class="p">,</span> <span class="s2">&quot;Dog&quot;</span><span class="p">,</span> <span class="s2">&quot;Fish&quot;</span><span class="p">]),</span>
-    <span class="nx">type</span> <span class="o">:</span> <span class="s2">&quot;Customer&quot;</span>
-<span class="p">};</span>
-<span class="nx">viewModel</span><span class="p">.</span><span class="nx">hasALotOfPets</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">pets</span><span class="p">().</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">2</span>
-<span class="p">},</span> <span class="nx">viewModel</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">firstName</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observable</span><span class="s1388">(</span><span class="sc1c">&#34;Bert&#34;</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">lastName</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observable</span><span class="s1388">(</span><span class="sc1c">&#34;Smith&#34;</span><span class="s1388">),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">pets</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observableArray</span><span class="s1388">([</span><span class="sc1c">&#34;Cat&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#34;Dog&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#34;Fish&#34;</span><span class="s1388">]),</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">type</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;Customer&#34;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">viewModel</span><span class="s1388">.</span><span class="s7df">hasALotOfPets</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">computed</span><span class="s1388">(</span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">pets</span><span class="s1388">().</span><span class="s7df">length</span><span class="s1f40"> </span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">},</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1388">)</span></code></pre>
+</div>
 <p>将其转换成json字符串：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">jsonData</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span>
-
-<span class="c1">// Result: jsonData is now a string equal to the following value</span>
-<span class="c1">// &#39;{&quot;firstName&quot;:&quot;Bert&quot;,&quot;lastName&quot;:&quot;Smith&quot;,&quot;pets&quot;:[&quot;Cat&quot;,&quot;Dog&quot;,&quot;Fish&quot;],&quot;type&quot;:&quot;Customer&quot;,&quot;hasALotOfPets&quot;:true}&#39;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">jsonData</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">toJSON</span><span class="s1388">(</span><span class="s7df">viewModel</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">// Result: jsonData is now a string equal to the following value
+</span><span class="s1770"></span><span class="s1f40"></span><span class="ss4">// &#39;{&#34;firstName&#34;:&#34;Bert&#34;,&#34;lastName&#34;:&#34;Smith&#34;,&#34;pets&#34;:[&#34;Cat&#34;,&#34;Dog&#34;,&#34;Fish&#34;],&#34;type&#34;:&#34;Customer&#34;,&#34;hasALotOfPets&#34;:true}&#39;</span></code></pre>
+</div>
 <p>也可以得到序列化前的普通js对象：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">plainJs</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">toJS</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span>
-
-<span class="c1">// Result: plainJS is now a plain JavaScript object in which nothing is observable. It&#39;s just data.</span>
-<span class="c1">// The object is equivalent to the following:</span>
-<span class="c1">//   {</span>
-<span class="c1">//      firstName: &quot;Bert&quot;,</span>
-<span class="c1">//      lastName: &quot;Smith&quot;,</span>
-<span class="c1">//      pets: [&quot;Cat&quot;,&quot;Dog&quot;,&quot;Fish&quot;],</span>
-<span class="c1">//      type: &quot;Customer&quot;,</span>
-<span class="c1">//      hasALotOfPets: true</span>
-<span class="c1">//   }</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">plainJs</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">toJS</span><span class="s1388">(</span><span class="s7df">viewModel</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">// Result: plainJS is now a plain JavaScript object in which nothing is observable. It&#39;s just data.
+</span><span class="s1770">// The object is equivalent to the following:
+</span><span class="s1770">//   {
+</span><span class="s1770">//      firstName: &#34;Bert&#34;,
+</span><span class="s1770">//      lastName: &#34;Smith&#34;,
+</span><span class="s1770">//      pets: [&#34;Cat&#34;,&#34;Dog&#34;,&#34;Fish&#34;],
+</span><span class="s1770">//      type: &#34;Customer&#34;,
+</span><span class="s1770">//      hasALotOfPets: true
+</span><span class="s1770"></span><span class="s1f40"></span><span class="ss4">//   }</span></code></pre>
+</div>
 <p>注意，<code>ko.toJSON</code>接收的参数是和<code>JSON.stringify</code>一样的。例如传递一些额外的参数：</p>
-<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">pre</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&quot;text: ko.toJSON($root, null, 2)&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">pre</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: ko.toJSON($root, null, 2)&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">pre</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
+</div>
 <h2 id="使用json更新视图模型">使用json更新视图模型</h2>
 
 <p>如果从服务器更新了数据并希望更新到视图模型上，最直接的方法是对需要的属性赋值：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// Load and parse the JSON</span>
-<span class="kd">var</span> <span class="nx">someJSON</span> <span class="o">=</span> <span class="cm">/* Omitted: fetch it from the server however you want */</span><span class="p">;</span>
-<span class="kd">var</span> <span class="nx">parsed</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">someJSON</span><span class="p">);</span>
-
-<span class="c1">// Update view model properties</span>
-<span class="nx">viewModel</span><span class="p">.</span><span class="nx">firstName</span><span class="p">(</span><span class="nx">parsed</span><span class="p">.</span><span class="nx">firstName</span><span class="p">);</span>
-<span class="nx">viewModel</span><span class="p">.</span><span class="nx">pets</span><span class="p">(</span><span class="nx">parsed</span><span class="p">.</span><span class="nx">pets</span><span class="p">);</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// Load and parse the JSON
+</span><span class="s1770"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">someJSON</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1770">/* Omitted: fetch it from the server however you want */</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">parsed</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">JSON</span><span class="s1388">.</span><span class="s7df">parse</span><span class="s1388">(</span><span class="s7df">someJSON</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770">// Update view model properties
+</span><span class="s1770"></span><span class="s7df">viewModel</span><span class="s1388">.</span><span class="s7df">firstName</span><span class="s1388">(</span><span class="s7df">parsed</span><span class="s1388">.</span><span class="s7df">firstName</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7df">viewModel</span><span class="s1388">.</span><span class="s7df">pets</span><span class="s1388">(</span><span class="s7df">parsed</span><span class="s1388">.</span><span class="s7df">pets</span><span class="s1388">);</span></code></pre>
+</div>
 <p>除了这种手动更新模型属性的方法，可以使用映射插件来减少代码量。</p>
 
 <hr />
@@ -299,7 +292,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>323</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>329</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

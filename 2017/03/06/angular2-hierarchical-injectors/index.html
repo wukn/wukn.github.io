@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/03/06/angular2-hierarchical-injectors/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][Angular2] Hierarchical Injectors</h1>
-      <p class="post-meta">@wukn · Mar 6, 2017 · 2 min read</p>
+      <p class="post-meta">@wukn · Mar 6, 2017 · 1 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>Angular的层级依赖注入系统支持与组件树并行的嵌套注入。</p>
@@ -242,14 +242,13 @@
 <p>我们可以在根<code>AppModule</code>中提供<code>VillainsService</code>，但是会让它在应用的任何地方都可以调用。例如Hero模块。</p>
 
 <p>因此，我们应该把<code>VillainsService</code>配置在<code>VillainsListComponent</code>的<code>providers</code>元数据中：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
-  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
-  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;villains-list&#39;</span><span class="p">,</span>
-  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;./villains-list.component.html&#39;</span><span class="p">,</span>
-  <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">VillainsService</span> <span class="p">]</span>
-<span class="p">})</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">moduleId</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">module</span><span class="s1388">.</span><span class="s7df">id</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;villains-list&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">templateUrl</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;./villains-list.component.html&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">providers</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">VillainsService</span><span class="s1f40"> </span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})</span></code></pre>
+</div>
 <p>这样<code>VillainsService</code>只在<code>VillainsListComponent</code>和它的子组件中可访问。它仍然是一个单例，只不过它是villain领域的一个单例。</p>
 
 <h4 id="多个编辑会话">多个编辑会话</h4>
@@ -261,73 +260,71 @@
 <p><img src="https://wukn.github.io/img/post/angular2/hierarchical-injectors/hid-heroes-anim.gif" alt="" /></p>
 
 <p><code>HeroTaxReturnService</code>如下，它调用一个<code>HeroTaxReturn</code>：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// src/app/hero-tax-return.service.ts</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span>    <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroTaxReturn</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroesService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./heroes.service&#39;</span><span class="p">;</span>
-<span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroTaxReturnService</span> <span class="p">{</span>
-  <span class="kr">private</span> <span class="nx">currentTaxReturn</span><span class="o">:</span> <span class="nx">HeroTaxReturn</span><span class="p">;</span>
-  <span class="kr">private</span> <span class="nx">originalTaxReturn</span><span class="o">:</span> <span class="nx">HeroTaxReturn</span><span class="p">;</span>
-  <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">heroService</span><span class="o">:</span> <span class="nx">HeroesService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
-  <span class="nx">set</span> <span class="nx">taxReturn</span> <span class="p">(</span><span class="nx">htr</span><span class="o">:</span> <span class="nx">HeroTaxReturn</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">originalTaxReturn</span> <span class="o">=</span> <span class="nx">htr</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">currentTaxReturn</span>  <span class="o">=</span> <span class="nx">htr</span><span class="p">.</span><span class="nx">clone</span><span class="p">();</span>
-  <span class="p">}</span>
-  <span class="nx">get</span> <span class="nx">taxReturn</span> <span class="p">()</span><span class="o">:</span> <span class="nx">HeroTaxReturn</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentTaxReturn</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">restoreTaxReturn</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">taxReturn</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">originalTaxReturn</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">saveTaxReturn</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">taxReturn</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentTaxReturn</span><span class="p">;</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">saveTaxReturn</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">currentTaxReturn</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">();</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// src/app/hero-tax-return.service.ts
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Injectable</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">    </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">HeroTaxReturn</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">HeroesService</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./heroes.service&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">Injectable</span><span class="s1388">()</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">HeroTaxReturnService</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">currentTaxReturn</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">HeroTaxReturn</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">originalTaxReturn</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">HeroTaxReturn</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">constructor</span><span class="s1388">(</span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">heroService</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">HeroesService</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">set</span><span class="s1f40"> </span><span class="s7df">taxReturn</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">htr</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">HeroTaxReturn</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">originalTaxReturn</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">htr</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">currentTaxReturn</span><span class="s1f40">  </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">htr</span><span class="s1388">.</span><span class="s7df">clone</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">get</span><span class="s1f40"> </span><span class="s7df">taxReturn</span><span class="s1f40"> </span><span class="s1388">()</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">HeroTaxReturn</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">currentTaxReturn</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">restoreTaxReturn</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">taxReturn</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">originalTaxReturn</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">saveTaxReturn</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">taxReturn</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">currentTaxReturn</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroService</span><span class="s1388">.</span><span class="s7df">saveTaxReturn</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">currentTaxReturn</span><span class="s1388">).</span><span class="s7df">subscribe</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p><code>HeroTaxReturnComponent</code>如下：</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// src/app/hero-tax-return.component.ts</span>
-
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">EventEmitter</span><span class="p">,</span> <span class="nx">Input</span><span class="p">,</span> <span class="nx">Output</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroTaxReturn</span> <span class="p">}</span>        <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
-<span class="kr">import</span> <span class="p">{</span> <span class="nx">HeroTaxReturnService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero-tax-return.service&#39;</span><span class="p">;</span>
-<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
-  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
-  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-tax-return&#39;</span><span class="p">,</span>
-  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;./hero-tax-return.component.html&#39;</span><span class="p">,</span>
-  <span class="nx">styleUrls</span><span class="o">:</span> <span class="p">[</span> <span class="s1">&#39;./hero-tax-return.component.css&#39;</span> <span class="p">],</span>
-  <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">HeroTaxReturnService</span> <span class="p">]</span>
-<span class="p">})</span>
-<span class="kr">export</span> <span class="kr">class</span> <span class="nx">HeroTaxReturnComponent</span> <span class="p">{</span>
-  <span class="nx">message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
-  <span class="err">@</span><span class="nx">Output</span><span class="p">()</span> <span class="nx">close</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="o">&lt;</span><span class="k">void</span><span class="o">&gt;</span><span class="p">();</span>
-  <span class="err">@</span><span class="nx">Input</span><span class="p">()</span>
-  <span class="nx">get</span> <span class="nx">taxReturn</span><span class="p">()</span><span class="o">:</span> <span class="nx">HeroTaxReturn</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroTaxReturnService</span><span class="p">.</span><span class="nx">taxReturn</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">set</span> <span class="nx">taxReturn</span> <span class="p">(</span><span class="nx">htr</span><span class="o">:</span> <span class="nx">HeroTaxReturn</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">heroTaxReturnService</span><span class="p">.</span><span class="nx">taxReturn</span> <span class="o">=</span> <span class="nx">htr</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">heroTaxReturnService</span><span class="o">:</span> <span class="nx">HeroTaxReturnService</span> <span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
-  <span class="nx">onCanceled</span><span class="p">()</span>  <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">flashMessage</span><span class="p">(</span><span class="s1">&#39;Canceled&#39;</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">heroTaxReturnService</span><span class="p">.</span><span class="nx">restoreTaxReturn</span><span class="p">();</span>
-  <span class="p">};</span>
-  <span class="nx">onClose</span><span class="p">()</span>  <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">close</span><span class="p">.</span><span class="nx">emit</span><span class="p">();</span> <span class="p">};</span>
-  <span class="nx">onSaved</span><span class="p">()</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">flashMessage</span><span class="p">(</span><span class="s1">&#39;Saved&#39;</span><span class="p">);</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">heroTaxReturnService</span><span class="p">.</span><span class="nx">saveTaxReturn</span><span class="p">();</span>
-  <span class="p">}</span>
-  <span class="nx">flashMessage</span><span class="p">(</span><span class="nx">msg</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">;</span>
-    <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// src/app/hero-tax-return.component.ts
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Component</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">EventEmitter</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">Input</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">Output</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">HeroTaxReturn</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">        </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">HeroTaxReturnService</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero-tax-return.service&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">moduleId</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">module</span><span class="s1388">.</span><span class="s7df">id</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;hero-tax-return&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">templateUrl</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero-tax-return.component.html&#39;</span><span class="s1388">,</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">styleUrls</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40"> </span><span class="sc1c">&#39;./hero-tax-return.component.css&#39;</span><span class="s1f40"> </span><span class="s1388">],</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">providers</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">HeroTaxReturnService</span><span class="s1f40"> </span><span class="s1388">]</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">HeroTaxReturnComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">message</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;&#39;</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="ss4">@</span><span class="s7df">Output</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s7df">close</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">EventEmitter</span><span class="sfa0">&lt;</span><span class="s3e8">void</span><span class="sfa0">&gt;</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="ss4">@</span><span class="s7df">Input</span><span class="s1388">()</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">get</span><span class="s1f40"> </span><span class="s7df">taxReturn</span><span class="s1388">()</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">HeroTaxReturn</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroTaxReturnService</span><span class="s1388">.</span><span class="s7df">taxReturn</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">set</span><span class="s1f40"> </span><span class="s7df">taxReturn</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">htr</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">HeroTaxReturn</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroTaxReturnService</span><span class="s1388">.</span><span class="s7df">taxReturn</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">htr</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">constructor</span><span class="s1388">(</span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7df">heroTaxReturnService</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">HeroTaxReturnService</span><span class="s1f40"> </span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">onCanceled</span><span class="s1388">()</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">flashMessage</span><span class="s1388">(</span><span class="sc1c">&#39;Canceled&#39;</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroTaxReturnService</span><span class="s1388">.</span><span class="s7df">restoreTaxReturn</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">onClose</span><span class="s1388">()</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">close</span><span class="s1388">.</span><span class="s7df">emit</span><span class="s1388">();</span><span class="s1f40"> </span><span class="s1388">};</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">onSaved</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">flashMessage</span><span class="s1388">(</span><span class="sc1c">&#39;Saved&#39;</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">heroTaxReturnService</span><span class="s1388">.</span><span class="s7df">saveTaxReturn</span><span class="s1388">();</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s7df">flashMessage</span><span class="s1388">(</span><span class="s7df">msg</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">string</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">message</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">msg</span><span class="s1388">;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7df">setTimeout</span><span class="s1388">(()</span><span class="s1f40"> </span><span class="s1388">=&gt;</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">message</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">500</span><span class="s1388">);</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
+</div>
 <p>如果<code>HeroTaxReturnService</code>这个服务是应用级别的单例，那就有大问题了。每个组件实例共享同一个服务实例。每个组件将会覆盖其它组件的数据。</p>
 
 <p>所以代码中是将它放在<code>HeroTaxReturnComponent</code>的提供者里。由于每个组件实例有它自己的注入器，每个组件将有一个它自己的似有的服务实例。从而避免了冲突。</p>
@@ -360,7 +357,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>209</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>216</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

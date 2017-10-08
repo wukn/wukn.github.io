@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/10/24/rabbitmq-rpc/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][RabbitMQ] Remote Procedure Call</h1>
-      <p class="post-meta">@wukn · Oct 24, 2016 · 3 min read</p>
+      <p class="post-meta">@wukn · Oct 24, 2016 · 1 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>使用RabitMQ构建RPC应用。</p>
@@ -204,16 +204,15 @@
 <h2 id="callback-queue">callback queue</h2>
 
 <p>RPC的过程为：客户端发送请求消息，服务器相应请求，回复响应消息。客户端为了能接收到相应消息，需要在请求消息中包含回调队列地址。回调队列可以使用默认的队列（在Java中是排他的）。</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="n">callbackQueueName</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">().</span><span class="na">getQueue</span><span class="o">();</span>
-
-<span class="n">BasicProperties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasicProperties</span>
-                            <span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
-                            <span class="o">.</span><span class="na">replyTo</span><span class="o">(</span><span class="n">callbackQueueName</span><span class="o">)</span>
-                            <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-
-<span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">,</span> <span class="s">&quot;rpc_queue&quot;</span><span class="o">,</span> <span class="n">props</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s7d0">callbackQueueName</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">queueDeclare</span><span class="sfa0">().</span><span class="s7d1">getQueue</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7d0">BasicProperties</span><span class="s1f40"> </span><span class="s7d0">props</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">BasicProperties</span><span class="s1f40">
+</span><span class="s1f40">                            </span><span class="sfa0">.</span><span class="s7d1">Builder</span><span class="sfa0">()</span><span class="s1f40">
+</span><span class="s1f40">                            </span><span class="sfa0">.</span><span class="s7d1">replyTo</span><span class="sfa0">(</span><span class="s7d0">callbackQueueName</span><span class="sfa0">)</span><span class="s1f40">
+</span><span class="s1f40">                            </span><span class="sfa0">.</span><span class="s7d1">build</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicPublish</span><span class="sfa0">(</span><span class="sc1c">&#34;&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;rpc_queue&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">props</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="sfa0">.</span><span class="s7d1">getBytes</span><span class="sfa0">());</span></code></pre>
+</div>
 <h2 id="message-properties">message properties</h2>
 
 <p>最常用的消息属性为：</p>
@@ -244,166 +243,164 @@
 <p>5.客户端接受回调队列中的消息，如果消息的correlationId与请求是匹配的，那么将响应消息返回给应用。</p>
 
 <p>完整代码如下：</p>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="c1">// RPCServer.java</span>
-
-<span class="kn">import</span> <span class="nn">com.rabbitmq.client.ConnectionFactory</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Connection</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Channel</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.rabbitmq.client.QueueingConsumer</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.rabbitmq.client.AMQP.BasicProperties</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RPCServer</span> <span class="o">{</span>
-
-  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">RPC_QUEUE_NAME</span> <span class="o">=</span> <span class="s">&quot;rpc_queue&quot;</span><span class="o">;</span>
-
-  <span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">fib</span><span class="o">(</span><span class="kt">int</span> <span class="n">n</span><span class="o">)</span> <span class="o">{</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span><span class="mi">0</span><span class="o">)</span> <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
-    <span class="k">if</span> <span class="o">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="o">)</span> <span class="k">return</span> <span class="mi">1</span><span class="o">;</span>
-    <span class="k">return</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">+</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="o">);</span>
-  <span class="o">}</span>
-
-  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-    <span class="k">try</span> <span class="o">{</span>
-      <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
-      <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="o">);</span>
-
-      <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
-      <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
-
-      <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">(</span><span class="n">RPC_QUEUE_NAME</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
-
-      <span class="n">channel</span><span class="o">.</span><span class="na">basicQos</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
-
-      <span class="n">QueueingConsumer</span> <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueueingConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">);</span>
-      <span class="n">channel</span><span class="o">.</span><span class="na">basicConsume</span><span class="o">(</span><span class="n">RPC_QUEUE_NAME</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="n">consumer</span><span class="o">);</span>
-
-      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [x] Awaiting RPC requests&quot;</span><span class="o">);</span>
-
-      <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-
-        <span class="n">QueueingConsumer</span><span class="o">.</span><span class="na">Delivery</span> <span class="n">delivery</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">nextDelivery</span><span class="o">();</span>
-
-        <span class="n">BasicProperties</span> <span class="n">props</span> <span class="o">=</span> <span class="n">delivery</span><span class="o">.</span><span class="na">getProperties</span><span class="o">();</span>
-        <span class="n">BasicProperties</span> <span class="n">replyProps</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasicProperties</span>
-                                         <span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
-                                         <span class="o">.</span><span class="na">correlationId</span><span class="o">(</span><span class="n">props</span><span class="o">.</span><span class="na">getCorrelationId</span><span class="o">())</span>
-                                         <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-
-        <span class="k">try</span> <span class="o">{</span>
-          <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">delivery</span><span class="o">.</span><span class="na">getBody</span><span class="o">(),</span><span class="s">&quot;UTF-8&quot;</span><span class="o">);</span>
-          <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
-
-          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [.] fib(&quot;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&quot;)&quot;</span><span class="o">);</span>
-          <span class="n">response</span> <span class="o">=</span> <span class="s">&quot;&quot;</span> <span class="o">+</span> <span class="n">fib</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
-        <span class="o">}</span>
-        <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
-          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [.] &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-          <span class="n">response</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="o">;</span>
-        <span class="o">}</span>
-        <span class="k">finally</span> <span class="o">{</span>
-          <span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span> <span class="s">&quot;&quot;</span><span class="o">,</span> <span class="n">props</span><span class="o">.</span><span class="na">getReplyTo</span><span class="o">(),</span> <span class="n">replyProps</span><span class="o">,</span> <span class="n">response</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">));</span>
-
-          <span class="n">channel</span><span class="o">.</span><span class="na">basicAck</span><span class="o">(</span><span class="n">delivery</span><span class="o">.</span><span class="na">getEnvelope</span><span class="o">().</span><span class="na">getDeliveryTag</span><span class="o">(),</span> <span class="kc">false</span><span class="o">);</span>
-        <span class="o">}</span>
-      <span class="o">}</span>
-    <span class="o">}</span>
-    <span class="k">catch</span>  <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-      <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-    <span class="o">}</span>
-    <span class="k">finally</span> <span class="o">{</span>
-      <span class="k">if</span> <span class="o">(</span><span class="n">connection</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">try</span> <span class="o">{</span>
-          <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-        <span class="o">}</span>
-        <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">ignore</span><span class="o">)</span> <span class="o">{}</span>
-      <span class="o">}</span>
-    <span class="o">}</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-java" data-lang="java"><span></span><span class="c1">// RPCClient.java</span>
-
-<span class="kn">import</span> <span class="nn">com.rabbitmq.client.ConnectionFactory</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Connection</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Channel</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.rabbitmq.client.QueueingConsumer</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">com.rabbitmq.client.AMQP.BasicProperties</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
-
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RPCClient</span> <span class="o">{</span>
-
-  <span class="kd">private</span> <span class="n">Connection</span> <span class="n">connection</span><span class="o">;</span>
-  <span class="kd">private</span> <span class="n">Channel</span> <span class="n">channel</span><span class="o">;</span>
-  <span class="kd">private</span> <span class="n">String</span> <span class="n">requestQueueName</span> <span class="o">=</span> <span class="s">&quot;rpc_queue&quot;</span><span class="o">;</span>
-  <span class="kd">private</span> <span class="n">String</span> <span class="n">replyQueueName</span><span class="o">;</span>
-  <span class="kd">private</span> <span class="n">QueueingConsumer</span> <span class="n">consumer</span><span class="o">;</span>
-
-  <span class="kd">public</span> <span class="nf">RPCClient</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
-    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&quot;127.0.0.1&quot;</span><span class="o">);</span>
-    <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
-    <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
-
-    <span class="n">replyQueueName</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">().</span><span class="na">getQueue</span><span class="o">();</span>
-    <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QueueingConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">);</span>
-    <span class="n">channel</span><span class="o">.</span><span class="na">basicConsume</span><span class="o">(</span><span class="n">replyQueueName</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">consumer</span><span class="o">);</span>
-  <span class="o">}</span>
-
-  <span class="kd">public</span> <span class="n">String</span> <span class="nf">call</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-    <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-    <span class="n">String</span> <span class="n">corrId</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
-
-    <span class="n">BasicProperties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasicProperties</span>
-                                <span class="o">.</span><span class="na">Builder</span><span class="o">()</span>
-                                <span class="o">.</span><span class="na">correlationId</span><span class="o">(</span><span class="n">corrId</span><span class="o">)</span>
-                                <span class="o">.</span><span class="na">replyTo</span><span class="o">(</span><span class="n">replyQueueName</span><span class="o">)</span>
-                                <span class="o">.</span><span class="na">build</span><span class="o">();</span>
-
-    <span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="s">&quot;&quot;</span><span class="o">,</span> <span class="n">requestQueueName</span><span class="o">,</span> <span class="n">props</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&quot;UTF-8&quot;</span><span class="o">));</span>
-
-    <span class="k">while</span> <span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
-      <span class="n">QueueingConsumer</span><span class="o">.</span><span class="na">Delivery</span> <span class="n">delivery</span> <span class="o">=</span> <span class="n">consumer</span><span class="o">.</span><span class="na">nextDelivery</span><span class="o">();</span>
-      <span class="k">if</span> <span class="o">(</span><span class="n">delivery</span><span class="o">.</span><span class="na">getProperties</span><span class="o">().</span><span class="na">getCorrelationId</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">corrId</span><span class="o">))</span> <span class="o">{</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">delivery</span><span class="o">.</span><span class="na">getBody</span><span class="o">(),</span><span class="s">&quot;UTF-8&quot;</span><span class="o">);</span>
-        <span class="k">break</span><span class="o">;</span>
-      <span class="o">}</span>
-    <span class="o">}</span>
-
-    <span class="k">return</span> <span class="n">response</span><span class="o">;</span>
-  <span class="o">}</span>
-
-  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">close</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-    <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-  <span class="o">}</span>
-
-  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">RPCClient</span> <span class="n">fibonacciRpc</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-    <span class="n">String</span> <span class="n">response</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-    <span class="k">try</span> <span class="o">{</span>
-      <span class="n">fibonacciRpc</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RPCClient</span><span class="o">();</span>
-
-      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [x] Requesting fib(30)&quot;</span><span class="o">);</span>
-      <span class="n">response</span> <span class="o">=</span> <span class="n">fibonacciRpc</span><span class="o">.</span><span class="na">call</span><span class="o">(</span><span class="s">&quot;30&quot;</span><span class="o">);</span>
-      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot; [.] Got &#39;&quot;</span> <span class="o">+</span> <span class="n">response</span> <span class="o">+</span> <span class="s">&quot;&#39;&quot;</span><span class="o">);</span>
-    <span class="o">}</span>
-    <span class="k">catch</span>  <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-      <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-    <span class="o">}</span>
-    <span class="k">finally</span> <span class="o">{</span>
-      <span class="k">if</span> <span class="o">(</span><span class="n">fibonacciRpc</span><span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">try</span> <span class="o">{</span>
-          <span class="n">fibonacciRpc</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-        <span class="o">}</span>
-        <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">ignore</span><span class="o">)</span> <span class="o">{}</span>
-      <span class="o">}</span>
-    <span class="o">}</span>
-  <span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s1770">// RPCServer.java
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.ConnectionFactory</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.Connection</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.Channel</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.QueueingConsumer</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.AMQP.BasicProperties</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7d4">RPCServer</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">final</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">RPC_QUEUE_NAME</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#34;rpc_queue&#34;</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d9">fib</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">n</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">n</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s7d0">0</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7d0">0</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">n</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s1f40"> </span><span class="s7d0">1</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7d0">1</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7d0">fib</span><span class="sfa0">(</span><span class="s7d0">n</span><span class="sfa0">-</span><span class="s7d0">1</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">fib</span><span class="sfa0">(</span><span class="s7d0">n</span><span class="sfa0">-</span><span class="s7d0">2</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">main</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">[]</span><span class="s1f40"> </span><span class="s7d0">argv</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">Connection</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">Channel</span><span class="s1f40"> </span><span class="s7d0">channel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">try</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">ConnectionFactory</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">ConnectionFactory</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">setHost</span><span class="sfa0">(</span><span class="sc1c">&#34;127.0.0.1&#34;</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">connection</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">newConnection</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">channel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="sfa0">.</span><span class="s7d1">createChannel</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">queueDeclare</span><span class="sfa0">(</span><span class="s7d0">RPC_QUEUE_NAME</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicQos</span><span class="sfa0">(</span><span class="s7d0">1</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">QueueingConsumer</span><span class="s1f40"> </span><span class="s7d0">consumer</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">QueueingConsumer</span><span class="sfa0">(</span><span class="s7d0">channel</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicConsume</span><span class="sfa0">(</span><span class="s7d0">RPC_QUEUE_NAME</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">consumer</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [x] Awaiting RPC requests&#34;</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s3e8">while</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s3e8">true</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">response</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7d0">QueueingConsumer</span><span class="sfa0">.</span><span class="s7d1">Delivery</span><span class="s1f40"> </span><span class="s7d0">delivery</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">consumer</span><span class="sfa0">.</span><span class="s7d1">nextDelivery</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7d0">BasicProperties</span><span class="s1f40"> </span><span class="s7d0">props</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">delivery</span><span class="sfa0">.</span><span class="s7d1">getProperties</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7d0">BasicProperties</span><span class="s1f40"> </span><span class="s7d0">replyProps</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">BasicProperties</span><span class="s1f40">
+</span><span class="s1f40">                                         </span><span class="sfa0">.</span><span class="s7d1">Builder</span><span class="sfa0">()</span><span class="s1f40">
+</span><span class="s1f40">                                         </span><span class="sfa0">.</span><span class="s7d1">correlationId</span><span class="sfa0">(</span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">getCorrelationId</span><span class="sfa0">())</span><span class="s1f40">
+</span><span class="s1f40">                                         </span><span class="sfa0">.</span><span class="s7d1">build</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">try</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">(</span><span class="s7d0">delivery</span><span class="sfa0">.</span><span class="s7d1">getBody</span><span class="sfa0">(),</span><span class="sc1c">&#34;UTF-8&#34;</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">n</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">Integer</span><span class="sfa0">.</span><span class="s7d1">parseInt</span><span class="sfa0">(</span><span class="s7d0">message</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [.] fib(&#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#34;)&#34;</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7d0">response</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#34;&#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">fib</span><span class="sfa0">(</span><span class="s7d0">n</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">catch</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">Exception</span><span class="s1f40"> </span><span class="s7d0">e</span><span class="sfa0">){</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [.] &#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">e</span><span class="sfa0">.</span><span class="s7d1">toString</span><span class="sfa0">());</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7d0">response</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#34;&#34;</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">finally</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicPublish</span><span class="sfa0">(</span><span class="s1f40"> </span><span class="sc1c">&#34;&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">getReplyTo</span><span class="sfa0">(),</span><span class="s1f40"> </span><span class="s7d0">replyProps</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">response</span><span class="sfa0">.</span><span class="s7d1">getBytes</span><span class="sfa0">(</span><span class="sc1c">&#34;UTF-8&#34;</span><span class="sfa0">));</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicAck</span><span class="sfa0">(</span><span class="s7d0">delivery</span><span class="sfa0">.</span><span class="s7d1">getEnvelope</span><span class="sfa0">().</span><span class="s7d1">getDeliveryTag</span><span class="sfa0">(),</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">catch</span><span class="s1f40">  </span><span class="sfa0">(</span><span class="s7d0">Exception</span><span class="s1f40"> </span><span class="s7d0">e</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">e</span><span class="sfa0">.</span><span class="s7d1">printStackTrace</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">finally</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">connection</span><span class="s1f40"> </span><span class="sfa0">!=</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">try</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7d0">connection</span><span class="sfa0">.</span><span class="s7d1">close</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">catch</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">Exception</span><span class="s1f40"> </span><span class="s7d0">ignore</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{}</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">}</span></code></pre>
+</div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s1770">// RPCClient.java
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.ConnectionFactory</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.Connection</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.Channel</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.QueueingConsumer</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.AMQP.BasicProperties</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">java.util.UUID</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7d4">RPCClient</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7d0">Connection</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7d0">Channel</span><span class="s1f40"> </span><span class="s7d0">channel</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">requestQueueName</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#34;rpc_queue&#34;</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">replyQueueName</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s7d0">QueueingConsumer</span><span class="s1f40"> </span><span class="s7d0">consumer</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s7d9">RPCClient</span><span class="s1f40"></span><span class="sfa0">()</span><span class="s1f40"> </span><span class="s3e8">throws</span><span class="s1f40"> </span><span class="s7d0">Exception</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">ConnectionFactory</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">ConnectionFactory</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">setHost</span><span class="sfa0">(</span><span class="sc1c">&#34;127.0.0.1&#34;</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">connection</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">newConnection</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="sfa0">.</span><span class="s7d1">createChannel</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">replyQueueName</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">queueDeclare</span><span class="sfa0">().</span><span class="s7d1">getQueue</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">consumer</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">QueueingConsumer</span><span class="sfa0">(</span><span class="s7d0">channel</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicConsume</span><span class="sfa0">(</span><span class="s7d0">replyQueueName</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">consumer</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d9">call</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s3e8">throws</span><span class="s1f40"> </span><span class="s7d0">Exception</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">response</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">corrId</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">UUID</span><span class="sfa0">.</span><span class="s7d1">randomUUID</span><span class="sfa0">().</span><span class="s7d1">toString</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">BasicProperties</span><span class="s1f40"> </span><span class="s7d0">props</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">BasicProperties</span><span class="s1f40">
+</span><span class="s1f40">                                </span><span class="sfa0">.</span><span class="s7d1">Builder</span><span class="sfa0">()</span><span class="s1f40">
+</span><span class="s1f40">                                </span><span class="sfa0">.</span><span class="s7d1">correlationId</span><span class="sfa0">(</span><span class="s7d0">corrId</span><span class="sfa0">)</span><span class="s1f40">
+</span><span class="s1f40">                                </span><span class="sfa0">.</span><span class="s7d1">replyTo</span><span class="sfa0">(</span><span class="s7d0">replyQueueName</span><span class="sfa0">)</span><span class="s1f40">
+</span><span class="s1f40">                                </span><span class="sfa0">.</span><span class="s7d1">build</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicPublish</span><span class="sfa0">(</span><span class="sc1c">&#34;&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">requestQueueName</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">props</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="sfa0">.</span><span class="s7d1">getBytes</span><span class="sfa0">(</span><span class="sc1c">&#34;UTF-8&#34;</span><span class="sfa0">));</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">while</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s3e8">true</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">QueueingConsumer</span><span class="sfa0">.</span><span class="s7d1">Delivery</span><span class="s1f40"> </span><span class="s7d0">delivery</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">consumer</span><span class="sfa0">.</span><span class="s7d1">nextDelivery</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">delivery</span><span class="sfa0">.</span><span class="s7d1">getProperties</span><span class="sfa0">().</span><span class="s7d1">getCorrelationId</span><span class="sfa0">().</span><span class="s7d1">equals</span><span class="sfa0">(</span><span class="s7d0">corrId</span><span class="sfa0">))</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s7d0">response</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">(</span><span class="s7d0">delivery</span><span class="sfa0">.</span><span class="s7d1">getBody</span><span class="sfa0">(),</span><span class="sc1c">&#34;UTF-8&#34;</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">break</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7d0">response</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">close</span><span class="s1f40"></span><span class="sfa0">()</span><span class="s1f40"> </span><span class="s3e8">throws</span><span class="s1f40"> </span><span class="s7d0">Exception</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">connection</span><span class="sfa0">.</span><span class="s7d1">close</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">main</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">[]</span><span class="s1f40"> </span><span class="s7d0">argv</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">RPCClient</span><span class="s1f40"> </span><span class="s7d0">fibonacciRpc</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">response</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">;</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">try</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">fibonacciRpc</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">RPCClient</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [x] Requesting fib(30)&#34;</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">response</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">fibonacciRpc</span><span class="sfa0">.</span><span class="s7d1">call</span><span class="sfa0">(</span><span class="sc1c">&#34;30&#34;</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [.] Got &#39;&#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">response</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#34;&#39;&#34;</span><span class="sfa0">);</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">catch</span><span class="s1f40">  </span><span class="sfa0">(</span><span class="s7d0">Exception</span><span class="s1f40"> </span><span class="s7d0">e</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s7d0">e</span><span class="sfa0">.</span><span class="s7d1">printStackTrace</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="s3e8">finally</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">fibonacciRpc</span><span class="sfa0">!=</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">try</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
+</span><span class="s1f40">          </span><span class="s7d0">fibonacciRpc</span><span class="sfa0">.</span><span class="s7d1">close</span><span class="sfa0">();</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">catch</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">Exception</span><span class="s1f40"> </span><span class="s7d0">ignore</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{}</span><span class="s1f40">
+</span><span class="s1f40">      </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40">  </span><span class="sfa0">}</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">}</span></code></pre>
+</div>
 <p>运行结果如下：</p>
 
 <pre><code>[rabbitmq-java-code]$ java -cp .:rabbitmq-client.jar RPCServer
@@ -430,7 +427,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>342</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>349</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

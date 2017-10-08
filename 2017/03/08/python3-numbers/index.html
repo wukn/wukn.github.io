@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/03/08/python3-numbers/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][Python3] 数值</h1>
-      <p class="post-meta">@wukn · Mar 8, 2017 · 2 min read</p>
+      <p class="post-meta">@wukn · Mar 8, 2017 · 1 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>Python中的数值分为整型（int）、浮点型（float）和复数（complex）。还有一个布尔型（bool）是整型的子类型。</p>
@@ -219,17 +219,16 @@
 <li>任何空的映射, 比如, 空字典{}</li>
 <li>自定义的类实例，该类定义了方法<code>__nonzero__()</code>或<code>__len__()</code>，并且这个方法返回0或False</li>
 </ul>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
-<span class="bp">False</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">False</span><span class="p">),</span> <span class="nb">bool</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="nb">bool</span><span class="p">(</span><span class="mf">0.0</span><span class="p">),</span> <span class="nb">bool</span><span class="p">(</span><span class="mf">0.0</span><span class="o">+</span><span class="mf">0.0j</span><span class="p">)</span>
-<span class="p">(</span><span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">bool</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">),</span> <span class="nb">bool</span><span class="p">([]),</span> <span class="nb">bool</span><span class="p">(()),</span> <span class="nb">bool</span><span class="p">({})</span>
-<span class="p">(</span><span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="bp">True</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
-<span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">bool</span><span class="s1388">(</span><span class="s7d0">None</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7d0">False</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">bool</span><span class="s1388">(</span><span class="s7d0">False</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s7d0">bool</span><span class="s1388">(</span><span class="sc80">0</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s7d0">bool</span><span class="s1388">(</span><span class="sc80">0.0</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s7d0">bool</span><span class="s1388">(</span><span class="sc80">0.0</span><span class="sfa0">+</span><span class="sc80">0.0j</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">(</span><span class="s7d0">False</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">False</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">False</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">False</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">bool</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;&#39;</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s7d0">bool</span><span class="s1388">([]),</span><span class="s1f40"> </span><span class="s7d0">bool</span><span class="s1388">(()),</span><span class="s1f40"> </span><span class="s7d0">bool</span><span class="s1388">({})</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">(</span><span class="s7d0">False</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">False</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">False</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">False</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">int</span><span class="s1388">(</span><span class="s7d0">True</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s7d0">int</span><span class="s1388">(</span><span class="s7d0">False</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">(</span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1388">)</span></code></pre>
+</div>
 <p>以下是Boolean操作, 按照优先级升序排列：</p>
 
 <ul>
@@ -244,49 +243,46 @@ PS2：非操作比非布尔运算符的优先级更低，因此<code>not a == b<
 <h4 id="整形">整形</h4>
 
 <p>整型可以表示无限大的整数（但受限于机器的虚拟内存大小）。整型字面值的表示方法有3种：十进制（常用）、八进制（以“0o”或“0O”开头）和十六进制（以“0x”或“0X”开头）。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span>
-<span class="mf">0.5</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span><span class="o">//</span><span class="mi">2</span>
-<span class="mi">0</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="mi">2</span><span class="o">**</span><span class="mi">3</span>
-<span class="mi">8</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">bin</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span> <span class="nb">oct</span><span class="p">(</span><span class="mi">20</span><span class="p">),</span> <span class="nb">hex</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-<span class="p">(</span><span class="s1">&#39;0b10100&#39;</span><span class="p">,</span> <span class="s1">&#39;0o24&#39;</span><span class="p">,</span> <span class="s1">&#39;0x14&#39;</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="mi">322</span> <span class="o">**</span> <span class="mi">10</span>
-<span class="mi">11982811207963436516967424</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc80">1</span><span class="sfa0">/</span><span class="sc80">2</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">0.5</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc80">1</span><span class="sfa0">//</span><span class="sc80">2</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">0</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc80">2</span><span class="sfa0">**</span><span class="sc80">3</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">8</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">bin</span><span class="s1388">(</span><span class="sc80">20</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s7d0">oct</span><span class="s1388">(</span><span class="sc80">20</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s7d0">hex</span><span class="s1388">(</span><span class="sc80">20</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;0b10100&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;0o24&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;0x14&#39;</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc80">322</span><span class="s1f40"> </span><span class="sfa0">**</span><span class="s1f40"> </span><span class="sc80">10</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">11982811207963436516967424</span></code></pre>
+</div>
 <h4 id="浮点型">浮点型</h4>
 
 <p>浮点型字面值可以用十进制或科学计数法表示，在科学计数法中，e或E代表10，+（可以省略）或 - 表示指数的正负。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">1e-1</span>
-<span class="mf">20.0</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="mf">2.0</span> <span class="o">/</span> <span class="mf">1E-1</span>
-<span class="mf">20.0</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="mf">2.0</span> <span class="o">**</span> <span class="mf">3.0</span> <span class="o">//</span><span class="mi">3</span>
-<span class="mf">2.0</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">round</span><span class="p">(</span><span class="mf">2.71828</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="mf">2.718</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">round</span><span class="p">(</span><span class="o">-</span><span class="mf">2.71828</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="o">-</span><span class="mf">2.718</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc80">2.0</span><span class="s1f40"> </span><span class="sfa0">/</span><span class="s1f40"> </span><span class="sc80">1e-1</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">20.0</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc80">2.0</span><span class="s1f40"> </span><span class="sfa0">/</span><span class="s1f40"> </span><span class="sc80">1E-1</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">20.0</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc80">2.0</span><span class="s1f40"> </span><span class="sfa0">**</span><span class="s1f40"> </span><span class="sc80">3.0</span><span class="s1f40"> </span><span class="sfa0">//</span><span class="sc80">3</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">2.0</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">round</span><span class="s1388">(</span><span class="sc80">2.71828</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">2.718</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">round</span><span class="s1388">(</span><span class="sfa0">-</span><span class="sc80">2.71828</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">-</span><span class="sc80">2.718</span></code></pre>
+</div>
 <h4 id="复数">复数</h4>
 
 <p>复数由实数部分和虚数部分构成，表示为eal+imagj 或 real+imagJ。实部real和虚部imag都是浮点型。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">=-</span><span class="mf">1.2</span> <span class="o">-</span><span class="mf">3.4j</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
-<span class="p">(</span><span class="o">-</span><span class="mf">1.2</span><span class="o">-</span><span class="mf">3.4j</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">real</span>
-<span class="o">-</span><span class="mf">1.2</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">imag</span>
-<span class="o">-</span><span class="mf">3.4</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">conjugate</span><span class="p">()</span> <span class="c1"># 共轭复数</span>
-<span class="p">(</span><span class="o">-</span><span class="mf">1.2</span><span class="o">+</span><span class="mf">3.4j</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># math.sqrt(c.real ** 2 + c.imag ** 2)</span>
-<span class="mf">3.605551275463989</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="sfa0">=-</span><span class="sc80">1.2</span><span class="s1f40"> </span><span class="sfa0">-</span><span class="sc80">3.4j</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">(</span><span class="sfa0">-</span><span class="sc80">1.2</span><span class="sfa0">-</span><span class="sc80">3.4j</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="sfa0">.</span><span class="s7d0">real</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">-</span><span class="sc80">1.2</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="sfa0">.</span><span class="s7d0">imag</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">-</span><span class="sc80">3.4</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="sfa0">.</span><span class="s7d0">conjugate</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1770"># 共轭复数</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">(</span><span class="sfa0">-</span><span class="sc80">1.2</span><span class="sfa0">+</span><span class="sc80">3.4j</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">abs</span><span class="s1388">(</span><span class="s7d0">x</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1770"># math.sqrt(c.real ** 2 + c.imag ** 2)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">3.605551275463989</span></code></pre>
+</div>
 <h4 id="类型转换">类型转换</h4>
 
 <p>如果参与运算的两个操作数的类型不同，Python会按照以下规则进行自动类型转换：
@@ -294,29 +290,27 @@ PS2：非操作比非布尔运算符的优先级更低，因此<code>not a == b<
 * 否则，如果有一个操作数是浮点型，另一个操作数被转换为浮点型
 * 否则，两者必然都是整型，无须类型转换
 总结一下就是：非复数转复数，非浮点型转浮点型，整型不变。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="mf">1.0</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">+</span><span class="mi">4j</span><span class="p">)</span>
-<span class="p">(</span><span class="mi">3</span><span class="o">+</span><span class="mi">4j</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="mi">3</span> <span class="o">+</span> <span class="mf">4.56</span>
-<span class="mf">7.56</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="mi">7</span> <span class="o">+</span> <span class="mi">8</span>
-<span class="mi">15</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="mi">9</span> <span class="o">+</span> <span class="bp">True</span>
-<span class="mi">10</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc80">1.0</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s1388">(</span><span class="sc80">2</span><span class="sfa0">+</span><span class="sc80">4j</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">(</span><span class="sc80">3</span><span class="sfa0">+</span><span class="sc80">4j</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc80">4.56</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">7.56</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc80">7</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc80">8</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">15</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="sc80">9</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">True</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">10</span></code></pre>
+</div>
 <p>也可以强制类型转换：</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="nb">bool</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>
-<span class="bp">True</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">int</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>
-<span class="mi">5</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">long</span><span class="p">(</span><span class="mf">5.0</span><span class="p">)</span>
-<span class="il">5L</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">float</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="mf">5.0</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="nb">complex</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">)</span>
-<span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mf">2.3j</span><span class="p">)</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">bool</span><span class="s1388">(</span><span class="sc80">5.0</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s7d0">True</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">int</span><span class="s1388">(</span><span class="sc80">5.0</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">5</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">long</span><span class="s1388">(</span><span class="sc80">5.0</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">5L</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">float</span><span class="s1388">(</span><span class="sc80">5</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">5.0</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">complex</span><span class="s1388">(</span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">2.3</span><span class="s1388">)</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1388">(</span><span class="sc80">1</span><span class="sfa0">+</span><span class="sc80">2.3j</span><span class="s1388">)</span></code></pre>
+</div>
 <h4 id="相关模块">相关模块</h4>
 
 <p>Python标准库中与数值类型相关的核心模块有：</p>
@@ -329,18 +323,17 @@ PS2：非操作比非布尔运算符的优先级更低，因此<code>not a == b<
 <li>random：生成伪随机数</li>
 <li>statistics：数学统计函数</li>
 </ul>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">=</span><span class="mf">1.23</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">math</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span>
-<span class="mf">1.23</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">trunc</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 将x截断为整型</span>
-<span class="mi">1</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 小于等于x的最大的整数（向下取整）</span>
-<span class="mi">1</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 大于等于x的最小的整数（向上取整）</span>
-<span class="mi">2</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="sfa0">=</span><span class="sc80">1.23</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">math</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">1.23</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">math</span><span class="sfa0">.</span><span class="s7d0">trunc</span><span class="s1388">(</span><span class="s7d0">x</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1770"># 将x截断为整型</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">1</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">math</span><span class="sfa0">.</span><span class="s7d0">floor</span><span class="s1388">(</span><span class="s7d0">x</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1770"># 小于等于x的最大的整数（向下取整）</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">1</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">math</span><span class="sfa0">.</span><span class="s7d0">ceil</span><span class="s1388">(</span><span class="s7d0">x</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1770"># 大于等于x的最小的整数（向上取整）</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="sc80">2</span></code></pre>
+</div>
 <hr />
 
 <p>参考资料：</p>
@@ -355,7 +348,7 @@ PS2：非操作比非布尔运算符的优先级更低，因此<code>not a == b<
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>207</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>214</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

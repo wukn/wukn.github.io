@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.27.1" />
+<meta name="generator" content="Hugo 0.29" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/03/07/python3-introduction/" />
@@ -218,31 +218,28 @@
 <h4 id="编码声明">编码声明</h4>
 
 <p>Python源文件默认以UTF-8编码。如果需要使用不同的编码时，可以在文件头部指定，方法是在 #! 行的后面再增加一行特殊的注释来定义源文件的编码。这个特殊的编码注释必须位于文件的第一或者第二行。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="c1"># -*- coding: &lt;encoding-name&gt; -*-</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s1770"># -*- coding: &lt;encoding-name&gt; -*-</span></code></pre>
+</div>
 <p>编码将用于所有的词法分析，包括字符串字面量、注释和标识符。</p>
 
 <h4 id="显式行连接">显式行连接</h4>
 
 <p>两个或多个物理行可以使用反斜杠字符()连接成一个逻辑行，方式如下：当一个物理行以一个不在字符串中或注释中的反斜杠结束时，它会和接下来的一行连接形成一个单独的逻辑行，反斜杠和后面的换行符会被删掉。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="k">if</span> <span class="mi">1900</span> <span class="o">&lt;</span> <span class="n">year</span> <span class="o">&lt;</span> <span class="mi">2100</span> <span class="ow">and</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">month</span> <span class="o">&lt;=</span> <span class="mi">12</span> \
-   <span class="ow">and</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">day</span> <span class="o">&lt;=</span> <span class="mi">31</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">hour</span> <span class="o">&lt;</span> <span class="mi">24</span> \
-   <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">minute</span> <span class="o">&lt;</span> <span class="mi">60</span> <span class="ow">and</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">second</span> <span class="o">&lt;</span> <span class="mi">60</span><span class="p">:</span>   <span class="c1"># Looks like a valid date</span>
-        <span class="k">return</span> <span class="mi">1</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s3e8">if</span><span class="s1f40"> </span><span class="sc80">1900</span><span class="s1f40"> </span><span class="sfa0">&lt;</span><span class="s1f40"> </span><span class="s7d0">year</span><span class="s1f40"> </span><span class="sfa0">&lt;</span><span class="s1f40"> </span><span class="sc80">2100</span><span class="s1f40"> </span><span class="sfa0">and</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1f40"> </span><span class="sfa0">&lt;=</span><span class="s1f40"> </span><span class="s7d0">month</span><span class="s1f40"> </span><span class="sfa0">&lt;=</span><span class="s1f40"> </span><span class="sc80">12</span><span class="s1f40"> \
+</span><span class="s1f40">   </span><span class="sfa0">and</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1f40"> </span><span class="sfa0">&lt;=</span><span class="s1f40"> </span><span class="s7d0">day</span><span class="s1f40"> </span><span class="sfa0">&lt;=</span><span class="s1f40"> </span><span class="sc80">31</span><span class="s1f40"> </span><span class="sfa0">and</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1f40"> </span><span class="sfa0">&lt;=</span><span class="s1f40"> </span><span class="s7d0">hour</span><span class="s1f40"> </span><span class="sfa0">&lt;</span><span class="s1f40"> </span><span class="sc80">24</span><span class="s1f40"> \
+</span><span class="s1f40">   </span><span class="sfa0">and</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1f40"> </span><span class="sfa0">&lt;=</span><span class="s1f40"> </span><span class="s7d0">minute</span><span class="s1f40"> </span><span class="sfa0">&lt;</span><span class="s1f40"> </span><span class="sc80">60</span><span class="s1f40"> </span><span class="sfa0">and</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1f40"> </span><span class="sfa0">&lt;=</span><span class="s1f40"> </span><span class="s7d0">second</span><span class="s1f40"> </span><span class="sfa0">&lt;</span><span class="s1f40"> </span><span class="sc80">60</span><span class="s1388">:</span><span class="s1f40">   </span><span class="s1770"># Looks like a valid date</span><span class="s1f40">
+</span><span class="s1f40">        </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="sc80">1</span></code></pre>
+</div>
 <p>以反斜杠结束的行不能带有注释。反斜杠不能延续注释。反斜杠不能延续除字符串字面量以外的词符（即不是字符串字面量的词符不能使用反斜杠跨多个物理行）。 一行中位于字符串字面值以外其它地方的反斜杠是非法的。(也就是说，\在字符串中是转义字符，在一行尾部是链接符，其他地方就是非法的。)</p>
 
 <h4 id="隐式行连接">隐式行连接</h4>
 
 <p>圆括号、方括号以及花括号中的表达式可以分割成多个物理行而不使用反斜杠。</p>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="n">month_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Januari&#39;</span><span class="p">,</span> <span class="s1">&#39;Februari&#39;</span><span class="p">,</span> <span class="s1">&#39;Maart&#39;</span><span class="p">,</span>      <span class="c1"># These are the</span>
-               <span class="s1">&#39;April&#39;</span><span class="p">,</span>   <span class="s1">&#39;Mei&#39;</span><span class="p">,</span>      <span class="s1">&#39;Juni&#39;</span><span class="p">,</span>       <span class="c1"># Dutch names</span>
-               <span class="s1">&#39;Juli&#39;</span><span class="p">,</span>    <span class="s1">&#39;Augustus&#39;</span><span class="p">,</span> <span class="s1">&#39;September&#39;</span><span class="p">,</span>  <span class="c1"># for the months</span>
-               <span class="s1">&#39;Oktober&#39;</span><span class="p">,</span> <span class="s1">&#39;November&#39;</span><span class="p">,</span> <span class="s1">&#39;December&#39;</span><span class="p">]</span>   <span class="c1"># of the year</span>
-</code></pre></div>
-
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s7d0">month_names</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c"></span><span class="sc1c">&#39;Januari&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Februari&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Maart&#39;</span><span class="s1388">,</span><span class="s1f40">      </span><span class="s1770"># These are the</span><span class="s1f40">
+</span><span class="s1f40">               </span><span class="sc1c"></span><span class="sc1c">&#39;April&#39;</span><span class="s1388">,</span><span class="s1f40">   </span><span class="sc1c"></span><span class="sc1c">&#39;Mei&#39;</span><span class="s1388">,</span><span class="s1f40">      </span><span class="sc1c"></span><span class="sc1c">&#39;Juni&#39;</span><span class="s1388">,</span><span class="s1f40">       </span><span class="s1770"># Dutch names</span><span class="s1f40">
+</span><span class="s1f40">               </span><span class="sc1c"></span><span class="sc1c">&#39;Juli&#39;</span><span class="s1388">,</span><span class="s1f40">    </span><span class="sc1c"></span><span class="sc1c">&#39;Augustus&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;September&#39;</span><span class="s1388">,</span><span class="s1f40">  </span><span class="s1770"># for the months</span><span class="s1f40">
+</span><span class="s1f40">               </span><span class="sc1c"></span><span class="sc1c">&#39;Oktober&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;November&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;December&#39;</span><span class="s1388">]</span><span class="s1f40">   </span><span class="s1770"># of the year</span></code></pre>
+</div>
 <p>隐式的续行可以带注释。续行的缩进不重要。允许空白的续行。隐式的续行也可以发生在三引号的字符串中，但这时它们不可以带注释。</p>
 
 <h4 id="空白行">空白行</h4>
@@ -273,7 +270,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>208</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>215</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
