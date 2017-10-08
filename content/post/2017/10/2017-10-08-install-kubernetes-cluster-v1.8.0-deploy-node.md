@@ -1,5 +1,5 @@
 ---
-title: "[k8s] 部署kubernetes集群——（三）部署Node节点"
+title: "[k8s] 部署kubernetes集群——（四）部署Node节点"
 author: "wukn"
 tags: ["k8s"]
 catalog: true
