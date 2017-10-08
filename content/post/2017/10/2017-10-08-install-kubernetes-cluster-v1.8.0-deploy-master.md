@@ -124,7 +124,7 @@ ExecStart=/usr/local/bin/kube-apiserver \\
   --advertise-address=${MASTER_IP} \\
   --bind-address=${MASTER_IP} \\
   --insecure-bind-address=${MASTER_IP} \\
-  --authorization-mode=RBAC \\
+  --authorization-mode=Node,RBAC \\
   --runtime-config=rbac.authorization.k8s.io/v1alpha1 \\
   --kubelet-https=true \\
   --experimental-bootstrap-token-auth \\
@@ -160,11 +160,12 @@ EOF
 
 * kube-scheduler、kube-controller-manager一般和kube-apiserver部署在同一台机器上，它们使用非安全端口和kube-apiserver通信
 * kubelet、kube-proxy、kubectl部署在其它Node节点上，如果通过安全端口访问kube-apiserver，则必须先通过TLS证书认证，再通过RBAC授权
-* kube-proxy、kubectl通过证书里指定的User、Group实现RBAC授权
+* kube-proxy通过证书里指定的User、Group实现RBAC授权
+* kubernetes v1.8.0以后建议kubelet的授权改为Node方式，需要在`--authorization-mode`中添加Node授权方式，否则会出现`Failed to list *v1.Node: nodes is forbidden: User "system:node:172.10.26.111" cannot list nodes at the cluster scope`这样的错误。这里还建议在`--admission-control`中添加`NodeRestriction`以限制每个Node的kubelet只有修改自己节点和pod的权限。详见[#issue 52711](https://github.com/kubernetes/kubernetes/issues/52711)
 * kubelet TLS Boostrap机制，与`--kubelet-certificate-authority`、`--kubelet-client-certificate`和`--kubelet-client-key`选项互斥
 * `--admission-control`值必须包含ServiceAccount，否则部署集群插件时会失败
 * `--service-cluster-ip-range`指定Service Cluster IP地址段，该地址段不能路由可达
-* `--service-node-port-range`指定NodePor的端口范围
+* `--service-node-port-range`指定NodePort的端口范围
 * 默认kubernetes对象保存在etcd的/registry路径下，可通过`--etcd-prefix`参数进行配置
 
 #### 启动kube-apiserver服务

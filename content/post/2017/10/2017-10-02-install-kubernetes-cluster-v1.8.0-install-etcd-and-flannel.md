@@ -260,6 +260,8 @@ RequiredBy=docker.service
 EOF
 ```
 
+注意，flannel使用默认的网卡对应的IP标识实例，而使用Vagrant创建的虚拟机由于默认的网卡eth0都是10.0.2.15，所以要添加配置`-iface=eth1`，否则所有的实例获取的子网都是一样的。
+
 #### 启动flanneld服务
 
 ```shell
