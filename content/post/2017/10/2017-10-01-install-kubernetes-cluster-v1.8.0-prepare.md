@@ -133,6 +133,8 @@ cp ca* /etc/kubernetes/ssl
 
 scp /etc/kubernetes/ssl/* 172.10.26.102:/etc/kubernetes/ssl/
 scp /etc/kubernetes/ssl/* 172.10.26.103:/etc/kubernetes/ssl/
+scp /etc/kubernetes/ssl/ca.pem 172.10.26.111:/etc/kubernetes/ssl
+scp /etc/kubernetes/ssl/ca.pem 172.10.26.112:/etc/kubernetes/ssl
 ```
 
 ### 安装集群管理工具kubectl
