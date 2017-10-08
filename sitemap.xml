@@ -8,6 +8,11 @@
   </url>
   
   <url>
+    <loc>https://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-node/</loc>
+    <lastmod>2017-10-08T00:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-deploy-master/</loc>
     <lastmod>2017-10-02T00:00:00+08:00</lastmod>
   </url>
