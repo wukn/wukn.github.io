@@ -195,7 +195,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[k8s] 部署kubernetes集群——（三）部署Node节点</h1>
-      <p class="post-meta">@wukn · Oct 8, 2017 · 2 min read</p>
+      <p class="post-meta">@wukn · Oct 8, 2017 · 4 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>Kubernetes node节点上需要docker、flannel、kublet和kube-proxy。</p>
@@ -205,50 +205,224 @@
 
 <p></p>
 
+<p>在172.10.26.111和172.10.26.112上部署node相关服务。</p>
+
 <h3 id="相关变量">相关变量</h3>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1770"># 当前node节点的IP
-</span><span class="s1770"></span><span class="s7d0">MASTER_IP</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc80">172</span><span class="s1f40">.10.26.104
+</span><span class="s1770"></span><span class="s7d0">NODE_IP</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc80">172</span><span class="s1f40">.10.26.111
 </span><span class="s1f40">
 </span><span class="s1f40"></span><span class="s1770"># 服务网段
 </span><span class="s1770"></span><span class="s7d0">SERVICE_CIDR</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;10.254.0.0/16&#34;</span><span class="s1f40">
 </span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># POD网段
-</span><span class="s1770"></span><span class="s7d0">CLUSTER_CIDR</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;172.11.0.0/16&#34;</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 集群DNS服务IP(从SERVICE_CIDR中预分配)
+</span><span class="s1770"></span><span class="s7d0">CLUSTER_DNS_SVC_IP</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;10.254.0.2&#34;</span><span class="s1f40">
 </span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># 服务端口范围(NodePort Range)
-</span><span class="s1770"></span><span class="s7d0">NODE_PORT_RANGE</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;8400-9000&#34;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># etcd集群服务地址列表
-</span><span class="s1770"></span><span class="s7d0">ETCD_ENDPOINTS</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;https://172.10.26.101:2379,https://172.10.26.102:2379,https://172.10.26.103:2379&#34;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># kubernetes服务IP(预分配，一般是SERVICE_CIDR中第一个IP)
-</span><span class="s1770"></span><span class="s7d0">CLUSTER_KUBERNETES_SVC_IP</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc80">10</span><span class="s1f40">.254.0.1
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># TLS Bootstrapping使用的Token，可以使用命令 head -c 16 /dev/urandom | od -An -t x | tr -d &#39; &#39; 生成
-</span><span class="s1770"></span><span class="s7d0">BOOTSTRAP_TOKEN</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;7033223b0a7bf1f302654f1e86946939&#34;</span></code></pre>
+</span><span class="s1f40"></span><span class="s1770"># 集群DNS域名
+</span><span class="s1770"></span><span class="s7d0">CLUSTER_DNS_DOMAIN</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;cluster.local.&#34;</span></code></pre>
 </div>
-<h3 id="下载master组件">下载master组件</h3>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">curl -LO https://dl.k8s.io/v1.8.0/kubernetes-server-linux-amd64.tar.gz
-</span><span class="s1f40">tar xvf kubernetes-server-linux-amd64.tar.gz
-</span><span class="s1f40"></span><span class="s7d0">cd</span><span class="s1f40"> kubernetes
-</span><span class="s1f40">cp -r server/bin/</span><span class="sfa0">{</span><span class="s1f40">kube-apiserver,kube-controller-manager,kube-scheduler,kubectl,kube-proxy,kubelet</span><span class="sfa0">}</span><span class="s1f40"> /usr/local/bin</span></code></pre>
-</div>
-<h3 id="创建kubernetes证书">创建kubernetes证书</h3>
+<h3 id="配置docker">配置docker</h3>
 
-<p>创建kubernetes证书签名请求：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat &gt; kubernetes-csr.json </span><span class="sc1c">&lt;&lt;EOF
+<h4 id="下载docker">下载docker</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">curl -LO https://download.docker.com/linux/static/stable/x86_64/docker-17.09.0-ce.tgz
+</span><span class="s1f40">tar xvf docker-17.09.0-ce.tgz
+</span><span class="s1f40">cp docker/docker* /usr/local/bin</span></code></pre>
+</div>
+<h4 id="创建docker的服务文件">创建docker的服务文件</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat  &gt; /etc/systemd/system/docker.service </span><span class="sc1c">&lt;&lt;EOF
+</span><span class="sc1c">[Unit]
+</span><span class="sc1c">Description=Docker Application Container Engine
+</span><span class="sc1c">Documentation=http://docs.docker.io
+</span><span class="sc1c">
+</span><span class="sc1c">[Service]
+</span><span class="sc1c">Environment=&#34;PATH=/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin&#34;
+</span><span class="sc1c">EnvironmentFile=-/run/flannel/docker
+</span><span class="sc1c">ExecStart=/usr/local/bin/dockerd --log-level=error \$DOCKER_NETWORK_OPTIONS
+</span><span class="sc1c">ExecReload=/bin/kill -s HUP $MAINPID
+</span><span class="sc1c">Restart=on-failure
+</span><span class="sc1c">RestartSec=5
+</span><span class="sc1c">LimitNOFILE=infinity
+</span><span class="sc1c">LimitNPROC=infinity
+</span><span class="sc1c">LimitCORE=infinity
+</span><span class="sc1c">Delegate=yes
+</span><span class="sc1c">KillMode=process
+</span><span class="sc1c">
+</span><span class="sc1c">[Install]
+</span><span class="sc1c">WantedBy=multi-user.target
+</span><span class="sc1c">EOF</span></code></pre>
+</div>
+<ul>
+<li>flanneld启动时将网络配置写入到/run/flannel/docker文件中的变量DOCKER_NETWORK_OPTIONS，docker使用该参数设置docker0网桥</li>
+<li>默认开启的<code>--iptables</code>和<code>--ip-masq</code>不能关闭</li>
+<li>设置iptable FORWARD chain策略为true：<code>iptables -P FORWARD ACCEPT</code></li>
+</ul>
+
+<h4 id="启动docker服务">启动docker服务</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">systemctl daemon-reload
+</span><span class="s1f40">systemctl stop firewalld
+</span><span class="s1f40">systemctl disable firewalld
+</span><span class="s1f40">iptables -F </span><span class="sfa0">&amp;&amp;</span><span class="s1f40"> iptables -X </span><span class="sfa0">&amp;&amp;</span><span class="s1f40"> iptables -F -t nat </span><span class="sfa0">&amp;&amp;</span><span class="s1f40"> iptables -X -t nat
+</span><span class="s1f40">systemctl </span><span class="s7d0">enable</span><span class="s1f40"> docker
+</span><span class="s1f40">systemctl start docker
+</span><span class="s1f40">systemctl status docker</span></code></pre>
+</div>
+<p>这里禁用了firewalld，避免重复创建iptables规则；同时清理了旧的iptables规则。</p>
+
+<p>使用<code>docker version</code>或<code>docker info</code>命令检查的docker服务是否成功启动。</p>
+
+<h3 id="配置kubelet">配置kubelet</h3>
+
+<p>kubelet启动时向kube-apiserver发送TLS bootstrapping请求，需要先将bootstrap token文件中的kubelet-bootstrap用户赋予<code>system:node-bootstrapper</code>角色，然后kubelet才有权限创建认证请求。</p>
+
+<p>在配置了kubectl的节点上执行：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl create clusterrolebinding kubelet-bootstrap --clusterrole</span><span class="sfa0">=</span><span class="s1f40">system:node-bootstrapper --user</span><span class="sfa0">=</span><span class="s1f40">kubelet-bootstrap</span></code></pre>
+</div>
+<p><code>--user=kubelet-bootstrap</code>是/etc/kubernetes/token.csv中指定的用户名，同时也写入了/etc/kubernetes/bootstrap.kubeconfig。</p>
+
+<h4 id="下载kubelet和kube-proxy">下载kubelet和kube-proxy</h4>
+
+<p>从server节点上拷贝kubelet和kube-proxy二进制文件到node节点上：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1770"># 可以下载二进制文件
+</span><span class="s1770"># curl -LO https://dl.k8s.io/v1.8.0/kubernetes-node-linux-amd64.tar.gz
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 也可以从server节点拷贝
+</span><span class="s1770"></span><span class="s1f40">scp /usr/local/bin/</span><span class="sfa0">{</span><span class="s1f40">kube-proxy,kubelet</span><span class="sfa0">}</span><span class="s1f40"> </span><span class="sc80">172</span><span class="s1f40">.10.26.111:/usr/local/bin
+</span><span class="s1f40">scp /usr/local/bin/</span><span class="sfa0">{</span><span class="s1f40">kube-proxy,kubelet</span><span class="sfa0">}</span><span class="s1f40"> </span><span class="sc80">172</span><span class="s1f40">.10.26.112:/usr/local/bin</span></code></pre>
+</div>
+<h4 id="创建kubelet的bootstrapping-kubeconfig文件">创建kubelet的bootstrapping.kubeconfig文件</h4>
+
+<p>在配置了kubectl的节点上执行：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1770"># 相关变量
+</span><span class="s1770"></span><span class="s7d0">KUBE_APISERVER</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;https://172.10.26.101:6443&#34;</span><span class="s1f40"> </span><span class="s1770"># master集群中任一节点的IP
+</span><span class="s1770"></span><span class="s7d0">BOOTSTRAP_TOKEN</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;7033223b0a7bf1f302654f1e86946939&#34;</span><span class="s1f40"> </span><span class="s1770"># 上一篇中生成的token
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 设置集群参数
+</span><span class="s1770"></span><span class="s1f40">kubectl config set-cluster kubernetes </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --certificate-authority</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca.pem </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --embed-certs</span><span class="sfa0">=</span><span class="s7d0">true</span><span class="s1f40"> </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --server</span><span class="sfa0">=</span><span class="sc1c">${</span><span class="s7d0">KUBE_APISERVER</span><span class="sc1c">}</span><span class="s1f40"> </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --kubeconfig</span><span class="sfa0">=</span><span class="s1f40">bootstrap.kubeconfig
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 设置客户端认证参数
+</span><span class="s1770"></span><span class="s1f40">kubectl config set-credentials kubelet-bootstrap </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --token</span><span class="sfa0">=</span><span class="sc1c">${</span><span class="s7d0">BOOTSTRAP_TOKEN</span><span class="sc1c">}</span><span class="s1f40"> </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --kubeconfig</span><span class="sfa0">=</span><span class="s1f40">bootstrap.kubeconfig
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 设置上下文参数
+</span><span class="s1770"></span><span class="s1f40">kubectl config set-context default </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --cluster</span><span class="sfa0">=</span><span class="s1f40">kubernetes </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --user</span><span class="sfa0">=</span><span class="s1f40">kubelet-bootstrap </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --kubeconfig</span><span class="sfa0">=</span><span class="s1f40">bootstrap.kubeconfig
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 设置默认上下文
+</span><span class="s1770"></span><span class="s1f40">kubectl config use-context default --kubeconfig</span><span class="sfa0">=</span><span class="s1f40">bootstrap.kubeconfig
+</span><span class="s1f40">
+</span><span class="s1f40">scp bootstrap.kubeconfig </span><span class="sc80">172</span><span class="s1f40">.10.26.111:/etc/kubernetes/
+</span><span class="s1f40">scp bootstrap.kubeconfig </span><span class="sc80">172</span><span class="s1f40">.10.26.112:/etc/kubernetes/</span></code></pre>
+</div>
+<p>这里设置kubelet客户端认证参数时没有指定秘钥和证书，后续由kube-apiserver自动生成。</p>
+
+<h4 id="创建kubelet的服务文件">创建kubelet的服务文件</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1770"># 创建工作目录
+</span><span class="s1770"></span><span class="s1f40">mkdir /var/lib/kubelet
+</span><span class="s1f40">
+</span><span class="s1f40">cat &gt; /etc/systemd/system/kubelet.service </span><span class="sc1c">&lt;&lt;EOF
+</span><span class="sc1c">[Unit]
+</span><span class="sc1c">Description=Kubernetes Kubelet
+</span><span class="sc1c">Documentation=https://github.com/kubernetes/kubernetes
+</span><span class="sc1c">After=docker.service
+</span><span class="sc1c">Requires=docker.service
+</span><span class="sc1c">
+</span><span class="sc1c">[Service]
+</span><span class="sc1c">WorkingDirectory=/var/lib/kubelet
+</span><span class="sc1c">ExecStart=/usr/local/bin/kubelet \\
+</span><span class="sc1c">  --address=${NODE_IP} \\
+</span><span class="sc1c">  --hostname-override=${NODE_IP} \\
+</span><span class="sc1c">  --pod-infra-container-image=registry.access.redhat.com/rhel7/pod-infrastructure:latest \\
+</span><span class="sc1c">  --experimental-bootstrap-kubeconfig=/etc/kubernetes/bootstrap.kubeconfig \\
+</span><span class="sc1c">  --kubeconfig=/etc/kubernetes/kubelet.kubeconfig \\
+</span><span class="sc1c">  --require-kubeconfig \\
+</span><span class="sc1c">  --cert-dir=/etc/kubernetes/ssl \\
+</span><span class="sc1c">  --cluster-dns=${CLUSTER_DNS_SVC_IP} \\
+</span><span class="sc1c">  --cluster-domain=${CLUSTER_DNS_DOMAIN} \\
+</span><span class="sc1c">  --hairpin-mode promiscuous-bridge \\
+</span><span class="sc1c">  --allow-privileged=true \\
+</span><span class="sc1c">  --serialize-image-pulls=false \\
+</span><span class="sc1c">  --logtostderr=true \\
+</span><span class="sc1c">  --v=2
+</span><span class="sc1c">ExecStartPost=/sbin/iptables -A INPUT -s 10.0.0.0/8 -p tcp --dport 4194 -j ACCEPT
+</span><span class="sc1c">ExecStartPost=/sbin/iptables -A INPUT -s 172.16.0.0/12 -p tcp --dport 4194 -j ACCEPT
+</span><span class="sc1c">ExecStartPost=/sbin/iptables -A INPUT -s 192.168.0.0/16 -p tcp --dport 4194 -j ACCEPT
+</span><span class="sc1c">ExecStartPost=/sbin/iptables -A INPUT -p tcp --dport 4194 -j DROP
+</span><span class="sc1c">Restart=on-failure
+</span><span class="sc1c">RestartSec=5
+</span><span class="sc1c">
+</span><span class="sc1c">[Install]
+</span><span class="sc1c">WantedBy=multi-user.target
+</span><span class="sc1c">EOF</span></code></pre>
+</div>
+<ul>
+<li><code>--address</code>不能设置为127.0.0.1，否则后续Pods访问kubelet的API接口时会失败，因为Pods访问的127.0.0.1指向自己而不是kubelet</li>
+<li>如果设置了<code>--hostname-override</code>，则kube-proxy也要设置该选项，否则会出现找不到Node的情况</li>
+<li><code>--experimental-bootstrap-kubeconfig</code>指向bootstrap.kubeconfig文件，kubelet使用其中的用户名和token向kube-apiserver发送TLS Bootstrapping请求</li>
+<li>管理员通过了CSR请求后，kubelet会在<code>--cert-dir</code>目录创建证书kubelet-client.crt和密钥kubelet-client.key，然后写入<code>--kubeconfig</code>指定的文件</li>
+<li><code>--cluster-dns</code>和<code>--cluster-domain</code>分别指定kubedns的Service IP和域名后缀</li>
+<li>kubelet cAdvisor默认监听4194端口，ExecStartPost通过iptables限定只有内网IP能够访问</li>
+<li>kubelet默认要求swap交换分区是关闭的，或者指定<code>--fail-swap-on flag=false</code>来忽略它</li>
+</ul>
+
+<h4 id="启动kubelet服务">启动kubelet服务</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">systemctl daemon-reload
+</span><span class="s1f40">systemctl </span><span class="s7d0">enable</span><span class="s1f40"> kubelet
+</span><span class="s1f40">systemctl start kubelet
+</span><span class="s1f40">systemctl status kubelet</span></code></pre>
+</div>
+<h4 id="通过kubelet的tls证书请求">通过kubelet的TLS证书请求</h4>
+
+<p>kubelet首次启动时向kube-apiserver发送证书签名请求，必须通过后kubernetes才会将该Node加入到集群。</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1770"># 查看未授权的CSR请求
+</span><span class="s1770"></span><span class="s1f40">kubectl get csr
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 结果大概是这样：
+</span><span class="s1770"># NAME                                                   AGE       REQUESTOR           CONDITION
+</span><span class="s1770"># node-csr-DNmVZKP5HOWM6kWdZrQXrB1T5b6oVuEj7zLafmeP7z4   5m        kubelet-bootstrap   Pending
+</span><span class="s1770"># node-csr-j1zE8OAiNpQL15Z2sdaZkQMtnNKc50nXY4yLSFrLTF0   3m        kubelet-bootstrap   Pending
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 查看集群中的node
+</span><span class="s1770"></span><span class="s1f40">kubectl get nodes
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 通过CSR请求
+</span><span class="s1770"></span><span class="s1f40">kubectl certificate approve node-csr-DNmVZKP5HOWM6kWdZrQXrB1T5b6oVuEj7zLafmeP7z4
+</span><span class="s1f40">kubectl certificate approve node-csr-j1zE8OAiNpQL15Z2sdaZkQMtnNKc50nXY4yLSFrLTF0
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 再次查看未授权的CSR请求
+</span><span class="s1770"></span><span class="s1f40">kubectl get csr
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 结果变成了这样：
+</span><span class="s1770"># NAME                                                   AGE       REQUESTOR           CONDITION
+</span><span class="s1770"># node-csr-DNmVZKP5HOWM6kWdZrQXrB1T5b6oVuEj7zLafmeP7z4   6m        kubelet-bootstrap   Approved,Issued
+</span><span class="s1770"># node-csr-j1zE8OAiNpQL15Z2sdaZkQMtnNKc50nXY4yLSFrLTF0   4m        kubelet-bootstrap   Approved,Issued
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 再次查看集群中的node
+</span><span class="s1770"></span><span class="s1f40">kubectl get nodes
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 现在集群中能看到了node节点了
+</span><span class="s1770"># NAME            STATUS    ROLES     AGE       VERSION
+</span><span class="s1770"># 172.10.26.111   Ready     &lt;none&gt;    13m       v1.8.0
+</span><span class="s1770"></span><span class="s1f40"># </span><span class="sc80">172</span><span class="s1f40">.10.26.112   Ready     &lt;none&gt;    13m       v1.8.0</span></code></pre>
+</div>
+<p>看一下自动生成的kubelet kubeconfig文件和公私钥：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">ls -l /etc/kubernetes/kubelet.kubeconfig
+</span><span class="s1f40">ls -l /etc/kubernetes/ssl/kubelet*</span></code></pre>
+</div>
+<h3 id="配置kube-proxy">配置kube-proxy</h3>
+
+<h4 id="创建kube-proxy证书">创建kube-proxy证书</h4>
+
+<p>创建kube-proxy证书签名请求：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat &gt; kube-proxy-csr.json </span><span class="sc1c">&lt;&lt;EOF
 </span><span class="sc1c">{
-</span><span class="sc1c">  &#34;CN&#34;: &#34;kubernetes&#34;,
-</span><span class="sc1c">  &#34;hosts&#34;: [
-</span><span class="sc1c">    &#34;127.0.0.1&#34;,
-</span><span class="sc1c">    &#34;${MASTER_IP}&#34;,
-</span><span class="sc1c">    &#34;${CLUSTER_KUBERNETES_SVC_IP}&#34;,
-</span><span class="sc1c">    &#34;kubernetes&#34;,
-</span><span class="sc1c">    &#34;kubernetes.default&#34;,
-</span><span class="sc1c">    &#34;kubernetes.default.svc&#34;,
-</span><span class="sc1c">    &#34;kubernetes.default.svc.cluster&#34;,
-</span><span class="sc1c">    &#34;kubernetes.default.svc.cluster.local&#34;
-</span><span class="sc1c">  ],
+</span><span class="sc1c">  &#34;CN&#34;: &#34;system:kube-proxy&#34;,
+</span><span class="sc1c">  &#34;hosts&#34;: [],
 </span><span class="sc1c">  &#34;key&#34;: {
 </span><span class="sc1c">    &#34;algo&#34;: &#34;rsa&#34;,
 </span><span class="sc1c">    &#34;size&#34;: 2048
@@ -265,62 +439,71 @@
 </span><span class="sc1c">}
 </span><span class="sc1c">EOF</span></code></pre>
 </div>
-<p>证书签名请求里hosts指定了授权使用该证书的IP或域名，所以指定了master节点的IP；另外要添加kube-apiserver注册的名为kubernetes的服务IP（Service Cluster IP），一般是<code>kube-apiserver --service-cluster-ip-range</code>选项值指定的网段的第一个IP，如&rdquo;10.254.0.1&rdquo;。</p>
+<ul>
+<li><code>CN</code>中指定User为<code>system:kube-proxy</code></li>
+<li>kube-apiserver预定义的RoleBinding <code>system:node-proxier</code>将User <code>system:kube-proxy</code>与Role <code>system:node-proxier</code>绑定，该Role授予了调用kube-apiserver Proxy相关API的权限</li>
+</ul>
 
-<p>生成kubernetes证书和密钥：</p>
+<p>生成kube-proxy客户端证书和私钥：</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cfssl gencert -ca</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca.pem </span><span class="sc25">\
 </span><span class="sc25"></span><span class="s1f40">    -ca-key</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca-key.pem </span><span class="sc25">\
 </span><span class="sc25"></span><span class="s1f40">    -config</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca-config.json </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    -profile</span><span class="sfa0">=</span><span class="s1f40">kubernetes kubernetes-csr.json </span><span class="s1388">|</span><span class="s1f40"> cfssljson -bare kubernetes
-</span><span class="s1f40">mv kubernetes*.pem /etc/kubernetes/ssl/</span></code></pre>
+</span><span class="sc25"></span><span class="s1f40">    -profile</span><span class="sfa0">=</span><span class="s1f40">kubernetes  kube-proxy-csr.json </span><span class="s1388">|</span><span class="s1f40"> cfssljson -bare kube-proxy
+</span><span class="s1f40">mv kube-proxy*.pem /etc/kubernetes/ssl/</span></code></pre>
 </div>
-<h3 id="配置kube-apiserver">配置kube-apiserver</h3>
+<h4 id="创建kube-proxy-kubeconfig配置文件">创建kube-proxy.kubeconfig配置文件</h4>
 
-<h4 id="创建kube-apiserver使用的客户端token文件">创建kube-apiserver使用的客户端token文件</h4>
-
-<p>kubelet首次启动时向kube-apiserver发送TLS Bootstrapping请求，kube-apiserver验证kubelet请求中的token是否与它配置的token.csv一致，如果一致则自动为kubelet生成证书和秘钥。</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s7d0">echo</span><span class="s1f40"> </span><span class="sc1c">${</span><span class="s7d0">BOOTSTRAP_TOKEN</span><span class="sc1c">}</span><span class="s1f40">,kubelet-bootstrap,10001,</span><span class="sc1c">&#34;system:kubelet-bootstrap&#34;</span><span class="s1f40"> &gt; /etc/kubernetes/token.csv</span></code></pre>
+<p>在配置了kubectl的节点上执行：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1770"># 相关参数
+</span><span class="s1770"></span><span class="s7d0">KUBE_APISERVER</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;https://172.10.26.101:6443&#34;</span><span class="s1f40"> </span><span class="s1770"># master集群中任一节点的IP
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 设置集群参数
+</span><span class="s1770"></span><span class="s1f40">kubectl config set-cluster kubernetes </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --certificate-authority</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca.pem </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --embed-certs</span><span class="sfa0">=</span><span class="s7d0">true</span><span class="s1f40"> </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --server</span><span class="sfa0">=</span><span class="sc1c">${</span><span class="s7d0">KUBE_APISERVER</span><span class="sc1c">}</span><span class="s1f40"> </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --kubeconfig</span><span class="sfa0">=</span><span class="s1f40">kube-proxy.kubeconfig
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 设置客户端认证参数，注意这里需要proxy的证书和私钥
+</span><span class="s1770"></span><span class="s1f40">kubectl config set-credentials kube-proxy </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --client-certificate</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/kube-proxy.pem </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --client-key</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/kube-proxy-key.pem </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --embed-certs</span><span class="sfa0">=</span><span class="s7d0">true</span><span class="s1f40"> </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --kubeconfig</span><span class="sfa0">=</span><span class="s1f40">kube-proxy.kubeconfig
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 设置上下文参数
+</span><span class="s1770"></span><span class="s1f40">kubectl config set-context default </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --cluster</span><span class="sfa0">=</span><span class="s1f40">kubernetes </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --user</span><span class="sfa0">=</span><span class="s1f40">kube-proxy </span><span class="sc25">\
+</span><span class="sc25"></span><span class="s1f40">    --kubeconfig</span><span class="sfa0">=</span><span class="s1f40">kube-proxy.kubeconfig
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 设置默认上下文
+</span><span class="s1770"></span><span class="s1f40">kubectl config use-context default --kubeconfig</span><span class="sfa0">=</span><span class="s1f40">kube-proxy.kubeconfig
+</span><span class="s1f40">
+</span><span class="s1f40">scp kube-proxy.kubeconfig </span><span class="sc80">172</span><span class="s1f40">.10.26.111:/etc/kubernetes/
+</span><span class="s1f40">scp kube-proxy.kubeconfig </span><span class="sc80">172</span><span class="s1f40">.10.26.112:/etc/kubernetes/</span></code></pre>
 </div>
-<h4 id="创建kube-apiserver的服务文件">创建kube-apiserver的服务文件</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat  &gt; /etc/systemd/system/kube-apiserver.service </span><span class="sc1c">&lt;&lt;EOF
+<h4 id="创建kube-proxy的服务文件">创建kube-proxy的服务文件</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1770"># 创建工作目录
+</span><span class="s1770"></span><span class="s1f40">mkdir /var/lib/kube-proxy
+</span><span class="s1f40">
+</span><span class="s1f40">cat &gt; /etc/systemd/system/kube-proxy.service </span><span class="sc1c">&lt;&lt;EOF
 </span><span class="sc1c">[Unit]
-</span><span class="sc1c">Description=Kubernetes API Server
+</span><span class="sc1c">Description=Kubernetes Kube-Proxy Server
 </span><span class="sc1c">Documentation=https://github.com/kubernetes/kubernetes
 </span><span class="sc1c">After=network.target
 </span><span class="sc1c">
 </span><span class="sc1c">[Service]
-</span><span class="sc1c">ExecStart=/usr/local/bin/kube-apiserver \\
-</span><span class="sc1c">  --admission-control=NamespaceLifecycle,LimitRanger,ServiceAccount,DefaultStorageClass,ResourceQuota \\
-</span><span class="sc1c">  --advertise-address=${MASTER_IP} \\
-</span><span class="sc1c">  --bind-address=${MASTER_IP} \\
-</span><span class="sc1c">  --insecure-bind-address=${MASTER_IP} \\
-</span><span class="sc1c">  --authorization-mode=RBAC \\
-</span><span class="sc1c">  --runtime-config=rbac.authorization.k8s.io/v1alpha1 \\
-</span><span class="sc1c">  --kubelet-https=true \\
-</span><span class="sc1c">  --experimental-bootstrap-token-auth \\
-</span><span class="sc1c">  --token-auth-file=/etc/kubernetes/token.csv \\
-</span><span class="sc1c">  --service-cluster-ip-range=${SERVICE_CIDR} \\
-</span><span class="sc1c">  --service-node-port-range=${NODE_PORT_RANGE} \\
-</span><span class="sc1c">  --tls-cert-file=/etc/kubernetes/ssl/kubernetes.pem \\
-</span><span class="sc1c">  --tls-private-key-file=/etc/kubernetes/ssl/kubernetes-key.pem \\
-</span><span class="sc1c">  --client-ca-file=/etc/kubernetes/ssl/ca.pem \\
-</span><span class="sc1c">  --service-account-key-file=/etc/kubernetes/ssl/ca-key.pem \\
-</span><span class="sc1c">  --etcd-cafile=/etc/kubernetes/ssl/ca.pem \\
-</span><span class="sc1c">  --etcd-certfile=/etc/kubernetes/ssl/kubernetes.pem \\
-</span><span class="sc1c">  --etcd-keyfile=/etc/kubernetes/ssl/kubernetes-key.pem \\
-</span><span class="sc1c">  --etcd-servers=${ETCD_ENDPOINTS} \\
-</span><span class="sc1c">  --enable-swagger-ui=true \\
-</span><span class="sc1c">  --allow-privileged=true \\
-</span><span class="sc1c">  --apiserver-count=3 \\
-</span><span class="sc1c">  --audit-log-maxage=30 \\
-</span><span class="sc1c">  --audit-log-maxbackup=3 \\
-</span><span class="sc1c">  --audit-log-maxsize=100 \\
-</span><span class="sc1c">  --audit-log-path=/var/lib/audit.log \\
-</span><span class="sc1c">  --event-ttl=1h \\
+</span><span class="sc1c">WorkingDirectory=/var/lib/kube-proxy
+</span><span class="sc1c">ExecStart=/usr/local/bin/kube-proxy \\
+</span><span class="sc1c">  --bind-address=${NODE_IP} \\
+</span><span class="sc1c">  --hostname-override=${NODE_IP} \\
+</span><span class="sc1c">  --cluster-cidr=${SERVICE_CIDR} \\
+</span><span class="sc1c">  --kubeconfig=/etc/kubernetes/kube-proxy.kubeconfig \\
+</span><span class="sc1c">  --logtostderr=true \\
 </span><span class="sc1c">  --v=2
 </span><span class="sc1c">Restart=on-failure
 </span><span class="sc1c">RestartSec=5
-</span><span class="sc1c">Type=notify
 </span><span class="sc1c">LimitNOFILE=65536
 </span><span class="sc1c">
 </span><span class="sc1c">[Install]
@@ -328,105 +511,94 @@
 </span><span class="sc1c">EOF</span></code></pre>
 </div>
 <ul>
-<li>kube-scheduler、kube-controller-manager一般和kube-apiserver部署在同一台机器上，它们使用非安全端口和kube-apiserver通信</li>
-<li>kubelet、kube-proxy、kubectl部署在其它Node节点上，如果通过安全端口访问kube-apiserver，则必须先通过TLS证书认证，再通过RBAC授权</li>
-<li>kube-proxy、kubectl通过证书里指定的User、Group实现RBAC授权</li>
-<li>kubelet TLS Boostrap机制，与<code>--kubelet-certificate-authority</code>、<code>--kubelet-client-certificate</code>和<code>--kubelet-client-key</code>选项互斥</li>
-<li><code>--admission-control</code>值必须包含ServiceAccount，否则部署集群插件时会失败</li>
-<li><code>--service-cluster-ip-range</code>指定Service Cluster IP地址段，该地址段不能路由可达</li>
-<li><code>--service-node-port-range</code>指定NodePor的端口范围</li>
-<li>默认kubernetes对象保存在etcd的/registry路径下，可通过<code>--etcd-prefix</code>参数进行配置</li>
+<li><code>--hostname-override</code>必须与kubelet一致</li>
+<li><code>--cluster-cidr</code>必须与kube-apiserver的<code>--service-cluster-ip-range</code>一致</li>
+<li>kube-proxy根据<code>--cluster-cidr</code>判断集群内部和外部流量，指定<code>--cluster-cidr</code>或<code>--masquerade-all</code>选项后kube-proxy才会对访问Service IP的请求做SNAT</li>
 </ul>
 
-<h4 id="启动kube-apiserver服务">启动kube-apiserver服务</h4>
+<h4 id="启动kube-proxy服务">启动kube-proxy服务</h4>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">systemctl daemon-reload
-</span><span class="s1f40">systemctl </span><span class="s7d0">enable</span><span class="s1f40"> kube-apiserver
-</span><span class="s1f40">systemctl start kube-apiserver
-</span><span class="s1f40">systemctl status kube-apiserver</span></code></pre>
+</span><span class="s1f40">systemctl </span><span class="s7d0">enable</span><span class="s1f40"> kube-proxy
+</span><span class="s1f40">systemctl start kube-proxy
+</span><span class="s1f40">systemctl status kube-proxy</span></code></pre>
 </div>
-<h3 id="配置kube-controller-manager">配置kube-controller-manager</h3>
+<h3 id="验证集群功能">验证集群功能</h3>
 
-<h4 id="创建kube-controller-manager的服务文件">创建kube-controller-manager的服务文件</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat &gt; /etc/systemd/system/kube-controller-manager.service </span><span class="sc1c">&lt;&lt;EOF
-</span><span class="sc1c">[Unit]
-</span><span class="sc1c">Description=Kubernetes Controller Manager
-</span><span class="sc1c">Documentation=https://github.com/kubernetes/kubernetes
+<p>我们部署一个简单的nginx服务来验证集群的功能。</p>
+
+<p>创建文件：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat &gt; nginx-ds.yml </span><span class="sc1c">&lt;&lt;EOF
+</span><span class="sc1c">apiVersion: v1
+</span><span class="sc1c">kind: Service
+</span><span class="sc1c">metadata:
+</span><span class="sc1c">  name: nginx-ds
+</span><span class="sc1c">  labels:
+</span><span class="sc1c">    app: nginx-ds
+</span><span class="sc1c">spec:
+</span><span class="sc1c">  type: NodePort
+</span><span class="sc1c">  selector:
+</span><span class="sc1c">    app: nginx-ds
+</span><span class="sc1c">  ports:
+</span><span class="sc1c">  - name: http
+</span><span class="sc1c">    port: 80
+</span><span class="sc1c">    targetPort: 80
 </span><span class="sc1c">
-</span><span class="sc1c">[Service]
-</span><span class="sc1c">ExecStart=/usr/local/bin/kube-controller-manager \\
-</span><span class="sc1c">  --address=127.0.0.1 \\
-</span><span class="sc1c">  --master=http://${MASTER_IP}:8080 \\
-</span><span class="sc1c">  --allocate-node-cidrs=true \\
-</span><span class="sc1c">  --service-cluster-ip-range=${SERVICE_CIDR} \\
-</span><span class="sc1c">  --cluster-cidr=${CLUSTER_CIDR} \\
-</span><span class="sc1c">  --cluster-name=kubernetes \\
-</span><span class="sc1c">  --cluster-signing-cert-file=/etc/kubernetes/ssl/ca.pem \\
-</span><span class="sc1c">  --cluster-signing-key-file=/etc/kubernetes/ssl/ca-key.pem \\
-</span><span class="sc1c">  --service-account-private-key-file=/etc/kubernetes/ssl/ca-key.pem \\
-</span><span class="sc1c">  --root-ca-file=/etc/kubernetes/ssl/ca.pem \\
-</span><span class="sc1c">  --leader-elect=true \\
-</span><span class="sc1c">  --v=2
-</span><span class="sc1c">Restart=on-failure
-</span><span class="sc1c">RestartSec=5
+</span><span class="sc1c">---
 </span><span class="sc1c">
-</span><span class="sc1c">[Install]
-</span><span class="sc1c">WantedBy=multi-user.target
+</span><span class="sc1c">apiVersion: extensions/v1beta1
+</span><span class="sc1c">kind: DaemonSet
+</span><span class="sc1c">metadata:
+</span><span class="sc1c">  name: nginx-ds
+</span><span class="sc1c">  labels:
+</span><span class="sc1c">    addonmanager.kubernetes.io/mode: Reconcile
+</span><span class="sc1c">spec:
+</span><span class="sc1c">  template:
+</span><span class="sc1c">    metadata:
+</span><span class="sc1c">      labels:
+</span><span class="sc1c">        app: nginx-ds
+</span><span class="sc1c">    spec:
+</span><span class="sc1c">      containers:
+</span><span class="sc1c">      - name: my-nginx
+</span><span class="sc1c">        image: nginx:1.13.5
+</span><span class="sc1c">        ports:
+</span><span class="sc1c">        - containerPort: 80
 </span><span class="sc1c">EOF</span></code></pre>
 </div>
-<ul>
-<li><code>--address</code>必须为127.0.0.1，因为当前kube-apiserver期与scheduler、controller-manager在部署同一台机器</li>
-<li><code>--master</code>指定使用非安全8080端口与kube-apiserver通信</li>
-<li><code>--cluster-cidr</code>指定集群中Pod的CIDR范围，由flannel保证该网段在各Node间路由可达</li>
-<li><code>--service-cluster-ip-range</code>指定集群中Service的CIDR范围，该网络在各Node间必须路由不可达，且必须和kube-apiserver中的配置一致</li>
-<li><code>--cluster-signing-*</code>指定的证书和私钥文件用来签名为TLS BootStrap创建的证书和密钥</li>
-<li><code>--root-ca-file</code>用来对kube-apiserver证书进行校验，指定该参数后，才会在Pod容器的ServiceAccount中放置该CA证书文件</li>
-<li><code>--leader-elect=true</code>指定Master集群选举产生一个提供服务的kube-controller-manager</li>
-</ul>
+<p>创建Pod和服务：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl create -f nginx-ds.yml</span></code></pre>
+</div>
+<p>检查Node状态，STATE为Ready即为正常：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl get nodes
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># output
+</span><span class="s1770"># NAME            STATUS    ROLES     AGE       VERSION
+</span><span class="s1770"># 172.10.26.111   Ready     &lt;none&gt;    56m       v1.8.0
+</span><span class="s1770"></span><span class="s1f40"># </span><span class="sc80">172</span><span class="s1f40">.10.26.112   Ready     &lt;none&gt;    56m       v1.8.0</span></code></pre>
+</div>
+<p>查看pod的IP：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl get pods  -o wide </span><span class="s1388">|</span><span class="s1f40"> grep nginx-ds
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># output
+</span><span class="s1770"># nginx-ds-kswkm   1/1       Running   0          3m        172.11.40.2   172.10.26.112
+</span><span class="s1770"></span><span class="s1f40"># nginx-ds-m2q4m   </span><span class="sc80">1</span><span class="s1f40">/1       Running   </span><span class="sc80">0</span><span class="s1f40">          3m        </span><span class="sc80">172</span><span class="s1f40">.11.84.2   </span><span class="sc80">172</span><span class="s1f40">.10.26.111</span></code></pre>
+</div>
+<p>查看服务的IP和状态：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl get svc </span><span class="s1388">|</span><span class="s1f40"> grep nginx-ds
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># output
+</span><span class="s1770"># nginx-ds     NodePort    10.254.1.166   &lt;none&gt;        80:8733/TCP   5m
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 服务IP：10.254.1.166
+</span><span class="s1770"># 服务端口：80
+</span><span class="s1770"># NodePort端口：8733
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"># 在所有Node上执行curl http://10.254.1.166应该会输出nginx默认的首页</span></code></pre>
+</div>
+<p>查看NodePort的是否可达：</p>
 
-<h4 id="启动kube-controller-manager服务">启动kube-controller-manager服务</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">systemctl daemon-reload
-</span><span class="s1f40">systemctl </span><span class="s7d0">enable</span><span class="s1f40"> kube-controller-manager
-</span><span class="s1f40">systemctl start kube-controller-manager
-</span><span class="s1f40">systemctl status kube-controller-manager</span></code></pre>
-</div>
-<h3 id="配置kube-scheduler">配置kube-scheduler</h3>
+<pre><code>curl http://172.10.26.111:8733
 
-<h4 id="创建kube-scheduler的服务文件">创建kube-scheduler的服务文件</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat &gt; /etc/systemd/system/kube-scheduler.service </span><span class="sc1c">&lt;&lt;EOF
-</span><span class="sc1c">[Unit]
-</span><span class="sc1c">Description=Kubernetes Scheduler
-</span><span class="sc1c">Documentation=https://github.com/kubernetes/kubernetes
-</span><span class="sc1c">
-</span><span class="sc1c">[Service]
-</span><span class="sc1c">ExecStart=/usr/local/bin/kube-scheduler \\
-</span><span class="sc1c">  --address=127.0.0.1 \\
-</span><span class="sc1c">  --master=http://${MASTER_IP}:8080 \\
-</span><span class="sc1c">  --leader-elect=true \\
-</span><span class="sc1c">  --v=2
-</span><span class="sc1c">Restart=on-failure
-</span><span class="sc1c">RestartSec=5
-</span><span class="sc1c">
-</span><span class="sc1c">[Install]
-</span><span class="sc1c">WantedBy=multi-user.target
-</span><span class="sc1c">EOF</span></code></pre>
-</div>
-<h4 id="启动kube-scheduler服务">启动kube-scheduler服务</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">systemctl daemon-reload
-</span><span class="s1f40">systemctl </span><span class="s7d0">enable</span><span class="s1f40"> kube-scheduler
-</span><span class="s1f40">systemctl start kube-scheduler
-</span><span class="s1f40">systemctl status kube-scheduler</span></code></pre>
-</div>
-<h3 id="验证master集群">验证Master集群</h3>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl get componentstatuses</span></code></pre>
-</div>
-<p>结果如下：</p>
-
-<pre><code>NAME                 STATUS    MESSAGE              ERROR
-controller-manager   Healthy   ok                   
-scheduler            Healthy   ok                   
-etcd-0               Healthy   {&quot;health&quot;: &quot;true&quot;}   
-etcd-2               Healthy   {&quot;health&quot;: &quot;true&quot;}   
-etcd-1               Healthy   {&quot;health&quot;: &quot;true&quot;}
+curl http://172.10.26.112:8773
 </code></pre>
 
 <hr />

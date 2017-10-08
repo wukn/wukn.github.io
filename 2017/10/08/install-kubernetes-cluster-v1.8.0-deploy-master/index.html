@@ -298,7 +298,7 @@ master节点与node节点上的Pods通过pod网络通信，因此需要在master
 </span><span class="sc1c">  --advertise-address=${MASTER_IP} \\
 </span><span class="sc1c">  --bind-address=${MASTER_IP} \\
 </span><span class="sc1c">  --insecure-bind-address=${MASTER_IP} \\
-</span><span class="sc1c">  --authorization-mode=RBAC \\
+</span><span class="sc1c">  --authorization-mode=Node,RBAC \\
 </span><span class="sc1c">  --runtime-config=rbac.authorization.k8s.io/v1alpha1 \\
 </span><span class="sc1c">  --kubelet-https=true \\
 </span><span class="sc1c">  --experimental-bootstrap-token-auth \\
@@ -334,11 +334,12 @@ master节点与node节点上的Pods通过pod网络通信，因此需要在master
 <ul>
 <li>kube-scheduler、kube-controller-manager一般和kube-apiserver部署在同一台机器上，它们使用非安全端口和kube-apiserver通信</li>
 <li>kubelet、kube-proxy、kubectl部署在其它Node节点上，如果通过安全端口访问kube-apiserver，则必须先通过TLS证书认证，再通过RBAC授权</li>
-<li>kube-proxy、kubectl通过证书里指定的User、Group实现RBAC授权</li>
+<li>kube-proxy通过证书里指定的User、Group实现RBAC授权</li>
+<li>kubernetes v1.8.0以后建议kubelet的授权改为Node方式，需要在<code>--authorization-mode</code>中添加Node授权方式，否则会出现<code>Failed to list *v1.Node: nodes is forbidden: User &quot;system:node:172.10.26.111&quot; cannot list nodes at the cluster scope</code>这样的错误。这里还建议在<code>--admission-control</code>中添加<code>NodeRestriction</code>以限制每个Node的kubelet只有修改自己节点和pod的权限。详见<a href="https://github.com/kubernetes/kubernetes/issues/52711">#issue 52711</a></li>
 <li>kubelet TLS Boostrap机制，与<code>--kubelet-certificate-authority</code>、<code>--kubelet-client-certificate</code>和<code>--kubelet-client-key</code>选项互斥</li>
 <li><code>--admission-control</code>值必须包含ServiceAccount，否则部署集群插件时会失败</li>
 <li><code>--service-cluster-ip-range</code>指定Service Cluster IP地址段，该地址段不能路由可达</li>
-<li><code>--service-node-port-range</code>指定NodePor的端口范围</li>
+<li><code>--service-node-port-range</code>指定NodePort的端口范围</li>
 <li>默认kubernetes对象保存在etcd的/registry路径下，可通过<code>--etcd-prefix</code>参数进行配置</li>
 </ul>
 
