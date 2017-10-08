@@ -269,7 +269,7 @@ master节点与node节点上的Pods通过pod网络通信，因此需要在master
 </span><span class="sc1c">}
 </span><span class="sc1c">EOF</span></code></pre>
 </div>
-<p>证书签名请求里hosts指定了授权使用该证书的IP或域名，所以指定了master节点的IP；另外要添加kube-apiserver注册的名为kubernetes的服务IP(Service Cluster IP)，一般是kube-apiserver &ndash;service-cluster-ip-range选项值指定的网段的第一个IP，如&rdquo;10.254.0.1&rdquo;。</p>
+<p>证书签名请求里hosts指定了授权使用该证书的IP或域名，所以指定了master节点的IP；另外要添加kube-apiserver注册的名为kubernetes的服务IP（Service Cluster IP），一般是<code>kube-apiserver --service-cluster-ip-range</code>选项值指定的网段的第一个IP，如&rdquo;10.254.0.1&rdquo;。</p>
 
 <p>生成kubernetes证书和密钥：</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cfssl gencert -ca</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca.pem </span><span class="sc25">\
@@ -335,11 +335,11 @@ master节点与node节点上的Pods通过pod网络通信，因此需要在master
 <li>kube-scheduler、kube-controller-manager一般和kube-apiserver部署在同一台机器上，它们使用非安全端口和kube-apiserver通信</li>
 <li>kubelet、kube-proxy、kubectl部署在其它Node节点上，如果通过安全端口访问kube-apiserver，则必须先通过TLS证书认证，再通过RBAC授权</li>
 <li>kube-proxy、kubectl通过证书里指定的User、Group实现RBAC授权</li>
-<li>kubelet TLS Boostrap机制，与&ndash;kubelet-certificate-authority、&ndash;kubelet-client-certificate和&ndash;kubelet-client-key选项互斥</li>
-<li>&ndash;admission-control值必须包含ServiceAccount，否则部署集群插件时会失败</li>
-<li>&ndash;service-cluster-ip-range指定Service Cluster IP地址段，该地址段不能路由可达</li>
-<li>&ndash;service-node-port-range指定NodePor的端口范围</li>
-<li>默认kubernetes对象保存在etcd的/registry路径下，可通过&ndash;etcd-prefix参数进行配置</li>
+<li>kubelet TLS Boostrap机制，与<code>--kubelet-certificate-authority</code>、<code>--kubelet-client-certificate</code>和<code>--kubelet-client-key</code>选项互斥</li>
+<li><code>--admission-control</code>值必须包含ServiceAccount，否则部署集群插件时会失败</li>
+<li><code>--service-cluster-ip-range</code>指定Service Cluster IP地址段，该地址段不能路由可达</li>
+<li><code>--service-node-port-range</code>指定NodePor的端口范围</li>
+<li>默认kubernetes对象保存在etcd的/registry路径下，可通过<code>--etcd-prefix</code>参数进行配置</li>
 </ul>
 
 <h4 id="启动kube-apiserver服务">启动kube-apiserver服务</h4>
@@ -378,13 +378,13 @@ master节点与node节点上的Pods通过pod网络通信，因此需要在master
 </span><span class="sc1c">EOF</span></code></pre>
 </div>
 <ul>
-<li>&ndash;address必须为127.0.0.1，因为当前kube-apiserver期与scheduler、controller-manager在部署同一台机器</li>
-<li>&ndash;master指定使用非安全8080端口与kube-apiserver通信</li>
-<li>&ndash;cluster-cidr指定集群中Pod的CIDR范围，由flannel保证该网段在各Node间路由可达</li>
-<li>&ndash;service-cluster-ip-range指定集群中Service的CIDR范围，该网络在各Node间必须路由不可达，且必须和kube-apiserver中的配置一致</li>
-<li>&ndash;cluster-signing-* 指定的证书和私钥文件用来签名为TLS BootStrap创建的证书和密钥</li>
-<li>&ndash;root-ca-file用来对kube-apiserver证书进行校验，指定该参数后，才会在Pod容器的ServiceAccount中放置该CA证书文件</li>
-<li>&ndash;leader-elect=true指定Master集群选举产生一个提供服务的kube-controller-manager</li>
+<li><code>--address</code>必须为127.0.0.1，因为当前kube-apiserver期与scheduler、controller-manager在部署同一台机器</li>
+<li><code>--master</code>指定使用非安全8080端口与kube-apiserver通信</li>
+<li><code>--cluster-cidr</code>指定集群中Pod的CIDR范围，由flannel保证该网段在各Node间路由可达</li>
+<li><code>--service-cluster-ip-range</code>指定集群中Service的CIDR范围，该网络在各Node间必须路由不可达，且必须和kube-apiserver中的配置一致</li>
+<li><code>--cluster-signing-*</code>指定的证书和私钥文件用来签名为TLS BootStrap创建的证书和密钥</li>
+<li><code>--root-ca-file</code>用来对kube-apiserver证书进行校验，指定该参数后，才会在Pod容器的ServiceAccount中放置该CA证书文件</li>
+<li><code>--leader-elect=true</code>指定Master集群选举产生一个提供服务的kube-controller-manager</li>
 </ul>
 
 <h4 id="启动kube-controller-manager服务">启动kube-controller-manager服务</h4>
