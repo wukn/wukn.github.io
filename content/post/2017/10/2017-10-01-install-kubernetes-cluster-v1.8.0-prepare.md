@@ -25,8 +25,8 @@ kubernetes master、etcd：
 
 kubernetes node：
 
-* 172.10.26.104
-* 172.10.26.105
+* 172.10.26.111
+* 172.10.26.112
 
 Kubernetes系统的各个组件需要使用TLS证书对通信进行加密。我们可以使用CloudFlare的cfssl来生成CA证书和密钥。CA是自签名证书，用来签名后续创建的其它TLS证书。
 
