@@ -87,7 +87,7 @@ cat > kubernetes-csr.json <<EOF
 EOF
 ```
 
-证书签名请求里hosts指定了授权使用该证书的IP或域名，所以指定了master节点的IP；另外要添加kube-apiserver注册的名为kubernetes的服务IP(Service Cluster IP)，一般是kube-apiserver --service-cluster-ip-range选项值指定的网段的第一个IP，如"10.254.0.1"。
+证书签名请求里hosts指定了授权使用该证书的IP或域名，所以指定了master节点的IP；另外要添加kube-apiserver注册的名为kubernetes的服务IP（Service Cluster IP），一般是`kube-apiserver --service-cluster-ip-range`选项值指定的网段的第一个IP，如"10.254.0.1"。
 
 生成kubernetes证书和密钥：
 
@@ -161,11 +161,11 @@ EOF
 * kube-scheduler、kube-controller-manager一般和kube-apiserver部署在同一台机器上，它们使用非安全端口和kube-apiserver通信
 * kubelet、kube-proxy、kubectl部署在其它Node节点上，如果通过安全端口访问kube-apiserver，则必须先通过TLS证书认证，再通过RBAC授权
 * kube-proxy、kubectl通过证书里指定的User、Group实现RBAC授权
-* kubelet TLS Boostrap机制，与--kubelet-certificate-authority、--kubelet-client-certificate和--kubelet-client-key选项互斥
-* --admission-control值必须包含ServiceAccount，否则部署集群插件时会失败
-* --service-cluster-ip-range指定Service Cluster IP地址段，该地址段不能路由可达
-* --service-node-port-range指定NodePor的端口范围
-* 默认kubernetes对象保存在etcd的/registry路径下，可通过--etcd-prefix参数进行配置
+* kubelet TLS Boostrap机制，与`--kubelet-certificate-authority`、`--kubelet-client-certificate`和`--kubelet-client-key`选项互斥
+* `--admission-control`值必须包含ServiceAccount，否则部署集群插件时会失败
+* `--service-cluster-ip-range`指定Service Cluster IP地址段，该地址段不能路由可达
+* `--service-node-port-range`指定NodePor的端口范围
+* 默认kubernetes对象保存在etcd的/registry路径下，可通过`--etcd-prefix`参数进行配置
 
 #### 启动kube-apiserver服务
 
@@ -208,13 +208,13 @@ WantedBy=multi-user.target
 EOF
 ```
 
-* --address必须为127.0.0.1，因为当前kube-apiserver期与scheduler、controller-manager在部署同一台机器
-* --master指定使用非安全8080端口与kube-apiserver通信
-* --cluster-cidr指定集群中Pod的CIDR范围，由flannel保证该网段在各Node间路由可达
-* --service-cluster-ip-range指定集群中Service的CIDR范围，该网络在各Node间必须路由不可达，且必须和kube-apiserver中的配置一致
-* --cluster-signing-* 指定的证书和私钥文件用来签名为TLS BootStrap创建的证书和密钥
-* --root-ca-file用来对kube-apiserver证书进行校验，指定该参数后，才会在Pod容器的ServiceAccount中放置该CA证书文件
-* --leader-elect=true指定Master集群选举产生一个提供服务的kube-controller-manager
+* `--address`必须为127.0.0.1，因为当前kube-apiserver期与scheduler、controller-manager在部署同一台机器
+* `--master`指定使用非安全8080端口与kube-apiserver通信
+* `--cluster-cidr`指定集群中Pod的CIDR范围，由flannel保证该网段在各Node间路由可达
+* `--service-cluster-ip-range`指定集群中Service的CIDR范围，该网络在各Node间必须路由不可达，且必须和kube-apiserver中的配置一致
+* `--cluster-signing-*`指定的证书和私钥文件用来签名为TLS BootStrap创建的证书和密钥
+* `--root-ca-file`用来对kube-apiserver证书进行校验，指定该参数后，才会在Pod容器的ServiceAccount中放置该CA证书文件
+* `--leader-elect=true`指定Master集群选举产生一个提供服务的kube-controller-manager
 
 #### 启动kube-controller-manager服务
 
