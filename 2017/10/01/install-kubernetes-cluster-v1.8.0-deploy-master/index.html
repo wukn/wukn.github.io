@@ -435,7 +435,7 @@ Kubernetes集群的Pod之前需要能相互通信，这里使用flannel搭建vxl
 </span><span class="sc25"></span><span class="s1f40">    --ca-file</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca.pem </span><span class="sc25">\
 </span><span class="sc25"></span><span class="s1f40">    --cert-file</span><span class="sfa0">=</span><span class="s1f40">/etc/flanneld/ssl/flanneld.pem </span><span class="sc25">\
 </span><span class="sc25"></span><span class="s1f40">    --key-file</span><span class="sfa0">=</span><span class="s1f40">/etc/flanneld/ssl/flanneld-key.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    get </span><span class="sc1c">${</span><span class="s7d0">FLANNEL_ETCD_PREFIX</span><span class="sc1c">}</span><span class="s1f40">/config</span></code></pre>
+</span><span class="sc25"></span><span class="s1f40">    ls </span><span class="sc1c">${</span><span class="s7d0">FLANNEL_ETCD_PREFIX</span><span class="sc1c">}</span><span class="s1f40">/subnets</span></code></pre>
 </div>
 <p>查看某一Pod网段的相关参数：</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">etcdctl </span><span class="sc25">\
