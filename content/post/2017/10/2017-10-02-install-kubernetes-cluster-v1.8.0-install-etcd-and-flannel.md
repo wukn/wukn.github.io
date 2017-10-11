@@ -290,7 +290,7 @@ etcdctl \
     --ca-file=/etc/kubernetes/ssl/ca.pem \
     --cert-file=/etc/flanneld/ssl/flanneld.pem \
     --key-file=/etc/flanneld/ssl/flanneld-key.pem \
-    get ${FLANNEL_ETCD_PREFIX}/config
+    ls ${FLANNEL_ETCD_PREFIX}/subnets
 ```
 
 查看某一Pod网段的相关参数：
