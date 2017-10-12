@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[k8s] 部署kubernetes集群——（五）部署DNS、Dashboard和Heapster插件</h1>
-      <p class="post-meta">@wukn · Oct 9, 2017 · 1 min read</p>
+      <p class="post-meta">@wukn · Oct 9, 2017 · 2 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>在Kubernetes集群内部署DNS、Dashboard和Heapster插件。</p>
@@ -247,7 +247,8 @@
 <h4 id="配置kube-dns-deployment">配置kube-dns Deployment</h4>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cp kubedns-controller.yaml.base kubedns-controller.yaml
 </span><span class="s1f40">
-</span><span class="s1f40">sed -i </span><span class="sc1c">&#39;s/__PILLAR__DNS__DOMAIN__./cluster.local./g&#39;</span><span class="s1f40"> kubedns-controller.yaml</span></code></pre>
+</span><span class="s1f40">sed -i </span><span class="sc1c">&#39;s/__PILLAR__DNS__DOMAIN__\./cluster.local./g&#39;</span><span class="s1f40"> kubedns-controller.yaml
+</span><span class="s1f40">sed -i </span><span class="sc1c">&#39;s/__PILLAR__DNS__DOMAIN__/cluster.local./g&#39;</span><span class="s1f40"> kubedns-controller.yaml</span></code></pre>
 </div>
 <p><code>--domain</code>设置为变量CLUSTER_DNS_DOMAIN的值。</p>
 
@@ -284,7 +285,7 @@
 </span><span class="s1f40">kubectl get services --all-namespaces </span><span class="s1388">|</span><span class="s1f40">grep my-nginx
 </span><span class="s1f40">
 </span><span class="s1f40"></span><span class="s1770"># output：
-</span><span class="s1770"></span><span class="s1f40"># default       my-nginx     ClusterIP   </span><span class="sc80">10</span><span class="s1f40">.254.20.93   &lt;none&gt;        </span><span class="sc80">80</span><span class="s1f40">/TCP          1s</span></code></pre>
+</span><span class="s1770"></span><span class="s1f40"># default       my-nginx     ClusterIP   </span><span class="sc80">10</span><span class="s1f40">.254.103.138   &lt;none&gt;        </span><span class="sc80">80</span><span class="s1f40">/TCP          1s</span></code></pre>
 </div>
 <p>创建另一个Pod，查看<code>/etc/resolv.conf</code>是否包含kubelet配置的<code>--cluster-dns</code>和<code>--cluster-domain</code>，是否能够将服务<code>my-nginx</code>解析到上面显示的Cluster IP：</p>
 <div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat &gt; pod-nginx.yaml </span><span class="sc1c">&lt;&lt;EOF
@@ -295,7 +296,7 @@
 </span><span class="sc1c">spec:
 </span><span class="sc1c">  containers:
 </span><span class="sc1c">  - name: nginx
-</span><span class="sc1c">    image: nginx:1.13.5
+</span><span class="sc1c">    image: nginx:1.7.9
 </span><span class="sc1c">    ports:
 </span><span class="sc1c">    - containerPort: 80
 </span><span class="sc1c">EOF</span><span class="s1f40">
@@ -303,7 +304,33 @@
 </span><span class="s1f40">kubectl create -f pod-nginx.yaml
 </span><span class="s1f40">kubectl </span><span class="s7d0">exec</span><span class="s1f40">  nginx -i -t -- /bin/bash
 </span><span class="s1f40">
-</span><span class="s1f40"># 进入pod之后</span></code></pre>
+</span><span class="s1f40"></span><span class="s1770"># 进入pod之后，在容器内运行
+</span><span class="s1770"></span><span class="s1f40">cat /etc/resolv.conf
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># output：
+</span><span class="s1770"># nameserver 10.254.0.2
+</span><span class="s1770"># search default.svc.cluster.local. svc.cluster.local. cluster.local.
+</span><span class="s1770"># options ndots:5
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 可以看到“nameserver 10.254.0.2”
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># ping服务名可以得到对应的IP地址：
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40">ping my-nginx
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># output：
+</span><span class="s1770"># PING my-nginx.default.svc.cluster.local (10.254.103.138): 48 data bytes
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">ping kubernetes
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># output：
+</span><span class="s1770"># PING kubernetes.default.svc.cluster.local (10.254.0.1): 48 data bytes
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40">ping kube-dns.kube-system.svc.cluster.local
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># output：
+</span><span class="s1770"></span><span class="s1f40"># PING kube-dns.kube-system.svc.cluster.local </span><span class="sfa0">(</span><span class="sc80">10</span><span class="s1f40">.254.0.2</span><span class="sfa0">)</span><span class="s1f40">: </span><span class="sc80">48</span><span class="s1f40"> data bytes</span></code></pre>
 </div>
 <hr />
 
