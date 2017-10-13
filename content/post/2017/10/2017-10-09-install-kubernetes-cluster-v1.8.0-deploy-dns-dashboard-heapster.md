@@ -166,11 +166,171 @@ ping kube-dns.kube-system.svc.cluster.local
 
 # output：
 # PING kube-dns.kube-system.svc.cluster.local (10.254.0.2): 48 data bytes
-
 ```
+
+### 部署Dashboard
+
+#### 下载并部署
+
+下载Dashboard v1.7.1部署文件并部署：
+
+```shell
+curl -LO https://raw.githubusercontent.com/kubernetes/dashboard/v1.7.1/src/deploy/recommended/kubernetes-dashboard.yaml
+```
+
+给Service添加label：
+
+```shell
+sed -i '155i\ \ \ \ kubernetes.io\/cluster-service:\ "true"' kubernetes-dashboard.yaml
+sed -i '156i\ \ \ \ addonmanager.kubernetes.io\/mode:\ Reconcile' kubernetes-dashboard.yaml
+```
+
+如果想通过NodePort方式访问Dashboard，则修改服务类型：
+
+```shell
+sed -i '158i\ \ type:\ NodePort' kubernetes-dashboard.yaml
+```
+
+最终的Service配置长这样：
+
+```yaml
+kind: Service
+apiVersion: v1
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+    kubernetes.io/cluster-service: "true"
+    addonmanager.kubernetes.io/mode: Reconcile
+  name: kubernetes-dashboard
+  namespace: kube-system
+spec:
+  type: NodePort
+  ports:
+    - port: 443
+      targetPort: 8443
+  selector:
+    k8s-app: kubernetes-dashboard
+```
+
+部署Dashboard：
+
+```shell
+kubectl create -f kubernetes-dashboard.yaml
+```
+
+#### 访问Dashboard
+
+访问Dashboard有三种方法：
+
+（1）通过NodePort访问
+
+上面指定了Service为NodePort类型，可以通过`http://NodeIP:nodePort`访问服务。
+
+查询NodePort：
+
+```shell
+kubectl get services -n kube-system | grep dashboard
+
+# output：
+# kubernetes-dashboard   NodePort    10.254.237.250   <none>        443:8685/TCP    29m
+```
+
+在浏览器中访问`https://172.10.26.111:8685`，会跳转到登陆页面。
+
+（2）通过kube-apiserver访问
+
+获取集群服务地址列表：
+
+```shell
+kubectl cluster-info
+
+# output：
+# Kubernetes master is running at https://172.10.26.101:6443
+# KubeDNS is running at https://172.10.26.101:6443/api/v1/namespaces/kube-system/services/kube-dns/proxy
+# kubernetes-dashboard is running at https://172.10.26.101:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy
+```
+
+由于kube-apiserver开启了RBAC授权，而浏览器访问kube-apiserver的时候使用的是匿名证书，所以访问安全端口会导致授权失败。这里需要使用非安全端口访问kube-apiserver，同时改成https方式：`http://172.10.26.101:8080/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy`。
+
+（3）通过kubectl proxy访问
+
+在部署了kubectl节点上启动代理：
+
+```shell
+kubectl proxy --address='172.10.26.101' --port=8086 --accept-hosts='^*$'
+```
+
+在浏览器中访问`http://172.10.26.101:8086/ui`，会跳转到`http://172.10.26.101:8086/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/`，这时访问不了，因为Dashboard服务使用的是https，改成`http://172.10.26.101:8086/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/`就可以访问了。
+
+#### 创建有集群管理员权限的ServiceAccount
+
+部署文件中的kube-dashboard只被授予了很小的权限，这里我们重新创建一个ServiceAccount，绑定`cluster-admin`角色：
+
+```shell
+cat > kube-dashboard-admin.yaml <<EOF
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  labels:
+    k8s-app: kubernetes-dashboard
+  name: kubernetes-dashboard-admin
+  namespace: kube-system
+
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: kubernetes-dashboard-admin
+  namespace: kube-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: kubernetes-dashboard-admin
+  namespace: kube-system
+EOF
+
+kubectl create -f kube-dashboard-admin.yaml
+```
+
+查看kubernetes-dashboard-admin对应的token：
+
+```shell
+kubectl get secrets --all-namespaces | grep kubernetes-dashboard-admin
+
+# output：
+# kube-system   kubernetes-dashboard-admin-token-gnxl2   kubernetes.io/service-account-token   3         45s
+
+kubectl describe secret kubernetes-dashboard-admin-token-gnxl2 -n kube-system
+
+# output：
+# Name:         kubernetes-dashboard-admin-token-gnxl2
+# Namespace:    kube-system
+# Labels:       <none>
+# Annotations:  kubernetes.io/service-account.name=kubernetes-dashboard-admin
+#               kubernetes.io/service-account.uid=7fa85490-b01c-11e7-a3b6-525400474652
+#
+# Type:  kubernetes.io/service-account-token
+#
+# Data
+# ====
+# ca.crt:     1359 bytes
+# namespace:  11 bytes
+# token:      eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJrdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbi10b2tlbi1nbnhsMiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJrdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjdmYTg1NDkwLWIwMWMtMTFlNy1hM2I2LTUyNTQwMDQ3NDY1MiIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTprdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbiJ9.IFc5HO8I31EsZ2m3mAJGUn4f2uYMYY7xhxYDaM3vG6tv58cXx8or0pgN6n47-bjA17f5kPfhzXX93lvWvShNYqj1HGDZnnSRUDMgTt_P16mG55hO_SyxO2p4dNyWvavYuz--6NdLtt8BCsmwm_03tsifhWXFhVCGL4EBLQPozfJZJe_AfL2o7e73Quj1Ve0wpJWbvjCBUKQni7MEfH6JQJhEl14ulffE9WHzN26sh5LllKbFl6AMS_1Zf0zqDAcwLJcX9C4WXG6IZNeNI57resBhvoa0GK-XjCXmk8UpAxMWJ5QykEL4wJO0JRmk6RMpFlgmQiM7MrSUnXzUYFMwiA
+```
+
+使用该token登录即可。
+
+
+### 部署Heapster
+
+TODO
 
 ---
 
 参考资料：
 
 https://github.com/opsnull/follow-me-install-kubernetes-cluster
+https://github.com/kubernetes/dashboard/wiki/Installation
