@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[k8s] 部署kubernetes集群——（五）部署DNS、Dashboard和Heapster插件</h1>
-      <p class="post-meta">@wukn · Oct 9, 2017 · 2 min read</p>
+      <p class="post-meta">@wukn · Oct 9, 2017 · 3 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>在Kubernetes集群内部署DNS、Dashboard和Heapster插件。</p>
@@ -332,11 +332,141 @@
 </span><span class="s1f40"></span><span class="s1770"># output：
 </span><span class="s1770"></span><span class="s1f40"># PING kube-dns.kube-system.svc.cluster.local </span><span class="sfa0">(</span><span class="sc80">10</span><span class="s1f40">.254.0.2</span><span class="sfa0">)</span><span class="s1f40">: </span><span class="sc80">48</span><span class="s1f40"> data bytes</span></code></pre>
 </div>
+<h3 id="部署dashboard">部署Dashboard</h3>
+
+<h4 id="下载并部署">下载并部署</h4>
+
+<p>下载Dashboard v1.7.1部署文件并部署：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">curl -LO https://raw.githubusercontent.com/kubernetes/dashboard/v1.7.1/src/deploy/recommended/kubernetes-dashboard.yaml</span></code></pre>
+</div>
+<p>给Service添加label：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">sed -i </span><span class="sc1c">&#39;155i\ \ \ \ kubernetes.io\/cluster-service:\ &#34;true&#34;&#39;</span><span class="s1f40"> kubernetes-dashboard.yaml
+</span><span class="s1f40">sed -i </span><span class="sc1c">&#39;156i\ \ \ \ addonmanager.kubernetes.io\/mode:\ Reconcile&#39;</span><span class="s1f40"> kubernetes-dashboard.yaml</span></code></pre>
+</div>
+<p>如果想通过NodePort方式访问Dashboard，则修改服务类型：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">sed -i </span><span class="sc1c">&#39;158i\ \ type:\ NodePort&#39;</span><span class="s1f40"> kubernetes-dashboard.yaml</span></code></pre>
+</div>
+<p>最终的Service配置长这样：</p>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="s1f40">kind: Service
+</span><span class="s1f40">apiVersion: v1
+</span><span class="s1f40">metadata:
+</span><span class="s1f40">  labels:
+</span><span class="s1f40">    k8s-app: kubernetes-dashboard
+</span><span class="s1f40">    kubernetes.io/cluster-service: &#34;true&#34;
+</span><span class="s1f40">    addonmanager.kubernetes.io/mode: Reconcile
+</span><span class="s1f40">  name: kubernetes-dashboard
+</span><span class="s1f40">  namespace: kube-system
+</span><span class="s1f40">spec:
+</span><span class="s1f40">  type: NodePort
+</span><span class="s1f40">  ports:
+</span><span class="s1f40">    - port: 443
+</span><span class="s1f40">      targetPort: 8443
+</span><span class="s1f40">  selector:
+</span><span class="s1f40">    k8s-app: kubernetes-dashboard</span></code></pre>
+</div>
+<p>部署Dashboard：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl create -f kubernetes-dashboard.yaml</span></code></pre>
+</div>
+<h4 id="访问dashboard">访问Dashboard</h4>
+
+<p>访问Dashboard有三种方法：</p>
+
+<p>（1）通过NodePort访问</p>
+
+<p>上面指定了Service为NodePort类型，可以通过<code>http://NodeIP:nodePort</code>访问服务。</p>
+
+<p>查询NodePort：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl get services -n kube-system </span><span class="s1388">|</span><span class="s1f40"> grep dashboard
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># output：
+</span><span class="s1770"></span><span class="s1f40"># kubernetes-dashboard   NodePort    </span><span class="sc80">10</span><span class="s1f40">.254.237.250   &lt;none&gt;        </span><span class="sc80">443</span><span class="s1f40">:8685/TCP    29m</span></code></pre>
+</div>
+<p>在浏览器中访问<code>https://172.10.26.111:8685</code>，会跳转到登陆页面。</p>
+
+<p>（2）通过kube-apiserver访问</p>
+
+<p>获取集群服务地址列表：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl cluster-info
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># output：
+</span><span class="s1770"># Kubernetes master is running at https://172.10.26.101:6443
+</span><span class="s1770"># KubeDNS is running at https://172.10.26.101:6443/api/v1/namespaces/kube-system/services/kube-dns/proxy
+</span><span class="s1770"></span><span class="s1f40"># kubernetes-dashboard is running at https://172.10.26.101:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy</span></code></pre>
+</div>
+<p>由于kube-apiserver开启了RBAC授权，而浏览器访问kube-apiserver的时候使用的是匿名证书，所以访问安全端口会导致授权失败。这里需要使用非安全端口访问kube-apiserver，同时改成https方式：<code>http://172.10.26.101:8080/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy</code>。</p>
+
+<p>（3）通过kubectl proxy访问</p>
+
+<p>在部署了kubectl节点上启动代理：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl proxy --address</span><span class="sfa0">=</span><span class="sc1c">&#39;172.10.26.101&#39;</span><span class="s1f40"> --port</span><span class="sfa0">=</span><span class="sc80">8086</span><span class="s1f40"> --accept-hosts</span><span class="sfa0">=</span><span class="sc1c">&#39;^*$&#39;</span></code></pre>
+</div>
+<p>在浏览器中访问<code>http://172.10.26.101:8086/ui</code>，会跳转到<code>http://172.10.26.101:8086/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/</code>，这时访问不了，因为Dashboard服务使用的是https，改成<code>http://172.10.26.101:8086/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/</code>就可以访问了。</p>
+
+<h4 id="创建有集群管理员权限的serviceaccount">创建有集群管理员权限的ServiceAccount</h4>
+
+<p>部署文件中的kube-dashboard只被授予了很小的权限，这里我们重新创建一个ServiceAccount，绑定<code>cluster-admin</code>角色：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat &gt; kube-dashboard-admin.yaml </span><span class="sc1c">&lt;&lt;EOF
+</span><span class="sc1c">apiVersion: v1
+</span><span class="sc1c">kind: ServiceAccount
+</span><span class="sc1c">metadata:
+</span><span class="sc1c">  labels:
+</span><span class="sc1c">    k8s-app: kubernetes-dashboard
+</span><span class="sc1c">  name: kubernetes-dashboard-admin
+</span><span class="sc1c">  namespace: kube-system
+</span><span class="sc1c">
+</span><span class="sc1c">---
+</span><span class="sc1c">apiVersion: rbac.authorization.k8s.io/v1beta1
+</span><span class="sc1c">kind: ClusterRoleBinding
+</span><span class="sc1c">metadata:
+</span><span class="sc1c">  name: kubernetes-dashboard-admin
+</span><span class="sc1c">  namespace: kube-system
+</span><span class="sc1c">roleRef:
+</span><span class="sc1c">  apiGroup: rbac.authorization.k8s.io
+</span><span class="sc1c">  kind: ClusterRole
+</span><span class="sc1c">  name: cluster-admin
+</span><span class="sc1c">subjects:
+</span><span class="sc1c">- kind: ServiceAccount
+</span><span class="sc1c">  name: kubernetes-dashboard-admin
+</span><span class="sc1c">  namespace: kube-system
+</span><span class="sc1c">EOF</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40">kubectl create -f kube-dashboard-admin.yaml</span></code></pre>
+</div>
+<p>查看kubernetes-dashboard-admin对应的token：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl get secrets --all-namespaces </span><span class="s1388">|</span><span class="s1f40"> grep kubernetes-dashboard-admin
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># output：
+</span><span class="s1770"># kube-system   kubernetes-dashboard-admin-token-gnxl2   kubernetes.io/service-account-token   3         45s
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40">kubectl describe secret kubernetes-dashboard-admin-token-gnxl2 -n kube-system
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># output：
+</span><span class="s1770"># Name:         kubernetes-dashboard-admin-token-gnxl2
+</span><span class="s1770"># Namespace:    kube-system
+</span><span class="s1770"># Labels:       &lt;none&gt;
+</span><span class="s1770"># Annotations:  kubernetes.io/service-account.name=kubernetes-dashboard-admin
+</span><span class="s1770">#               kubernetes.io/service-account.uid=7fa85490-b01c-11e7-a3b6-525400474652
+</span><span class="s1770">#
+</span><span class="s1770"># Type:  kubernetes.io/service-account-token
+</span><span class="s1770">#
+</span><span class="s1770"># Data
+</span><span class="s1770"># ====
+</span><span class="s1770"># ca.crt:     1359 bytes
+</span><span class="s1770"># namespace:  11 bytes
+</span><span class="s1770"></span><span class="s1f40"># token:      eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJrdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbi10b2tlbi1nbnhsMiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJrdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjdmYTg1NDkwLWIwMWMtMTFlNy1hM2I2LTUyNTQwMDQ3NDY1MiIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTprdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbiJ9.IFc5HO8I31EsZ2m3mAJGUn4f2uYMYY7xhxYDaM3vG6tv58cXx8or0pgN6n47-bjA17f5kPfhzXX93lvWvShNYqj1HGDZnnSRUDMgTt_P16mG55hO_SyxO2p4dNyWvavYuz--6NdLtt8BCsmwm_03tsifhWXFhVCGL4EBLQPozfJZJe_AfL2o7e73Quj1Ve0wpJWbvjCBUKQni7MEfH6JQJhEl14ulffE9WHzN26sh5LllKbFl6AMS_1Zf0zqDAcwLJcX9C4WXG6IZNeNI57resBhvoa0GK-XjCXmk8UpAxMWJ5QykEL4wJO0JRmk6RMpFlgmQiM7MrSUnXzUYFMwiA</span></code></pre>
+</div>
+<p>使用该token登录即可。</p>
+
+<h3 id="部署heapster">部署Heapster</h3>
+
+<p>TODO</p>
+
 <hr />
 
 <p>参考资料：</p>
 
-<p><a href="https://github.com/opsnull/follow-me-install-kubernetes-cluster">https://github.com/opsnull/follow-me-install-kubernetes-cluster</a></p></article>
+<p><a href="https://github.com/opsnull/follow-me-install-kubernetes-cluster">https://github.com/opsnull/follow-me-install-kubernetes-cluster</a>
+<a href="https://github.com/kubernetes/dashboard/wiki/Installation">https://github.com/kubernetes/dashboard/wiki/Installation</a></p></article>
     <footer class="post-footer">
       
       <ul class="post-tags">
