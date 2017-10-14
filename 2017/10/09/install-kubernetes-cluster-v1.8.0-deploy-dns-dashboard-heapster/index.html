@@ -459,14 +459,58 @@
 
 <h3 id="部署heapster">部署Heapster</h3>
 
-<p>TODO</p>
+<p>Heapster是一个容器监控工具。kubelet中集成了cAdvisor，Heapster可以将每个Node上的cAdvisor的数据进行汇总，然后导到第三方工具，如InfluxDB。</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">curl -LO https://github.com/kubernetes/heapster/archive/v1.4.3.tar.gz
+</span><span class="s1f40">tar xvf v1.4.3.tar.gz
+</span><span class="s1f40"></span><span class="s7d0">cd</span><span class="s1f40"> heapster-1.4.3/deploy/kube-config
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 创建RoleBinding
+</span><span class="s1770"></span><span class="s1f40">kubectl create -f rbac/heapster-rbac.yaml
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 更新镜像版本
+</span><span class="s1770"></span><span class="s1f40">sed -i </span><span class="sc1c">&#39;s/heapster-grafana-amd64:v4.2.0/heapster-grafana-amd64:v4.4.1/&#39;</span><span class="s1f40"> influxdb/grafana.yaml
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># 部署heapster、influxdb、grafana
+</span><span class="s1770"></span><span class="s1f40">kubectl create -f influxdb/</span></code></pre>
+</div>
+<p>现在在Dashboard上就可以看到内存和CPU的监控信息了。</p>
+
+<p>检查deployment和pod的创建情况：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl get deployments -n kube-system </span><span class="s1388">|</span><span class="s1f40"> grep -E </span><span class="sc1c">&#39;heapster|monitoring&#39;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># output：
+</span><span class="s1770"># heapster               1         1         1            1           16m
+</span><span class="s1770"># monitoring-grafana     1         1         1            1           16m
+</span><span class="s1770"># monitoring-influxdb    1         1         1            1           16m
+</span><span class="s1770"></span><span class="s1f40">
+</span><span class="s1f40">kubectl get pods -n kube-system -o wide </span><span class="s1388">|</span><span class="s1f40"> grep -E </span><span class="sc1c">&#39;heapster|monitoring&#39;</span><span class="s1f40">
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># output：
+</span><span class="s1770"># heapster-7b5d85fcb6-r4gd8              1/1       Running   0          17m       172.11.40.6   172.10.26.112
+</span><span class="s1770"># monitoring-grafana-6ff4f7c457-x2wl8    1/1       Running   0          17m       172.11.40.5   172.10.26.112
+</span><span class="s1770"></span><span class="s1f40"># monitoring-influxdb-85485c578b-f82rq   </span><span class="sc80">1</span><span class="s1f40">/1       Running   </span><span class="sc80">0</span><span class="s1f40">          17m       </span><span class="sc80">172</span><span class="s1f40">.11.16.6   </span><span class="sc80">172</span><span class="s1f40">.10.26.111</span></code></pre>
+</div>
+<p>跟Dashboard一样，通过kube-apiserver可以访问Grafana：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl cluster-info
+</span><span class="s1f40">
+</span><span class="s1f40"></span><span class="s1770"># output：
+</span><span class="s1770"># ...
+</span><span class="s1770"># monitoring-grafana is running at https://172.10.26.101:6443/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
+</span><span class="s1770"></span><span class="s1f40"># ...</span></code></pre>
+</div>
+<p>换成非安全端口，即访问<code>http://172.10.26.101:8080/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy</code>，可以在Grafana中看到Node和Pod的监控。</p>
+
+<p>Grafana中使用的是默认的模板配置，<code>namespace</code>的下拉框里只有<code>default</code>和<code>kube-system</code>，需要将Templating中的namespace的Data source设置为<code>influxdb-datasource</code>，Refresh设置为<code>on Dashboard Load</code>，保存设置，刷新浏览器，即可看到其他namespace选项。</p>
 
 <hr />
 
 <p>参考资料：</p>
 
-<p><a href="https://github.com/opsnull/follow-me-install-kubernetes-cluster">https://github.com/opsnull/follow-me-install-kubernetes-cluster</a>
-<a href="https://github.com/kubernetes/dashboard/wiki/Installation">https://github.com/kubernetes/dashboard/wiki/Installation</a></p></article>
+<p><a href="https://github.com/opsnull/follow-me-install-kubernetes-cluster">https://github.com/opsnull/follow-me-install-kubernetes-cluster</a></p>
+
+<p><a href="https://github.com/kubernetes/dashboard/wiki/Installation">https://github.com/kubernetes/dashboard/wiki/Installation</a></p>
+
+<p><a href="http://tonybai.com/2017/09/26/some-notes-about-deploying-kubernetes-dashboard-1-7-0/">http://tonybai.com/2017/09/26/some-notes-about-deploying-kubernetes-dashboard-1-7-0/</a></p></article>
     <footer class="post-footer">
       
       <ul class="post-tags">
