@@ -326,11 +326,64 @@ kubectl describe secret kubernetes-dashboard-admin-token-gnxl2 -n kube-system
 
 ### 部署Heapster
 
-TODO
+Heapster是一个容器监控工具。kubelet中集成了cAdvisor，Heapster可以将每个Node上的cAdvisor的数据进行汇总，然后导到第三方工具，如InfluxDB。
+
+```shell
+curl -LO https://github.com/kubernetes/heapster/archive/v1.4.3.tar.gz
+tar xvf v1.4.3.tar.gz
+cd heapster-1.4.3/deploy/kube-config
+
+# 创建RoleBinding
+kubectl create -f rbac/heapster-rbac.yaml
+
+# 更新镜像版本
+sed -i 's/heapster-grafana-amd64:v4.2.0/heapster-grafana-amd64:v4.4.1/' influxdb/grafana.yaml
+
+# 部署heapster、influxdb、grafana
+kubectl create -f influxdb/
+```
+
+现在在Dashboard上就可以看到内存和CPU的监控信息了。
+
+检查deployment和pod的创建情况：
+
+```shell
+kubectl get deployments -n kube-system | grep -E 'heapster|monitoring'
+
+# output：
+# heapster               1         1         1            1           16m
+# monitoring-grafana     1         1         1            1           16m
+# monitoring-influxdb    1         1         1            1           16m
+
+kubectl get pods -n kube-system -o wide | grep -E 'heapster|monitoring'
+
+# output：
+# heapster-7b5d85fcb6-r4gd8              1/1       Running   0          17m       172.11.40.6   172.10.26.112
+# monitoring-grafana-6ff4f7c457-x2wl8    1/1       Running   0          17m       172.11.40.5   172.10.26.112
+# monitoring-influxdb-85485c578b-f82rq   1/1       Running   0          17m       172.11.16.6   172.10.26.111
+```
+
+跟Dashboard一样，通过kube-apiserver可以访问Grafana：
+
+```shell
+kubectl cluster-info
+
+# output：
+# ...
+# monitoring-grafana is running at https://172.10.26.101:6443/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
+# ...
+```
+
+换成非安全端口，即访问`http://172.10.26.101:8080/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy`，可以在Grafana中看到Node和Pod的监控。
+
+Grafana中使用的是默认的模板配置，`namespace`的下拉框里只有`default`和`kube-system`，需要将Templating中的namespace的Data source设置为`influxdb-datasource`，Refresh设置为`on Dashboard Load`，保存设置，刷新浏览器，即可看到其他namespace选项。
 
 ---
 
 参考资料：
 
 https://github.com/opsnull/follow-me-install-kubernetes-cluster
+
 https://github.com/kubernetes/dashboard/wiki/Installation
+
+http://tonybai.com/2017/09/26/some-notes-about-deploying-kubernetes-dashboard-1-7-0/
