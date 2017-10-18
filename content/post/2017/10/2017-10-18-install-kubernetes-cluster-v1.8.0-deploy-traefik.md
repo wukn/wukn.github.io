@@ -9,7 +9,7 @@ url: /2017/10/18/install-kubernetes-cluster-v1.8.0-deploy-traefik/
 
 ---
 
-> Traefik是一款开源的反向代理与负载均衡工具。它可以与常见的微服务系统直接整合，可以实现自动化动态配置。支持自动发现Kubernetes后端 service、pod等变化。
+> Traefik是一款开源的反向代理与负载均衡工具。它可以与常见的微服务系统直接整合，可以实现自动化动态配置。它原生支持Kubernetes作为后端。
 
 <!--more-->
 
