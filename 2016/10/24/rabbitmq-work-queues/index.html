@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.29" />
+<meta name="generator" content="Hugo 0.30" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/10/24/rabbitmq-work-queues/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][RabbitMQ] Work Queues</h1>
-      <p class="post-meta">@wukn · Oct 24, 2016 · 2 min read</p>
+      <p class="post-meta">@wukn · Oct 24, 2016 · 4 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>RabbitMQ是一个message broker，本质上就是接收producer的消息，传递给consumer，其中可以根据给定的需要设置消息路由、缓存、持久化。</p>
@@ -210,64 +210,62 @@
 <p>用Java开发producer和consumer需要下载Java client library。</p>
 
 <p>producer代码如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s1770">// Send.java
-</span><span class="s1770"></span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.Channel</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.Connection</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.ConnectionFactory</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7d4">Send</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s3e8">final</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">QUEUE_NAME</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#34;SimpleQueue&#34;</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">main</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">[]</span><span class="s1f40"> </span><span class="s7d0">argv</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s3e8">throws</span><span class="s1f40"> </span><span class="s7d0">Exception</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">ConnectionFactory</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">ConnectionFactory</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">setHost</span><span class="sfa0">(</span><span class="sc1c">&#34;127.0.0.1&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">Connection</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">newConnection</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">Channel</span><span class="s1f40"> </span><span class="s7d0">channel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="sfa0">.</span><span class="s7d1">createChannel</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">queueDeclare</span><span class="sfa0">(</span><span class="s7d0">QUEUE_NAME</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#34;Hello World!&#34;</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicPublish</span><span class="sfa0">(</span><span class="sc1c">&#34;&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">QUEUE_NAME</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="sfa0">.</span><span class="s7d1">getBytes</span><span class="sfa0">(</span><span class="sc1c">&#34;UTF-8&#34;</span><span class="sfa0">));</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [x] Sent &#39;&#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#34;&#39;&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">close</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">connection</span><span class="sfa0">.</span><span class="s7d1">close</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Send.java
+</span><span class="c1"></span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Channel</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.ConnectionFactory</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Send</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">QUEUE_NAME</span> <span class="o">=</span> <span class="s">&#34;SimpleQueue&#34;</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&#34;127.0.0.1&#34;</span><span class="o">);</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">(</span><span class="n">QUEUE_NAME</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="s">&#34;Hello World!&#34;</span><span class="o">;</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">,</span> <span class="n">QUEUE_NAME</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;UTF-8&#34;</span><span class="o">));</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; [x] Sent &#39;&#34;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&#34;&#39;&#34;</span><span class="o">);</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
 <p>consumer代码如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s1770">// Recv.java
-</span><span class="s1770"></span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.*</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">java.io.IOException</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7d4">Recv</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s3e8">final</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">QUEUE_NAME</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#34;SimpleQueue&#34;</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">main</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">[]</span><span class="s1f40"> </span><span class="s7d0">argv</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s3e8">throws</span><span class="s1f40"> </span><span class="s7d0">Exception</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">ConnectionFactory</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">ConnectionFactory</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">setHost</span><span class="sfa0">(</span><span class="sc1c">&#34;127.0.0.1&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">Connection</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">newConnection</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">Channel</span><span class="s1f40"> </span><span class="s7d0">channel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="sfa0">.</span><span class="s7d1">createChannel</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">queueDeclare</span><span class="sfa0">(</span><span class="s7d0">QUEUE_NAME</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [*] Waiting for messages. To exit press CTRL+C&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">Consumer</span><span class="s1f40"> </span><span class="s7d0">consumer</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">DefaultConsumer</span><span class="sfa0">(</span><span class="s7d0">channel</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7d6">@Override</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">handleDelivery</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">consumerTag</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">Envelope</span><span class="s1f40"> </span><span class="s7d0">envelope</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">AMQP</span><span class="sfa0">.</span><span class="s7d1">BasicProperties</span><span class="s1f40"> </span><span class="s7d0">properties</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">byte</span><span class="sfa0">[]</span><span class="s1f40"> </span><span class="s7d0">body</span><span class="sfa0">)</span><span class="s1f40">
-</span><span class="s1f40">          </span><span class="s3e8">throws</span><span class="s1f40"> </span><span class="s7d0">IOException</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">(</span><span class="s7d0">body</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;UTF-8&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [x] Received &#39;&#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#34;&#39;&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">};</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicConsume</span><span class="sfa0">(</span><span class="s7d0">QUEUE_NAME</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">consumer</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Recv.java
+</span><span class="c1"></span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Recv</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">QUEUE_NAME</span> <span class="o">=</span> <span class="s">&#34;SimpleQueue&#34;</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&#34;127.0.0.1&#34;</span><span class="o">);</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">(</span><span class="n">QUEUE_NAME</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; [*] Waiting for messages. To exit press CTRL+C&#34;</span><span class="o">);</span>
+
+    <span class="n">Consumer</span> <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleDelivery</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerTag</span><span class="o">,</span> <span class="n">Envelope</span> <span class="n">envelope</span><span class="o">,</span> <span class="n">AMQP</span><span class="o">.</span><span class="na">BasicProperties</span> <span class="n">properties</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">body</span><span class="o">)</span>
+          <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">body</span><span class="o">,</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; [x] Received &#39;&#34;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&#34;&#39;&#34;</span><span class="o">);</span>
+      <span class="o">}</span>
+    <span class="o">};</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicConsume</span><span class="o">(</span><span class="n">QUEUE_NAME</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">consumer</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
 <p>编译并运行：</p>
 
 <pre><code>javac -cp rabbitmq-client.jar Send.java Recv.java
@@ -292,76 +290,74 @@ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar Recv
 <p>任务队列是queue将消息分发给多个consumer进行处理。</p>
 
 <p><img src="https://wukn.github.io/img/post/rabbitmq/work-queues/work-queue.png" alt="" /></p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s1770">// Task.java
-</span><span class="s1770"></span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.Channel</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.Connection</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.ConnectionFactory</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7d4">Task</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s3e8">final</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">QUEUE_NAME</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#34;TaskQueue&#34;</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">main</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">[]</span><span class="s1f40"> </span><span class="s7d0">argv</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s3e8">throws</span><span class="s1f40"> </span><span class="s7d0">Exception</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">ConnectionFactory</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">ConnectionFactory</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">setHost</span><span class="sfa0">(</span><span class="sc1c">&#34;127.0.0.1&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">Connection</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">newConnection</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">Channel</span><span class="s1f40"> </span><span class="s7d0">channel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="sfa0">.</span><span class="s7d1">createChannel</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">queueDeclare</span><span class="sfa0">(</span><span class="s7d0">QUEUE_NAME</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">argv</span><span class="sfa0">[</span><span class="s7d0">0</span><span class="sfa0">];</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicPublish</span><span class="sfa0">(</span><span class="sc1c">&#34;&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">QUEUE_NAME</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="sfa0">.</span><span class="s7d1">getBytes</span><span class="sfa0">(</span><span class="sc1c">&#34;UTF-8&#34;</span><span class="sfa0">));</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [x] Sent &#39;&#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#34;&#39;&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">close</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">connection</span><span class="sfa0">.</span><span class="s7d1">close</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">}</span></code></pre>
-</div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s1770">// Worker.java
-</span><span class="s1770"></span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.*</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">java.io.IOException</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7d4">Worker</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s3e8">final</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">QUEUE_NAME</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#34;TaskQueue&#34;</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">main</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">[]</span><span class="s1f40"> </span><span class="s7d0">argv</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s3e8">throws</span><span class="s1f40"> </span><span class="s7d0">Exception</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">ConnectionFactory</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">ConnectionFactory</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">setHost</span><span class="sfa0">(</span><span class="sc1c">&#34;127.0.0.1&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">Connection</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">newConnection</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">Channel</span><span class="s1f40"> </span><span class="s7d0">channel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="sfa0">.</span><span class="s7d1">createChannel</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">queueDeclare</span><span class="sfa0">(</span><span class="s7d0">QUEUE_NAME</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [*] Waiting for messages. To exit press CTRL+C&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">Consumer</span><span class="s1f40"> </span><span class="s7d0">consumer</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">DefaultConsumer</span><span class="sfa0">(</span><span class="s7d0">channel</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7d6">@Override</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">handleDelivery</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">consumerTag</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">Envelope</span><span class="s1f40"> </span><span class="s7d0">envelope</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">AMQP</span><span class="sfa0">.</span><span class="s7d1">BasicProperties</span><span class="s1f40"> </span><span class="s7d0">properties</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">byte</span><span class="sfa0">[]</span><span class="s1f40"> </span><span class="s7d0">body</span><span class="sfa0">)</span><span class="s1f40">
-</span><span class="s1f40">          </span><span class="s3e8">throws</span><span class="s1f40"> </span><span class="s7d0">IOException</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">(</span><span class="s7d0">body</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;UTF-8&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [x] Received &#39;&#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#34;&#39;&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">try</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">          </span><span class="s7d0">doWork</span><span class="sfa0">(</span><span class="s7d0">message</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="sfa0">}</span><span class="s1f40"> </span><span class="s3e8">finally</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">          </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [x] Done&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">};</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicConsume</span><span class="sfa0">(</span><span class="s7d0">QUEUE_NAME</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">consumer</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">doWork</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">task</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s3e8">throws</span><span class="s1f40"> </span><span class="s7d0">InterruptedException</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">try</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7d0">Thread</span><span class="sfa0">.</span><span class="s7d1">sleep</span><span class="sfa0">(</span><span class="s7d0">1000</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40"> </span><span class="s3e8">catch</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">InterruptedException</span><span class="s1f40"> </span><span class="s7d0">_ignored</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7d0">Thread</span><span class="sfa0">.</span><span class="s7d1">currentThread</span><span class="sfa0">().</span><span class="s7d1">interrupt</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Task.java
+</span><span class="c1"></span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Channel</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.ConnectionFactory</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Task</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">QUEUE_NAME</span> <span class="o">=</span> <span class="s">&#34;TaskQueue&#34;</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&#34;127.0.0.1&#34;</span><span class="o">);</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">(</span><span class="n">QUEUE_NAME</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">argv</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">,</span> <span class="n">QUEUE_NAME</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;UTF-8&#34;</span><span class="o">));</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; [x] Sent &#39;&#34;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&#34;&#39;&#34;</span><span class="o">);</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Worker.java
+</span><span class="c1"></span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Worker</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">String</span> <span class="n">QUEUE_NAME</span> <span class="o">=</span> <span class="s">&#34;TaskQueue&#34;</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&#34;127.0.0.1&#34;</span><span class="o">);</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">(</span><span class="n">QUEUE_NAME</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; [*] Waiting for messages. To exit press CTRL+C&#34;</span><span class="o">);</span>
+
+    <span class="n">Consumer</span> <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleDelivery</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerTag</span><span class="o">,</span> <span class="n">Envelope</span> <span class="n">envelope</span><span class="o">,</span> <span class="n">AMQP</span><span class="o">.</span><span class="na">BasicProperties</span> <span class="n">properties</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">body</span><span class="o">)</span>
+          <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">body</span><span class="o">,</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; [x] Received &#39;&#34;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&#34;&#39;&#34;</span><span class="o">);</span>
+
+        <span class="k">try</span> <span class="o">{</span>
+          <span class="n">doWork</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; [x] Done&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">};</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicConsume</span><span class="o">(</span><span class="n">QUEUE_NAME</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">consumer</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">doWork</span><span class="o">(</span><span class="n">String</span> <span class="n">task</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">1000</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">_ignored</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">interrupt</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
 <p>编译代码：</p>
 
 <pre><code>javac -cp rabbitmq-client.jar Task.java Worker.java
@@ -422,21 +418,20 @@ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar Recv
 <p>消息处理是没有超时机制的。RabbitMQ会在consumer挂掉时才重新分发消息。因此，即使消息处理时间很长很长都没有关系。</p>
 
 <p>默认消息反馈是开启的。在上面的例子中通过指定<code>autoAck=true</code>关闭了反馈。消息反馈的代码如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s3e8">final</span><span class="s1f40"> </span><span class="s7d0">Consumer</span><span class="s1f40"> </span><span class="s7d0">consumer</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">DefaultConsumer</span><span class="sfa0">(</span><span class="s7d0">channel</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7d6">@Override</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">handleDelivery</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">consumerTag</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">Envelope</span><span class="s1f40"> </span><span class="s7d0">envelope</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">AMQP</span><span class="sfa0">.</span><span class="s7d1">BasicProperties</span><span class="s1f40"> </span><span class="s7d0">properties</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">byte</span><span class="sfa0">[]</span><span class="s1f40"> </span><span class="s7d0">body</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s3e8">throws</span><span class="s1f40"> </span><span class="s7d0">IOException</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">(</span><span class="s7d0">body</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;UTF-8&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [x] Received &#39;&#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#34;&#39;&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">try</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7d0">doWork</span><span class="sfa0">(</span><span class="s7d0">message</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40"> </span><span class="s3e8">finally</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [x] Done&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicAck</span><span class="sfa0">(</span><span class="s7d0">envelope</span><span class="sfa0">.</span><span class="s7d1">getDeliveryTag</span><span class="sfa0">(),</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">};</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">final</span> <span class="n">Consumer</span> <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">)</span> <span class="o">{</span>
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleDelivery</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerTag</span><span class="o">,</span> <span class="n">Envelope</span> <span class="n">envelope</span><span class="o">,</span> <span class="n">AMQP</span><span class="o">.</span><span class="na">BasicProperties</span> <span class="n">properties</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">body</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+    <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">body</span><span class="o">,</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>
+
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; [x] Received &#39;&#34;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&#34;&#39;&#34;</span><span class="o">);</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">doWork</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; [x] Done&#34;</span><span class="o">);</span>
+      <span class="n">channel</span><span class="o">.</span><span class="na">basicAck</span><span class="o">(</span><span class="n">envelope</span><span class="o">.</span><span class="na">getDeliveryTag</span><span class="o">(),</span> <span class="kc">false</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">};</span></code></pre></div>
 <p>PS：可以使用rabbitmqctl查看未反馈的消息。</p>
 
 <pre><code>rabbitmqctl list_queues name messages_ready messages_unacknowledged
@@ -447,20 +442,17 @@ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar Recv
 <p>之前的消息反馈可以确保consumer挂掉时消息不会丢失，但是如果RabbitMQ服务器停止或者崩溃了，队列和其中的消息就都丢失了。要确保服务器上的消息不丢失，需要将队列和消息都标识成持久化的。</p>
 
 <p>首先，确保RabbitMQ不会丢失队列：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s3e8">boolean</span><span class="s1f40"> </span><span class="s7d0">durable</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">queueDeclare</span><span class="sfa0">(</span><span class="sc1c">&#34;TaskQueue&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">durable</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">boolean</span> <span class="n">durable</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+<span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">(</span><span class="s">&#34;TaskQueue&#34;</span><span class="o">,</span> <span class="n">durable</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span></code></pre></div>
 <p>尽管这代码是正确的，但是目前的环境下却不起作用。因为之前已经声明了一个非持久化的队列TaskQueue。RabbitMQ不允许用不同的参数重新定义已经存在的队列。换一个新的队列名称就行了。</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s3e8">boolean</span><span class="s1f40"> </span><span class="s7d0">durable</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">queueDeclare</span><span class="sfa0">(</span><span class="sc1c">&#34;DurableTaskQueue&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">durable</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">boolean</span> <span class="n">durable</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+<span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">(</span><span class="s">&#34;DurableTaskQueue&#34;</span><span class="o">,</span> <span class="n">durable</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span></code></pre></div>
 <p>这样RabbitMQ重启后队列DurableTaskQueue是仍然存在的。接下来需要将消息标识成持久化的，通过设置属性MessageProperties为PERSISTENT_TEXT_PLAIN：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.MessageProperties</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicPublish</span><span class="sfa0">(</span><span class="sc1c">&#34;&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;task_queue&#34;</span><span class="sfa0">,</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s7d0">MessageProperties</span><span class="sfa0">.</span><span class="s7d1">PERSISTENT_TEXT_PLAIN</span><span class="sfa0">,</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s7d0">message</span><span class="sfa0">.</span><span class="s7d1">getBytes</span><span class="sfa0">());</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">com.rabbitmq.client.MessageProperties</span><span class="o">;</span>
+
+<span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">,</span> <span class="s">&#34;task_queue&#34;</span><span class="o">,</span>
+            <span class="n">MessageProperties</span><span class="o">.</span><span class="na">PERSISTENT_TEXT_PLAIN</span><span class="o">,</span>
+            <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span></code></pre></div>
 <p>PS：将消息标识成持久化不能完全保证消息不会丢失。RabbitMQ在接收到消息写入磁盘之间仍有很短的时间间隔，而且RabbitMQ不会每次保存消息时都调用fsync，因此可能消息只被写入了缓存而还没有写入磁盘。如果需要更强的持久化方案，可以使用publisher confirm。</p>
 
 <h2 id="公平分配-fair-dispatch">公平分配（fair dispatch）</h2>
@@ -468,89 +460,86 @@ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar Recv
 <p>默认的循环调度方案可能会造成负载不平均。例如，有两个worker，偶数号的任务处理很耗时，而奇数号的任务处理很快，那么就会导致一个worker处理很慢，积压很多任务，而另一个worker处理很快，比较空闲。这是因为RabbitMQ在消息进入队列后就立刻分发出去，它不关心consumer中未反馈的消息数量，只是简单地将第n个消息分发给第n个consumer。</p>
 
 <p>为了让每个consumer的负载均匀，通过basicQos方法设置参数prefetchCount为1。这样，consumer中的消息将不超过一条，当consumer处理完并发送反馈后RabbitMQ才会向它分发新的消息。RabbitMQ在接收到新消息后，如果有空闲的consumer就将消息发给它，否则就一直等待有空闲的consumer再分发。</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">prefetchCount</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">1</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicQos</span><span class="sfa0">(</span><span class="s7d0">prefetchCount</span><span class="sfa0">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="n">prefetchCount</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+<span class="n">channel</span><span class="o">.</span><span class="na">basicQos</span><span class="o">(</span><span class="n">prefetchCount</span><span class="o">);</span></code></pre></div>
 <p>PS：如果所有的任务都很耗时，worker都很忙，那么可能会导致队列被塞满，这时需要增加worker，或者采用其他策略。</p>
 
 <p>最后的完整代码如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s1770">// Task.java
-</span><span class="s1770"></span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.Channel</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.Connection</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.ConnectionFactory</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.MessageProperties</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7d4">Task</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">final</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">TASK_QUEUE_NAME</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#34;task_queue&#34;</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">main</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">[]</span><span class="s1f40"> </span><span class="s7d0">argv</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s3e8">throws</span><span class="s1f40"> </span><span class="s7d0">Exception</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">ConnectionFactory</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">ConnectionFactory</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">setHost</span><span class="sfa0">(</span><span class="sc1c">&#34;localhost&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">Connection</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">newConnection</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">Channel</span><span class="s1f40"> </span><span class="s7d0">channel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="sfa0">.</span><span class="s7d1">createChannel</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">queueDeclare</span><span class="sfa0">(</span><span class="s7d0">TASK_QUEUE_NAME</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">argv</span><span class="sfa0">[</span><span class="s7d0">0</span><span class="sfa0">];</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicPublish</span><span class="sfa0">(</span><span class="sc1c">&#34;&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">TASK_QUEUE_NAME</span><span class="sfa0">,</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">MessageProperties</span><span class="sfa0">.</span><span class="s7d1">PERSISTENT_TEXT_PLAIN</span><span class="sfa0">,</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">message</span><span class="sfa0">.</span><span class="s7d1">getBytes</span><span class="sfa0">(</span><span class="sc1c">&#34;UTF-8&#34;</span><span class="sfa0">));</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [x] Sent &#39;&#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#34;&#39;&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">close</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">connection</span><span class="sfa0">.</span><span class="s7d1">close</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="sfa0">}</span></code></pre>
-</div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s1770">// Worker.java
-</span><span class="s1770"></span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">com.rabbitmq.client.*</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">java.io.IOException</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7d4">Worker</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">final</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">TASK_QUEUE_NAME</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#34;task_queue&#34;</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">main</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">[]</span><span class="s1f40"> </span><span class="s7d0">argv</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s3e8">throws</span><span class="s1f40"> </span><span class="s7d0">Exception</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">ConnectionFactory</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">ConnectionFactory</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">setHost</span><span class="sfa0">(</span><span class="sc1c">&#34;localhost&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">final</span><span class="s1f40"> </span><span class="s7d0">Connection</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">factory</span><span class="sfa0">.</span><span class="s7d1">newConnection</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">final</span><span class="s1f40"> </span><span class="s7d0">Channel</span><span class="s1f40"> </span><span class="s7d0">channel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">connection</span><span class="sfa0">.</span><span class="s7d1">createChannel</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">queueDeclare</span><span class="sfa0">(</span><span class="s7d0">TASK_QUEUE_NAME</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">null</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [*] Waiting for messages. To exit press CTRL+C&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">prefetchCount</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">1</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicQos</span><span class="sfa0">(</span><span class="s7d0">prefetchCount</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">final</span><span class="s1f40"> </span><span class="s7d0">Consumer</span><span class="s1f40"> </span><span class="s7d0">consumer</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">DefaultConsumer</span><span class="sfa0">(</span><span class="s7d0">channel</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7d6">@Override</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">handleDelivery</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">consumerTag</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">Envelope</span><span class="s1f40"> </span><span class="s7d0">envelope</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">AMQP</span><span class="sfa0">.</span><span class="s7d1">BasicProperties</span><span class="s1f40"> </span><span class="s7d0">properties</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">byte</span><span class="sfa0">[]</span><span class="s1f40"> </span><span class="s7d0">body</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s3e8">throws</span><span class="s1f40"> </span><span class="s7d0">IOException</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">(</span><span class="s7d0">body</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;UTF-8&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [x] Received &#39;&#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#34;&#39;&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">try</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">          </span><span class="s7d0">doWork</span><span class="sfa0">(</span><span class="s7d0">message</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="sfa0">}</span><span class="s1f40"> </span><span class="s3e8">finally</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">          </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34; [x] Done&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">          </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicAck</span><span class="sfa0">(</span><span class="s7d0">envelope</span><span class="sfa0">.</span><span class="s7d1">getDeliveryTag</span><span class="sfa0">(),</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">};</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">channel</span><span class="sfa0">.</span><span class="s7d1">basicConsume</span><span class="sfa0">(</span><span class="s7d0">TASK_QUEUE_NAME</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">consumer</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">doWork</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">task</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">try</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7d0">Thread</span><span class="sfa0">.</span><span class="s7d1">sleep</span><span class="sfa0">(</span><span class="s7d0">1000</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40"> </span><span class="s3e8">catch</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">InterruptedException</span><span class="s1f40"> </span><span class="s7d0">_ignored</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7d0">Thread</span><span class="sfa0">.</span><span class="s7d1">currentThread</span><span class="sfa0">().</span><span class="s7d1">interrupt</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Task.java
+</span><span class="c1"></span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Channel</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.ConnectionFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.MessageProperties</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Task</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TASK_QUEUE_NAME</span> <span class="o">=</span> <span class="s">&#34;task_queue&#34;</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&#34;localhost&#34;</span><span class="o">);</span>
+    <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">(</span><span class="n">TASK_QUEUE_NAME</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+
+    <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">argv</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicPublish</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">,</span> <span class="n">TASK_QUEUE_NAME</span><span class="o">,</span>
+        <span class="n">MessageProperties</span><span class="o">.</span><span class="na">PERSISTENT_TEXT_PLAIN</span><span class="o">,</span>
+        <span class="n">message</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;UTF-8&#34;</span><span class="o">));</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; [x] Sent &#39;&#34;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&#34;&#39;&#34;</span><span class="o">);</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="n">connection</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+  <span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Worker.java
+</span><span class="c1"></span>
+<span class="kn">import</span> <span class="nn">com.rabbitmq.client.*</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.io.IOException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Worker</span> <span class="o">{</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">TASK_QUEUE_NAME</span> <span class="o">=</span> <span class="s">&#34;task_queue&#34;</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">argv</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">ConnectionFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConnectionFactory</span><span class="o">();</span>
+    <span class="n">factory</span><span class="o">.</span><span class="na">setHost</span><span class="o">(</span><span class="s">&#34;localhost&#34;</span><span class="o">);</span>
+    <span class="kd">final</span> <span class="n">Connection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">newConnection</span><span class="o">();</span>
+    <span class="kd">final</span> <span class="n">Channel</span> <span class="n">channel</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">createChannel</span><span class="o">();</span>
+
+    <span class="n">channel</span><span class="o">.</span><span class="na">queueDeclare</span><span class="o">(</span><span class="n">TASK_QUEUE_NAME</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="kc">null</span><span class="o">);</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; [*] Waiting for messages. To exit press CTRL+C&#34;</span><span class="o">);</span>
+
+    <span class="kt">int</span> <span class="n">prefetchCount</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicQos</span><span class="o">(</span><span class="n">prefetchCount</span><span class="o">);</span>
+
+    <span class="kd">final</span> <span class="n">Consumer</span> <span class="n">consumer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultConsumer</span><span class="o">(</span><span class="n">channel</span><span class="o">)</span> <span class="o">{</span>
+      <span class="nd">@Override</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleDelivery</span><span class="o">(</span><span class="n">String</span> <span class="n">consumerTag</span><span class="o">,</span> <span class="n">Envelope</span> <span class="n">envelope</span><span class="o">,</span> <span class="n">AMQP</span><span class="o">.</span><span class="na">BasicProperties</span> <span class="n">properties</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">body</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>
+        <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">body</span><span class="o">,</span> <span class="s">&#34;UTF-8&#34;</span><span class="o">);</span>
+
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; [x] Received &#39;&#34;</span> <span class="o">+</span> <span class="n">message</span> <span class="o">+</span> <span class="s">&#34;&#39;&#34;</span><span class="o">);</span>
+        <span class="k">try</span> <span class="o">{</span>
+          <span class="n">doWork</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34; [x] Done&#34;</span><span class="o">);</span>
+          <span class="n">channel</span><span class="o">.</span><span class="na">basicAck</span><span class="o">(</span><span class="n">envelope</span><span class="o">.</span><span class="na">getDeliveryTag</span><span class="o">(),</span> <span class="kc">false</span><span class="o">);</span>
+        <span class="o">}</span>
+      <span class="o">}</span>
+    <span class="o">};</span>
+    <span class="n">channel</span><span class="o">.</span><span class="na">basicConsume</span><span class="o">(</span><span class="n">TASK_QUEUE_NAME</span><span class="o">,</span> <span class="kc">false</span><span class="o">,</span> <span class="n">consumer</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">doWork</span><span class="o">(</span><span class="n">String</span> <span class="n">task</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">1000</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">_ignored</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">Thread</span><span class="o">.</span><span class="na">currentThread</span><span class="o">().</span><span class="na">interrupt</span><span class="o">();</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
 <hr />
 
 <p>参考资料：</p>
@@ -567,7 +556,7 @@ java -cp .:commons-io-1.2.jar:commons-cli-1.1.jar:rabbitmq-client.jar Recv
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>355</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>359</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

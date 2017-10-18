@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.29" />
+<meta name="generator" content="Hugo 0.30" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/12/26/angular2-case-study/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][Angular2] Case Study</h1>
-      <p class="post-meta">@wukn · Dec 26, 2016 · 3 min read</p>
+      <p class="post-meta">@wukn · Dec 26, 2016 · 5 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>用一个案例学习如何构建Angular2应用。</p>
@@ -214,14 +214,12 @@
 <p>首先，创建一个项目文件夹<code>angular2-tour-of-heroes</code>，按照<a href="https://wukn.github.io/2016/11/29/angluar2-quick-start/">QuickStart</a>创建项目。</p>
 
 <p>修改<code>AppComponent</code>，添加两个属性：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">title</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;Tour of Heroes&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">hero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;Windstorm&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
+  <span class="nx">hero</span> <span class="o">=</span> <span class="s1">&#39;Windstorm&#39;</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 <p>并更新模板：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero}} details!&lt;/h2&gt;&#39;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero}} details!&lt;/h2&gt;&#39;</span></code></pre></div>
 <p>现在效果如下：</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/case-study/1.png" alt="" /></p>
@@ -229,70 +227,63 @@
 <p>这里用到了单向数据绑定的插值绑定方法。</p>
 
 <p>接下来我们将hero抽象成一个类。创建一个<code>Hero</code>类，包含两个属性<code>id</code>和<code>name</code>。在<code>app.component.ts</code>文件的<code>import</code>语句之后加入下面的代码：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">number</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">string</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">export</span> <span class="k">class</span> <span class="nx">Hero</span> <span class="p">{</span>
+  <span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 <p>将组件的<code>hero</code>属性从字符串改成<code>Hero</code>类型：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">hero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Windstorm&#39;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">};</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Windstorm&#39;</span>
+<span class="p">};</span></code></pre></div>
 <p>同时修改下模板中的绑定：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;&#39;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;&#39;</span></code></pre></div>
 <p>现在<code>app.component.ts</code>代码是这样的：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Component</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">number</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">string</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;my-app&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;&#39;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">title</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;Tour of Heroes&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">hero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Windstorm&#39;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">};</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">class</span> <span class="nx">Hero</span> <span class="p">{</span>
+  <span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;&#39;</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
+  <span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Windstorm&#39;</span>
+  <span class="p">};</span>
+<span class="p">}</span></code></pre></div>
 <p>浏览器中显示的效果很上面还是一样的。</p>
 
 <p>让我们来显示更多的数据。修改模板：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;&lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;&lt;div&gt;&lt;label&gt;name: &lt;/label&gt;{{hero.name}}&lt;/div&gt;&#39;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;&lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;&lt;div&gt;&lt;label&gt;name: &lt;/label&gt;{{hero.name}}&lt;/div&gt;&#39;</span></code></pre></div>
 <p>显示效果如下：</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/case-study/2.png" alt="" /></p>
 
 <p>为了让模板更具有可读性，我们将模板改成多行模式：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">template</span><span class="sfa0">:</span><span class="sc1c">`
-</span><span class="sc1c">  &lt;h1&gt;{{title}}&lt;/h1&gt;
-</span><span class="sc1c">  &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
-</span><span class="sc1c">  &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
-</span><span class="sc1c">  &lt;div&gt;&lt;label&gt;name: &lt;/label&gt;{{hero.name}}&lt;/div&gt;
-</span><span class="sc1c">  `</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span><span class="sb">`
+</span><span class="sb">  &lt;h1&gt;{{title}}&lt;/h1&gt;
+</span><span class="sb">  &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
+</span><span class="sb">  &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
+</span><span class="sb">  &lt;div&gt;&lt;label&gt;name: &lt;/label&gt;{{hero.name}}&lt;/div&gt;
+</span><span class="sb">  `</span></code></pre></div>
 <p>注意，模板的值用的是反引号。</p>
 
 <p>接下来我们希望可以编辑hero的name。因此在模板中将name的绑定换成input：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">template</span><span class="sfa0">:</span><span class="sc1c">`
-</span><span class="sc1c">  &lt;h1&gt;{{title}}&lt;/h1&gt;
-</span><span class="sc1c">  &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
-</span><span class="sc1c">  &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
-</span><span class="sc1c">  &lt;div&gt;
-</span><span class="sc1c">    &lt;label&gt;name: &lt;/label&gt;
-</span><span class="sc1c">    &lt;input value=&#34;{{hero.name}}&#34; placeholder=&#34;name&#34;&gt;
-</span><span class="sc1c">  &lt;/div&gt;
-</span><span class="sc1c">  `</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span><span class="sb">`
+</span><span class="sb">  &lt;h1&gt;{{title}}&lt;/h1&gt;
+</span><span class="sb">  &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
+</span><span class="sb">  &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
+</span><span class="sb">  &lt;div&gt;
+</span><span class="sb">    &lt;label&gt;name: &lt;/label&gt;
+</span><span class="sb">    &lt;input value=&#34;{{hero.name}}&#34; placeholder=&#34;name&#34;&gt;
+</span><span class="sb">  &lt;/div&gt;
+</span><span class="sb">  `</span></code></pre></div>
 <p>现在name就显示在文本框里了：</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/case-study/3.png" alt="" /></p>
@@ -300,267 +291,254 @@
 <p>这时候我们发现，修改文本框里的值，name并不会改变。因为这里只是单向数据绑定。改成双向数据绑定：</p>
 
 <p>在<code>app.module.ts</code>中引入<code>FormsModule</code>，并将<code>NgModule</code>装饰器添加到<code>imports</code>数组列表中。这样我们就能在应用中使用<code>ngModel</code>双向数据绑定了。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">NgModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">      </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">BrowserModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/platform-browser&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">FormsModule</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">   </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/forms&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">  </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;./app.component&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">NgModule</span><span class="s1388">({</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">imports</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">BrowserModule</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">FormsModule</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">],</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">declarations</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">AppComponent</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">],</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">bootstrap</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppModule</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">FormsModule</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;@angular/forms&#39;</span><span class="p">;</span>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span>
+<span class="err">@</span><span class="nx">NgModule</span><span class="p">({</span>
+  <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">BrowserModule</span><span class="p">,</span>
+    <span class="nx">FormsModule</span>
+  <span class="p">],</span>
+  <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
+    <span class="nx">AppComponent</span>
+  <span class="p">],</span>
+  <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
 <p>将模板中的<code>input</code>改成双向数据绑定：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="sfa0">&lt;</span><span class="s7df">input</span><span class="s1f40"> </span><span class="s1388">[(</span><span class="s7df">ngModel</span><span class="s1388">)]</span><span class="sfa0">=</span><span class="sc1c">&#34;hero.name&#34;</span><span class="s1f40"> </span><span class="s7df">placeholder</span><span class="sfa0">=</span><span class="sc1c">&#34;name&#34;</span><span class="sfa0">&gt;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">input</span> <span class="p">[(</span><span class="nx">ngModel</span><span class="p">)]</span><span class="o">=</span><span class="s2">&#34;hero.name&#34;</span> <span class="nx">placeholder</span><span class="o">=</span><span class="s2">&#34;name&#34;</span><span class="o">&gt;</span></code></pre></div>
 <p>现在我们修改文本框里的值，hero的name属性值也跟着变了：</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/case-study/4.png" alt="" /></p>
 
 <p>完整的<code>app.component.ts</code>如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Component</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">number</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">string</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;my-app&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">`
-</span><span class="sc1c">    &lt;h1&gt;{{title}}&lt;/h1&gt;
-</span><span class="sc1c">    &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
-</span><span class="sc1c">    &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
-</span><span class="sc1c">    &lt;div&gt;
-</span><span class="sc1c">      &lt;label&gt;name: &lt;/label&gt;
-</span><span class="sc1c">      &lt;input [(ngModel)]=&#34;hero.name&#34; placeholder=&#34;name&#34;&gt;
-</span><span class="sc1c">    &lt;/div&gt;
-</span><span class="sc1c">    `</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">title</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;Tour of Heroes&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">hero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Windstorm&#39;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">};</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">Hero</span> <span class="p">{</span>
+  <span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`
+</span><span class="sb">    &lt;h1&gt;{{title}}&lt;/h1&gt;
+</span><span class="sb">    &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
+</span><span class="sb">    &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
+</span><span class="sb">    &lt;div&gt;
+</span><span class="sb">      &lt;label&gt;name: &lt;/label&gt;
+</span><span class="sb">      &lt;input [(ngModel)]=&#34;hero.name&#34; placeholder=&#34;name&#34;&gt;
+</span><span class="sb">    &lt;/div&gt;
+</span><span class="sb">    `</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
+  <span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Windstorm&#39;</span>
+  <span class="p">};</span>
+<span class="p">}</span></code></pre></div>
 <h3 id="列表">列表</h3>
 
 <p>创建一个heroes数组，后面我们会改成从web服务中获取数据，这里就先用模拟数据，暂时还放在<code>app.component.ts</code>文件内：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">HEROES</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">[]</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">11</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Mr. Nice&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">12</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Narco&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">13</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Bombasto&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">14</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Celeritas&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">15</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Magneta&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">16</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;RubberMan&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">17</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Dynama&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">18</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Dr IQ&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">19</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Magma&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">20</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Tornado&#39;</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">];</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">const</span> <span class="nx">HEROES</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Mr. Nice&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Narco&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">13</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Bombasto&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Celeritas&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Magneta&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">16</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;RubberMan&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">17</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dynama&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dr IQ&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">19</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Magma&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Tornado&#39;</span> <span class="p">}</span>
+<span class="p">];</span></code></pre></div>
 <p>在<code>AppComponent</code>中添加一个属性<code>heroes</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">heroes</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">HEROES</span><span class="s1388">;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">heroes</span> <span class="o">=</span> <span class="nx">HEROES</span><span class="p">;</span></code></pre></div>
 <p>这里我们没有定义<code>heroes</code>的类型，TypeScript会根据<code>HERROES</code>数组推断出来的。</p>
 
 <p>在模板中使用<code>ngFor</code>指令来显示heroes数组：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">h2</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">My Heroes</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">h2</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">ul</span><span class="s1f40"> </span><span class="s7d1">class</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;heroes&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">li</span><span class="s1f40"> </span><span class="ss4">*</span><span class="s7d1">ngFor</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;let hero of heroes&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"> </span><span class="s7d1">class</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;badge&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">{{hero.id}}</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40"> {{hero.name}}
-</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">li</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">ul</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h2</span><span class="p"></span><span class="p">&gt;</span>My Heroes<span class="p">&lt;</span><span class="p">/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">ul</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;heroes&#34;</span><span class="p"></span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">li</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&#34;let hero of heroes&#34;</span><span class="p"></span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;badge&#34;</span><span class="p"></span><span class="p">&gt;</span>{{hero.id}}<span class="p">&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span> {{hero.name}}
+  <span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span></code></pre></div>
 <p>为列表添加个样式，让界面美观点。设置<code>@Component</code>的<code>styles</code>属性即可，后面我们再把样式移到单独的文件中：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">styles</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">`
-</span><span class="sc1c">  .selected {
-</span><span class="sc1c">    background-color: #CFD8DC !important;
-</span><span class="sc1c">    color: white;
-</span><span class="sc1c">  }
-</span><span class="sc1c">  .heroes {
-</span><span class="sc1c">    margin: 0 0 2em 0;
-</span><span class="sc1c">    list-style-type: none;
-</span><span class="sc1c">    padding: 0;
-</span><span class="sc1c">    width: 15em;
-</span><span class="sc1c">  }
-</span><span class="sc1c">  .heroes li {
-</span><span class="sc1c">    cursor: pointer;
-</span><span class="sc1c">    position: relative;
-</span><span class="sc1c">    left: 0;
-</span><span class="sc1c">    background-color: #EEE;
-</span><span class="sc1c">    margin: .5em;
-</span><span class="sc1c">    padding: .3em 0;
-</span><span class="sc1c">    height: 1.6em;
-</span><span class="sc1c">    border-radius: 4px;
-</span><span class="sc1c">  }
-</span><span class="sc1c">  .heroes li.selected:hover {
-</span><span class="sc1c">    background-color: #BBD8DC !important;
-</span><span class="sc1c">    color: white;
-</span><span class="sc1c">  }
-</span><span class="sc1c">  .heroes li:hover {
-</span><span class="sc1c">    color: #607D8B;
-</span><span class="sc1c">    background-color: #DDD;
-</span><span class="sc1c">    left: .1em;
-</span><span class="sc1c">  }
-</span><span class="sc1c">  .heroes .text {
-</span><span class="sc1c">    position: relative;
-</span><span class="sc1c">    top: -3px;
-</span><span class="sc1c">  }
-</span><span class="sc1c">  .heroes .badge {
-</span><span class="sc1c">    display: inline-block;
-</span><span class="sc1c">    font-size: small;
-</span><span class="sc1c">    color: white;
-</span><span class="sc1c">    padding: 0.8em 0.7em 0 0.7em;
-</span><span class="sc1c">    background-color: #607D8B;
-</span><span class="sc1c">    line-height: 1em;
-</span><span class="sc1c">    position: relative;
-</span><span class="sc1c">    left: -1px;
-</span><span class="sc1c">    top: -4px;
-</span><span class="sc1c">    height: 1.8em;
-</span><span class="sc1c">    margin-right: .8em;
-</span><span class="sc1c">    border-radius: 4px 0 0 4px;
-</span><span class="sc1c">  }
-</span><span class="sc1c">`</span><span class="s1388">]</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">styles</span><span class="o">:</span> <span class="p">[</span><span class="sb">`
+</span><span class="sb">  .selected {
+</span><span class="sb">    background-color: #CFD8DC !important;
+</span><span class="sb">    color: white;
+</span><span class="sb">  }
+</span><span class="sb">  .heroes {
+</span><span class="sb">    margin: 0 0 2em 0;
+</span><span class="sb">    list-style-type: none;
+</span><span class="sb">    padding: 0;
+</span><span class="sb">    width: 15em;
+</span><span class="sb">  }
+</span><span class="sb">  .heroes li {
+</span><span class="sb">    cursor: pointer;
+</span><span class="sb">    position: relative;
+</span><span class="sb">    left: 0;
+</span><span class="sb">    background-color: #EEE;
+</span><span class="sb">    margin: .5em;
+</span><span class="sb">    padding: .3em 0;
+</span><span class="sb">    height: 1.6em;
+</span><span class="sb">    border-radius: 4px;
+</span><span class="sb">  }
+</span><span class="sb">  .heroes li.selected:hover {
+</span><span class="sb">    background-color: #BBD8DC !important;
+</span><span class="sb">    color: white;
+</span><span class="sb">  }
+</span><span class="sb">  .heroes li:hover {
+</span><span class="sb">    color: #607D8B;
+</span><span class="sb">    background-color: #DDD;
+</span><span class="sb">    left: .1em;
+</span><span class="sb">  }
+</span><span class="sb">  .heroes .text {
+</span><span class="sb">    position: relative;
+</span><span class="sb">    top: -3px;
+</span><span class="sb">  }
+</span><span class="sb">  .heroes .badge {
+</span><span class="sb">    display: inline-block;
+</span><span class="sb">    font-size: small;
+</span><span class="sb">    color: white;
+</span><span class="sb">    padding: 0.8em 0.7em 0 0.7em;
+</span><span class="sb">    background-color: #607D8B;
+</span><span class="sb">    line-height: 1em;
+</span><span class="sb">    position: relative;
+</span><span class="sb">    left: -1px;
+</span><span class="sb">    top: -4px;
+</span><span class="sb">    height: 1.8em;
+</span><span class="sb">    margin-right: .8em;
+</span><span class="sb">    border-radius: 4px 0 0 4px;
+</span><span class="sb">  }
+</span><span class="sb">`</span><span class="p">]</span></code></pre></div>
 <p>现在列表就出来了：</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/case-study/5.png" alt="" /></p>
 
 <p>完整的<code>app.component.ts</code>如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Component</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">number</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">string</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">HEROES</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">[]</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">11</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Mr. Nice&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">12</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Narco&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">13</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Bombasto&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">14</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Celeritas&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">15</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Magneta&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">16</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;RubberMan&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">17</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Dynama&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">18</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Dr IQ&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">19</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Magma&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">20</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Tornado&#39;</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">];</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;my-app&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">template</span><span class="sfa0">:</span><span class="sc1c">`
-</span><span class="sc1c">    &lt;h1&gt;{{title}}&lt;/h1&gt;
-</span><span class="sc1c">    &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
-</span><span class="sc1c">    &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
-</span><span class="sc1c">    &lt;div&gt;
-</span><span class="sc1c">      &lt;label&gt;name: &lt;/label&gt;
-</span><span class="sc1c">      &lt;input [(ngModel)]=&#34;hero.name&#34; placeholder=&#34;name&#34;&gt;
-</span><span class="sc1c">    &lt;/div&gt;
-</span><span class="sc1c">    &lt;h2&gt;My Heroes&lt;/h2&gt;
-</span><span class="sc1c">    &lt;ul class=&#34;heroes&#34;&gt;
-</span><span class="sc1c">      &lt;li *ngFor=&#34;let hero of heroes&#34;&gt;
-</span><span class="sc1c">        &lt;span class=&#34;badge&#34;&gt;{{hero.id}}&lt;/span&gt; {{hero.name}}
-</span><span class="sc1c">      &lt;/li&gt;
-</span><span class="sc1c">    &lt;/ul&gt;
-</span><span class="sc1c">    `</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">styles</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">`
-</span><span class="sc1c">    .selected {
-</span><span class="sc1c">      background-color: #CFD8DC !important;
-</span><span class="sc1c">      color: white;
-</span><span class="sc1c">    }
-</span><span class="sc1c">    .heroes {
-</span><span class="sc1c">      margin: 0 0 2em 0;
-</span><span class="sc1c">      list-style-type: none;
-</span><span class="sc1c">      padding: 0;
-</span><span class="sc1c">      width: 15em;
-</span><span class="sc1c">    }
-</span><span class="sc1c">    .heroes li {
-</span><span class="sc1c">      cursor: pointer;
-</span><span class="sc1c">      position: relative;
-</span><span class="sc1c">      left: 0;
-</span><span class="sc1c">      background-color: #EEE;
-</span><span class="sc1c">      margin: .5em;
-</span><span class="sc1c">      padding: .3em 0;
-</span><span class="sc1c">      height: 1.6em;
-</span><span class="sc1c">      border-radius: 4px;
-</span><span class="sc1c">    }
-</span><span class="sc1c">    .heroes li.selected:hover {
-</span><span class="sc1c">      background-color: #BBD8DC !important;
-</span><span class="sc1c">      color: white;
-</span><span class="sc1c">    }
-</span><span class="sc1c">    .heroes li:hover {
-</span><span class="sc1c">      color: #607D8B;
-</span><span class="sc1c">      background-color: #DDD;
-</span><span class="sc1c">      left: .1em;
-</span><span class="sc1c">    }
-</span><span class="sc1c">    .heroes .text {
-</span><span class="sc1c">      position: relative;
-</span><span class="sc1c">      top: -3px;
-</span><span class="sc1c">    }
-</span><span class="sc1c">    .heroes .badge {
-</span><span class="sc1c">      display: inline-block;
-</span><span class="sc1c">      font-size: small;
-</span><span class="sc1c">      color: white;
-</span><span class="sc1c">      padding: 0.8em 0.7em 0 0.7em;
-</span><span class="sc1c">      background-color: #607D8B;
-</span><span class="sc1c">      line-height: 1em;
-</span><span class="sc1c">      position: relative;
-</span><span class="sc1c">      left: -1px;
-</span><span class="sc1c">      top: -4px;
-</span><span class="sc1c">      height: 1.8em;
-</span><span class="sc1c">      margin-right: .8em;
-</span><span class="sc1c">      border-radius: 4px 0 0 4px;
-</span><span class="sc1c">    }
-</span><span class="sc1c">  `</span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">title</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;Tour of Heroes&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">hero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Windstorm&#39;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">};</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">heroes</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">HEROES</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">class</span> <span class="nx">Hero</span> <span class="p">{</span>
+  <span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">const</span> <span class="nx">HEROES</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Mr. Nice&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Narco&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">13</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Bombasto&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Celeritas&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Magneta&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">16</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;RubberMan&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">17</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dynama&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dr IQ&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">19</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Magma&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Tornado&#39;</span> <span class="p">}</span>
+<span class="p">];</span>
+
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span><span class="sb">`
+</span><span class="sb">    &lt;h1&gt;{{title}}&lt;/h1&gt;
+</span><span class="sb">    &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
+</span><span class="sb">    &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
+</span><span class="sb">    &lt;div&gt;
+</span><span class="sb">      &lt;label&gt;name: &lt;/label&gt;
+</span><span class="sb">      &lt;input [(ngModel)]=&#34;hero.name&#34; placeholder=&#34;name&#34;&gt;
+</span><span class="sb">    &lt;/div&gt;
+</span><span class="sb">    &lt;h2&gt;My Heroes&lt;/h2&gt;
+</span><span class="sb">    &lt;ul class=&#34;heroes&#34;&gt;
+</span><span class="sb">      &lt;li *ngFor=&#34;let hero of heroes&#34;&gt;
+</span><span class="sb">        &lt;span class=&#34;badge&#34;&gt;{{hero.id}}&lt;/span&gt; {{hero.name}}
+</span><span class="sb">      &lt;/li&gt;
+</span><span class="sb">    &lt;/ul&gt;
+</span><span class="sb">    `</span><span class="p">,</span>
+  <span class="nx">styles</span><span class="o">:</span> <span class="p">[</span><span class="sb">`
+</span><span class="sb">    .selected {
+</span><span class="sb">      background-color: #CFD8DC !important;
+</span><span class="sb">      color: white;
+</span><span class="sb">    }
+</span><span class="sb">    .heroes {
+</span><span class="sb">      margin: 0 0 2em 0;
+</span><span class="sb">      list-style-type: none;
+</span><span class="sb">      padding: 0;
+</span><span class="sb">      width: 15em;
+</span><span class="sb">    }
+</span><span class="sb">    .heroes li {
+</span><span class="sb">      cursor: pointer;
+</span><span class="sb">      position: relative;
+</span><span class="sb">      left: 0;
+</span><span class="sb">      background-color: #EEE;
+</span><span class="sb">      margin: .5em;
+</span><span class="sb">      padding: .3em 0;
+</span><span class="sb">      height: 1.6em;
+</span><span class="sb">      border-radius: 4px;
+</span><span class="sb">    }
+</span><span class="sb">    .heroes li.selected:hover {
+</span><span class="sb">      background-color: #BBD8DC !important;
+</span><span class="sb">      color: white;
+</span><span class="sb">    }
+</span><span class="sb">    .heroes li:hover {
+</span><span class="sb">      color: #607D8B;
+</span><span class="sb">      background-color: #DDD;
+</span><span class="sb">      left: .1em;
+</span><span class="sb">    }
+</span><span class="sb">    .heroes .text {
+</span><span class="sb">      position: relative;
+</span><span class="sb">      top: -3px;
+</span><span class="sb">    }
+</span><span class="sb">    .heroes .badge {
+</span><span class="sb">      display: inline-block;
+</span><span class="sb">      font-size: small;
+</span><span class="sb">      color: white;
+</span><span class="sb">      padding: 0.8em 0.7em 0 0.7em;
+</span><span class="sb">      background-color: #607D8B;
+</span><span class="sb">      line-height: 1em;
+</span><span class="sb">      position: relative;
+</span><span class="sb">      left: -1px;
+</span><span class="sb">      top: -4px;
+</span><span class="sb">      height: 1.8em;
+</span><span class="sb">      margin-right: .8em;
+</span><span class="sb">      border-radius: 4px 0 0 4px;
+</span><span class="sb">    }
+</span><span class="sb">  `</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
+  <span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Windstorm&#39;</span>
+  <span class="p">};</span>
+  <span class="nx">heroes</span> <span class="o">=</span> <span class="nx">HEROES</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 <p>现在列表和上面的详细信息视图是没有关系的。我们希望点击列表里的某一个hero时将他显示到详细信息视图中。这就需要绑定click事件，绑定到组件的<code>onSelect</code>方法。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="sfa0">&lt;</span><span class="s7df">li</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s7df">ngFor</span><span class="sfa0">=</span><span class="sc1c">&#34;let hero of heroes&#34;</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">click</span><span class="s1388">)</span><span class="sfa0">=</span><span class="sc1c">&#34;onSelect(hero)&#34;</span><span class="sfa0">&gt;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="sfa0">&lt;</span><span class="s7df">span</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="sfa0">=</span><span class="sc1c">&#34;badge&#34;</span><span class="sfa0">&gt;</span><span class="s1388">{{</span><span class="s7df">hero</span><span class="s1388">.</span><span class="s7df">id</span><span class="s1388">}}</span><span class="sfa0">&lt;</span><span class="s1f40"></span><span class="ss4">/span&gt; {{hero.name}}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">&lt;</span><span class="s1f40"></span><span class="ss4">/li&gt;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">li</span> <span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">&#34;let hero of heroes&#34;</span> <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">&#34;onSelect(hero)&#34;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">span</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;badge&#34;</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">hero</span><span class="p">.</span><span class="nx">id</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/span&gt; {{hero.name}}</span>
+<span class="o">&lt;</span><span class="err">/li&gt;</span></code></pre></div>
 <p>接下来创建组件的<code>onSelect</code>方法。在这之前我们要先为组件加一个属性<code>selectedHero</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">selectedHero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">selectedHero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">;</span></code></pre></div>
 <p>在<code>onSelect</code>方法中将当前点击的hero赋给<code>selectedHero</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">onSelect</span><span class="s1388">(</span><span class="s7df">hero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">)</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">selectedHero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">hero</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">onSelect</span><span class="p">(</span><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 <p>同时更新详细信息视图模板里的input绑定：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">h2</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">{{selectedHero.name}} details!</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">h2</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s7e2">label</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">id: </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">label</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">{{selectedHero.id}}</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">label</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">name: </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">label</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">input</span><span class="s1f40"> </span><span class="ss4">[(</span><span class="s7d1">ngModel</span><span class="ss4">)]=&#34;</span><span class="s7d1">selectedHero</span><span class="ss4">.</span><span class="s7d1">name</span><span class="ss4">&#34;</span><span class="s1f40"> </span><span class="s7d1">placeholder</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;name&#34;</span><span class="s1388">/</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h2</span><span class="p"></span><span class="p">&gt;</span>{{selectedHero.name}} details!<span class="p">&lt;</span><span class="p">/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">label</span><span class="p"></span><span class="p">&gt;</span>id: <span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>{{selectedHero.id}}<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">label</span><span class="p"></span><span class="p">&gt;</span>name: <span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]=&#34;</span><span class="na">selectedHero</span><span class="err">.</span><span class="na">name</span><span class="err">&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="p">/</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>如果我们现在页面会报错，因为<code>selectedHero</code>没有初始值，也就是null，而页面在初始加载时的绑定会读取null的name属性，从而就报错了。我们修改为，如果<code>selectedHero</code>不为null才显示详细信息视图。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="ss4">*</span><span class="s7d1">ngIf</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;selectedHero&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">h2</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">{{selectedHero.name}} details!</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">h2</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s7e2">label</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">id: </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">label</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">{{selectedHero.id}}</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">label</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">name: </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">label</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">input</span><span class="s1f40"> </span><span class="ss4">[(</span><span class="s7d1">ngModel</span><span class="ss4">)]=&#34;</span><span class="s7d1">selectedHero</span><span class="ss4">.</span><span class="s7d1">name</span><span class="ss4">&#34;</span><span class="s1f40"> </span><span class="s7d1">placeholder</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;name&#34;</span><span class="s1388">/</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&#34;selectedHero&#34;</span><span class="p"></span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h2</span><span class="p"></span><span class="p">&gt;</span>{{selectedHero.name}} details!<span class="p">&lt;</span><span class="p">/</span><span class="nt">h2</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">label</span><span class="p"></span><span class="p">&gt;</span>id: <span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>{{selectedHero.id}}<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">label</span><span class="p"></span><span class="p">&gt;</span>name: <span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]=&#34;</span><span class="na">selectedHero</span><span class="err">.</span><span class="na">name</span><span class="err">&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="p">/</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>现在页面就正常啦。初始加载时只显示列表，点击一个hero之后才会显示详细信息视图。</p>
 
 <p>现在点击一个hero之后我们很难看出来选中的是哪个，所以为点击选中的hero添加个样式。</p>
@@ -575,112 +553,111 @@
 <p><img src="https://wukn.github.io/img/post/angular2/case-study/6.png" alt="" /></p>
 
 <p>完整的<code>app.component.ts</code>如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">import</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">Component</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s7df">from</span><span class="s1f40"> </span><span class="sc1c">&#39;@angular/core&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">number</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">string</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">const</span><span class="s1f40"> </span><span class="s7df">HEROES</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">[]</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">11</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Mr. Nice&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">12</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Narco&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">13</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Bombasto&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">14</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Celeritas&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">15</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Magneta&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">16</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;RubberMan&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">17</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Dynama&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">18</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Dr IQ&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">19</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Magma&#39;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">20</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Tornado&#39;</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">];</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;my-app&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">template</span><span class="sfa0">:</span><span class="sc1c">`
-</span><span class="sc1c">    &lt;h1&gt;{{title}}&lt;/h1&gt;
-</span><span class="sc1c">    &lt;div *ngIf=&#34;selectedHero&#34;&gt;
-</span><span class="sc1c">      &lt;h2&gt;{{selectedHero.name}} details!&lt;/h2&gt;
-</span><span class="sc1c">      &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{selectedHero.id}}&lt;/div&gt;
-</span><span class="sc1c">      &lt;div&gt;
-</span><span class="sc1c">        &lt;label&gt;name: &lt;/label&gt;
-</span><span class="sc1c">        &lt;input [(ngModel)]=&#34;selectedHero.name&#34; placeholder=&#34;name&#34;/&gt;
-</span><span class="sc1c">      &lt;/div&gt;
-</span><span class="sc1c">    &lt;/div&gt;
-</span><span class="sc1c">    &lt;h2&gt;My Heroes&lt;/h2&gt;
-</span><span class="sc1c">    &lt;ul class=&#34;heroes&#34;&gt;
-</span><span class="sc1c">      &lt;li *ngFor=&#34;let hero of heroes&#34;
-</span><span class="sc1c">          [class.selected]=&#34;hero === selectedHero&#34;
-</span><span class="sc1c">          (click)=&#34;onSelect(hero)&#34;&gt;
-</span><span class="sc1c">        &lt;span class=&#34;badge&#34;&gt;{{hero.id}}&lt;/span&gt; {{hero.name}}
-</span><span class="sc1c">      &lt;/li&gt;
-</span><span class="sc1c">    &lt;/ul&gt;
-</span><span class="sc1c">    `</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">styles</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">`
-</span><span class="sc1c">    .selected {
-</span><span class="sc1c">      background-color: #CFD8DC !important;
-</span><span class="sc1c">      color: white;
-</span><span class="sc1c">    }
-</span><span class="sc1c">    .heroes {
-</span><span class="sc1c">      margin: 0 0 2em 0;
-</span><span class="sc1c">      list-style-type: none;
-</span><span class="sc1c">      padding: 0;
-</span><span class="sc1c">      width: 15em;
-</span><span class="sc1c">    }
-</span><span class="sc1c">    .heroes li {
-</span><span class="sc1c">      cursor: pointer;
-</span><span class="sc1c">      position: relative;
-</span><span class="sc1c">      left: 0;
-</span><span class="sc1c">      background-color: #EEE;
-</span><span class="sc1c">      margin: .5em;
-</span><span class="sc1c">      padding: .3em 0;
-</span><span class="sc1c">      height: 1.6em;
-</span><span class="sc1c">      border-radius: 4px;
-</span><span class="sc1c">    }
-</span><span class="sc1c">    .heroes li.selected:hover {
-</span><span class="sc1c">      background-color: #BBD8DC !important;
-</span><span class="sc1c">      color: white;
-</span><span class="sc1c">    }
-</span><span class="sc1c">    .heroes li:hover {
-</span><span class="sc1c">      color: #607D8B;
-</span><span class="sc1c">      background-color: #DDD;
-</span><span class="sc1c">      left: .1em;
-</span><span class="sc1c">    }
-</span><span class="sc1c">    .heroes .text {
-</span><span class="sc1c">      position: relative;
-</span><span class="sc1c">      top: -3px;
-</span><span class="sc1c">    }
-</span><span class="sc1c">    .heroes .badge {
-</span><span class="sc1c">      display: inline-block;
-</span><span class="sc1c">      font-size: small;
-</span><span class="sc1c">      color: white;
-</span><span class="sc1c">      padding: 0.8em 0.7em 0 0.7em;
-</span><span class="sc1c">      background-color: #607D8B;
-</span><span class="sc1c">      line-height: 1em;
-</span><span class="sc1c">      position: relative;
-</span><span class="sc1c">      left: -1px;
-</span><span class="sc1c">      top: -4px;
-</span><span class="sc1c">      height: 1.8em;
-</span><span class="sc1c">      margin-right: .8em;
-</span><span class="sc1c">      border-radius: 4px 0 0 4px;
-</span><span class="sc1c">    }
-</span><span class="sc1c">  `</span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">AppComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">title</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#39;Tour of Heroes&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">hero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">id</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Windstorm&#39;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">};</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">heroes</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">HEROES</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">selectedHero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">onSelect</span><span class="s1388">(</span><span class="s7df">hero</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">Hero</span><span class="s1388">)</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">selectedHero</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">hero</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+
+<span class="k">export</span> <span class="k">class</span> <span class="nx">Hero</span> <span class="p">{</span>
+  <span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">;</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">const</span> <span class="nx">HEROES</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Mr. Nice&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">12</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Narco&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">13</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Bombasto&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Celeritas&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">15</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Magneta&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">16</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;RubberMan&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">17</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dynama&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dr IQ&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">19</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Magma&#39;</span> <span class="p">},</span>
+  <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Tornado&#39;</span> <span class="p">}</span>
+<span class="p">];</span>
+
+<span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span><span class="sb">`
+</span><span class="sb">    &lt;h1&gt;{{title}}&lt;/h1&gt;
+</span><span class="sb">    &lt;div *ngIf=&#34;selectedHero&#34;&gt;
+</span><span class="sb">      &lt;h2&gt;{{selectedHero.name}} details!&lt;/h2&gt;
+</span><span class="sb">      &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{selectedHero.id}}&lt;/div&gt;
+</span><span class="sb">      &lt;div&gt;
+</span><span class="sb">        &lt;label&gt;name: &lt;/label&gt;
+</span><span class="sb">        &lt;input [(ngModel)]=&#34;selectedHero.name&#34; placeholder=&#34;name&#34;/&gt;
+</span><span class="sb">      &lt;/div&gt;
+</span><span class="sb">    &lt;/div&gt;
+</span><span class="sb">    &lt;h2&gt;My Heroes&lt;/h2&gt;
+</span><span class="sb">    &lt;ul class=&#34;heroes&#34;&gt;
+</span><span class="sb">      &lt;li *ngFor=&#34;let hero of heroes&#34;
+</span><span class="sb">          [class.selected]=&#34;hero === selectedHero&#34;
+</span><span class="sb">          (click)=&#34;onSelect(hero)&#34;&gt;
+</span><span class="sb">        &lt;span class=&#34;badge&#34;&gt;{{hero.id}}&lt;/span&gt; {{hero.name}}
+</span><span class="sb">      &lt;/li&gt;
+</span><span class="sb">    &lt;/ul&gt;
+</span><span class="sb">    `</span><span class="p">,</span>
+  <span class="nx">styles</span><span class="o">:</span> <span class="p">[</span><span class="sb">`
+</span><span class="sb">    .selected {
+</span><span class="sb">      background-color: #CFD8DC !important;
+</span><span class="sb">      color: white;
+</span><span class="sb">    }
+</span><span class="sb">    .heroes {
+</span><span class="sb">      margin: 0 0 2em 0;
+</span><span class="sb">      list-style-type: none;
+</span><span class="sb">      padding: 0;
+</span><span class="sb">      width: 15em;
+</span><span class="sb">    }
+</span><span class="sb">    .heroes li {
+</span><span class="sb">      cursor: pointer;
+</span><span class="sb">      position: relative;
+</span><span class="sb">      left: 0;
+</span><span class="sb">      background-color: #EEE;
+</span><span class="sb">      margin: .5em;
+</span><span class="sb">      padding: .3em 0;
+</span><span class="sb">      height: 1.6em;
+</span><span class="sb">      border-radius: 4px;
+</span><span class="sb">    }
+</span><span class="sb">    .heroes li.selected:hover {
+</span><span class="sb">      background-color: #BBD8DC !important;
+</span><span class="sb">      color: white;
+</span><span class="sb">    }
+</span><span class="sb">    .heroes li:hover {
+</span><span class="sb">      color: #607D8B;
+</span><span class="sb">      background-color: #DDD;
+</span><span class="sb">      left: .1em;
+</span><span class="sb">    }
+</span><span class="sb">    .heroes .text {
+</span><span class="sb">      position: relative;
+</span><span class="sb">      top: -3px;
+</span><span class="sb">    }
+</span><span class="sb">    .heroes .badge {
+</span><span class="sb">      display: inline-block;
+</span><span class="sb">      font-size: small;
+</span><span class="sb">      color: white;
+</span><span class="sb">      padding: 0.8em 0.7em 0 0.7em;
+</span><span class="sb">      background-color: #607D8B;
+</span><span class="sb">      line-height: 1em;
+</span><span class="sb">      position: relative;
+</span><span class="sb">      left: -1px;
+</span><span class="sb">      top: -4px;
+</span><span class="sb">      height: 1.8em;
+</span><span class="sb">      margin-right: .8em;
+</span><span class="sb">      border-radius: 4px 0 0 4px;
+</span><span class="sb">    }
+</span><span class="sb">  `</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
+  <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
+  <span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Windstorm&#39;</span>
+  <span class="p">};</span>
+  <span class="nx">heroes</span> <span class="o">=</span> <span class="nx">HEROES</span><span class="p">;</span>
+
+  <span class="nx">selectedHero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">;</span>
+
+  <span class="nx">onSelect</span><span class="p">(</span><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span></code></pre></div>
 <hr />
 
 <p>参考资料：</p>
@@ -699,7 +676,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>292</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>296</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

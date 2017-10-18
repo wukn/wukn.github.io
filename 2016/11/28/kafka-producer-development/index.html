@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.29" />
+<meta name="generator" content="Hugo 0.30" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/28/kafka-producer-development/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][Kafka]开发Producer</h1>
-      <p class="post-meta">@wukn · Nov 28, 2016 · 3 min read</p>
+      <p class="post-meta">@wukn · Nov 28, 2016 · 5 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>《Learing Apache Kafka-Second Edition》</p>
@@ -242,236 +242,220 @@ Kafka提供了类<code>kafka.javaapi.producer.Producer</code>（<code>class Prod
 <p>接下来，我们写一个类<code>SimpleProducer</code>来创建指定的topic对应的消息，并使用默认的partition。</p>
 
 <p>1.引入以下类：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">kafka.javaapi.producer.Producer</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">kafka.producer.KeyedMessage</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">kafka.producer.ProducerConfig</span><span class="sfa0">;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">kafka.javaapi.producer.Producer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.producer.KeyedMessage</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.producer.ProducerConfig</span><span class="o">;</span></code></pre></div>
 <p>2.定义属性：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s7d0">Properties</span><span class="s1f40"> </span><span class="s7d0">props</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Properties</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">put</span><span class="sfa0">(</span><span class="sc1c">&#34;metadata.broker.list&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;localhost:9092, localhost:9093, localhost:9094&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">put</span><span class="sfa0">(</span><span class="sc1c">&#34;serializer.class&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;kafka.serializer.StringEncoder&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">put</span><span class="sfa0">(</span><span class="sc1c">&#34;request.required.acks&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;1&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">ProducerConfig</span><span class="s1f40"> </span><span class="s7d0">config</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">ProducerConfig</span><span class="sfa0">(</span><span class="s7d0">props</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">Producer</span><span class="sfa0">&lt;</span><span class="s7d0">String</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s7d0">producer</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Producer</span><span class="sfa0">&lt;</span><span class="s7d0">String</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">&gt;(</span><span class="s7d0">config</span><span class="sfa0">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;metadata.broker.list&#34;</span><span class="o">,</span> <span class="s">&#34;localhost:9092, localhost:9093, localhost:9094&#34;</span><span class="o">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;serializer.class&#34;</span><span class="o">,</span> <span class="s">&#34;kafka.serializer.StringEncoder&#34;</span><span class="o">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;request.required.acks&#34;</span><span class="o">,</span> <span class="s">&#34;1&#34;</span><span class="o">);</span>
+<span class="n">ProducerConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ProducerConfig</span><span class="o">(</span><span class="n">props</span><span class="o">);</span>
+<span class="n">Producer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">producer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Producer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;(</span><span class="n">config</span><span class="o">);</span></code></pre></div>
 <p>看一下代码中提到的属性：
 * <code>metadata.broker.list</code>：该属性指定producer要连接的broker（格式为<code>[&lt;node:port&gt;, &lt;node:port&gt;]</code>）。Kafka producer会自动为topic选择lead broker，并且在发布消息时连接到正确的broker。
 * <code>serializer.class</code>：该属性指定准备发送消息时对消息进行序列化的类。在本例中使用的是Kafka提供的字符串编码器。默认情况下key和消息的序列化类是一样的。也可以通过扩展<code>kafka.serializer.Encoder</code>来实现自定义的序列化类。设置参数<code>key.serializer.class</code>就可以使用自定义编码器。
 * <code>request.required.acks</code>：该属性指示broker在收到消息后向producer发送回执。1表示只要lead副本接收到消息就发送回执。</p>
 
 <p>3.构造消息并发送：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">runtime</span><span class="s1f40">	</span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Date</span><span class="sfa0">().</span><span class="s7d1">toString</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">msg</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#34;Message Publishing Time - &#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">runtime</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">KeyedMessage</span><span class="sfa0">&lt;</span><span class="s7d0">String</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s7d0">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">KeyedMessage</span><span class="sfa0">&lt;</span><span class="s7d0">String</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">&gt;(</span><span class="s7d0">topic</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">msg</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">producer</span><span class="sfa0">.</span><span class="s7d1">send</span><span class="sfa0">(</span><span class="s7d0">data</span><span class="sfa0">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">String</span> <span class="n">runtime</span>	<span class="o">=</span> <span class="k">new</span> <span class="n">Date</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+<span class="n">String</span> <span class="n">msg</span> <span class="o">=</span> <span class="s">&#34;Message Publishing Time - &#34;</span> <span class="o">+</span> <span class="n">runtime</span><span class="o">;</span>
+<span class="n">KeyedMessage</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span> <span class="k">new</span> <span class="n">KeyedMessage</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;(</span><span class="n">topic</span><span class="o">,</span> <span class="n">msg</span><span class="o">);</span>
+<span class="n">producer</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">data</span><span class="o">);</span></code></pre></div>
 <p>完整代码如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s3eb">package</span><span class="s1f40"> </span><span class="s7d0">kafka.examples.producer</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">java.util.Date</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">java.util.Properties</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">kafka.javaapi.producer.Producer</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">kafka.producer.KeyedMessage</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">kafka.producer.ProducerConfig</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7d4">SimpleProducer</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s7d0">Producer</span><span class="sfa0">&lt;</span><span class="s7d0">String</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s7d0">producer</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s7d9">SimpleProducer</span><span class="s1f40"></span><span class="sfa0">()</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">Properties</span><span class="s1f40"> </span><span class="s7d0">props</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Properties</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1770">// Set the broker list for requesting metadata to find the lead broker
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">put</span><span class="sfa0">(</span><span class="sc1c">&#34;metadata.broker.list&#34;</span><span class="sfa0">,</span><span class="s1f40">
-</span><span class="s1f40">                </span><span class="sc1c">&#34;192.168.146.132:9092, 192.168.146.132:9093, 192.168.146.132:9094&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1770">//This specifies the serializer class for keys
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">put</span><span class="sfa0">(</span><span class="sc1c">&#34;serializer.class&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;kafka.serializer.StringEncoder&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1770">// 1 means the producer receives an acknowledgment once the lead replica
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s1770">// has received the data. This option provides better durability as the
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s1770">// client waits until the server acknowledges the request as successful.
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">put</span><span class="sfa0">(</span><span class="sc1c">&#34;request.required.acks&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;1&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">ProducerConfig</span><span class="s1f40"> </span><span class="s7d0">config</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">ProducerConfig</span><span class="sfa0">(</span><span class="s7d0">props</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">producer</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Producer</span><span class="sfa0">&lt;</span><span class="s7d0">String</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">&gt;(</span><span class="s7d0">config</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">main</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">[]</span><span class="s1f40"> </span><span class="s7d0">args</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">argsCount</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">args</span><span class="sfa0">.</span><span class="s7d1">length</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">argsCount</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s1f40"> </span><span class="s7d0">0</span><span class="s1f40"> </span><span class="sfa0">||</span><span class="s1f40"> </span><span class="s7d0">argsCount</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s1f40"> </span><span class="s7d0">1</span><span class="sfa0">)</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s3e8">throw</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">IllegalArgumentException</span><span class="sfa0">(</span><span class="s1f40">
-</span><span class="s1f40">                    </span><span class="sc1c">&#34;Please provide topic name and Message count as arguments&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1770">// Topic name and the message count to be published is passed from the
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s1770">// command line
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">topic</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s7d0">args</span><span class="sfa0">[</span><span class="s7d0">0</span><span class="sfa0">];</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">count</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s7d0">args</span><span class="sfa0">[</span><span class="s7d0">1</span><span class="sfa0">];</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">messageCount</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">Integer</span><span class="sfa0">.</span><span class="s7d1">parseInt</span><span class="sfa0">(</span><span class="s7d0">count</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34;Topic Name - &#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">topic</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34;Message Count - &#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">messageCount</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">SimpleProducer</span><span class="s1f40"> </span><span class="s7d0">simpleProducer</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">SimpleProducer</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">simpleProducer</span><span class="sfa0">.</span><span class="s7d1">publishMessage</span><span class="sfa0">(</span><span class="s7d0">topic</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">messageCount</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">publishMessage</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">topic</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">messageCount</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">for</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">mCount</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">0</span><span class="sfa0">;</span><span class="s1f40"> </span><span class="s7d0">mCount</span><span class="s1f40"> </span><span class="sfa0">&lt;</span><span class="s1f40"> </span><span class="s7d0">messageCount</span><span class="sfa0">;</span><span class="s1f40"> </span><span class="s7d0">mCount</span><span class="sfa0">++)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">runtime</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Date</span><span class="sfa0">().</span><span class="s7d1">toString</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">msg</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#34;Message Publishing Time - &#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">runtime</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="s7d0">msg</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s1770">// Creates a KeyedMessage instance
-</span><span class="s1770"></span><span class="s1f40">            </span><span class="s7d0">KeyedMessage</span><span class="sfa0">&lt;</span><span class="s7d0">String</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s7d0">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40">
-</span><span class="s1f40">                    </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">KeyedMessage</span><span class="sfa0">&lt;</span><span class="s7d0">String</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">&gt;(</span><span class="s7d0">topic</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">msg</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s1770">// Publish the message
-</span><span class="s1770"></span><span class="s1f40">            </span><span class="s7d0">producer</span><span class="sfa0">.</span><span class="s7d1">send</span><span class="sfa0">(</span><span class="s7d0">data</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1770">// Close producer connection with broker.
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s7d0">producer</span><span class="sfa0">.</span><span class="s7d1">close</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">kafka.examples.producer</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.javaapi.producer.Producer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.producer.KeyedMessage</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.producer.ProducerConfig</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleProducer</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Producer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">producer</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">SimpleProducer</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+
+        <span class="c1">// Set the broker list for requesting metadata to find the lead broker
+</span><span class="c1"></span>        <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;metadata.broker.list&#34;</span><span class="o">,</span>
+                <span class="s">&#34;192.168.146.132:9092, 192.168.146.132:9093, 192.168.146.132:9094&#34;</span><span class="o">);</span>
+
+        <span class="c1">//This specifies the serializer class for keys
+</span><span class="c1"></span>        <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;serializer.class&#34;</span><span class="o">,</span> <span class="s">&#34;kafka.serializer.StringEncoder&#34;</span><span class="o">);</span>
+
+        <span class="c1">// 1 means the producer receives an acknowledgment once the lead replica
+</span><span class="c1"></span>        <span class="c1">// has received the data. This option provides better durability as the
+</span><span class="c1"></span>        <span class="c1">// client waits until the server acknowledges the request as successful.
+</span><span class="c1"></span>        <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;request.required.acks&#34;</span><span class="o">,</span> <span class="s">&#34;1&#34;</span><span class="o">);</span>
+
+        <span class="n">ProducerConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ProducerConfig</span><span class="o">(</span><span class="n">props</span><span class="o">);</span>
+        <span class="n">producer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Producer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;(</span><span class="n">config</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">argsCount</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">argsCount</span> <span class="o">==</span> <span class="n">0</span> <span class="o">||</span> <span class="n">argsCount</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span>
+                    <span class="s">&#34;Please provide topic name and Message count as arguments&#34;</span><span class="o">);</span>
+        <span class="c1">// Topic name and the message count to be published is passed from the
+</span><span class="c1"></span>        <span class="c1">// command line
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">topic</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">args</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+        <span class="n">String</span> <span class="n">count</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">args</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">messageCount</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">count</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Topic Name - &#34;</span> <span class="o">+</span> <span class="n">topic</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Message Count - &#34;</span> <span class="o">+</span> <span class="n">messageCount</span><span class="o">);</span>
+        <span class="n">SimpleProducer</span> <span class="n">simpleProducer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleProducer</span><span class="o">();</span>
+        <span class="n">simpleProducer</span><span class="o">.</span><span class="na">publishMessage</span><span class="o">(</span><span class="n">topic</span><span class="o">,</span> <span class="n">messageCount</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">publishMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">topic</span><span class="o">,</span> <span class="kt">int</span> <span class="n">messageCount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">mCount</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">mCount</span> <span class="o">&lt;</span> <span class="n">messageCount</span><span class="o">;</span> <span class="n">mCount</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">String</span> <span class="n">runtime</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Date</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+            <span class="n">String</span> <span class="n">msg</span> <span class="o">=</span> <span class="s">&#34;Message Publishing Time - &#34;</span> <span class="o">+</span> <span class="n">runtime</span><span class="o">;</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+            <span class="c1">// Creates a KeyedMessage instance
+</span><span class="c1"></span>            <span class="n">KeyedMessage</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span>
+                    <span class="k">new</span> <span class="n">KeyedMessage</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;(</span><span class="n">topic</span><span class="o">,</span> <span class="n">msg</span><span class="o">);</span>
+
+            <span class="c1">// Publish the message
+</span><span class="c1"></span>            <span class="n">producer</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="c1">// Close producer connection with broker.
+</span><span class="c1"></span>        <span class="n">producer</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
 <p>在运行上面的代码之前，确保已经创建了名为<code>kafkatopic</code>的topic：</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor </span><span class="sc80">1</span><span class="s1f40"> --partitions </span><span class="sc80">3</span><span class="s1f40"> --topic kafkatopic</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor <span class="m">1</span> --partitions <span class="m">3</span> --topic kafkatopic</code></pre></div>
 <p>添加环境变量<code>KAFKA_LIB</code>指向Kafka的lib文件夹路径，并将lib文件夹下的jar包添加到<code>classpath</code>。</p>
 
 <p>编译代码：</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">javac -d . kafka/examples/producer/SimpleProducer.java</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">javac -d . kafka/examples/producer/SimpleProducer.java</code></pre></div>
 <p>运行程序，<code>SimpleProducer</code>接收两个参数，topic名称和消息数量：</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">java kafka.examples.producer.SimpleProducer kafkatopic </span><span class="sc80">10</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">java kafka.examples.producer.SimpleProducer kafkatopic <span class="m">10</span></code></pre></div>
 <p>之后可以运行consumer接收消息了：</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">bin/kafka-console-consumer.sh --zookeeper localhost:2181 --from-beginning --topic kafkatopic</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">bin/kafka-console-consumer.sh --zookeeper localhost:2181 --from-beginning --topic kafkatopic</code></pre></div>
 <h3 id="自定义partition的java-producer">自定义partition的Java producer</h3>
 
 <p>上面的例子是一个非常简单的针对多broker集群的producer，没有明确指定消息的partition。接下来我们写一个带自定义消息partition的。例子的场景是，捕捉并发布从各个IP访问网站的日志消息。日志消息包含：网站被访问时的timestamp、网站的名称、访问网站的IP地址。</p>
 
 <p>1.引用以下类</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">java.util.Date</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">java.util.Properties</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">java.util.Random</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">kafka.javaapi.producer.Producer</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">kafka.producer.KeyedMessage</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">kafka.producer.ProducerConfig</span><span class="sfa0">;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.javaapi.producer.Producer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.producer.KeyedMessage</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.producer.ProducerConfig</span><span class="o">;</span></code></pre></div>
 <p>2.定义属性</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s7d0">Properties</span><span class="s1f40"> </span><span class="s7d0">props</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Properties</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">put</span><span class="sfa0">(</span><span class="sc1c">&#34;metadata.broker.list&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;localhost:9092, localhost:9093, localhost:9094&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">put</span><span class="sfa0">(</span><span class="sc1c">&#34;serializer.class&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;kafka.serializer.StringEncoder&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">put</span><span class="sfa0">(</span><span class="sc1c">&#34;partitioner.class&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;kafka.examples.producer.SimplePartitioner&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">put</span><span class="sfa0">(</span><span class="sc1c">&#34;request.required.acks&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;1&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">ProducerConfig</span><span class="s1f40"> </span><span class="s7d0">config</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">ProducerConfig</span><span class="sfa0">(</span><span class="s7d0">props</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">Producer</span><span class="sfa0">&lt;</span><span class="s7d0">Integer</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s7d0">producer</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Producer</span><span class="sfa0">&lt;</span><span class="s7d0">Integer</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">&gt;(</span><span class="s7d0">config</span><span class="sfa0">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;metadata.broker.list&#34;</span><span class="o">,</span> <span class="s">&#34;localhost:9092, localhost:9093, localhost:9094&#34;</span><span class="o">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;serializer.class&#34;</span><span class="o">,</span> <span class="s">&#34;kafka.serializer.StringEncoder&#34;</span><span class="o">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;partitioner.class&#34;</span><span class="o">,</span> <span class="s">&#34;kafka.examples.producer.SimplePartitioner&#34;</span><span class="o">);</span>
+<span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;request.required.acks&#34;</span><span class="o">,</span> <span class="s">&#34;1&#34;</span><span class="o">);</span>
+<span class="n">ProducerConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ProducerConfig</span><span class="o">(</span><span class="n">props</span><span class="o">);</span>
+<span class="n">Producer</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">producer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Producer</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;(</span><span class="n">config</span><span class="o">);</span></code></pre></div>
 <p>属性<code>partitioner.class</code>指定用于决定消息发送的topic内partition的类。如果为null，则使用key的哈希值。</p>
 
 <p>3.实现分区类</p>
 
 <p>编写一个自定义分区类<code>SimplePartitioner</code>，它是抽象类<code>Partitioner</code>的实现。</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s3eb">package</span><span class="s1f40"> </span><span class="s7d0">kafka.examples.producer</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">kafka.producer.Partitioner</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7d4">SimplePartitioner</span><span class="s1f40"> </span><span class="s3e8">implements</span><span class="s1f40"> </span><span class="s7d0">Partitioner</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s7d9">SimplePartitioner</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">VerifiableProperties</span><span class="s1f40"> </span><span class="s7d0">props</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1770">/*
-</span><span class="s1770">        * The method takes the key, which in this case is the IP address,
-</span><span class="s1770">        * It finds the last octet and does a modulo operation on the number
-</span><span class="s1770">        * of partitions defined within Kafka for the topic.
-</span><span class="s1770">        *
-</span><span class="s1770">        * @see kafka.producer.Partitioner#partition(java.lang.Object, int)
-</span><span class="s1770">        */</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d9">partition</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">Object</span><span class="s1f40"> </span><span class="s7d0">key</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">a_numPartitions</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">partition</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">0</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">partitionKey</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s7d0">key</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">offset</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">partitionKey</span><span class="sfa0">.</span><span class="s7d1">lastIndexOf</span><span class="sfa0">(</span><span class="sc1c">&#39;.&#39;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">offset</span><span class="s1f40"> </span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s7d0">0</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s7d0">partition</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">Integer</span><span class="sfa0">.</span><span class="s7d1">parseInt</span><span class="sfa0">(</span><span class="s7d0">partitionKey</span><span class="sfa0">.</span><span class="s7d1">substring</span><span class="sfa0">(</span><span class="s7d0">offset</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">1</span><span class="sfa0">))</span><span class="s1f40">
-</span><span class="s1f40">                    </span><span class="sfa0">%</span><span class="s1f40"> </span><span class="s7d0">a_numPartitions</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7d0">partition</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">kafka.examples.producer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.producer.Partitioner</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimplePartitioner</span> <span class="kd">implements</span> <span class="n">Partitioner</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">SimplePartitioner</span> <span class="o">(</span><span class="n">VerifiableProperties</span> <span class="n">props</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="o">}</span>
+    <span class="cm">/*
+</span><span class="cm">        * The method takes the key, which in this case is the IP address,
+</span><span class="cm">        * It finds the last octet and does a modulo operation on the number
+</span><span class="cm">        * of partitions defined within Kafka for the topic.
+</span><span class="cm">        *
+</span><span class="cm">        * @see kafka.producer.Partitioner#partition(java.lang.Object, int)
+</span><span class="cm">        */</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">partition</span><span class="o">(</span><span class="n">Object</span> <span class="n">key</span><span class="o">,</span> <span class="kt">int</span> <span class="n">a_numPartitions</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">partition</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+        <span class="n">String</span> <span class="n">partitionKey</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">key</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">offset</span> <span class="o">=</span> <span class="n">partitionKey</span><span class="o">.</span><span class="na">lastIndexOf</span><span class="o">(</span><span class="sc">&#39;.&#39;</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">offset</span> <span class="o">&gt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">partition</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">partitionKey</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="n">offset</span> <span class="o">+</span> <span class="n">1</span><span class="o">))</span>
+                    <span class="o">%</span> <span class="n">a_numPartitions</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">partition</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
 <p>4.构造消息并发送</p>
 
 <p>完整代码如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s3eb">package</span><span class="s1f40"> </span><span class="s7d0">kafka.examples.producer</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">java.util.Date</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">java.util.Properties</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">java.util.Random</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">kafka.javaapi.producer.Producer</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">kafka.producer.KeyedMessage</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3eb">import</span><span class="s1f40"> </span><span class="s7d0">kafka.producer.ProducerConfig</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7d4">CustomPartitionProducer</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s7d0">Producer</span><span class="sfa0">&lt;</span><span class="s7d0">String</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s7d0">producer</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s7d9">CustomPartitionProducer</span><span class="s1f40"></span><span class="sfa0">()</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">Properties</span><span class="s1f40"> </span><span class="s7d0">props</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Properties</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1770">// Set the broker list for requesting metadata to find the lead broker
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">put</span><span class="sfa0">(</span><span class="sc1c">&#34;metadata.broker.list&#34;</span><span class="sfa0">,</span><span class="s1f40">
-</span><span class="s1f40">                </span><span class="sc1c">&#34;192.168.146.132:9092, 192.168.146.132:9093, 192.168.146.132:9094&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1770">// This specifies the serializer class for keys
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">put</span><span class="sfa0">(</span><span class="sc1c">&#34;serializer.class&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;kafka.serializer.StringEncoder&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1770">// Defines the class to be used for determining the partition
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s1770">// in the topic where the message needs to be sent.
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">put</span><span class="sfa0">(</span><span class="sc1c">&#34;partitioner.class&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;kafka.examples.ch4.SimplePartitioner&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1770">// 1 means the producer receives an acknowledgment once the lead replica
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s1770">// has received the data. This option provides better durability as the  
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s1770">// client waits until the server acknowledges the request as successful.
-</span><span class="s1770"></span><span class="s1f40">                </span><span class="s7d0">props</span><span class="sfa0">.</span><span class="s7d1">put</span><span class="sfa0">(</span><span class="sc1c">&#34;request.required.acks&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;1&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">ProducerConfig</span><span class="s1f40"> </span><span class="s7d0">config</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">ProducerConfig</span><span class="sfa0">(</span><span class="s7d0">props</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">producer</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Producer</span><span class="sfa0">&lt;</span><span class="s7d0">String</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">&gt;(</span><span class="s7d0">config</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">static</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">main</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">[]</span><span class="s1f40"> </span><span class="s7d0">args</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">argsCount</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">args</span><span class="sfa0">.</span><span class="s7d1">length</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">argsCount</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s1f40"> </span><span class="s7d0">0</span><span class="s1f40"> </span><span class="sfa0">||</span><span class="s1f40"> </span><span class="s7d0">argsCount</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s1f40"> </span><span class="s7d0">1</span><span class="sfa0">)</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s3e8">throw</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">IllegalArgumentException</span><span class="sfa0">(</span><span class="s1f40">
-</span><span class="s1f40">                    </span><span class="sc1c">&#34;Please provide topic name and Message count as arguments&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1770">// Topic name and the message count to be published is passed from the
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s1770">// command line
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">topic</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s7d0">args</span><span class="sfa0">[</span><span class="s7d0">0</span><span class="sfa0">];</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">count</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s7d0">String</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s7d0">args</span><span class="sfa0">[</span><span class="s7d0">1</span><span class="sfa0">];</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">messageCount</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">Integer</span><span class="sfa0">.</span><span class="s7d1">parseInt</span><span class="sfa0">(</span><span class="s7d0">count</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34;Topic Name - &#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">topic</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="sc1c">&#34;Message Count - &#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">messageCount</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">CustomPartitionProducer</span><span class="s1f40"> </span><span class="s7d0">simpleProducer</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">CustomPartitionProducer</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">simpleProducer</span><span class="sfa0">.</span><span class="s7d1">publishMessage</span><span class="sfa0">(</span><span class="s7d0">topic</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">messageCount</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">private</span><span class="s1f40"> </span><span class="s3e8">void</span><span class="s1f40"> </span><span class="s7d9">publishMessage</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">topic</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">messageCount</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">Random</span><span class="s1f40"> </span><span class="s7d0">random</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Random</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">for</span><span class="s1f40"> </span><span class="sfa0">(</span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">mCount</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">0</span><span class="sfa0">;</span><span class="s1f40"> </span><span class="s7d0">mCount</span><span class="s1f40"> </span><span class="sfa0">&lt;</span><span class="s1f40"> </span><span class="s7d0">messageCount</span><span class="sfa0">;</span><span class="s1f40"> </span><span class="s7d0">mCount</span><span class="sfa0">++)</span><span class="s1f40"> </span><span class="sfa0">{</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">clientIP</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="sc1c">&#34;192.168.14.&#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">random</span><span class="sfa0">.</span><span class="s7d1">nextInt</span><span class="sfa0">(</span><span class="s7d0">255</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">accessTime</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Date</span><span class="sfa0">().</span><span class="s7d1">toString</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">accessTime</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#34;,kafka.apache.org,&#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">clientIP</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s7d0">System</span><span class="sfa0">.</span><span class="s7d1">out</span><span class="sfa0">.</span><span class="s7d1">println</span><span class="sfa0">(</span><span class="s7d0">message</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s1770">// Creates a KeyedMessage instance
-</span><span class="s1770"></span><span class="s1f40">            </span><span class="s7d0">KeyedMessage</span><span class="sfa0">&lt;</span><span class="s7d0">String</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="s7d0">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40">
-</span><span class="s1f40">                    </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">KeyedMessage</span><span class="sfa0">&lt;</span><span class="s7d0">String</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="sfa0">&gt;(</span><span class="s7d0">topic</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">clientIP</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">message</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s1770">// Publish the message
-</span><span class="s1770"></span><span class="s1f40">            </span><span class="s7d0">producer</span><span class="sfa0">.</span><span class="s7d1">send</span><span class="sfa0">(</span><span class="s7d0">data</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1770">// Close producer connection with broker.
-</span><span class="s1770"></span><span class="s1f40">        </span><span class="s7d0">producer</span><span class="sfa0">.</span><span class="s7d1">close</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sfa0">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kn">package</span> <span class="nn">kafka.examples.producer</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Random</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.javaapi.producer.Producer</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.producer.KeyedMessage</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">kafka.producer.ProducerConfig</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomPartitionProducer</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="n">Producer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">producer</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nf">CustomPartitionProducer</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+        <span class="c1">// Set the broker list for requesting metadata to find the lead broker
+</span><span class="c1"></span>        <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;metadata.broker.list&#34;</span><span class="o">,</span>
+                <span class="s">&#34;192.168.146.132:9092, 192.168.146.132:9093, 192.168.146.132:9094&#34;</span><span class="o">);</span>
+        <span class="c1">// This specifies the serializer class for keys
+</span><span class="c1"></span>        <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;serializer.class&#34;</span><span class="o">,</span> <span class="s">&#34;kafka.serializer.StringEncoder&#34;</span><span class="o">);</span>
+
+        <span class="c1">// Defines the class to be used for determining the partition
+</span><span class="c1"></span>        <span class="c1">// in the topic where the message needs to be sent.
+</span><span class="c1"></span>        <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;partitioner.class&#34;</span><span class="o">,</span> <span class="s">&#34;kafka.examples.ch4.SimplePartitioner&#34;</span><span class="o">);</span>
+
+        <span class="c1">// 1 means the producer receives an acknowledgment once the lead replica
+</span><span class="c1"></span>        <span class="c1">// has received the data. This option provides better durability as the  
+</span><span class="c1"></span>        <span class="c1">// client waits until the server acknowledges the request as successful.
+</span><span class="c1"></span>                <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;request.required.acks&#34;</span><span class="o">,</span> <span class="s">&#34;1&#34;</span><span class="o">);</span>
+
+        <span class="n">ProducerConfig</span> <span class="n">config</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ProducerConfig</span><span class="o">(</span><span class="n">props</span><span class="o">);</span>
+        <span class="n">producer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Producer</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;(</span><span class="n">config</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">argsCount</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">argsCount</span> <span class="o">==</span> <span class="n">0</span> <span class="o">||</span> <span class="n">argsCount</span> <span class="o">==</span> <span class="n">1</span><span class="o">)</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">(</span>
+                    <span class="s">&#34;Please provide topic name and Message count as arguments&#34;</span><span class="o">);</span>
+        <span class="c1">// Topic name and the message count to be published is passed from the
+</span><span class="c1"></span>        <span class="c1">// command line
+</span><span class="c1"></span>        <span class="n">String</span> <span class="n">topic</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">args</span><span class="o">[</span><span class="n">0</span><span class="o">];</span>
+        <span class="n">String</span> <span class="n">count</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">args</span><span class="o">[</span><span class="n">1</span><span class="o">];</span>
+        <span class="kt">int</span> <span class="n">messageCount</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">count</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Topic Name - &#34;</span> <span class="o">+</span> <span class="n">topic</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Message Count - &#34;</span> <span class="o">+</span> <span class="n">messageCount</span><span class="o">);</span>
+        <span class="n">CustomPartitionProducer</span> <span class="n">simpleProducer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CustomPartitionProducer</span><span class="o">();</span>
+        <span class="n">simpleProducer</span><span class="o">.</span><span class="na">publishMessage</span><span class="o">(</span><span class="n">topic</span><span class="o">,</span> <span class="n">messageCount</span><span class="o">);</span>
+    <span class="o">}</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">publishMessage</span><span class="o">(</span><span class="n">String</span> <span class="n">topic</span><span class="o">,</span> <span class="kt">int</span> <span class="n">messageCount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Random</span> <span class="n">random</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Random</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">mCount</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">mCount</span> <span class="o">&lt;</span> <span class="n">messageCount</span><span class="o">;</span> <span class="n">mCount</span><span class="o">++)</span> <span class="o">{</span>
+
+            <span class="n">String</span> <span class="n">clientIP</span> <span class="o">=</span> <span class="s">&#34;192.168.14.&#34;</span> <span class="o">+</span> <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="n">255</span><span class="o">);</span>
+            <span class="n">String</span> <span class="n">accessTime</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Date</span><span class="o">().</span><span class="na">toString</span><span class="o">();</span>
+            <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">accessTime</span> <span class="o">+</span> <span class="s">&#34;,kafka.apache.org,&#34;</span> <span class="o">+</span> <span class="n">clientIP</span><span class="o">;</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
+
+            <span class="c1">// Creates a KeyedMessage instance
+</span><span class="c1"></span>            <span class="n">KeyedMessage</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">data</span> <span class="o">=</span>
+                    <span class="k">new</span> <span class="n">KeyedMessage</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;(</span><span class="n">topic</span><span class="o">,</span> <span class="n">clientIP</span><span class="o">,</span> <span class="n">message</span><span class="o">);</span>
+
+            <span class="c1">// Publish the message
+</span><span class="c1"></span>            <span class="n">producer</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="c1">// Close producer connection with broker.
+</span><span class="c1"></span>        <span class="n">producer</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
 <p>在运行上面的代码之前，确保已经创建了名为<code>website-hits</code>的topic：</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor </span><span class="sc80">3</span><span class="s1f40"> --partitions </span><span class="sc80">5</span><span class="s1f40"> --topic website-hits</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">bin/kafka-topics.sh --create --zookeeper localhost:2181 --replication-factor <span class="m">3</span> --partitions <span class="m">5</span> --topic website-hits</code></pre></div>
 <p>编译代码：</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">javac -d . kafka/examples/producer/SimplePartitioner.java
-</span><span class="s1f40">javac -d . kafka/examples/producer/CustomPartitionProducer.java</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">javac -d . kafka/examples/producer/SimplePartitioner.java
+javac -d . kafka/examples/producer/CustomPartitionProducer.java</code></pre></div>
 <p>运行程序：</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">java kafka.examples.producer.CustomPartitionProducer website-hits </span><span class="sc80">100</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">java kafka.examples.producer.CustomPartitionProducer website-hits <span class="m">100</span></code></pre></div>
 <p>运行consumer接收消息：</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">bin/kafka-console-consumer.sh --zookeeper localhost:2181 --from-beginning --topic kafkatopic</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">bin/kafka-console-consumer.sh --zookeeper localhost:2181 --from-beginning --topic kafkatopic</code></pre></div>
 <h3 id="producer属性">producer属性</h3>
 
 <ul>
@@ -499,7 +483,7 @@ Kafka提供了类<code>kafka.javaapi.producer.Producer</code>（<code>class Prod
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>320</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>324</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

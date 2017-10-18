@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.29" />
+<meta name="generator" content="Hugo 0.30" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-ratelimit-observable/" />
@@ -214,12 +214,11 @@
 <h3 id="使用ratelimit扩展器">使用rateLimit扩展器</h3>
 
 <p><code>rateLimit</code>有两种参数格式：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// Shorthand: Specify just a timeout in milliseconds
-</span><span class="s1770"></span><span class="s7df">someObservableOrComputed</span><span class="s1388">.</span><span class="s7df">extend</span><span class="s1388">({</span><span class="s1f40"> </span><span class="s7df">rateLimit</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">500</span><span class="s1f40"> </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770">// Longhand: Specify timeout and/or method
-</span><span class="s1770"></span><span class="s7df">someObservableOrComputed</span><span class="s1388">.</span><span class="s7df">extend</span><span class="s1388">({</span><span class="s1f40"> </span><span class="s7df">rateLimit</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">timeout</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">500</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">method</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;notifyWhenChangesStop&#34;</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s1388">});</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// Shorthand: Specify just a timeout in milliseconds
+</span><span class="c1"></span><span class="nx">someObservableOrComputed</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="mi">500</span> <span class="p">});</span>
+
+<span class="c1">// Longhand: Specify timeout and/or method
+</span><span class="c1"></span><span class="nx">someObservableOrComputed</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="p">{</span> <span class="nx">timeout</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span> <span class="nx">method</span><span class="o">:</span> <span class="s2">&#34;notifyWhenChangesStop&#34;</span> <span class="p">}</span> <span class="p">});</span></code></pre></div>
 <p><code>method</code>选项是在通知发起时触发，有两个参数：</p>
 
 <ul>
@@ -228,47 +227,42 @@
 </ul>
 
 <h3 id="例1-基本的示例">例1：基本的示例</h3>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">name</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observable</span><span class="s1388">(</span><span class="sc1c">&#39;Bert&#39;</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">upperCaseName</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">computed</span><span class="s1388">(</span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7df">name</span><span class="s1388">().</span><span class="s7df">toUpperCase</span><span class="s1388">();</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">});</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s1">&#39;Bert&#39;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">upperCaseName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">name</span><span class="p">().</span><span class="nx">toUpperCase</span><span class="p">();</span>
+<span class="p">});</span></code></pre></div>
 <p>通常会这样改变name的值：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">name</span><span class="s1388">(</span><span class="sc1c">&#39;The New Bert&#39;</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">name</span><span class="p">(</span><span class="s1">&#39;The New Bert&#39;</span><span class="p">);</span></code></pre></div>
 <p>这时upperCaseName会立即更新。而如果使用了rateLimit：</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">name</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observable</span><span class="s1388">(</span><span class="sc1c">&#39;Bert&#39;</span><span class="s1388">).</span><span class="s7df">extend</span><span class="s1388">({</span><span class="s1f40"> </span><span class="s7df">rateLimit</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">500</span><span class="s1f40"> </span><span class="s1388">});</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s1">&#39;Bert&#39;</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="mi">500</span> <span class="p">});</span></code></pre></div>
 <p>那么upperCaseName不会在name变化后立即重新计算，name会在值变化后等待500ms再将新的值通知给upperCaseName。不管在这500ms内name的值变化了多少次，upperCaseName只会收到一次最新值得通知。</p>
 
 <h3 id="例2-在用户停止输入时执行一些逻辑">例2：在用户停止输入时执行一些逻辑</h3>
 
 <p>在本例中，监控属性<code>instantaneousValue</code>是用户按下按键后的实时输入值，计算监控属性<code>delayedValue</code>配置为在<code>instantaneousValue</code>停止变化400ms后被通知。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">p</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Type stuff here: </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">input</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#39;textInput: instantaneousValue&#39;</span><span class="s1f40"> </span><span class="s1388">/</span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">p</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">p</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Current delayed value: </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">b</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#39;text: delayedValue&#39;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40"> </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">b</span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">p</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;visible: loggedValues().length &gt; 0&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">h3</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Stuff you have typed:</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">h3</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">ul</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;foreach: loggedValues&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">li</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#34;text: $data&#34;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">li</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">ul</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">div</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
-</div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">function</span><span class="s1f40"> </span><span class="s7df">AppViewModel</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">instantaneousValue</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observable</span><span class="s1388">();</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">delayedValue</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">pureComputed</span><span class="s1388">(</span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">instantaneousValue</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1388">.</span><span class="s7df">extend</span><span class="s1388">({</span><span class="s1f40"> </span><span class="s7df">rateLimit</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">method</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;notifyWhenChangesStop&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">timeout</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">400</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40"> </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1770">// Keep a log of the throttled values
-</span><span class="s1770"></span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">loggedValues</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observableArray</span><span class="s1388">([]);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">delayedValue</span><span class="s1388">.</span><span class="s7df">subscribe</span><span class="s1388">(</span><span class="s3e8">function</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">val</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7df">val</span><span class="s1f40"> </span><span class="sfa0">!==</span><span class="s1f40"> </span><span class="sc1c">&#39;&#39;</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">loggedValues</span><span class="s1388">.</span><span class="s7df">push</span><span class="s1388">(</span><span class="s7df">val</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">},</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">applyBindings</span><span class="s1388">(</span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">AppViewModel</span><span class="s1388">());</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Type stuff here: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;textInput: instantaneousValue&#39;</span> <span class="p">/</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Current delayed value: <span class="p">&lt;</span><span class="nt">b</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;text: delayedValue&#39;</span><span class="p"></span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="p">/</span><span class="nt">b</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: loggedValues().length &gt; 0&#34;</span><span class="p"></span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span><span class="p"></span><span class="p">&gt;</span>Stuff you have typed:<span class="p">&lt;</span><span class="p">/</span><span class="nt">h3</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: loggedValues&#34;</span><span class="p"></span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $data&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">function</span> <span class="nx">AppViewModel</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">instantaneousValue</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">delayedValue</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">pureComputed</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">instantaneousValue</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="p">{</span> <span class="nx">method</span><span class="o">:</span> <span class="s2">&#34;notifyWhenChangesStop&#34;</span><span class="p">,</span> <span class="nx">timeout</span><span class="o">:</span> <span class="mi">400</span> <span class="p">}</span> <span class="p">});</span>
+
+    <span class="c1">// Keep a log of the throttled values
+</span><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">loggedValues</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([]);</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">delayedValue</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">val</span> <span class="o">!==</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">loggedValues</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">val</span><span class="p">);</span>
+    <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="k">new</span> <span class="nx">AppViewModel</span><span class="p">());</span></code></pre></div>
 <h3 id="计算监控属性的特殊情况">计算监控属性的特殊情况</h3>
 
 <p>对于计算监控属性，rateLimit定时器是在它依赖的监控属性其中一个变化时开始触发，而不是在计算监控属性的值变化时。计算监控属性只会在需要它的值时才重新评估——延时已到应该发出通知了，或者当它的值被直接访问。如果需要计算监控属性的最新值，可以使用<code>peek</code>方法。</p>
@@ -278,17 +272,15 @@
 <p>当监控属性的值是原始类型时（数字、字符串、bool值、null），监控属性只会在设置的值与之前的值不一样时才通知依赖者。因此，原始值得监控属性延时更新时，只会在延时timeout时，值的确不一样了才发出通知。也就是说如果原始类型监控属性延时更新，在延时timeout之前值变化了又变回原来的值，是不会通知更新的。</p>
 
 <p>为了保证订阅者始终能收更新到通知，即使值一样，可以使用notify扩展器：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">myViewModel</span><span class="s1388">.</span><span class="s7df">fullName</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">computed</span><span class="s1388">(</span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7df">myViewModel</span><span class="s1388">.</span><span class="s7df">firstName</span><span class="s1388">()</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#34; &#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7df">myViewModel</span><span class="s1388">.</span><span class="s7df">lastName</span><span class="s1388">();</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}).</span><span class="s7df">extend</span><span class="s1388">({</span><span class="s1f40"> </span><span class="s7df">notify</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;always&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">rateLimit</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">500</span><span class="s1f40"> </span><span class="s1388">});</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">myViewModel</span><span class="p">.</span><span class="nx">fullName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">myViewModel</span><span class="p">.</span><span class="nx">firstName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&#34; &#34;</span> <span class="o">+</span> <span class="nx">myViewModel</span><span class="p">.</span><span class="nx">lastName</span><span class="p">();</span>
+<span class="p">}).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">notify</span><span class="o">:</span> <span class="s1">&#39;always&#39;</span><span class="p">,</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="mi">500</span> <span class="p">});</span></code></pre></div>
 <h3 id="与deferred的比较">与deferred的比较</h3>
 
 <p>deferred与rateLimit相似，deferred是通过异步通知和更新的来达到延迟目的的。但defferred用的不是延时的方式，而是在当前任务结束后立刻更新。在使用ko v3.4.0版本之后可以用deferred来代替rateLimit：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">computed</span><span class="s1388">(</span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1770">// ....
-</span><span class="s1770"></span><span class="s1388">}).</span><span class="s7df">extend</span><span class="s1388">({</span><span class="s1f40"> </span><span class="s7df">deferred</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="s1f40"> </span><span class="s1388">});</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// ....
+</span><span class="c1"></span><span class="p">}).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">deferred</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span></code></pre></div>
 <hr />
 
 <p>参考资料：</p>
@@ -303,7 +295,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>336</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>340</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

@@ -35,7 +35,7 @@ Kubernetes集群的Pod之前需要能相互通信，这里使用flannel搭建vxl
 
 
 
-<meta name="generator" content="Hugo 0.29" />
+<meta name="generator" content="Hugo 0.30" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-deploy-master/" />
@@ -216,235 +216,218 @@ Kubernetes集群的Pod之前需要能相互通信，这里使用flannel搭建vxl
 </ul>
 
 <h4 id="相关变量">相关变量</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1770"># etcd节点名称（etcd集群内唯一）
-</span><span class="s1770"></span><span class="s7d0">NODE_NAME</span><span class="s1f40"></span><span class="sfa0">=</span><span class="s1f40">etcd-node1
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># 当前部署的机器IP
-</span><span class="s1770"></span><span class="s7d0">NODE_IP</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc80">172</span><span class="s1f40">.10.26.101
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># etcd集群间通信的IP和端口
-</span><span class="s1770"></span><span class="s7d0">ETCD_NODES</span><span class="s1f40"></span><span class="sfa0">=</span><span class="s1f40">etcd-node1</span><span class="sfa0">=</span><span class="s1f40">https://172.10.26.101:2380,etcd-node2</span><span class="sfa0">=</span><span class="s1f40">https://172.10.26.102:2380,etcd-node3</span><span class="sfa0">=</span><span class="s1f40">https://172.10.26.103:2380</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># etcd节点名称（etcd集群内唯一）
+</span><span class="c1"></span><span class="nv">NODE_NAME</span><span class="o">=</span>etcd-node1
+
+<span class="c1"># 当前部署的机器IP
+</span><span class="c1"></span><span class="nv">NODE_IP</span><span class="o">=</span><span class="m">172</span>.10.26.101
+
+<span class="c1"># etcd集群间通信的IP和端口
+</span><span class="c1"></span><span class="nv">ETCD_NODES</span><span class="o">=</span>etcd-node1<span class="o">=</span>https://172.10.26.101:2380,etcd-node2<span class="o">=</span>https://172.10.26.102:2380,etcd-node3<span class="o">=</span>https://172.10.26.103:2380</code></pre></div>
 <h4 id="下载etcd">下载etcd</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">curl -LO https://github.com/coreos/etcd/releases/download/v3.2.8/etcd-v3.2.8-linux-amd64.tar.gz
-</span><span class="s1f40">tar xvf etcd-v3.2.8-linux-amd64.tar.gz
-</span><span class="s1f40">mv etcd-v3.2.8-linux-amd64/etcd* /usr/local/bin</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">curl -LO https://github.com/coreos/etcd/releases/download/v3.2.8/etcd-v3.2.8-linux-amd64.tar.gz
+tar xvf etcd-v3.2.8-linux-amd64.tar.gz
+mv etcd-v3.2.8-linux-amd64/etcd* /usr/local/bin</code></pre></div>
 <h4 id="创建tls证书和密钥">创建tls证书和密钥</h4>
 
 <p>创建etcd证书签名请求：</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">cat &gt; etcd-csr.json </span><span class="sc1c">&lt;&lt;EOF 
-</span><span class="sc1c">{
-</span><span class="sc1c">  &#34;CN&#34;: &#34;etcd&#34;,
-</span><span class="sc1c">  &#34;hosts&#34;: [
-</span><span class="sc1c">    &#34;127.0.0.1&#34;,
-</span><span class="sc1c">    &#34;${NODE_IP}&#34;
-</span><span class="sc1c">  ],
-</span><span class="sc1c">  &#34;key&#34;: {
-</span><span class="sc1c">    &#34;algo&#34;: &#34;rsa&#34;,
-</span><span class="sc1c">    &#34;size&#34;: 2048
-</span><span class="sc1c">  },
-</span><span class="sc1c">  &#34;names&#34;: [
-</span><span class="sc1c">    {
-</span><span class="sc1c">      &#34;C&#34;: &#34;CN&#34;,
-</span><span class="sc1c">      &#34;L&#34;: &#34;NanJing&#34;,
-</span><span class="sc1c">      &#34;ST&#34;: &#34;NanJing&#34;,
-</span><span class="sc1c">      &#34;O&#34;: &#34;k8s&#34;,
-</span><span class="sc1c">      &#34;OU&#34;: &#34;System&#34;
-</span><span class="sc1c">    }
-</span><span class="sc1c">  ]
-</span><span class="sc1c">}
-</span><span class="sc1c">EOF</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">cat &gt; etcd-csr.json <span class="s">&lt;&lt;EOF 
+</span><span class="s">{
+</span><span class="s">  &#34;CN&#34;: &#34;etcd&#34;,
+</span><span class="s">  &#34;hosts&#34;: [
+</span><span class="s">    &#34;127.0.0.1&#34;,
+</span><span class="s">    &#34;${NODE_IP}&#34;
+</span><span class="s">  ],
+</span><span class="s">  &#34;key&#34;: {
+</span><span class="s">    &#34;algo&#34;: &#34;rsa&#34;,
+</span><span class="s">    &#34;size&#34;: 2048
+</span><span class="s">  },
+</span><span class="s">  &#34;names&#34;: [
+</span><span class="s">    {
+</span><span class="s">      &#34;C&#34;: &#34;CN&#34;,
+</span><span class="s">      &#34;L&#34;: &#34;NanJing&#34;,
+</span><span class="s">      &#34;ST&#34;: &#34;NanJing&#34;,
+</span><span class="s">      &#34;O&#34;: &#34;k8s&#34;,
+</span><span class="s">      &#34;OU&#34;: &#34;System&#34;
+</span><span class="s">    }
+</span><span class="s">  ]
+</span><span class="s">}
+</span><span class="s">EOF</span></code></pre></div>
 <p>生成证书和密钥：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cfssl gencert -ca</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    -ca-key</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca-key.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    -config</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca-config.json </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    -profile</span><span class="sfa0">=</span><span class="s1f40">kubernetes etcd-csr.json </span><span class="s1388">|</span><span class="s1f40"> cfssljson -bare etcd
-</span><span class="s1f40">mkdir -p /etc/etcd/ssl
-</span><span class="s1f40">mv etcd*.pem /etc/etcd/ssl</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">cfssl gencert -ca<span class="o">=</span>/etc/kubernetes/ssl/ca.pem <span class="se">\
+</span><span class="se"></span>    -ca-key<span class="o">=</span>/etc/kubernetes/ssl/ca-key.pem <span class="se">\
+</span><span class="se"></span>    -config<span class="o">=</span>/etc/kubernetes/ssl/ca-config.json <span class="se">\
+</span><span class="se"></span>    -profile<span class="o">=</span>kubernetes etcd-csr.json <span class="p">|</span> cfssljson -bare etcd
+mkdir -p /etc/etcd/ssl
+mv etcd*.pem /etc/etcd/ssl</code></pre></div>
 <h4 id="创建etcd的服务文件">创建etcd的服务文件</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1770"># 创建工作目录
-</span><span class="s1770"></span><span class="s1f40">mkdir -p /var/lib/etcd
-</span><span class="s1f40">
-</span><span class="s1f40">cat &gt; /etc/systemd/system/etcd.service </span><span class="sc1c">&lt;&lt;EOF
-</span><span class="sc1c">[Unit]
-</span><span class="sc1c">Description=Etcd Server
-</span><span class="sc1c">After=network.target
-</span><span class="sc1c">After=network-online.target
-</span><span class="sc1c">Wants=network-online.target
-</span><span class="sc1c">Documentation=https://github.com/coreos
-</span><span class="sc1c">
-</span><span class="sc1c">[Service]
-</span><span class="sc1c">Type=notify
-</span><span class="sc1c">WorkingDirectory=/var/lib/etcd/
-</span><span class="sc1c">ExecStart=/usr/local/bin/etcd \\
-</span><span class="sc1c">  --name=${NODE_NAME} \\
-</span><span class="sc1c">  --cert-file=/etc/etcd/ssl/etcd.pem \\
-</span><span class="sc1c">  --key-file=/etc/etcd/ssl/etcd-key.pem \\
-</span><span class="sc1c">  --peer-cert-file=/etc/etcd/ssl/etcd.pem \\
-</span><span class="sc1c">  --peer-key-file=/etc/etcd/ssl/etcd-key.pem \\
-</span><span class="sc1c">  --trusted-ca-file=/etc/kubernetes/ssl/ca.pem \\
-</span><span class="sc1c">  --peer-trusted-ca-file=/etc/kubernetes/ssl/ca.pem \\
-</span><span class="sc1c">  --initial-advertise-peer-urls=https://${NODE_IP}:2380 \\
-</span><span class="sc1c">  --listen-peer-urls=https://${NODE_IP}:2380 \\
-</span><span class="sc1c">  --listen-client-urls=https://${NODE_IP}:2379,http://127.0.0.1:2379 \\
-</span><span class="sc1c">  --advertise-client-urls=https://${NODE_IP}:2379 \\
-</span><span class="sc1c">  --initial-cluster-token=etcd-cluster-0 \\
-</span><span class="sc1c">  --initial-cluster=${ETCD_NODES} \\
-</span><span class="sc1c">  --initial-cluster-state=new \\
-</span><span class="sc1c">  --data-dir=/var/lib/etcd
-</span><span class="sc1c">Restart=on-failure
-</span><span class="sc1c">RestartSec=5
-</span><span class="sc1c">LimitNOFILE=65536
-</span><span class="sc1c">
-</span><span class="sc1c">[Install]
-</span><span class="sc1c">WantedBy=multi-user.target
-</span><span class="sc1c">EOF</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># 创建工作目录
+</span><span class="c1"></span>mkdir -p /var/lib/etcd
+
+cat &gt; /etc/systemd/system/etcd.service <span class="s">&lt;&lt;EOF
+</span><span class="s">[Unit]
+</span><span class="s">Description=Etcd Server
+</span><span class="s">After=network.target
+</span><span class="s">After=network-online.target
+</span><span class="s">Wants=network-online.target
+</span><span class="s">Documentation=https://github.com/coreos
+</span><span class="s">
+</span><span class="s">[Service]
+</span><span class="s">Type=notify
+</span><span class="s">WorkingDirectory=/var/lib/etcd/
+</span><span class="s">ExecStart=/usr/local/bin/etcd \\
+</span><span class="s">  --name=${NODE_NAME} \\
+</span><span class="s">  --cert-file=/etc/etcd/ssl/etcd.pem \\
+</span><span class="s">  --key-file=/etc/etcd/ssl/etcd-key.pem \\
+</span><span class="s">  --peer-cert-file=/etc/etcd/ssl/etcd.pem \\
+</span><span class="s">  --peer-key-file=/etc/etcd/ssl/etcd-key.pem \\
+</span><span class="s">  --trusted-ca-file=/etc/kubernetes/ssl/ca.pem \\
+</span><span class="s">  --peer-trusted-ca-file=/etc/kubernetes/ssl/ca.pem \\
+</span><span class="s">  --initial-advertise-peer-urls=https://${NODE_IP}:2380 \\
+</span><span class="s">  --listen-peer-urls=https://${NODE_IP}:2380 \\
+</span><span class="s">  --listen-client-urls=https://${NODE_IP}:2379,http://127.0.0.1:2379 \\
+</span><span class="s">  --advertise-client-urls=https://${NODE_IP}:2379 \\
+</span><span class="s">  --initial-cluster-token=etcd-cluster-0 \\
+</span><span class="s">  --initial-cluster=${ETCD_NODES} \\
+</span><span class="s">  --initial-cluster-state=new \\
+</span><span class="s">  --data-dir=/var/lib/etcd
+</span><span class="s">Restart=on-failure
+</span><span class="s">RestartSec=5
+</span><span class="s">LimitNOFILE=65536
+</span><span class="s">
+</span><span class="s">[Install]
+</span><span class="s">WantedBy=multi-user.target
+</span><span class="s">EOF</span></code></pre></div>
 <h4 id="启动etcd服务">启动etcd服务</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">systemctl daemon-reload
-</span><span class="s1f40">systemctl </span><span class="s7d0">enable</span><span class="s1f40"> etcd
-</span><span class="s1f40">systemctl start etcd
-</span><span class="s1f40">systemctl status etcd</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">systemctl daemon-reload
+systemctl <span class="nb">enable</span> etcd
+systemctl start etcd
+systemctl status etcd</code></pre></div>
 <p>查看集群健康状态：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s7d0">IPS</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;172.10.26.101 172.10.26.102 172.10.26.103&#34;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">for</span><span class="s1f40"> ip in </span><span class="s7d0">$IPS</span><span class="s1388">;</span><span class="s1f40"> </span><span class="s3e8">do</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">ETCDCTL_API</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc80">3</span><span class="s1f40"> etcdctl --endpoints</span><span class="sfa0">=</span><span class="s1f40">https://</span><span class="sc1c">${</span><span class="s7d0">ip</span><span class="sc1c">}</span><span class="s1f40">:2379  </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">        --cacert</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">        --cert</span><span class="sfa0">=</span><span class="s1f40">/etc/etcd/ssl/etcd.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">        --key</span><span class="sfa0">=</span><span class="s1f40">/etc/etcd/ssl/etcd-key.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">        endpoint health
-</span><span class="s1f40"></span><span class="s3e8">done</span><span class="s1f40"></span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nv">IPS</span><span class="o">=</span><span class="s2">&#34;172.10.26.101 172.10.26.102 172.10.26.103&#34;</span>
+<span class="k">for</span> ip in <span class="nv">$IPS</span><span class="p">;</span> <span class="k">do</span>
+    <span class="nv">ETCDCTL_API</span><span class="o">=</span><span class="m">3</span> etcdctl --endpoints<span class="o">=</span>https://<span class="si">${</span><span class="nv">ip</span><span class="si">}</span>:2379  <span class="se">\
+</span><span class="se"></span>        --cacert<span class="o">=</span>/etc/kubernetes/ssl/ca.pem <span class="se">\
+</span><span class="se"></span>        --cert<span class="o">=</span>/etc/etcd/ssl/etcd.pem <span class="se">\
+</span><span class="se"></span>        --key<span class="o">=</span>/etc/etcd/ssl/etcd-key.pem <span class="se">\
+</span><span class="se"></span>        endpoint health
+<span class="k">done</span></code></pre></div>
 <h3 id="配置flannel网络">配置flannel网络</h3>
 
 <p>Kubernetes内的个服务以及Pod之间的需要能相互访问。一般使用flannel搭建vxlan网络。master节点和node节点上都需要部署flannel。</p>
 
 <h4 id="相关变量-1">相关变量</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1770"># etcd集群服务地址列表
-</span><span class="s1770"></span><span class="s7d0">ETCD_ENDPOINTS</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;https://172.10.26.101:2379,https://172.10.26.102:2379,https://172.10.26.103:2379&#34;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># POD网段（Cluster CIDR）
-</span><span class="s1770"></span><span class="s7d0">CLUSTER_CIDR</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;172.11.0.0/16&#34;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># 服务端口范围（NodePort Range）
-</span><span class="s1770"></span><span class="s7d0">NODE_PORT_RANGE</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;8400-9000&#34;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># flannel网络配置前缀
-</span><span class="s1770"></span><span class="s7d0">FLANNEL_ETCD_PREFIX</span><span class="s1f40"></span><span class="sfa0">=</span><span class="sc1c">&#34;/kubernetes/network&#34;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># etcd集群服务地址列表
+</span><span class="c1"></span><span class="nv">ETCD_ENDPOINTS</span><span class="o">=</span><span class="s2">&#34;https://172.10.26.101:2379,https://172.10.26.102:2379,https://172.10.26.103:2379&#34;</span>
+
+<span class="c1"># POD网段（Cluster CIDR）
+</span><span class="c1"></span><span class="nv">CLUSTER_CIDR</span><span class="o">=</span><span class="s2">&#34;172.11.0.0/16&#34;</span>
+
+<span class="c1"># 服务端口范围（NodePort Range）
+</span><span class="c1"></span><span class="nv">NODE_PORT_RANGE</span><span class="o">=</span><span class="s2">&#34;8400-9000&#34;</span>
+
+<span class="c1"># flannel网络配置前缀
+</span><span class="c1"></span><span class="nv">FLANNEL_ETCD_PREFIX</span><span class="o">=</span><span class="s2">&#34;/kubernetes/network&#34;</span></code></pre></div>
 <h4 id="创建tls证书和密钥-1">创建tls证书和密钥</h4>
 
 <p>etcd集群启用了双向tls认证，因此我们需要为flannel创建与etcd集群通信的证书和密钥。</p>
 
 <p>创建flannel证书签名请求：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat &gt; flanneld-csr.json </span><span class="sc1c">&lt;&lt;EOF
-</span><span class="sc1c">{
-</span><span class="sc1c">  &#34;CN&#34;: &#34;flanneld&#34;,
-</span><span class="sc1c">  &#34;hosts&#34;: [],
-</span><span class="sc1c">  &#34;key&#34;: {
-</span><span class="sc1c">    &#34;algo&#34;: &#34;rsa&#34;,
-</span><span class="sc1c">    &#34;size&#34;: 2048
-</span><span class="sc1c">  },
-</span><span class="sc1c">  &#34;names&#34;: [
-</span><span class="sc1c">    {
-</span><span class="sc1c">      &#34;C&#34;: &#34;CN&#34;,
-</span><span class="sc1c">      &#34;L&#34;: &#34;NanJing&#34;,
-</span><span class="sc1c">      &#34;ST&#34;: &#34;NanJing&#34;,
-</span><span class="sc1c">      &#34;O&#34;: &#34;k8s&#34;,
-</span><span class="sc1c">      &#34;OU&#34;: &#34;System&#34;
-</span><span class="sc1c">    }
-</span><span class="sc1c">  ]
-</span><span class="sc1c">}
-</span><span class="sc1c">EOF</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; flanneld-csr.json <span class="s">&lt;&lt;EOF
+</span><span class="s">{
+</span><span class="s">  &#34;CN&#34;: &#34;flanneld&#34;,
+</span><span class="s">  &#34;hosts&#34;: [],
+</span><span class="s">  &#34;key&#34;: {
+</span><span class="s">    &#34;algo&#34;: &#34;rsa&#34;,
+</span><span class="s">    &#34;size&#34;: 2048
+</span><span class="s">  },
+</span><span class="s">  &#34;names&#34;: [
+</span><span class="s">    {
+</span><span class="s">      &#34;C&#34;: &#34;CN&#34;,
+</span><span class="s">      &#34;L&#34;: &#34;NanJing&#34;,
+</span><span class="s">      &#34;ST&#34;: &#34;NanJing&#34;,
+</span><span class="s">      &#34;O&#34;: &#34;k8s&#34;,
+</span><span class="s">      &#34;OU&#34;: &#34;System&#34;
+</span><span class="s">    }
+</span><span class="s">  ]
+</span><span class="s">}
+</span><span class="s">EOF</span></code></pre></div>
 <p>生成证书和密钥：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cfssl gencert -ca</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    -ca-key</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca-key.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    -config</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca-config.json </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    -profile</span><span class="sfa0">=</span><span class="s1f40">kubernetes flanneld-csr.json </span><span class="s1388">|</span><span class="s1f40"> cfssljson -bare flanneld
-</span><span class="s1f40">
-</span><span class="s1f40">mkdir -p /etc/flanneld/ssl
-</span><span class="s1f40">mv flanneld*.pem /etc/flanneld/ssl</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">cfssl gencert -ca<span class="o">=</span>/etc/kubernetes/ssl/ca.pem <span class="se">\
+</span><span class="se"></span>    -ca-key<span class="o">=</span>/etc/kubernetes/ssl/ca-key.pem <span class="se">\
+</span><span class="se"></span>    -config<span class="o">=</span>/etc/kubernetes/ssl/ca-config.json <span class="se">\
+</span><span class="se"></span>    -profile<span class="o">=</span>kubernetes flanneld-csr.json <span class="p">|</span> cfssljson -bare flanneld
+
+mkdir -p /etc/flanneld/ssl
+mv flanneld*.pem /etc/flanneld/ssl</code></pre></div>
 <h4 id="在etcd中配置集群pod网段">在etcd中配置集群Pod网段</h4>
 
 <p>该操作只需要在执行一次即可。</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">etcdctl </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --endpoints</span><span class="sfa0">=</span><span class="sc1c">${</span><span class="s7d0">ETCD_ENDPOINTS</span><span class="sc1c">}</span><span class="s1f40"> </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --ca-file</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --cert-file</span><span class="sfa0">=</span><span class="s1f40">/etc/flanneld/ssl/flanneld.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --key-file</span><span class="sfa0">=</span><span class="s1f40">/etc/flanneld/ssl/flanneld-key.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    </span><span class="s7d0">set</span><span class="s1f40"> </span><span class="sc1c">${</span><span class="s7d0">FLANNEL_ETCD_PREFIX</span><span class="sc1c">}</span><span class="s1f40">/config </span><span class="sc1c">&#39;{&#34;Network&#34;:&#34;&#39;</span><span class="sc1c">${</span><span class="s7d0">CLUSTER_CIDR</span><span class="sc1c">}</span><span class="sc1c">&#39;&#34;, &#34;SubnetLen&#34;: 24, &#34;Backend&#34;: {&#34;Type&#34;: &#34;vxlan&#34;}}&#39;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">etcdctl <span class="se">\
+</span><span class="se"></span>    --endpoints<span class="o">=</span><span class="si">${</span><span class="nv">ETCD_ENDPOINTS</span><span class="si">}</span> <span class="se">\
+</span><span class="se"></span>    --ca-file<span class="o">=</span>/etc/kubernetes/ssl/ca.pem <span class="se">\
+</span><span class="se"></span>    --cert-file<span class="o">=</span>/etc/flanneld/ssl/flanneld.pem <span class="se">\
+</span><span class="se"></span>    --key-file<span class="o">=</span>/etc/flanneld/ssl/flanneld-key.pem <span class="se">\
+</span><span class="se"></span>    <span class="nb">set</span> <span class="si">${</span><span class="nv">FLANNEL_ETCD_PREFIX</span><span class="si">}</span>/config <span class="s1">&#39;{&#34;Network&#34;:&#34;&#39;</span><span class="si">${</span><span class="nv">CLUSTER_CIDR</span><span class="si">}</span><span class="s1">&#39;&#34;, &#34;SubnetLen&#34;: 24, &#34;Backend&#34;: {&#34;Type&#34;: &#34;vxlan&#34;}}&#39;</span></code></pre></div>
 <p>注意，参数<code>CLUSTER_CIDR</code>应该与kube-controller-manager的&ndash;cluster-cidr值一致。</p>
 
 <h4 id="下载flannel">下载flannel</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">curl -LO https://github.com/coreos/flannel/releases/download/v0.9.0/flannel-v0.9.0-linux-amd64.tar.gz
-</span><span class="s1f40">tar xvf flannel-v0.9.0-linux-amd64.tar.gz
-</span><span class="s1f40">
-</span><span class="s1f40">mv </span><span class="sfa0">{</span><span class="s1f40">flanneld,mk-docker-opts.sh</span><span class="sfa0">}</span><span class="s1f40"> /usr/local/bin</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">curl -LO https://github.com/coreos/flannel/releases/download/v0.9.0/flannel-v0.9.0-linux-amd64.tar.gz
+tar xvf flannel-v0.9.0-linux-amd64.tar.gz
+
+mv <span class="o">{</span>flanneld,mk-docker-opts.sh<span class="o">}</span> /usr/local/bin</code></pre></div>
 <h4 id="创建flannel的服务文件">创建flannel的服务文件</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat &gt; /etc/systemd/system/flanneld.service </span><span class="sc1c">&lt;&lt; EOF
-</span><span class="sc1c">[Unit]
-</span><span class="sc1c">Description=Flanneld service
-</span><span class="sc1c">After=network.target
-</span><span class="sc1c">After=network-online.target
-</span><span class="sc1c">Wants=network-online.target
-</span><span class="sc1c">Before=docker.service
-</span><span class="sc1c">
-</span><span class="sc1c">[Service]
-</span><span class="sc1c">Type=notify
-</span><span class="sc1c">ExecStart=/usr/local/bin/flanneld \\
-</span><span class="sc1c">  -etcd-cafile=/etc/kubernetes/ssl/ca.pem \\
-</span><span class="sc1c">  -etcd-certfile=/etc/flanneld/ssl/flanneld.pem \\
-</span><span class="sc1c">  -etcd-keyfile=/etc/flanneld/ssl/flanneld-key.pem \\
-</span><span class="sc1c">  -etcd-endpoints=${ETCD_ENDPOINTS} \\
-</span><span class="sc1c">  -etcd-prefix=${FLANNEL_ETCD_PREFIX}
-</span><span class="sc1c">ExecStartPost=/usr/local/bin/mk-docker-opts.sh -k DOCKER_NETWORK_OPTIONS -d /run/flannel/docker
-</span><span class="sc1c">Restart=on-failure
-</span><span class="sc1c">
-</span><span class="sc1c">[Install]
-</span><span class="sc1c">WantedBy=multi-user.target
-</span><span class="sc1c">RequiredBy=docker.service
-</span><span class="sc1c">EOF</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; /etc/systemd/system/flanneld.service <span class="s">&lt;&lt; EOF
+</span><span class="s">[Unit]
+</span><span class="s">Description=Flanneld service
+</span><span class="s">After=network.target
+</span><span class="s">After=network-online.target
+</span><span class="s">Wants=network-online.target
+</span><span class="s">Before=docker.service
+</span><span class="s">
+</span><span class="s">[Service]
+</span><span class="s">Type=notify
+</span><span class="s">ExecStart=/usr/local/bin/flanneld \\
+</span><span class="s">  -etcd-cafile=/etc/kubernetes/ssl/ca.pem \\
+</span><span class="s">  -etcd-certfile=/etc/flanneld/ssl/flanneld.pem \\
+</span><span class="s">  -etcd-keyfile=/etc/flanneld/ssl/flanneld-key.pem \\
+</span><span class="s">  -etcd-endpoints=${ETCD_ENDPOINTS} \\
+</span><span class="s">  -etcd-prefix=${FLANNEL_ETCD_PREFIX}
+</span><span class="s">ExecStartPost=/usr/local/bin/mk-docker-opts.sh -k DOCKER_NETWORK_OPTIONS -d /run/flannel/docker
+</span><span class="s">Restart=on-failure
+</span><span class="s">
+</span><span class="s">[Install]
+</span><span class="s">WantedBy=multi-user.target
+</span><span class="s">RequiredBy=docker.service
+</span><span class="s">EOF</span></code></pre></div>
 <p>注意，flannel使用默认的网卡对应的IP标识实例，而使用Vagrant创建的虚拟机由于默认的网卡eth0都是10.0.2.15，所以要添加配置<code>-iface=eth1</code>，否则所有的实例获取的子网都是一样的。</p>
 
 <h4 id="启动flanneld服务">启动flanneld服务</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">systemctl daemon-reload
-</span><span class="s1f40">systemctl </span><span class="s7d0">enable</span><span class="s1f40"> flanneld
-</span><span class="s1f40">systemctl start flanneld
-</span><span class="s1f40">systemctl status flanneld</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">systemctl daemon-reload
+systemctl <span class="nb">enable</span> flanneld
+systemctl start flanneld
+systemctl status flanneld</code></pre></div>
 <p>查看集群Pod网段：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">etcdctl </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --endpoints</span><span class="sfa0">=</span><span class="sc1c">${</span><span class="s7d0">ETCD_ENDPOINTS</span><span class="sc1c">}</span><span class="s1f40"> </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --ca-file</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --cert-file</span><span class="sfa0">=</span><span class="s1f40">/etc/flanneld/ssl/flanneld.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --key-file</span><span class="sfa0">=</span><span class="s1f40">/etc/flanneld/ssl/flanneld-key.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    get </span><span class="sc1c">${</span><span class="s7d0">FLANNEL_ETCD_PREFIX</span><span class="sc1c">}</span><span class="s1f40">/config</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">etcdctl <span class="se">\
+</span><span class="se"></span>    --endpoints<span class="o">=</span><span class="si">${</span><span class="nv">ETCD_ENDPOINTS</span><span class="si">}</span> <span class="se">\
+</span><span class="se"></span>    --ca-file<span class="o">=</span>/etc/kubernetes/ssl/ca.pem <span class="se">\
+</span><span class="se"></span>    --cert-file<span class="o">=</span>/etc/flanneld/ssl/flanneld.pem <span class="se">\
+</span><span class="se"></span>    --key-file<span class="o">=</span>/etc/flanneld/ssl/flanneld-key.pem <span class="se">\
+</span><span class="se"></span>    get <span class="si">${</span><span class="nv">FLANNEL_ETCD_PREFIX</span><span class="si">}</span>/config</code></pre></div>
 <p>查看已分配的Pod子网段列表：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">etcdctl </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --endpoints</span><span class="sfa0">=</span><span class="sc1c">${</span><span class="s7d0">ETCD_ENDPOINTS</span><span class="sc1c">}</span><span class="s1f40"> </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --ca-file</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --cert-file</span><span class="sfa0">=</span><span class="s1f40">/etc/flanneld/ssl/flanneld.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --key-file</span><span class="sfa0">=</span><span class="s1f40">/etc/flanneld/ssl/flanneld-key.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    ls </span><span class="sc1c">${</span><span class="s7d0">FLANNEL_ETCD_PREFIX</span><span class="sc1c">}</span><span class="s1f40">/subnets</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">etcdctl <span class="se">\
+</span><span class="se"></span>    --endpoints<span class="o">=</span><span class="si">${</span><span class="nv">ETCD_ENDPOINTS</span><span class="si">}</span> <span class="se">\
+</span><span class="se"></span>    --ca-file<span class="o">=</span>/etc/kubernetes/ssl/ca.pem <span class="se">\
+</span><span class="se"></span>    --cert-file<span class="o">=</span>/etc/flanneld/ssl/flanneld.pem <span class="se">\
+</span><span class="se"></span>    --key-file<span class="o">=</span>/etc/flanneld/ssl/flanneld-key.pem <span class="se">\
+</span><span class="se"></span>    ls <span class="si">${</span><span class="nv">FLANNEL_ETCD_PREFIX</span><span class="si">}</span>/subnets</code></pre></div>
 <p>查看某一Pod网段的相关参数：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">etcdctl </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --endpoints</span><span class="sfa0">=</span><span class="sc1c">${</span><span class="s7d0">ETCD_ENDPOINTS</span><span class="sc1c">}</span><span class="s1f40"> </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --ca-file</span><span class="sfa0">=</span><span class="s1f40">/etc/kubernetes/ssl/ca.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --cert-file</span><span class="sfa0">=</span><span class="s1f40">/etc/flanneld/ssl/flanneld.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    --key-file</span><span class="sfa0">=</span><span class="s1f40">/etc/flanneld/ssl/flanneld-key.pem </span><span class="sc25">\
-</span><span class="sc25"></span><span class="s1f40">    get </span><span class="sc1c">${</span><span class="s7d0">FLANNEL_ETCD_PREFIX</span><span class="sc1c">}</span><span class="s1f40">/subnets/172.11.95.0-24</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">etcdctl <span class="se">\
+</span><span class="se"></span>    --endpoints<span class="o">=</span><span class="si">${</span><span class="nv">ETCD_ENDPOINTS</span><span class="si">}</span> <span class="se">\
+</span><span class="se"></span>    --ca-file<span class="o">=</span>/etc/kubernetes/ssl/ca.pem <span class="se">\
+</span><span class="se"></span>    --cert-file<span class="o">=</span>/etc/flanneld/ssl/flanneld.pem <span class="se">\
+</span><span class="se"></span>    --key-file<span class="o">=</span>/etc/flanneld/ssl/flanneld-key.pem <span class="se">\
+</span><span class="se"></span>    get <span class="si">${</span><span class="nv">FLANNEL_ETCD_PREFIX</span><span class="si">}</span>/subnets/172.11.95.0-24</code></pre></div>
 <hr />
 
 <p>参考资料：</p>

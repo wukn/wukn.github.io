@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.29" />
+<meta name="generator" content="Hugo 0.30" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-mapping/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][KnockoutJS] Mapping</h1>
-      <p class="post-meta">@wukn · Nov 12, 2016 · 1 min read</p>
+      <p class="post-meta">@wukn · Nov 12, 2016 · 3 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>&ldquo;KnockoutJS文档官网：<a href="http://knockoutjs.com/documentation/introduction.html&quot;">http://knockoutjs.com/documentation/introduction.html&quot;</a></p>
@@ -210,38 +210,31 @@
 <h3 id="例-不使用ko-mapping插件时的手动映射">例：不使用ko.mapping插件时的手动映射</h3>
 
 <p>定义一个视图模型：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">serverTime</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observable</span><span class="s1388">(),</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">numUsers</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">observable</span><span class="s1388">()</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">serverTime</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(),</span>
+    <span class="nx">numUsers</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">()</span>
+<span class="p">}</span></code></pre></div>
 <p>对应的视图：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1f40">The time on the server is: </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#39;text: serverTime&#39;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">and </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"> </span><span class="s7d1">data-bind</span><span class="sfa0">=</span><span class="s1f40"></span><span class="sc1c">&#39;text: numUsers&#39;</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">span</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40"> user(s) are connected.</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html">The time on the server is: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;text: serverTime&#39;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>
+and <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;text: numUsers&#39;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span> user(s) are connected.</code></pre></div>
 <p>使用jQuery’的<code>$.getJSON</code>或<code>$.ajax</code>从服务器获取数据：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">getDataUsingAjax</span><span class="s1388">();</span><span class="s1f40">          </span><span class="ss4">// Gets the data from the server</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">getDataUsingAjax</span><span class="p">();</span>          <span class="err">// Gets the data from the server</span></code></pre></div>
 <p>服务器返回的数据类似这样：</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">serverTime</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;2010-01-07&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">numUsers</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+    <span class="nx">serverTime</span><span class="o">:</span> <span class="s1">&#39;2010-01-07&#39;</span><span class="p">,</span>
+    <span class="nx">numUsers</span><span class="o">:</span> <span class="mi">3</span>
+<span class="p">}</span></code></pre></div>
 <p>将数据更新到视图模型：</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s1f40"></span><span class="s1770">// Every time data is received from the server:
-</span><span class="s1770"></span><span class="s7df">viewModel</span><span class="s1388">.</span><span class="s7df">serverTime</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">.</span><span class="s7df">serverTime</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">viewModel</span><span class="s1388">.</span><span class="s7df">numUsers</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">.</span><span class="s7df">numUsers</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="c1">// Every time data is received from the server:
+</span><span class="c1"></span><span class="nx">viewModel</span><span class="p">.</span><span class="nx">serverTime</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">serverTime</span><span class="p">);</span>
+<span class="nx">viewModel</span><span class="p">.</span><span class="nx">numUsers</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">numUsers</span><span class="p">);</span></code></pre></div>
 <h3 id="例-使用ko-mapping插件自动映射">例：使用ko.mapping插件自动映射</h3>
 
 <p>使用映射插件创建视图模型时，使用<code>ko.mapping.fromJS</code>函数创建<code>viewModel</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span></code></pre></div>
 <p>它会自动为<code>data</code>的每个属性创建监控属性。每次从服务器接受数据后，可以再次使用<code>ko.mapping.fromJS</code>函数更新<code>viewModel</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// Every time data is received from the server:
-</span><span class="s1770"></span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// Every time data is received from the server:
+</span><span class="c1"></span><span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">viewModel</span><span class="p">);</span></code></pre></div>
 <p>映射时：</p>
 
 <ul>
@@ -252,8 +245,7 @@
 <h3 id="取消映射">取消映射</h3>
 
 <p>如果要将映射的对象还原成普通的js对象：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">unmapped</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">toJS</span><span class="s1388">(</span><span class="s7df">viewModel</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">unmapped</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">toJS</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span></code></pre></div>
 <p>这样会创建一个非映射的对象，它的属性只包含映射对象中是原js对象属性的部分。也就是说，手动添加到视图模型的属性或函数会被忽略。有一个例外，就是<code>_destroy</code>属性会被映射回来，因为它可能时ko在删除监控数组中的项时产生的。</p>
 
 <h3 id="与json字符串同时使用">与json字符串同时使用</h3>
@@ -267,41 +259,36 @@
 <h4 id="使用keys唯一标示对象">使用keys唯一标示对象</h4>
 
 <p>假设有js对象如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Scot&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">children</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Alicw&#39;</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Scot&#39;</span><span class="p">,</span>
+    <span class="nx">children</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="nx">id</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">name</span> <span class="o">:</span> <span class="s1">&#39;Alicw&#39;</span> <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span></code></pre></div>
 <p>可以默认这样映射：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span></code></pre></div>
 <p>现在假设数据被更新了：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Scott&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">children</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Alice&#39;</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Scott&#39;</span><span class="p">,</span>
+    <span class="nx">children</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="nx">id</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">name</span> <span class="o">:</span> <span class="s1">&#39;Alice&#39;</span> <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span></code></pre></div>
 <p>可以这样用新数据来更新视图模型：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">viewModel</span><span class="p">);</span></code></pre></div>
 <p>这时，<code>name</code>会跟期望的一样被更新。而<code>children</code>数组，原来的（<code>Alicw</code>）会被移除，再添加一个新的（<code>Alice</code>），这也许并不是期望的结果，希望的是数组项的<code>name</code>从<code>Alicw</code>更新为<code>Alice</code>，而不是整个数组项被替换。</p>
 
 <p>这是因为映射插件默认是简单地比较数组中对象是否一样，而对象<code>{ id : 1, name : 'Alicw' }</code>和对象<code>{ id : 1, name : 'Alice' }</code>是不相等的，插件默认认为该数组项需要被移除，替换为新的。</p>
 
 <p>为了解决这个问题，可以指定映射插件使用哪个<code>key</code>来比较对象。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">mapping</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sc1c">&#39;children&#39;</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7df">key</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">utils</span><span class="s1388">.</span><span class="s7df">unwrapObservable</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">.</span><span class="s7df">id</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">mapping</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;children&#39;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">key</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">unwrapObservable</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">mapping</span><span class="p">);</span></code></pre></div>
 <p>这样，每次映射插件在检查数组<code>children</code>的项时，会根据<code>id</code>属性来决定对象是应该被移除还是仅仅只需要更新。</p>
 
 <h4 id="使用create自定义对象构造函数">使用create自定义对象构造函数</h4>
@@ -309,23 +296,21 @@
 <p>如果希望映射时部分自己处理，可以提供<code>create</code>回调函数。</p>
 
 <p>假设有js对象如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Graham&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">children</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">name</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Lisa&#39;</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Graham&#39;</span><span class="p">,</span>
+    <span class="nx">children</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span> <span class="nx">id</span> <span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">name</span> <span class="o">:</span> <span class="s1">&#39;Lisa&#39;</span> <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span></code></pre></div>
 <p>如果想自己映射<code>children</code>数组，可以这样指定：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">mapping</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sc1c">&#39;children&#39;</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7df">create</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">options</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7df">myChildModel</span><span class="s1388">(</span><span class="s7df">options</span><span class="s1388">.</span><span class="s7df">data</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">mapping</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;children&#39;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">create</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nx">myChildModel</span><span class="p">(</span><span class="nx">options</span><span class="p">.</span><span class="nx">data</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">mapping</span><span class="p">);</span></code></pre></div>
 <p><code>create</code>回调函数的参数<code>options</code>是包含以下属性的对象：</p>
 
 <ul>
@@ -334,14 +319,13 @@
 </ul>
 
 <p>当然，在<code>create</code>回调函数中还可以使用<code>ko.mapping.fromJS</code>。典型的案例就是向原js对象添加额外的监控属性：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">myChildModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">{},</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">nameLength</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">computed</span><span class="s1388">(</span><span class="s3e8">function</span><span class="s1388">()</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">.</span><span class="s7df">name</span><span class="s1388">().</span><span class="s7df">length</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">},</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">myChildModel</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="p">{},</span> <span class="k">this</span><span class="p">);</span>
+
+    <span class="k">this</span><span class="p">.</span><span class="nx">nameLength</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">name</span><span class="p">().</span><span class="nx">length</span><span class="p">;</span>
+    <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
+<span class="p">}</span></code></pre></div>
 <h4 id="使用update自定义对象更新">使用update自定义对象更新</h4>
 
 <p>指定<code>update</code>回调函数可以自定义对象更新的逻辑。它接收需要更新的对象和options对象，并需要返回更新后的值。</p>
@@ -353,120 +337,103 @@
 <li><code>parent</code>：该数组子项所属的父对象或数组。</li>
 <li><code>observable</code>：如果该属性是监控属性，那么它就是实际的监控属性</li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">name</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;Graham&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">mapping</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sc1c">&#39;name&#39;</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7df">update</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">options</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7df">options</span><span class="s1388">.</span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="sc1c">&#39;foo!&#39;</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">mapping</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">alert</span><span class="s1388">(</span><span class="s7df">viewModel</span><span class="s1388">.</span><span class="s7df">name</span><span class="s1388">());</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Graham&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;name&#39;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">update</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">options</span><span class="p">.</span><span class="nx">data</span> <span class="o">+</span> <span class="s1">&#39;foo!&#39;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">mapping</span><span class="p">);</span>
+<span class="nx">alert</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">.</span><span class="nx">name</span><span class="p">());</span></code></pre></div>
 <p>这将会弹出提示框“Grahamfoo!”。</p>
 
 <h4 id="使用ignore忽略指定属性">使用ignore忽略指定属性</h4>
 
 <p>如果在映射时需要忽略一些属性，那么指定一个忽略属性名称数组：</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">mapping</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sc1c">&#39;ignore&#39;</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">&#34;propertyToIgnore&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#34;alsoIgnoreThis&#34;</span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">mapping</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;ignore&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;propertyToIgnore&#34;</span><span class="p">,</span> <span class="s2">&#34;alsoIgnoreThis&#34;</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">mapping</span><span class="p">);</span></code></pre></div>
 <p>映射选项中指定的忽略数组会和默认的忽略数组合并。默认忽略数组可以这样使用：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">oldOptions</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">defaultOptions</span><span class="s1388">().</span><span class="s7df">ignore</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">defaultOptions</span><span class="s1388">().</span><span class="s7df">ignore</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">&#34;alwaysIgnoreThis&#34;</span><span class="s1388">];</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">oldOptions</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">().</span><span class="nx">ignore</span><span class="p">;</span>
+<span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">().</span><span class="nx">ignore</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;alwaysIgnoreThis&#34;</span><span class="p">];</span></code></pre></div>
 <h4 id="使用include包含指定属性">使用include包含指定属性</h4>
 
 <p>将视图模型还原为js对象时，映射插件默认只会包含原对象中的属性，还有生成的原对象中没有的_destroy属性。
 可以自定义这样一个数组来指定包含一些属性：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">mapping</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sc1c">&#39;include&#39;</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">&#34;propertyToInclude&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c">&#34;alsoIncludeThis&#34;</span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">mapping</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;include&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;propertyToInclude&#34;</span><span class="p">,</span> <span class="s2">&#34;alsoIncludeThis&#34;</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">mapping</span><span class="p">);</span></code></pre></div>
 <p>映射选项中指定的包含数组会和默认的包含数组合并。默认的包含数组默认之包含_destroy。默认包含数组可以这样使用：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">oldOptions</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">defaultOptions</span><span class="s1388">().</span><span class="s7df">include</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">defaultOptions</span><span class="s1388">().</span><span class="s7df">include</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">&#34;alwaysIncludeThis&#34;</span><span class="s1388">];</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">oldOptions</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">().</span><span class="nx">include</span><span class="p">;</span>
+<span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">().</span><span class="nx">include</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;alwaysIncludeThis&#34;</span><span class="p">];</span></code></pre></div>
 <h4 id="使用copy复制指定属性">使用copy复制指定属性</h4>
 
 <p>将视图模型还原为js对象时，可以强制映射插件只是复制属性而不是转换为监控属性：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">mapping</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sc1c">&#39;copy&#39;</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">&#34;propertyToCopy&#34;</span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">mapping</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;copy&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;propertyToCopy&#34;</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">mapping</span><span class="p">);</span></code></pre></div>
 <p>映射选项中指定的复制数组会和默认的复制数组合并。默认的复制数组默认为空。默认复制数组可以这样使用：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">oldOptions</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">defaultOptions</span><span class="s1388">().</span><span class="s7df">copy</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">defaultOptions</span><span class="s1388">().</span><span class="s7df">copy</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">&#34;alwaysCopyThis&#34;</span><span class="s1388">];</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">oldOptions</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">().</span><span class="nx">copy</span><span class="p">;</span>
+<span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">().</span><span class="nx">copy</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;alwaysCopyThis&#34;</span><span class="p">];</span></code></pre></div>
 <h4 id="使用observe监控指定属性">使用observe监控指定属性</h4>
 
 <p>映射时只希望将指定属性映射为监控属性，其它保持复制时，可以执行监控属性的名称数组：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">mapping</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="sc1c">&#39;observe&#39;</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">&#34;propertyToObserve&#34;</span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">mapping</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">mapping</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;observe&#39;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&#34;propertyToObserve&#34;</span><span class="p">]</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">mapping</span><span class="p">);</span></code></pre></div>
 <p>映射选项中指定的监控属性名称数组会和默认的监控属性名称数组合并。默认的监控属性名称数组默认为空。默认监控属性名称数组可以这样使用：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">oldOptions</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">defaultOptions</span><span class="s1388">().</span><span class="s7df">observe</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">defaultOptions</span><span class="s1388">().</span><span class="s7df">observe</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">&#34;onlyObserveThis&#34;</span><span class="s1388">];</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">oldOptions</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">().</span><span class="nx">observe</span><span class="p">;</span>
+<span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">defaultOptions</span><span class="p">().</span><span class="nx">observe</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;onlyObserveThis&#34;</span><span class="p">];</span></code></pre></div>
 <p>ignore和include仍然会继续有效。copy数组可用来高效地复制含有子对象的数组或对象属性。如果数组或对象属性没有在copy和observe中指定，那它会被递归地映射：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">a</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;a&#34;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">b</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[{</span><span class="s1f40"> </span><span class="s7df">b1</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;v1&#34;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">b2</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;v2&#34;</span><span class="s1f40"> </span><span class="s1388">}]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">};</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">result</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">observe</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;a&#34;</span><span class="s1f40"> </span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">result2</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">observe</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;a&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">copy</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;b&#34;</span><span class="s1f40"> </span><span class="s1388">});</span><span class="s1f40"> </span><span class="ss4">//will be faster to map.</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="s2">&#34;a&#34;</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">b1</span><span class="o">:</span> <span class="s2">&#34;v1&#34;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">b2</span><span class="o">:</span> <span class="s2">&#34;v2&#34;</span> <span class="p">}]</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="p">{</span> <span class="nx">observe</span><span class="o">:</span> <span class="s2">&#34;a&#34;</span> <span class="p">});</span>
+<span class="kd">var</span> <span class="nx">result2</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="p">{</span> <span class="nx">observe</span><span class="o">:</span> <span class="s2">&#34;a&#34;</span><span class="p">,</span> <span class="nx">copy</span><span class="o">:</span> <span class="s2">&#34;b&#34;</span> <span class="p">});</span> <span class="err">//will be faster to map.</span></code></pre></div>
 <p><code>result</code>和<code>result2</code>都将是：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">a</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">observable</span><span class="s1388">(</span><span class="sc1c">&#34;a&#34;</span><span class="s1388">),</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">b</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[{</span><span class="s1f40"> </span><span class="s7df">b1</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;v1&#34;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">b2</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;v2&#34;</span><span class="s1f40"> </span><span class="s1388">}]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="nx">observable</span><span class="p">(</span><span class="s2">&#34;a&#34;</span><span class="p">),</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">b1</span><span class="o">:</span> <span class="s2">&#34;v1&#34;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">b2</span><span class="o">:</span> <span class="s2">&#34;v2&#34;</span> <span class="p">}]</span>
+<span class="p">}</span></code></pre></div>
 <p>深入数组或对象时也能使用，copy和observe会冲突：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">data</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">a</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;a&#34;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">b</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[{</span><span class="s1f40"> </span><span class="s7df">b1</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;v1&#34;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">b2</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;v2&#34;</span><span class="s1f40"> </span><span class="s1388">}]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">};</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">result</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">observe</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;b[0].b1&#34;</span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">result2</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">observe</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;b[0].b1&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">copy</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;b&#34;</span><span class="s1f40"> </span><span class="s1388">});</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="s2">&#34;a&#34;</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">b1</span><span class="o">:</span> <span class="s2">&#34;v1&#34;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">b2</span><span class="o">:</span> <span class="s2">&#34;v2&#34;</span> <span class="p">}]</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="p">{</span> <span class="nx">observe</span><span class="o">:</span> <span class="s2">&#34;b[0].b1&#34;</span><span class="p">});</span>
+<span class="kd">var</span> <span class="nx">result2</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="p">{</span> <span class="nx">observe</span><span class="o">:</span> <span class="s2">&#34;b[0].b1&#34;</span><span class="p">,</span> <span class="nx">copy</span><span class="o">:</span> <span class="s2">&#34;b&#34;</span> <span class="p">});</span></code></pre></div>
 <p><code>result</code>将会是：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">a</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;a&#34;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">b</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[{</span><span class="s1f40"> </span><span class="s7df">b1</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">observable</span><span class="s1388">(</span><span class="sc1c">&#34;v1&#34;</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">b2</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;v2&#34;</span><span class="s1f40"> </span><span class="s1388">}]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="s2">&#34;a&#34;</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">b1</span><span class="o">:</span> <span class="nx">observable</span><span class="p">(</span><span class="s2">&#34;v1&#34;</span><span class="p">)</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">b2</span><span class="o">:</span> <span class="s2">&#34;v2&#34;</span> <span class="p">}]</span>
+<span class="p">}</span></code></pre></div>
 <p>而<code>result2</code>将会是：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">a</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;a&#34;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">b</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[{</span><span class="s1f40"> </span><span class="s7df">b1</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;v1&#34;</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">b2</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#34;v2&#34;</span><span class="s1f40"> </span><span class="s1388">}]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span> <span class="s2">&#34;a&#34;</span><span class="p">,</span>
+    <span class="nx">b</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">b1</span><span class="o">:</span> <span class="s2">&#34;v1&#34;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">b2</span><span class="o">:</span> <span class="s2">&#34;v2&#34;</span> <span class="p">}]</span>
+<span class="p">}</span></code></pre></div>
 <h4 id="指定更新目标">指定更新目标</h4>
 
 <p>就像上面的例子，在一个对象内部映射时，可能希望使用this来作为更新操作的目标。<code>ko.mapping.fromJS</code>的第三个参数就是这个更新目标。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">{},</span><span class="s1f40"> </span><span class="s7df">someObject</span><span class="s1388">);</span><span class="s1f40"> </span><span class="ss4">// overwrites properties on someObject</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="p">{},</span> <span class="nx">someObject</span><span class="p">);</span> <span class="err">// overwrites properties on someObject</span></code></pre></div>
 <p>如果希望映射js对象到this：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">data</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">{},</span><span class="s1f40"> </span><span class="s3e8">this</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="p">{},</span> <span class="k">this</span><span class="p">);</span></code></pre></div>
 <h3 id="多源映射">多源映射</h3>
 
 <p>多次调用<code>ko.mapping.fromJS</code>可以将多个js对象合并到一个视图模型中。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">alice</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">aliceMappingOptions</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">bob</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">bobMappingOptions</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7df">viewModel</span><span class="s1388">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">alice</span><span class="p">,</span> <span class="nx">aliceMappingOptions</span><span class="p">);</span>
+<span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">bob</span><span class="p">,</span> <span class="nx">bobMappingOptions</span><span class="p">,</span> <span class="nx">viewModel</span><span class="p">);</span></code></pre></div>
 <p>每个调用指定的映射选项会被合并。</p>
 
 <h3 id="映射的监控数组">映射的监控数组</h3>
@@ -482,22 +449,20 @@
 </ul>
 
 <p>它们从功能上来看和普通<code>ko.observableArray</code>的函数是一样的，但是他们可以基于对象的key来处理完成一些处理。例如：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">obj</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1f40"> </span><span class="s1388">},</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s7df">id</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1f40"> </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">result</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">mapping</span><span class="s1388">.</span><span class="s7df">fromJS</span><span class="s1388">(</span><span class="s7df">obj</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7df">key</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s3e8">function</span><span class="s1388">(</span><span class="s7df">item</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">return</span><span class="s1f40"> </span><span class="s7df">ko</span><span class="s1388">.</span><span class="s7df">utils</span><span class="s1388">.</span><span class="s7df">unwrapObservable</span><span class="s1388">(</span><span class="s7df">item</span><span class="s1388">.</span><span class="s7df">id</span><span class="s1388">);</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">});</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7df">result</span><span class="s1388">.</span><span class="s7df">mappedRemove</span><span class="s1388">({</span><span class="s1f40"> </span><span class="s7df">id</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1f40"> </span><span class="s1388">});</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="nx">id</span> <span class="o">:</span> <span class="mi">1</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="nx">id</span> <span class="o">:</span> <span class="mi">2</span> <span class="p">}</span>
+<span class="p">]</span>
+
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">mapping</span><span class="p">.</span><span class="nx">fromJS</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">key</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">unwrapObservable</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">result</span><span class="p">.</span><span class="nx">mappedRemove</span><span class="p">({</span> <span class="nx">id</span> <span class="o">:</span> <span class="mi">2</span> <span class="p">});</span></code></pre></div>
 <p>映射的监控数组还暴露了<code>mappedCreate</code>函数：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s3e8">var</span><span class="s1f40"> </span><span class="s7df">newItem</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7df">result</span><span class="s1388">.</span><span class="s7df">mappedCreate</span><span class="s1388">({</span><span class="s1f40"> </span><span class="s7df">id</span><span class="s1f40"> </span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1f40"> </span><span class="s1388">});</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">newItem</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">mappedCreate</span><span class="p">({</span> <span class="nx">id</span> <span class="o">:</span> <span class="mi">3</span> <span class="p">});</span></code></pre></div>
 <p>它会首先检查key是否已存在，如果已存在则抛出错误。下一步，它会调用create和update回调函数，如果有的话，来创建新对象。最后，将对象添加进数组并返回它。</p>
 
 <hr />
@@ -514,7 +479,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>336</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>340</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

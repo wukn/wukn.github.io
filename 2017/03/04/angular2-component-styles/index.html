@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.29" />
+<meta name="generator" content="Hugo 0.30" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/03/04/angular2-component-styles/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][Angular2] Component Styles</h1>
-      <p class="post-meta">@wukn · Mar 4, 2017 · 1 min read</p>
+      <p class="post-meta">@wukn · Mar 4, 2017 · 2 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>让我们来看看如何为组件添加CSS样式。</p>
@@ -210,17 +210,16 @@
 <p>对于我们开发的每一个组件，我们不仅仅定义一个HTML模板，通常还会有一个跟模板对应的CSS样式，指定所需的选择器、规则和媒体查询。</p>
 
 <p>一种方法是设置组件元数据的<code>styles</code>属性。<code>styles</code>属性的值是一个包含CSS代码的字符串数组。例如：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;hero-app&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">`
-</span><span class="sc1c">    &lt;h1&gt;Tour of Heroes&lt;/h1&gt;
-</span><span class="sc1c">    &lt;hero-app-main [hero]=hero&gt;&lt;/hero-app-main&gt;`</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">styles</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">&#39;h1 { font-weight: normal; }&#39;</span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">HeroAppComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770">/* . . . */</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-app&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`
+</span><span class="sb">    &lt;h1&gt;Tour of Heroes&lt;/h1&gt;
+</span><span class="sb">    &lt;hero-app-main [hero]=hero&gt;&lt;/hero-app-main&gt;`</span><span class="p">,</span>
+  <span class="nx">styles</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;h1 { font-weight: normal; }&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">HeroAppComponent</span> <span class="p">{</span>
+<span class="cm">/* . . . */</span>
+<span class="p">}</span></code></pre></div>
 <p>在组件的style中定义的选择器只会作用与组件的模板内。这种模块化的机制比传统的CSS更好用。</p>
 
 <ul>
@@ -238,27 +237,24 @@
 <h4 id="host"><code>:host</code></h4>
 
 <p>使用<code>:host</code>伪类选择器来为组件的宿主元素指定样式。</p>
-<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="s1388">:</span><span class="s7d6">host</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">display</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="s3e8">block</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">border</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s3e8">px</span><span class="s1f40"> </span><span class="s3e8">solid</span><span class="s1f40"> </span><span class="s3e8">black</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="p">:</span><span class="nd">host</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+  <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">black</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 <p><code>:host</code>选择器是唯一指向宿主元素的方式。你无法在组件内用其它选择器来指向宿主元素，因为宿主元素不是组件模板的一部分。宿主元素是组件模板的父元素。</p>
 
 <p>使用函数方式在<code>:host</code>后的括号内指令另一个选择器，可以为宿主元素添加条件样式。例如，下面这个样式还是针对宿主元素的，但仅仅是在它有<code>active</code>CSS类时。</p>
-<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="s1388">:</span><span class="s7d6">host</span><span class="sfa0">(</span><span class="s1388">.</span><span class="s7d4">active</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">border-width</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s3e8">px</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="p">:</span><span class="nd">host</span><span class="o">(</span><span class="p">.</span><span class="nc">active</span><span class="o">)</span> <span class="p">{</span>
+  <span class="k">border-width</span><span class="p">:</span> <span class="mi">3</span><span class="kt">px</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 <h4 id="host-context"><code>:host-context</code></h4>
 
 <p>有的时候为组件视图的外部添加一些样式也是很有用的。例如，一个CSS主题类可以被应用到<code>&lt;body&gt;</code>上来改变组件在其中的显示样式。</p>
 
 <p>使用<code>:host-context()</code>伪类选择器，它会查找组件宿主元素的父元素的CSS类，直到DOM的根元素。通常<code>:host-context()</code>跟另外的选择器结合起来使用。</p>
-<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="s1388">:</span><span class="s7d6">host-context</span><span class="sfa0">(</span><span class="s1388">.</span><span class="s7d4">theme-light</span><span class="sfa0">)</span><span class="s1f40"> </span><span class="s7e2">h2</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">background-color</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">#eef</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="p">:</span><span class="nd">host-context</span><span class="o">(</span><span class="p">.</span><span class="nc">theme-light</span><span class="o">)</span> <span class="nt">h2</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="mh">#eef</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 <p>这个例子中，当组件的父元素有<code>theme-light</code>类时，组件内的<code>&lt;h2&gt;</code>元素应用<code>background-color</code>样式。</p>
 
 <h4 id="deep"><code>/deep/</code></h4>
@@ -266,10 +262,9 @@
 <p>组件样式通常只应用于组件自己的模板。</p>
 
 <p>使用<code>/deep/</code>选择器可以强制样式应用到所有的子组件视图。它对任意层级的组件嵌套都有用。</p>
-<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="s1388">:</span><span class="s7d6">host</span><span class="s1f40"> </span><span class="sfa0">/</span><span class="s7e2">deep</span><span class="sfa0">/</span><span class="s1f40"> </span><span class="s7e2">h3</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">font-style</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="s3e8">italic</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="p">:</span><span class="nd">host</span> <span class="o">/</span><span class="nt">deep</span><span class="o">/</span> <span class="nt">h3</span> <span class="p">{</span>
+  <span class="k">font-style</span><span class="p">:</span> <span class="kc">italic</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 <p>上面的例子将作用于所有<code>&lt;h3&gt;</code>元素，包括从宿主元素到这个组件的所有子元素。</p>
 
 <p><code>/deep/</code>也可以写成<code>&gt;&gt;&gt;</code>。</p>
@@ -287,81 +282,75 @@
 <h4 id="元数据中设置styles">元数据中设置styles</h4>
 
 <p>为<code>@Component</code>装饰器添加数组属性<code>styles</code>，数组的每一行都是CSS。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;hero-app&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">`
-</span><span class="sc1c">    &lt;h1&gt;Tour of Heroes&lt;/h1&gt;
-</span><span class="sc1c">    &lt;hero-app-main [hero]=hero&gt;&lt;/hero-app-main&gt;`</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">styles</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">&#39;h1 { font-weight: normal; }&#39;</span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">HeroAppComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770">/* . . . */</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-app&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`
+</span><span class="sb">    &lt;h1&gt;Tour of Heroes&lt;/h1&gt;
+</span><span class="sb">    &lt;hero-app-main [hero]=hero&gt;&lt;/hero-app-main&gt;`</span><span class="p">,</span>
+  <span class="nx">styles</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;h1 { font-weight: normal; }&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">HeroAppComponent</span> <span class="p">{</span>
+<span class="cm">/* . . . */</span>
+<span class="p">}</span></code></pre></div>
 <h4 id="元数据中设置styleurls">元数据中设置styleUrls</h4>
 
 <p>为<code>@Component</code>装饰器添加数组属性<code>styleUrls</code>，引入外部CSS文件。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;hero-details&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">`
-</span><span class="sc1c">    &lt;h2&gt;{{hero.name}}&lt;/h2&gt;
-</span><span class="sc1c">    &lt;hero-team [hero]=hero&gt;&lt;/hero-team&gt;
-</span><span class="sc1c">    &lt;ng-content&gt;&lt;/ng-content&gt;
-</span><span class="sc1c">  `</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">styleUrls</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c">&#39;app/hero-details.component.css&#39;</span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">HeroDetailsComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770">/* . . . */</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-details&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`
+</span><span class="sb">    &lt;h2&gt;{{hero.name}}&lt;/h2&gt;
+</span><span class="sb">    &lt;hero-team [hero]=hero&gt;&lt;/hero-team&gt;
+</span><span class="sb">    &lt;ng-content&gt;&lt;/ng-content&gt;
+</span><span class="sb">  `</span><span class="p">,</span>
+  <span class="nx">styleUrls</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;app/hero-details.component.css&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">HeroDetailsComponent</span> <span class="p">{</span>
+<span class="cm">/* . . . */</span>
+<span class="p">}</span></code></pre></div>
 <p>这个URL相对于应用的根目录，通常也就是<code>index.html</code>所在的目录。也可以指定相对于组件文件的URL，见附2。</p>
 
 <p>如果使用Webpack，还可以使用<code>styles</code>属性在构建时从外部文件加载样式。例如：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s7df">styles</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s1388">[</span><span class="s7df">require</span><span class="s1388">(</span><span class="sc1c">&#39;my.component.css&#39;</span><span class="s1388">)]</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">styles</span><span class="o">:</span> <span class="p">[</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;my.component.css&#39;</span><span class="p">)]</span></code></pre></div>
 <h4 id="模板中行内定义样式">模板中行内定义样式</h4>
 
 <p>可以将样式写在模板中<code>&lt;style&gt;</code>标签内。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;hero-controls&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">`
-</span><span class="sc1c">    &lt;style&gt;
-</span><span class="sc1c">      button {
-</span><span class="sc1c">        background-color: white;
-</span><span class="sc1c">        border: 1px solid #777;
-</span><span class="sc1c">      }
-</span><span class="sc1c">    &lt;/style&gt;
-</span><span class="sc1c">    &lt;h3&gt;Controls&lt;/h3&gt;
-</span><span class="sc1c">    &lt;button (click)=&#34;activate()&#34;&gt;Activate&lt;/button&gt;
-</span><span class="sc1c">  `</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">})</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-controls&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`
+</span><span class="sb">    &lt;style&gt;
+</span><span class="sb">      button {
+</span><span class="sb">        background-color: white;
+</span><span class="sb">        border: 1px solid #777;
+</span><span class="sb">      }
+</span><span class="sb">    &lt;/style&gt;
+</span><span class="sb">    &lt;h3&gt;Controls&lt;/h3&gt;
+</span><span class="sb">    &lt;button (click)=&#34;activate()&#34;&gt;Activate&lt;/button&gt;
+</span><span class="sb">  `</span>
+<span class="p">})</span></code></pre></div>
 <h4 id="模板链接标签">模板链接标签</h4>
 
 <p>还可以在模板内使用<code>&lt;link&gt;</code>标签。</p>
 
 <p>跟<code>styleUrls</code>一样，标签的<code>href</code> URL是相对于应用的根目录的，不是相对组件文件的。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;hero-team&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">template</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">`
-</span><span class="sc1c">    &lt;link rel=&#34;stylesheet&#34; href=&#34;app/hero-team.component.css&#34;&gt;
-</span><span class="sc1c">    &lt;h3&gt;Team&lt;/h3&gt;
-</span><span class="sc1c">    &lt;ul&gt;
-</span><span class="sc1c">      &lt;li *ngFor=&#34;let member of hero.team&#34;&gt;
-</span><span class="sc1c">        {{member}}
-</span><span class="sc1c">      &lt;/li&gt;
-</span><span class="sc1c">    &lt;/ul&gt;`</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">})</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;hero-team&#39;</span><span class="p">,</span>
+  <span class="nx">template</span><span class="o">:</span> <span class="sb">`
+</span><span class="sb">    &lt;link rel=&#34;stylesheet&#34; href=&#34;app/hero-team.component.css&#34;&gt;
+</span><span class="sb">    &lt;h3&gt;Team&lt;/h3&gt;
+</span><span class="sb">    &lt;ul&gt;
+</span><span class="sb">      &lt;li *ngFor=&#34;let member of hero.team&#34;&gt;
+</span><span class="sb">        {{member}}
+</span><span class="sb">      &lt;/li&gt;
+</span><span class="sb">    &lt;/ul&gt;`</span>
+<span class="p">})</span></code></pre></div>
 <h4 id="css-imports">CSS <code>@imports</code></h4>
 
 <p>可以使用标准的CSS <code>@import</code>规则来向CSS文件中引入CSS文件。</p>
 
 <p>这种场景下，URL是相对于正在引入的这个文件。</p>
-<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="s1770">/* src/app/hero-details.component.css (excerpt) */</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">@</span><span class="s3e8">import</span><span class="s1f40"> </span><span class="sc1c">&#39;hero-details-box.css&#39;</span><span class="s1388">;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* src/app/hero-details.component.css (excerpt) */</span>
+
+<span class="p">@</span><span class="k">import</span> <span class="s1">&#39;hero-details-box.css&#39;</span><span class="p">;</span></code></pre></div>
 <h3 id="控制视图封装">控制视图封装</h3>
 
 <p>正如之前所说，组件的CSS样式被封装到组件视图内，且不会影响应用的其它地方。</p>
@@ -375,9 +364,8 @@
 </ul>
 
 <p>要设置组件的封装模式，使用组件元数据的<code>encapsulation</code>属性：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="s1f40"></span><span class="s1770">// warning: few browsers support shadow DOM encapsulation at this time
-</span><span class="s1770"></span><span class="s7df">encapsulation</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">ViewEncapsulation</span><span class="s1388">.</span><span class="s7df">Native</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// warning: few browsers support shadow DOM encapsulation at this time
+</span><span class="c1"></span><span class="nx">encapsulation</span><span class="o">:</span> <span class="nx">ViewEncapsulation</span><span class="p">.</span><span class="nx">Native</span></code></pre></div>
 <p>使用<code>Native</code>模式的前提是浏览器原生支持shadow DOM。</p>
 
 <h3 id="附1-一窥emulated视图封装生成的css">附1：一窥Emulated视图封装生成的CSS</h3>
@@ -385,13 +373,12 @@
 <p>当使用emulated视图封装时，Angular会预处理所有的组件样式，让它们接近标准的shadow CSS作用域规则。</p>
 
 <p>启用emulated视图封装时，每个DOM元素会被附件一些额外的属性：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">hero-details</span><span class="s1f40"> </span><span class="s7d1">_nghost-pmm-5</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">h2</span><span class="s1f40"> </span><span class="s7d1">_ngcontent-pmm-5</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Mister Fantastic</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">h2</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">hero-team</span><span class="s1f40"> </span><span class="s7d1">_ngcontent-pmm-5</span><span class="s1f40"> </span><span class="s7d1">_nghost-pmm-6</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s7e2">h3</span><span class="s1f40"> </span><span class="s7d1">_ngcontent-pmm-6</span><span class="s1388"></span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">Team</span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">h3</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">hero-team</span><span class="s1f40"></span><span class="s1388">&gt;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">&lt;</span><span class="s1f40"></span><span class="s1388">/</span><span class="s1f40"></span><span class="s7e2">hero-detail</span><span class="s1f40"></span><span class="s1388">&gt;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">hero-details</span> <span class="na">_nghost-pmm-5</span><span class="p"></span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h2</span> <span class="na">_ngcontent-pmm-5</span><span class="p"></span><span class="p">&gt;</span>Mister Fantastic<span class="p">&lt;</span><span class="p">/</span><span class="nt">h2</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">hero-team</span> <span class="na">_ngcontent-pmm-5</span> <span class="na">_nghost-pmm-6</span><span class="p"></span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span> <span class="na">_ngcontent-pmm-6</span><span class="p"></span><span class="p">&gt;</span>Team<span class="p">&lt;</span><span class="p">/</span><span class="nt">h3</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="p">/</span><span class="nt">hero-team</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="p">/</span><span class="nt">hero-detail</span><span class="p">&gt;</span></code></pre></div>
 <p>有两种生成的属性：</p>
 
 <ul>
@@ -400,16 +387,15 @@
 </ul>
 
 <p>这些属性的具体值是不重要的。它是自动生成的，并且代码中绝对不可能用到。但是它们会在生成的组件样式中用到，在DOM的<code>&lt;head&gt;</code>段中。</p>
-<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="sfa0">[</span><span class="s7e2">_nghost-pmm-5</span><span class="sfa0">]</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">display</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="s3e8">block</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">border</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s3e8">px</span><span class="s1f40"> </span><span class="s3e8">solid</span><span class="s1f40"> </span><span class="s3e8">black</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7e2">h3</span><span class="sfa0">[</span><span class="s7e2">_ngcontent-pmm-6</span><span class="sfa0">]</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">background-color</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="s3e8">white</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s3e8">border</span><span class="s1f40"></span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s3e8">px</span><span class="s1f40"> </span><span class="s3e8">solid</span><span class="s1f40"> </span><span class="sc80">#777</span><span class="s1388">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="o">[</span><span class="nt">_nghost-pmm-5</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">display</span><span class="p">:</span> <span class="kc">block</span><span class="p">;</span>
+  <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">black</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nt">h3</span><span class="o">[</span><span class="nt">_ngcontent-pmm-6</span><span class="o">]</span> <span class="p">{</span>
+  <span class="k">background-color</span><span class="p">:</span> <span class="kc">white</span><span class="p">;</span>
+  <span class="k">border</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#777</span><span class="p">;</span>
+<span class="p">}</span></code></pre></div>
 <h3 id="附2-使用相对url加载样式">附2：使用相对URL加载样式</h3>
 
 <p>通常我们将组件的代码分成三部分，js代码，HTML和CSS分别放在三个文件中：</p>
@@ -422,14 +408,13 @@ quest-summary.component.css
 <p>我们通过元数据的<code>templateUrl</code>和<code>styleUrls</code>属性来引用它们。那么根据名称来引用它们比指定它们跟应用根目录的相对路径更好一些。</p>
 
 <p>我们可以修改Angular的完整URL的计算规则，将组件元数据的<code>moduleId</code>属性赋值为<code>module.id</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="ss4">@</span><span class="s7df">Component</span><span class="s1388">({</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">moduleId</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="s7df">module</span><span class="s1388">.</span><span class="s7df">id</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">selector</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;quest-summary&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">templateUrl</span><span class="sfa0">:</span><span class="s1f40"> </span><span class="sc1c">&#39;./quest-summary.component.html&#39;</span><span class="s1388">,</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7df">styleUrls</span><span class="sfa0">:</span><span class="s1f40">  </span><span class="s1388">[</span><span class="sc1c">&#39;./quest-summary.component.css&#39;</span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">})</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">export</span><span class="s1f40"> </span><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7df">QuestSummaryComponent</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s1f40"> </span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
+  <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+  <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;quest-summary&#39;</span><span class="p">,</span>
+  <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;./quest-summary.component.html&#39;</span><span class="p">,</span>
+  <span class="nx">styleUrls</span><span class="o">:</span>  <span class="p">[</span><span class="s1">&#39;./quest-summary.component.css&#39;</span><span class="p">]</span>
+<span class="p">})</span>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">QuestSummaryComponent</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
 <hr />
 
 <p>参考资料：</p>
@@ -444,7 +429,7 @@ quest-summary.component.css
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>224</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>228</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

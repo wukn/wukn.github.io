@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[k8s] 部署kubernetes集群——（六）部署Traefik</title>
+
+  
+  
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" Traefik是一款开源的反向代理与负载均衡工具。它可以与常见的微服务系统直接整合，可以实现自动化动态配置。支持自动发现Kubernetes后端 service、pod等变化。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[k8s] 部署kubernetes集群——（六）部署Traefik" />
+    <meta name="twitter:description" content=" Traefik是一款开源的反向代理与负载均衡工具。它可以与常见的微服务系统直接整合，可以实现自动化动态配置。支持自动发现Kubernetes后端 service、pod等变化。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+
+
+
+<meta name="generator" content="Hugo 0.30" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2017/10/18/install-kubernetes-cluster-v1.8.0-deploy-traefik/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+      
+        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+      
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[k8s] 部署kubernetes集群——（六）部署Traefik</h1>
+      <p class="post-meta">@wukn · Oct 18, 2017 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>Traefik是一款开源的反向代理与负载均衡工具。它可以与常见的微服务系统直接整合，可以实现自动化动态配置。支持自动发现Kubernetes后端 service、pod等变化。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="服务发现与负载均衡">服务发现与负载均衡</h3>
+
+<p>Kubernetes中的负载均衡可以有以下集中方式：</p>
+
+<ul>
+<li>Service：使用Service提供集群内部的负载均衡，并借助云提供商提供的LB提供外部访问</li>
+<li>Ingress Controller：使用Service提供集群内部的负载均衡，但是通过自定义LB提供外部访问</li>
+<li>Service Load Balancer：把load balancer直接跑在容器中</li>
+<li>Custom Load Balancer：自定义负载均衡，并替代kube-proxy</li>
+</ul>
+
+<h4 id="service">Service</h4>
+
+<p>Service是对一组提供相同功能的Pods的抽象，并为它们提供一个统一的入口。借助Service，应用可以方便的实现服务发现与负载均衡，并实现应用的不停服升级。Service通过标签来选取服务后端，一般配合Replication Controller或者Deployment来保证后端容器的正常运行。</p>
+
+<p>Service有ClusterIP、NodePort、LoadBalancer三种类型：</p>
+
+<ul>
+<li>ClusterIP为默认类型，仅分配一个集群内可以访问的虚拟IP。</li>
+<li>NodePort在ClusterIP基础上为Service在每台机器上绑定一个端口，这样就可以通过<code>&lt;NodeIP&gt;:NodePort</code>来访问服务</li>
+<li>LoadBalancer在NodePort的基础上，借助云提供商创建一个外部的负载均衡器，将请求转发到<code>&lt;NodeIP&gt;:NodePort</code></li>
+</ul>
+
+<p>外部服务也可以使用Endpoint将服务加入集群中。</p>
+
+<h4 id="ingress-controller">Ingress Controller</h4>
+
+<p>Service在对外访问的时候，NodePort类型需要在外部搭建额外的负载均衡，而LoadBalancer要求kubernetes必须跑在支持的云上面。为了解决这个限制，Kubernetes引入了Ingress，用来将服务暴露到集群外面，并且可以自定义服务的访问策略。</p>
+
+<p>Ingress本身并不会自动创建负载均衡器，需要结合Ingress Controller使用。Traefik就是一个易用的Ingress Controller。</p>
+
+<h4 id="service-load-balancer">Service Load Balancer</h4>
+
+<p>在Ingress出现以前，Service Load Balancer是推荐的解决Service局限性的方式。Service Load Balancer将haproxy跑在容器中，并监控service和endpoint的变化，通过容器IP对外提供4层和7层负载均衡服务。</p>
+
+<h4 id="custom-load-balancer">Custom Load Balancer</h4>
+
+<p>在一些复杂的场景下，例如需要接入已有的负载均衡设备，或者多租户网络情况下容器网络和主机网络是隔离的导致kube-proxy就不能正常工作，需要自定义组件，并代替kube-proxy来做负载均衡。基本思路是监控Kubernetes中service和endpoints的变化，根据这些变化来配置负载均衡器。比如weave flux、nginx plus、kube2haproxy等。</p>
+
+<h3 id="部署traefik">部署Traefik</h3>
+
+<h4 id="创建ingress-rbac-yaml">创建ingress-rbac.yaml</h4>
+
+<p>用于service account验证。</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; ingress-rbac.yaml <span class="s">&lt;&lt;EOF
+</span><span class="s">apiVersion: v1
+</span><span class="s">kind: ServiceAccount
+</span><span class="s">metadata:
+</span><span class="s">  name: ingress
+</span><span class="s">  namespace: kube-system
+</span><span class="s">
+</span><span class="s">---
+</span><span class="s">
+</span><span class="s">kind: ClusterRoleBinding
+</span><span class="s">apiVersion: rbac.authorization.k8s.io/v1beta1
+</span><span class="s">metadata:
+</span><span class="s">  name: ingress
+</span><span class="s">subjects:
+</span><span class="s">  - kind: ServiceAccount
+</span><span class="s">    name: ingress
+</span><span class="s">    namespace: kube-system
+</span><span class="s">roleRef:
+</span><span class="s">  kind: ClusterRole
+</span><span class="s">  name: cluster-admin
+</span><span class="s">  apiGroup: rbac.authorization.k8s.io
+</span><span class="s">EOF</span></code></pre></div>
+<h4 id="创建ingress">创建ingress</h4>
+
+<p>为前面部署的my-nginx服务创建ingress，指定域名、URL路径、后端服务和端口：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; my-nginx-ingress.yaml <span class="s">&lt;&lt;EOF
+</span><span class="s">apiVersion: extensions/v1beta1
+</span><span class="s">kind: Ingress
+</span><span class="s">metadata:
+</span><span class="s">  name: traefik-ingress
+</span><span class="s">  namespace: default
+</span><span class="s">spec:
+</span><span class="s">  rules:
+</span><span class="s">  - host: my-nginx.wukn.io
+</span><span class="s">    http:
+</span><span class="s">      paths:
+</span><span class="s">      - path: /
+</span><span class="s">        backend:
+</span><span class="s">          serviceName: my-nginx
+</span><span class="s">          servicePort: 80
+</span><span class="s">EOF</span></code></pre></div>
+<p><code>backend</code>中的service默认是<code>default</code>命名空间下的。如果是其他命名空间的服务，需要在<code>backend</code>下配置<code>namespace</code>。</p>
+
+<h4 id="创建traefik的deployment">创建Traefik的Deployment</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; traefik-deployment.yaml <span class="s">&lt;&lt;EOF
+</span><span class="s">apiVersion: extensions/v1beta1
+</span><span class="s">kind: Deployment
+</span><span class="s">metadata:
+</span><span class="s">  name: traefik-ingress-lb
+</span><span class="s">  namespace: kube-system
+</span><span class="s">  labels:
+</span><span class="s">    k8s-app: traefik-ingress-lb
+</span><span class="s">spec:
+</span><span class="s">  template:
+</span><span class="s">    metadata:
+</span><span class="s">      labels:
+</span><span class="s">        k8s-app: traefik-ingress-lb
+</span><span class="s">        name: traefik-ingress-lb
+</span><span class="s">    spec:
+</span><span class="s">      terminationGracePeriodSeconds: 60
+</span><span class="s">      hostNetwork: true
+</span><span class="s">      restartPolicy: Always
+</span><span class="s">      serviceAccountName: ingress
+</span><span class="s">      containers:
+</span><span class="s">      - image: traefik
+</span><span class="s">        name: traefik-ingress-lb
+</span><span class="s">        resources:
+</span><span class="s">          limits:
+</span><span class="s">            cpu: 200m
+</span><span class="s">            memory: 30Mi
+</span><span class="s">          requests:
+</span><span class="s">            cpu: 100m
+</span><span class="s">            memory: 20Mi
+</span><span class="s">        ports:
+</span><span class="s">        - name: http
+</span><span class="s">          containerPort: 80
+</span><span class="s">          hostPort: 80
+</span><span class="s">        - name: admin
+</span><span class="s">          containerPort: 8580
+</span><span class="s">          hostPort: 8580
+</span><span class="s">        args:
+</span><span class="s">        - --web
+</span><span class="s">        - --web.address=:8580
+</span><span class="s">        - --kubernetes
+</span><span class="s">EOF</span></code></pre></div>
+<p>Traefik占用主机的80端口提供反向代理服务。这里没有限定该pod运行在哪个主机上，实际使用时可以在指定的几台主机上运行，实现高可用。Traefik的UI服务端口是8580。</p>
+
+<h4 id="创建traefik-ui的ingress">创建Traefik UI的ingress</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; traefik-ui.yaml <span class="s">&lt;&lt;EOF
+</span><span class="s">apiVersion: v1
+</span><span class="s">kind: Service
+</span><span class="s">metadata:
+</span><span class="s">  name: traefik-web-ui
+</span><span class="s">  namespace: kube-system
+</span><span class="s">spec:
+</span><span class="s">  selector:
+</span><span class="s">    k8s-app: traefik-ingress-lb
+</span><span class="s">  ports:
+</span><span class="s">  - name: web
+</span><span class="s">    port: 80
+</span><span class="s">    targetPort: 8580
+</span><span class="s">---
+</span><span class="s">apiVersion: extensions/v1beta1
+</span><span class="s">kind: Ingress
+</span><span class="s">metadata:
+</span><span class="s">  name: traefik-web-ui
+</span><span class="s">  namespace: kube-system
+</span><span class="s">spec:
+</span><span class="s">  rules:
+</span><span class="s">  - host: traefik.wukn.io
+</span><span class="s">    http:
+</span><span class="s">      paths:
+</span><span class="s">      - path: /
+</span><span class="s">        backend:
+</span><span class="s">          serviceName: traefik-web-ui
+</span><span class="s">          servicePort: web
+</span><span class="s">EOF</span></code></pre></div>
+<h4 id="部署traefik-1">部署traefik</h4>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl create -f .</code></pre></div>
+<h4 id="验证traefik功能">验证traefik功能</h4>
+
+<p>查看traefik所在的Node：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl --all-namespaces -o wide get pod <span class="p">|</span> grep traefik
+
+<span class="c1"># output：
+</span><span class="c1"></span># kube-system   traefik-ingress-lb-779cccbd8c-tfn8c    <span class="m">1</span>/1       Running   <span class="m">0</span>          3m        <span class="m">172</span>.10.26.112   <span class="m">172</span>.10.26.112</code></pre></div>
+<p>访问<code>http://172.10.26.112:8580</code>打开Traefik的Dashboard。</p>
+
+<p>使用curl测试通过traefik访问服务：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">curl -H Host:my-nginx.wukn.io <span class="m">172</span>.10.26.112</code></pre></div>
+<p>或者在本机hosts文件里添加域名映射：</p>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="m">172</span>.10.26.112 my-nginx.wukn.io
+<span class="m">172</span>.10.26.112 traefik.wukn.io</code></pre></div>
+<p>在浏览器中通过域名可以访问相应的服务。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p><a href="https://jimmysong.io/kubernetes-handbook/practice/service-discovery-and-loadbalancing.html">https://jimmysong.io/kubernetes-handbook/practice/service-discovery-and-loadbalancing.html</a></p>
+
+<p><a href="https://jimmysong.io/kubernetes-handbook/practice/traefik-ingress-installation.html">https://jimmysong.io/kubernetes-handbook/practice/traefik-ingress-installation.html</a></p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/k8s"><span class="tag">K8s</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

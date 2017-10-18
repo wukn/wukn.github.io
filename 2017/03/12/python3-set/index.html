@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.29" />
+<meta name="generator" content="Hugo 0.30" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/03/12/python3-set/" />
@@ -214,10 +214,9 @@
 <p>set（不包括frozenset）还可以通过大括号和逗号分隔的元素列表创建，例如：<code>{'tom', 'jerry'}</code>。</p>
 
 <p>跟列表解析类似，还可以使用集合解析来创建：</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">a</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">{</span><span class="s7d0">x</span><span class="s1f40"> </span><span class="s3e8">for</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="s1f40"> </span><span class="sfa0">in</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;abracadabra&#39;</span><span class="s1f40"> </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="s1f40"> </span><span class="sfa0">not</span><span class="s1f40"> </span><span class="sfa0">in</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;abc&#39;</span><span class="s1388">}</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">a</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">{</span><span class="sc1c"></span><span class="sc1c">&#39;r&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;d&#39;</span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="sa"></span><span class="s1">&#39;abracadabra&#39;</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">not</span> <span class="ow">in</span> <span class="sa"></span><span class="s1">&#39;abc&#39;</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">a</span>
+<span class="p">{</span><span class="sa"></span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;d&#39;</span><span class="p">}</span></code></pre></div>
 <p>注意： 若要创建一个空集必须使用set()，而不能用 {}；后者将创建一个空的字典。</p>
 
 <h3 id="通用集合操作">通用集合操作</h3>
@@ -241,21 +240,19 @@
 </ul>
 
 <p>注意，非操作符版的<code>union()</code>、<code>intersection()</code>、<code>difference()</code>、<code>symmetric_difference()</code>、<code>issubset()</code>和<code>issuperset()</code>可以接受任意迭代器（iterable）作为参数。相对的，操作符版的方法所需的参数必须为集合。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">set</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;abc&#39;</span><span class="s1388">)</span><span class="s1f40"> </span><span class="sfa0">&amp;</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;cbs&#39;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">Traceback</span><span class="s1f40"> </span><span class="s1388">(</span><span class="s7d0">most</span><span class="s1f40"> </span><span class="s7d0">recent</span><span class="s1f40"> </span><span class="s7d0">call</span><span class="s1f40"> </span><span class="s7d0">last</span><span class="s1388">):</span><span class="s1f40">
-</span><span class="s1f40">  </span><span class="s7d0">File</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#34;&lt;stdin&gt;&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">line</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sfa0">in</span><span class="s1f40"> </span><span class="sfa0">&lt;</span><span class="s7d0">module</span><span class="sfa0">&gt;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d8">TypeError</span><span class="s1388">:</span><span class="s1f40"> </span><span class="s7d0">unsupported</span><span class="s1f40"> </span><span class="s7d0">operand</span><span class="s1f40"> </span><span class="s7d0">type</span><span class="s1388">(</span><span class="s7d0">s</span><span class="s1388">)</span><span class="s1f40"> </span><span class="s3e8">for</span><span class="s1f40"> </span><span class="sfa0">&amp;</span><span class="s1388">:</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;set&#39;</span><span class="s1f40"> </span><span class="sfa0">and</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;str&#39;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">set</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;abc&#39;</span><span class="s1388">)</span><span class="sfa0">.</span><span class="s7d0">intersection</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;cbs&#39;</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">{</span><span class="sc1c"></span><span class="sc1c">&#39;b&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;c&#39;</span><span class="s1388">}</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="nb">set</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;abc&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="sa"></span><span class="s1">&#39;cbs&#39;</span>
+<span class="n">Traceback</span> <span class="p">(</span><span class="n">most</span> <span class="n">recent</span> <span class="n">call</span> <span class="n">last</span><span class="p">):</span>
+  <span class="n">File</span> <span class="sa"></span><span class="s2">&#34;&lt;stdin&gt;&#34;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1</span><span class="p">,</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">TypeError</span><span class="p">:</span> <span class="n">unsupported</span> <span class="n">operand</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="o">&amp;</span><span class="p">:</span> <span class="sa"></span><span class="s1">&#39;set&#39;</span> <span class="ow">and</span> <span class="sa"></span><span class="s1">&#39;str&#39;</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">set</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;abc&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;cbs&#39;</span><span class="p">)</span>
+<span class="p">{</span><span class="sa"></span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;c&#39;</span><span class="p">}</span></code></pre></div>
 <p>set和frozenset都支持集合比较。如果每个集合中的所有元素都在另一个集合中（两个集合互为子集），那么这两个集合就是相等的。如果集合A是集合B的真子集，那么集合A小于集合B。如果集合A是集合B的真超集，那么集合A大于集合B。</p>
 
 <p>set和frozenset比较是根据它们的元素进行比较的。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">set</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;abc&#39;</span><span class="s1388">)</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s1f40"> </span><span class="s7d0">frozenset</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;abc&#39;</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">True</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">set</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;abc&#39;</span><span class="s1388">)</span><span class="s1f40"> </span><span class="sfa0">in</span><span class="s1f40"> </span><span class="s7d0">set</span><span class="s1388">([</span><span class="s7d0">frozenset</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;abc&#39;</span><span class="s1388">)])</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">True</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="nb">set</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;abc&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="nb">frozenset</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;abc&#39;</span><span class="p">)</span>
+<span class="bp">True</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">set</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;abc&#39;</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">([</span><span class="nb">frozenset</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;abc&#39;</span><span class="p">)])</span>
+<span class="bp">True</span></code></pre></div>
 <p>子集和相等性比较不能推算出子集的排序顺序。例如，两个不相交的集合既不相等也不是对方的子集，也就是说<code>a&lt;b</code>、<code>a==b</code>和<code>a&gt;b</code>都返回False。</p>
 
 <p>set和frozenset混合的二进制操作返回的是第一个操作数的类型。例如，<code>frozenset('ab') | set('bc')</code>返回的是一个frozenset实例。</p>
@@ -291,7 +288,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>216</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>220</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

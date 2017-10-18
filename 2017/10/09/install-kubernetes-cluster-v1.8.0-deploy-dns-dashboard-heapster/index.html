@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.29" />
+<meta name="generator" content="Hugo 0.30" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/10/09/install-kubernetes-cluster-v1.8.0-deploy-dns-dashboard-heapster/" />
@@ -204,169 +204,156 @@
 <h3 id="部署dns">部署DNS</h3>
 
 <p>进入kubernetes源码的cluster/addons/dns目录。</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s7d0">cd</span><span class="s1f40"> cluster/addons/dns</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="nb">cd</span> cluster/addons/dns</code></pre></div>
 <p>用到的文件有<code>kubedns-cm.yaml</code>、<code>kubedns-sa.yaml</code>、<code>kubedns-controller.yaml.base</code>、<code>kubedns-svc.yaml.base</code>。</p>
 
 <h4 id="系统内置的rolebinding">系统内置的RoleBinding</h4>
 
 <p>内置的RoleBinding <code>system:kube-dns</code>将<code>kube-system</code>命名空间的<code>kube-dns</code> ServiceAccount与<code>system:kube-dns</code> Role绑定，该Role具有访问kube-apiserver DNS相关API的权限：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl get clusterrolebindings system:kube-dns -o yaml
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：
-</span><span class="s1770"># apiVersion: rbac.authorization.k8s.io/v1
-</span><span class="s1770"># kind: ClusterRoleBinding
-</span><span class="s1770"># metadata:
-</span><span class="s1770"># annotations:
-</span><span class="s1770">#   rbac.authorization.kubernetes.io/autoupdate: &#34;true&#34;
-</span><span class="s1770">#   creationTimestamp: 2017-10-08T03:40:37Z
-</span><span class="s1770">#   labels:
-</span><span class="s1770">#     kubernetes.io/bootstrapping: rbac-defaults
-</span><span class="s1770">#   name: system:kube-dns
-</span><span class="s1770">#   resourceVersion: &#34;78&#34;
-</span><span class="s1770">#   selfLink: /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system%3Akube-dns
-</span><span class="s1770">#   uid: 72e6895d-abda-11e7-a434-525400474652
-</span><span class="s1770"># roleRef:
-</span><span class="s1770">#   apiGroup: rbac.authorization.k8s.io
-</span><span class="s1770">#   kind: ClusterRole
-</span><span class="s1770">#   name: system:kube-dns
-</span><span class="s1770"># subjects:
-</span><span class="s1770"># - kind: ServiceAccount
-</span><span class="s1770">#   name: kube-dns
-</span><span class="s1770"></span><span class="s1f40">#   namespace: kube-system</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl get clusterrolebindings system:kube-dns -o yaml
+
+<span class="c1"># output：
+</span><span class="c1"># apiVersion: rbac.authorization.k8s.io/v1
+</span><span class="c1"># kind: ClusterRoleBinding
+</span><span class="c1"># metadata:
+</span><span class="c1"># annotations:
+</span><span class="c1">#   rbac.authorization.kubernetes.io/autoupdate: &#34;true&#34;
+</span><span class="c1">#   creationTimestamp: 2017-10-08T03:40:37Z
+</span><span class="c1">#   labels:
+</span><span class="c1">#     kubernetes.io/bootstrapping: rbac-defaults
+</span><span class="c1">#   name: system:kube-dns
+</span><span class="c1">#   resourceVersion: &#34;78&#34;
+</span><span class="c1">#   selfLink: /apis/rbac.authorization.k8s.io/v1/clusterrolebindings/system%3Akube-dns
+</span><span class="c1">#   uid: 72e6895d-abda-11e7-a434-525400474652
+</span><span class="c1"># roleRef:
+</span><span class="c1">#   apiGroup: rbac.authorization.k8s.io
+</span><span class="c1">#   kind: ClusterRole
+</span><span class="c1">#   name: system:kube-dns
+</span><span class="c1"># subjects:
+</span><span class="c1"># - kind: ServiceAccount
+</span><span class="c1">#   name: kube-dns
+</span><span class="c1"></span>#   namespace: kube-system</code></pre></div>
 <p><code>kubedns-controller.yaml</code>中定义的Pods时使用了<code>kubedns-sa.yaml</code>文件定义的<code>kube-dns</code> ServiceAccount，所以具有访问kube-apiserver DNS相关API的权限。</p>
 
 <h4 id="配置kube-dns-service">配置kube-dns Service</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cp kubedns-svc.yaml.base kubedns-svc.yaml
-</span><span class="s1f40">
-</span><span class="s1f40">sed -i </span><span class="sc1c">&#39;s/__PILLAR__DNS__SERVER__/10.254.0.2/&#39;</span><span class="s1f40"> kubedns-svc.yaml</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">cp kubedns-svc.yaml.base kubedns-svc.yaml
+
+sed -i <span class="s1">&#39;s/__PILLAR__DNS__SERVER__/10.254.0.2/&#39;</span> kubedns-svc.yaml</code></pre></div>
 <p>这里需要将<code>spec.clusterIP</code>设置为变量CLUSTER_DNS_SVC_IP的值。</p>
 
 <h4 id="配置kube-dns-deployment">配置kube-dns Deployment</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cp kubedns-controller.yaml.base kubedns-controller.yaml
-</span><span class="s1f40">
-</span><span class="s1f40">sed -i </span><span class="sc1c">&#39;s/__PILLAR__DNS__DOMAIN__\./cluster.local./g&#39;</span><span class="s1f40"> kubedns-controller.yaml
-</span><span class="s1f40">sed -i </span><span class="sc1c">&#39;s/__PILLAR__DNS__DOMAIN__/cluster.local./g&#39;</span><span class="s1f40"> kubedns-controller.yaml</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">cp kubedns-controller.yaml.base kubedns-controller.yaml
+
+sed -i <span class="s1">&#39;s/__PILLAR__DNS__DOMAIN__\./cluster.local./g&#39;</span> kubedns-controller.yaml
+sed -i <span class="s1">&#39;s/__PILLAR__DNS__DOMAIN__/cluster.local./g&#39;</span> kubedns-controller.yaml</code></pre></div>
 <p><code>--domain</code>设置为变量CLUSTER_DNS_DOMAIN的值。</p>
 
 <h4 id="部署kube-dns">部署kube-dns</h4>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl create -f .</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl create -f .</code></pre></div>
 <h4 id="验证dns功能">验证dns功能</h4>
 
 <p>新建一个Deployment：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat &gt; my-nginx.yaml </span><span class="sc1c">&lt;&lt;EOF
-</span><span class="sc1c">apiVersion: extensions/v1beta1
-</span><span class="sc1c">kind: Deployment
-</span><span class="sc1c">metadata:
-</span><span class="sc1c">  name: my-nginx
-</span><span class="sc1c">spec:
-</span><span class="sc1c">  replicas: 2
-</span><span class="sc1c">  template:
-</span><span class="sc1c">    metadata:
-</span><span class="sc1c">      labels:
-</span><span class="sc1c">        run: my-nginx
-</span><span class="sc1c">    spec:
-</span><span class="sc1c">      containers:
-</span><span class="sc1c">      - name: my-nginx
-</span><span class="sc1c">        image: nginx:1.13.5
-</span><span class="sc1c">        ports:
-</span><span class="sc1c">        - containerPort: 80
-</span><span class="sc1c">EOF</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">kubectl create -f my-nginx.yaml</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; my-nginx.yaml <span class="s">&lt;&lt;EOF
+</span><span class="s">apiVersion: extensions/v1beta1
+</span><span class="s">kind: Deployment
+</span><span class="s">metadata:
+</span><span class="s">  name: my-nginx
+</span><span class="s">spec:
+</span><span class="s">  replicas: 2
+</span><span class="s">  template:
+</span><span class="s">    metadata:
+</span><span class="s">      labels:
+</span><span class="s">        run: my-nginx
+</span><span class="s">    spec:
+</span><span class="s">      containers:
+</span><span class="s">      - name: my-nginx
+</span><span class="s">        image: nginx:1.13.5
+</span><span class="s">        ports:
+</span><span class="s">        - containerPort: 80
+</span><span class="s">EOF</span>
+
+kubectl create -f my-nginx.yaml</code></pre></div>
 <p>导出该Deployment, 生成<code>my-nginx</code>服务：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl expose deploy my-nginx
-</span><span class="s1f40">
-</span><span class="s1f40">kubectl get services --all-namespaces </span><span class="s1388">|</span><span class="s1f40">grep my-nginx
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：
-</span><span class="s1770"></span><span class="s1f40"># default       my-nginx     ClusterIP   </span><span class="sc80">10</span><span class="s1f40">.254.103.138   &lt;none&gt;        </span><span class="sc80">80</span><span class="s1f40">/TCP          1s</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl expose deploy my-nginx
+
+kubectl get services --all-namespaces <span class="p">|</span>grep my-nginx
+
+<span class="c1"># output：
+</span><span class="c1"></span># default       my-nginx     ClusterIP   <span class="m">10</span>.254.103.138   &lt;none&gt;        <span class="m">80</span>/TCP          1s</code></pre></div>
 <p>创建另一个Pod，查看<code>/etc/resolv.conf</code>是否包含kubelet配置的<code>--cluster-dns</code>和<code>--cluster-domain</code>，是否能够将服务<code>my-nginx</code>解析到上面显示的Cluster IP：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat &gt; pod-nginx.yaml </span><span class="sc1c">&lt;&lt;EOF
-</span><span class="sc1c">apiVersion: v1
-</span><span class="sc1c">kind: Pod
-</span><span class="sc1c">metadata:
-</span><span class="sc1c">  name: nginx
-</span><span class="sc1c">spec:
-</span><span class="sc1c">  containers:
-</span><span class="sc1c">  - name: nginx
-</span><span class="sc1c">    image: nginx:1.7.9
-</span><span class="sc1c">    ports:
-</span><span class="sc1c">    - containerPort: 80
-</span><span class="sc1c">EOF</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">kubectl create -f pod-nginx.yaml
-</span><span class="s1f40">kubectl </span><span class="s7d0">exec</span><span class="s1f40">  nginx -i -t -- /bin/bash
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># 进入pod之后，在容器内运行
-</span><span class="s1770"></span><span class="s1f40">cat /etc/resolv.conf
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：
-</span><span class="s1770"># nameserver 10.254.0.2
-</span><span class="s1770"># search default.svc.cluster.local. svc.cluster.local. cluster.local.
-</span><span class="s1770"># options ndots:5
-</span><span class="s1770"></span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># 可以看到“nameserver 10.254.0.2”
-</span><span class="s1770"></span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># ping服务名可以得到对应的IP地址：
-</span><span class="s1770"></span><span class="s1f40">
-</span><span class="s1f40">ping my-nginx
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：
-</span><span class="s1770"># PING my-nginx.default.svc.cluster.local (10.254.103.138): 48 data bytes
-</span><span class="s1770"></span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">ping kubernetes
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：
-</span><span class="s1770"># PING kubernetes.default.svc.cluster.local (10.254.0.1): 48 data bytes
-</span><span class="s1770"></span><span class="s1f40">
-</span><span class="s1f40">ping kube-dns.kube-system.svc.cluster.local
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：
-</span><span class="s1770"></span><span class="s1f40"># PING kube-dns.kube-system.svc.cluster.local </span><span class="sfa0">(</span><span class="sc80">10</span><span class="s1f40">.254.0.2</span><span class="sfa0">)</span><span class="s1f40">: </span><span class="sc80">48</span><span class="s1f40"> data bytes</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; pod-nginx.yaml <span class="s">&lt;&lt;EOF
+</span><span class="s">apiVersion: v1
+</span><span class="s">kind: Pod
+</span><span class="s">metadata:
+</span><span class="s">  name: nginx
+</span><span class="s">spec:
+</span><span class="s">  containers:
+</span><span class="s">  - name: nginx
+</span><span class="s">    image: nginx:1.7.9
+</span><span class="s">    ports:
+</span><span class="s">    - containerPort: 80
+</span><span class="s">EOF</span>
+
+kubectl create -f pod-nginx.yaml
+kubectl <span class="nb">exec</span>  nginx -i -t -- /bin/bash
+
+<span class="c1"># 进入pod之后，在容器内运行
+</span><span class="c1"></span>cat /etc/resolv.conf
+
+<span class="c1"># output：
+</span><span class="c1"># nameserver 10.254.0.2
+</span><span class="c1"># search default.svc.cluster.local. svc.cluster.local. cluster.local.
+</span><span class="c1"># options ndots:5
+</span><span class="c1"></span>
+<span class="c1"># 可以看到“nameserver 10.254.0.2”
+</span><span class="c1"></span>
+<span class="c1"># ping服务名可以得到对应的IP地址：
+</span><span class="c1"></span>
+ping my-nginx
+
+<span class="c1"># output：
+</span><span class="c1"># PING my-nginx.default.svc.cluster.local (10.254.103.138): 48 data bytes
+</span><span class="c1"></span>
+
+ping kubernetes
+
+<span class="c1"># output：
+</span><span class="c1"># PING kubernetes.default.svc.cluster.local (10.254.0.1): 48 data bytes
+</span><span class="c1"></span>
+ping kube-dns.kube-system.svc.cluster.local
+
+<span class="c1"># output：
+</span><span class="c1"></span># PING kube-dns.kube-system.svc.cluster.local <span class="o">(</span><span class="m">10</span>.254.0.2<span class="o">)</span>: <span class="m">48</span> data bytes</code></pre></div>
 <h3 id="部署dashboard">部署Dashboard</h3>
 
 <h4 id="下载并部署">下载并部署</h4>
 
 <p>下载Dashboard v1.7.1部署文件并部署：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">curl -LO https://raw.githubusercontent.com/kubernetes/dashboard/v1.7.1/src/deploy/recommended/kubernetes-dashboard.yaml</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">curl -LO https://raw.githubusercontent.com/kubernetes/dashboard/v1.7.1/src/deploy/recommended/kubernetes-dashboard.yaml</code></pre></div>
 <p>给Service添加label：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">sed -i </span><span class="sc1c">&#39;155i\ \ \ \ kubernetes.io\/cluster-service:\ &#34;true&#34;&#39;</span><span class="s1f40"> kubernetes-dashboard.yaml
-</span><span class="s1f40">sed -i </span><span class="sc1c">&#39;156i\ \ \ \ addonmanager.kubernetes.io\/mode:\ Reconcile&#39;</span><span class="s1f40"> kubernetes-dashboard.yaml</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sed -i <span class="s1">&#39;155i\ \ \ \ kubernetes.io\/cluster-service:\ &#34;true&#34;&#39;</span> kubernetes-dashboard.yaml
+sed -i <span class="s1">&#39;156i\ \ \ \ addonmanager.kubernetes.io\/mode:\ Reconcile&#39;</span> kubernetes-dashboard.yaml</code></pre></div>
 <p>如果想通过NodePort方式访问Dashboard，则修改服务类型：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">sed -i </span><span class="sc1c">&#39;158i\ \ type:\ NodePort&#39;</span><span class="s1f40"> kubernetes-dashboard.yaml</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">sed -i <span class="s1">&#39;158i\ \ type:\ NodePort&#39;</span> kubernetes-dashboard.yaml</code></pre></div>
 <p>最终的Service配置长这样：</p>
-<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="s1f40">kind: Service
-</span><span class="s1f40">apiVersion: v1
-</span><span class="s1f40">metadata:
-</span><span class="s1f40">  labels:
-</span><span class="s1f40">    k8s-app: kubernetes-dashboard
-</span><span class="s1f40">    kubernetes.io/cluster-service: &#34;true&#34;
-</span><span class="s1f40">    addonmanager.kubernetes.io/mode: Reconcile
-</span><span class="s1f40">  name: kubernetes-dashboard
-</span><span class="s1f40">  namespace: kube-system
-</span><span class="s1f40">spec:
-</span><span class="s1f40">  type: NodePort
-</span><span class="s1f40">  ports:
-</span><span class="s1f40">    - port: 443
-</span><span class="s1f40">      targetPort: 8443
-</span><span class="s1f40">  selector:
-</span><span class="s1f40">    k8s-app: kubernetes-dashboard</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-yaml" data-lang="yaml">kind<span class="p">:</span><span class="w"> </span>Service<span class="w">
+</span><span class="w"></span>apiVersion<span class="p">:</span><span class="w"> </span>v<span class="m">1</span><span class="w">
+</span><span class="w"></span>metadata<span class="p">:</span><span class="w">
+</span><span class="w">  </span>labels<span class="p">:</span><span class="w">
+</span><span class="w">    </span>k8s-app<span class="p">:</span><span class="w"> </span>kubernetes-dashboard<span class="w">
+</span><span class="w">    </span>kubernetes.io/cluster-service<span class="p">:</span><span class="w"> </span><span class="s2">&#34;true&#34;</span><span class="w">
+</span><span class="w">    </span>addonmanager.kubernetes.io/mode<span class="p">:</span><span class="w"> </span>Reconcile<span class="w">
+</span><span class="w">  </span>name<span class="p">:</span><span class="w"> </span>kubernetes-dashboard<span class="w">
+</span><span class="w">  </span>namespace<span class="p">:</span><span class="w"> </span>kube-system<span class="w">
+</span><span class="w"></span>spec<span class="p">:</span><span class="w">
+</span><span class="w">  </span>type<span class="p">:</span><span class="w"> </span>NodePort<span class="w">
+</span><span class="w">  </span>ports<span class="p">:</span><span class="w">
+</span><span class="w">    </span>-<span class="w"> </span>port<span class="p">:</span><span class="w"> </span><span class="m">443</span><span class="w">
+</span><span class="w">      </span>targetPort<span class="p">:</span><span class="w"> </span><span class="m">8443</span><span class="w">
+</span><span class="w">  </span>selector<span class="p">:</span><span class="w">
+</span><span class="w">    </span>k8s-app<span class="p">:</span><span class="w"> </span>kubernetes-dashboard</code></pre></div>
 <p>部署Dashboard：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl create -f kubernetes-dashboard.yaml</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl create -f kubernetes-dashboard.yaml</code></pre></div>
 <h4 id="访问dashboard">访问Dashboard</h4>
 
 <p>访问Dashboard有三种方法：</p>
@@ -376,128 +363,120 @@
 <p>上面指定了Service为NodePort类型，可以通过<code>http://NodeIP:nodePort</code>访问服务。</p>
 
 <p>查询NodePort：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl get services -n kube-system </span><span class="s1388">|</span><span class="s1f40"> grep dashboard
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：
-</span><span class="s1770"></span><span class="s1f40"># kubernetes-dashboard   NodePort    </span><span class="sc80">10</span><span class="s1f40">.254.237.250   &lt;none&gt;        </span><span class="sc80">443</span><span class="s1f40">:8685/TCP    29m</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl get services -n kube-system <span class="p">|</span> grep dashboard
+
+<span class="c1"># output：
+</span><span class="c1"></span># kubernetes-dashboard   NodePort    <span class="m">10</span>.254.237.250   &lt;none&gt;        <span class="m">443</span>:8685/TCP    29m</code></pre></div>
 <p>在浏览器中访问<code>https://172.10.26.111:8685</code>，会跳转到登陆页面。</p>
 
 <p>（2）通过kube-apiserver访问</p>
 
 <p>获取集群服务地址列表：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl cluster-info
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：
-</span><span class="s1770"># Kubernetes master is running at https://172.10.26.101:6443
-</span><span class="s1770"># KubeDNS is running at https://172.10.26.101:6443/api/v1/namespaces/kube-system/services/kube-dns/proxy
-</span><span class="s1770"></span><span class="s1f40"># kubernetes-dashboard is running at https://172.10.26.101:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl cluster-info
+
+<span class="c1"># output：
+</span><span class="c1"># Kubernetes master is running at https://172.10.26.101:6443
+</span><span class="c1"># KubeDNS is running at https://172.10.26.101:6443/api/v1/namespaces/kube-system/services/kube-dns/proxy
+</span><span class="c1"></span># kubernetes-dashboard is running at https://172.10.26.101:6443/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy</code></pre></div>
 <p>由于kube-apiserver开启了RBAC授权，而浏览器访问kube-apiserver的时候使用的是匿名证书，所以访问安全端口会导致授权失败。这里需要使用非安全端口访问kube-apiserver，同时改成https方式：<code>http://172.10.26.101:8080/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy</code>。</p>
 
 <p>（3）通过kubectl proxy访问</p>
 
 <p>在部署了kubectl节点上启动代理：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl proxy --address</span><span class="sfa0">=</span><span class="sc1c">&#39;172.10.26.101&#39;</span><span class="s1f40"> --port</span><span class="sfa0">=</span><span class="sc80">8086</span><span class="s1f40"> --accept-hosts</span><span class="sfa0">=</span><span class="sc1c">&#39;^*$&#39;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl proxy --address<span class="o">=</span><span class="s1">&#39;172.10.26.101&#39;</span> --port<span class="o">=</span><span class="m">8086</span> --accept-hosts<span class="o">=</span><span class="s1">&#39;^*$&#39;</span></code></pre></div>
 <p>在浏览器中访问<code>http://172.10.26.101:8086/ui</code>，会跳转到<code>http://172.10.26.101:8086/api/v1/namespaces/kube-system/services/kubernetes-dashboard/proxy/</code>，这时访问不了，因为Dashboard服务使用的是https，改成<code>http://172.10.26.101:8086/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/</code>就可以访问了。</p>
 
 <h4 id="创建有集群管理员权限的serviceaccount">创建有集群管理员权限的ServiceAccount</h4>
 
 <p>部署文件中的kube-dashboard只被授予了很小的权限，这里我们重新创建一个ServiceAccount，绑定<code>cluster-admin</code>角色：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">cat &gt; kube-dashboard-admin.yaml </span><span class="sc1c">&lt;&lt;EOF
-</span><span class="sc1c">apiVersion: v1
-</span><span class="sc1c">kind: ServiceAccount
-</span><span class="sc1c">metadata:
-</span><span class="sc1c">  labels:
-</span><span class="sc1c">    k8s-app: kubernetes-dashboard
-</span><span class="sc1c">  name: kubernetes-dashboard-admin
-</span><span class="sc1c">  namespace: kube-system
-</span><span class="sc1c">
-</span><span class="sc1c">---
-</span><span class="sc1c">apiVersion: rbac.authorization.k8s.io/v1beta1
-</span><span class="sc1c">kind: ClusterRoleBinding
-</span><span class="sc1c">metadata:
-</span><span class="sc1c">  name: kubernetes-dashboard-admin
-</span><span class="sc1c">  namespace: kube-system
-</span><span class="sc1c">roleRef:
-</span><span class="sc1c">  apiGroup: rbac.authorization.k8s.io
-</span><span class="sc1c">  kind: ClusterRole
-</span><span class="sc1c">  name: cluster-admin
-</span><span class="sc1c">subjects:
-</span><span class="sc1c">- kind: ServiceAccount
-</span><span class="sc1c">  name: kubernetes-dashboard-admin
-</span><span class="sc1c">  namespace: kube-system
-</span><span class="sc1c">EOF</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40">kubectl create -f kube-dashboard-admin.yaml</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">cat &gt; kube-dashboard-admin.yaml <span class="s">&lt;&lt;EOF
+</span><span class="s">apiVersion: v1
+</span><span class="s">kind: ServiceAccount
+</span><span class="s">metadata:
+</span><span class="s">  labels:
+</span><span class="s">    k8s-app: kubernetes-dashboard
+</span><span class="s">  name: kubernetes-dashboard-admin
+</span><span class="s">  namespace: kube-system
+</span><span class="s">
+</span><span class="s">---
+</span><span class="s">apiVersion: rbac.authorization.k8s.io/v1beta1
+</span><span class="s">kind: ClusterRoleBinding
+</span><span class="s">metadata:
+</span><span class="s">  name: kubernetes-dashboard-admin
+</span><span class="s">  namespace: kube-system
+</span><span class="s">roleRef:
+</span><span class="s">  apiGroup: rbac.authorization.k8s.io
+</span><span class="s">  kind: ClusterRole
+</span><span class="s">  name: cluster-admin
+</span><span class="s">subjects:
+</span><span class="s">- kind: ServiceAccount
+</span><span class="s">  name: kubernetes-dashboard-admin
+</span><span class="s">  namespace: kube-system
+</span><span class="s">EOF</span>
+
+kubectl create -f kube-dashboard-admin.yaml</code></pre></div>
 <p>查看kubernetes-dashboard-admin对应的token：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl get secrets --all-namespaces </span><span class="s1388">|</span><span class="s1f40"> grep kubernetes-dashboard-admin
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：
-</span><span class="s1770"># kube-system   kubernetes-dashboard-admin-token-gnxl2   kubernetes.io/service-account-token   3         45s
-</span><span class="s1770"></span><span class="s1f40">
-</span><span class="s1f40">kubectl describe secret kubernetes-dashboard-admin-token-gnxl2 -n kube-system
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：
-</span><span class="s1770"># Name:         kubernetes-dashboard-admin-token-gnxl2
-</span><span class="s1770"># Namespace:    kube-system
-</span><span class="s1770"># Labels:       &lt;none&gt;
-</span><span class="s1770"># Annotations:  kubernetes.io/service-account.name=kubernetes-dashboard-admin
-</span><span class="s1770">#               kubernetes.io/service-account.uid=7fa85490-b01c-11e7-a3b6-525400474652
-</span><span class="s1770">#
-</span><span class="s1770"># Type:  kubernetes.io/service-account-token
-</span><span class="s1770">#
-</span><span class="s1770"># Data
-</span><span class="s1770"># ====
-</span><span class="s1770"># ca.crt:     1359 bytes
-</span><span class="s1770"># namespace:  11 bytes
-</span><span class="s1770"></span><span class="s1f40"># token:      eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJrdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbi10b2tlbi1nbnhsMiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJrdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjdmYTg1NDkwLWIwMWMtMTFlNy1hM2I2LTUyNTQwMDQ3NDY1MiIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTprdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbiJ9.IFc5HO8I31EsZ2m3mAJGUn4f2uYMYY7xhxYDaM3vG6tv58cXx8or0pgN6n47-bjA17f5kPfhzXX93lvWvShNYqj1HGDZnnSRUDMgTt_P16mG55hO_SyxO2p4dNyWvavYuz--6NdLtt8BCsmwm_03tsifhWXFhVCGL4EBLQPozfJZJe_AfL2o7e73Quj1Ve0wpJWbvjCBUKQni7MEfH6JQJhEl14ulffE9WHzN26sh5LllKbFl6AMS_1Zf0zqDAcwLJcX9C4WXG6IZNeNI57resBhvoa0GK-XjCXmk8UpAxMWJ5QykEL4wJO0JRmk6RMpFlgmQiM7MrSUnXzUYFMwiA</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl get secrets --all-namespaces <span class="p">|</span> grep kubernetes-dashboard-admin
+
+<span class="c1"># output：
+</span><span class="c1"># kube-system   kubernetes-dashboard-admin-token-gnxl2   kubernetes.io/service-account-token   3         45s
+</span><span class="c1"></span>
+kubectl describe secret kubernetes-dashboard-admin-token-gnxl2 -n kube-system
+
+<span class="c1"># output：
+</span><span class="c1"># Name:         kubernetes-dashboard-admin-token-gnxl2
+</span><span class="c1"># Namespace:    kube-system
+</span><span class="c1"># Labels:       &lt;none&gt;
+</span><span class="c1"># Annotations:  kubernetes.io/service-account.name=kubernetes-dashboard-admin
+</span><span class="c1">#               kubernetes.io/service-account.uid=7fa85490-b01c-11e7-a3b6-525400474652
+</span><span class="c1">#
+</span><span class="c1"># Type:  kubernetes.io/service-account-token
+</span><span class="c1">#
+</span><span class="c1"># Data
+</span><span class="c1"># ====
+</span><span class="c1"># ca.crt:     1359 bytes
+</span><span class="c1"># namespace:  11 bytes
+</span><span class="c1"></span># token:      eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJrdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbi10b2tlbi1nbnhsMiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJrdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjdmYTg1NDkwLWIwMWMtMTFlNy1hM2I2LTUyNTQwMDQ3NDY1MiIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTprdWJlcm5ldGVzLWRhc2hib2FyZC1hZG1pbiJ9.IFc5HO8I31EsZ2m3mAJGUn4f2uYMYY7xhxYDaM3vG6tv58cXx8or0pgN6n47-bjA17f5kPfhzXX93lvWvShNYqj1HGDZnnSRUDMgTt_P16mG55hO_SyxO2p4dNyWvavYuz--6NdLtt8BCsmwm_03tsifhWXFhVCGL4EBLQPozfJZJe_AfL2o7e73Quj1Ve0wpJWbvjCBUKQni7MEfH6JQJhEl14ulffE9WHzN26sh5LllKbFl6AMS_1Zf0zqDAcwLJcX9C4WXG6IZNeNI57resBhvoa0GK-XjCXmk8UpAxMWJ5QykEL4wJO0JRmk6RMpFlgmQiM7MrSUnXzUYFMwiA</code></pre></div>
 <p>使用该token登录即可。</p>
 
 <h3 id="部署heapster">部署Heapster</h3>
 
 <p>Heapster是一个容器监控工具。kubelet中集成了cAdvisor，Heapster可以将每个Node上的cAdvisor的数据进行汇总，然后导到第三方工具，如InfluxDB。</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">curl -LO https://github.com/kubernetes/heapster/archive/v1.4.3.tar.gz
-</span><span class="s1f40">tar xvf v1.4.3.tar.gz
-</span><span class="s1f40"></span><span class="s7d0">cd</span><span class="s1f40"> heapster-1.4.3/deploy/kube-config
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># 创建RoleBinding
-</span><span class="s1770"></span><span class="s1f40">kubectl create -f rbac/heapster-rbac.yaml
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># 更新镜像版本
-</span><span class="s1770"></span><span class="s1f40">sed -i </span><span class="sc1c">&#39;s/heapster-grafana-amd64:v4.2.0/heapster-grafana-amd64:v4.4.1/&#39;</span><span class="s1f40"> influxdb/grafana.yaml
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># 部署heapster、influxdb、grafana
-</span><span class="s1770"></span><span class="s1f40">kubectl create -f influxdb/</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">curl -LO https://github.com/kubernetes/heapster/archive/v1.4.3.tar.gz
+tar xvf v1.4.3.tar.gz
+<span class="nb">cd</span> heapster-1.4.3/deploy/kube-config
+
+<span class="c1"># 创建RoleBinding
+</span><span class="c1"></span>kubectl create -f rbac/heapster-rbac.yaml
+
+<span class="c1"># 更新镜像版本
+</span><span class="c1"></span>sed -i <span class="s1">&#39;s/heapster-grafana-amd64:v4.2.0/heapster-grafana-amd64:v4.4.1/&#39;</span> influxdb/grafana.yaml
+
+<span class="c1"># 部署heapster、influxdb、grafana
+</span><span class="c1"></span>kubectl create -f influxdb/</code></pre></div>
 <p>现在在Dashboard上就可以看到内存和CPU的监控信息了。</p>
 
 <p>检查deployment和pod的创建情况：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl get deployments -n kube-system </span><span class="s1388">|</span><span class="s1f40"> grep -E </span><span class="sc1c">&#39;heapster|monitoring&#39;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：
-</span><span class="s1770"># heapster               1         1         1            1           16m
-</span><span class="s1770"># monitoring-grafana     1         1         1            1           16m
-</span><span class="s1770"># monitoring-influxdb    1         1         1            1           16m
-</span><span class="s1770"></span><span class="s1f40">
-</span><span class="s1f40">kubectl get pods -n kube-system -o wide </span><span class="s1388">|</span><span class="s1f40"> grep -E </span><span class="sc1c">&#39;heapster|monitoring&#39;</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：
-</span><span class="s1770"># heapster-7b5d85fcb6-r4gd8              1/1       Running   0          17m       172.11.40.6   172.10.26.112
-</span><span class="s1770"># monitoring-grafana-6ff4f7c457-x2wl8    1/1       Running   0          17m       172.11.40.5   172.10.26.112
-</span><span class="s1770"></span><span class="s1f40"># monitoring-influxdb-85485c578b-f82rq   </span><span class="sc80">1</span><span class="s1f40">/1       Running   </span><span class="sc80">0</span><span class="s1f40">          17m       </span><span class="sc80">172</span><span class="s1f40">.11.16.6   </span><span class="sc80">172</span><span class="s1f40">.10.26.111</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl get deployments -n kube-system <span class="p">|</span> grep -E <span class="s1">&#39;heapster|monitoring&#39;</span>
+
+<span class="c1"># output：
+</span><span class="c1"># heapster               1         1         1            1           16m
+</span><span class="c1"># monitoring-grafana     1         1         1            1           16m
+</span><span class="c1"># monitoring-influxdb    1         1         1            1           16m
+</span><span class="c1"></span>
+kubectl get pods -n kube-system -o wide <span class="p">|</span> grep -E <span class="s1">&#39;heapster|monitoring&#39;</span>
+
+<span class="c1"># output：
+</span><span class="c1"># heapster-7b5d85fcb6-r4gd8              1/1       Running   0          17m       172.11.40.6   172.10.26.112
+</span><span class="c1"># monitoring-grafana-6ff4f7c457-x2wl8    1/1       Running   0          17m       172.11.40.5   172.10.26.112
+</span><span class="c1"></span># monitoring-influxdb-85485c578b-f82rq   <span class="m">1</span>/1       Running   <span class="m">0</span>          17m       <span class="m">172</span>.11.16.6   <span class="m">172</span>.10.26.111</code></pre></div>
 <p>跟Dashboard一样，通过kube-apiserver可以访问Grafana：</p>
-<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell"><span class="s1f40">kubectl cluster-info
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：
-</span><span class="s1770"># ...
-</span><span class="s1770"># monitoring-grafana is running at https://172.10.26.101:6443/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
-</span><span class="s1770"></span><span class="s1f40"># ...</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-shell" data-lang="shell">kubectl cluster-info
+
+<span class="c1"># output：
+</span><span class="c1"># ...
+</span><span class="c1"># monitoring-grafana is running at https://172.10.26.101:6443/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
+</span><span class="c1"></span># ...</code></pre></div>
 <p>换成非安全端口，即访问<code>http://172.10.26.101:8080/api/v1/namespaces/kube-system/services/monitoring-grafana/proxy</code>，可以在Grafana中看到Node和Pod的监控。</p>
 
 <p>Grafana中使用的是默认的模板配置，<code>namespace</code>的下拉框里只有<code>default</code>和<code>kube-system</code>，需要将Templating中的namespace的Data source设置为<code>influxdb-datasource</code>，Refresh设置为<code>on Dashboard Load</code>，保存设置，刷新浏览器，即可看到其他namespace选项。</p>

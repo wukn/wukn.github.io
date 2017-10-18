@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.29" />
+<meta name="generator" content="Hugo 0.30" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/03/14/python3-control-flow/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][Python3] 控制流</h1>
-      <p class="post-meta">@wukn · Mar 14, 2017 · 1 min read</p>
+      <p class="post-meta">@wukn · Mar 14, 2017 · 2 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>Python3 控制流。</p>
@@ -208,86 +208,77 @@
 <p>它重复测试表达式，如果为真，则执行第一个语句组；如果表达式为假（可能是第一次测试），则执行else子句且终止循环。</p>
 
 <p>第一个语句组中执行的break语句会终止循环而不执行else子句的语句组。在第一个语句组中执行的continue语句会跳过语句组中剩余的语句并返回继续测试表达式。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s7d0">n</span><span class="sfa0">=</span><span class="sc80">0</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">while</span><span class="s1f40"> </span><span class="s7d0">n</span><span class="sfa0">&lt;</span><span class="sc80">5</span><span class="s1388">:</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">print</span><span class="s1388">(</span><span class="s7d0">n</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">else</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">print</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;err&#39;</span><span class="s1388">)</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">n</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">while</span> <span class="n">n</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+<span class="k">else</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;err&#39;</span><span class="p">)</span></code></pre></div>
 <h3 id="if">if</h3>
 
 <p>if语句用于条件判断。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s3e8">if</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="s1f40"> </span><span class="sfa0">&gt;=</span><span class="s1f40"> </span><span class="sc80">90</span><span class="s1388">:</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">print</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;优秀&#39;</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">elif</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="s1f40"> </span><span class="sfa0">&gt;=</span><span class="s1f40"> </span><span class="sc80">80</span><span class="s1388">:</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">print</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;良好&#39;</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">elif</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="s1f40"> </span><span class="sfa0">&gt;=</span><span class="s1f40"> </span><span class="sc80">70</span><span class="s1388">:</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">print</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;中等&#39;</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">elif</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="s1f40"> </span><span class="sfa0">&gt;=</span><span class="s1f40"> </span><span class="sc80">60</span><span class="s1388">:</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">print</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;及格&#39;</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">else</span><span class="s1388">:</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">print</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#39;不及格&#39;</span><span class="s1388">)</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">90</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;优秀&#39;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">80</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;良好&#39;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">70</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;中等&#39;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">60</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;及格&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s1">&#39;不及格&#39;</span><span class="p">)</span></code></pre></div>
 <p>可以有零个或多个elif部分，else部分是也可选的。if&hellip; elif &hellip; elif &hellip; 序列用于替代其它语言中switch或case语句。</p>
 
 <h3 id="for">for</h3>
 
 <p>Python的for语句可以循环访问任何序列（列表或一个字符串），按照它们在序列中出现的顺序。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s7d0">words</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c"></span><span class="sc1c">&#39;cat&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;window&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;defenestrate&#39;</span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">for</span><span class="s1f40"> </span><span class="s7d0">w</span><span class="s1f40"> </span><span class="sfa0">in</span><span class="s1f40"> </span><span class="s7d0">words</span><span class="s1388">:</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">print</span><span class="s1388">(</span><span class="s7d0">w</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">len</span><span class="s1388">(</span><span class="s7d0">w</span><span class="s1388">))</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output like this:</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># cat 3</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># window 6</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># defenestrate 12</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="sa"></span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;defenestrate&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+
+<span class="c1"># output like this:</span>
+<span class="c1"># cat 3</span>
+<span class="c1"># window 6</span>
+<span class="c1"># defenestrate 12</span></code></pre></div>
 <p>如果要在循环体内修改正在迭代的序列（例如复制所选的项目），建议首先制作副本。迭代序列不会隐式地创建副本。 可以使用切片来创建副本：</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s7d0">words</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c"></span><span class="sc1c">&#39;cat&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;window&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;defenestrate&#39;</span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">for</span><span class="s1f40"> </span><span class="s7d0">w</span><span class="s1f40"> </span><span class="sfa0">in</span><span class="s1f40"> </span><span class="s7d0">words</span><span class="s1388">[:]:</span><span class="s1f40">  </span><span class="s1770"># Loop over a slice copy of the entire list.</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s7d0">len</span><span class="s1388">(</span><span class="s7d0">w</span><span class="s1388">)</span><span class="s1f40"> </span><span class="sfa0">&gt;</span><span class="s1f40"> </span><span class="sc80">6</span><span class="s1388">:</span><span class="s1f40">
-</span><span class="s1f40">      </span><span class="s7d0">words</span><span class="sfa0">.</span><span class="s7d0">insert</span><span class="s1388">(</span><span class="sc80">0</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">w</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># words</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># [&#39;defenestrate&#39;, &#39;cat&#39;, &#39;window&#39;, &#39;defenestrate&#39;]</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="sa"></span><span class="s1">&#39;cat&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;defenestrate&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">words</span><span class="p">[:]:</span>  <span class="c1"># Loop over a slice copy of the entire list.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">:</span>
+      <span class="n">words</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+
+<span class="c1"># words</span>
+<span class="c1"># [&#39;defenestrate&#39;, &#39;cat&#39;, &#39;window&#39;, &#39;defenestrate&#39;]</span></code></pre></div>
 <p>通常使用<code>range()</code>函数生成一个等差的数字序列用于遍历。例如根据索引来迭代序列：</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s7d0">a</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c"></span><span class="sc1c">&#39;Mary&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;had&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;a&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;little&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;lamb&#39;</span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">for</span><span class="s1f40"> </span><span class="s7d0">i</span><span class="s1f40"> </span><span class="sfa0">in</span><span class="s1f40"> </span><span class="s7d0">range</span><span class="s1388">(</span><span class="s7d0">len</span><span class="s1388">(</span><span class="s7d0">a</span><span class="s1388">)):</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">print</span><span class="s1388">(</span><span class="s7d0">i</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">a</span><span class="s1388">[</span><span class="s7d0">i</span><span class="s1388">])</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># 0 Mary</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># 1 had</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># 2 a</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># 3 little</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># 4 lamb</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="sa"></span><span class="s1">&#39;Mary&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;had&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;little&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;lamb&#39;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="c1"># output：</span>
+<span class="c1"># 0 Mary</span>
+<span class="c1"># 1 had</span>
+<span class="c1"># 2 a</span>
+<span class="c1"># 3 little</span>
+<span class="c1"># 4 lamb</span></code></pre></div>
 <p>其实在这种情况下，使用<code>enumerate()</code>函数会更加方便。</p>
 
 <p><code>enumerate(iterable, start=0)</code>：返回一个枚举对象。iterable必须是序列、迭代器，或者其他支持迭代的对象。由<code>enumerate()</code>返回的迭代器的<strong>next</strong>()方法返回一个元组，该元组包括一个计数器（从 start 开始，start默认值为0）和对iterable的迭代取得的值。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">seasons</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s1388">[</span><span class="sc1c"></span><span class="sc1c">&#39;Spring&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Summer&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Fall&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Winter&#39;</span><span class="s1388">]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">list</span><span class="s1388">(</span><span class="s7d0">enumerate</span><span class="s1388">(</span><span class="s7d0">seasons</span><span class="s1388">))</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">[(</span><span class="sc80">0</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Spring&#39;</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s1388">(</span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Summer&#39;</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s1388">(</span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Fall&#39;</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s1388">(</span><span class="sc80">3</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Winter&#39;</span><span class="s1388">)]</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">list</span><span class="s1388">(</span><span class="s7d0">enumerate</span><span class="s1388">(</span><span class="s7d0">seasons</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">start</span><span class="sfa0">=</span><span class="sc80">1</span><span class="s1388">))</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">[(</span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Spring&#39;</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s1388">(</span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Summer&#39;</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s1388">(</span><span class="sc80">3</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Fall&#39;</span><span class="s1388">),</span><span class="s1f40"> </span><span class="s1388">(</span><span class="sc80">4</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;Winter&#39;</span><span class="s1388">)]</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">seasons</span> <span class="o">=</span> <span class="p">[</span><span class="sa"></span><span class="s1">&#39;Spring&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;Summer&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;Fall&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;Winter&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">seasons</span><span class="p">))</span>
+<span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;Spring&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;Summer&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;Fall&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;Winter&#39;</span><span class="p">)]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">seasons</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;Spring&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;Summer&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;Fall&#39;</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;Winter&#39;</span><span class="p">)]</span></code></pre></div>
 <p>相当于：</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s3e8">def</span><span class="s1f40"> </span><span class="s7d9">enumerate</span><span class="s1388">(</span><span class="s7d0">sequence</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">start</span><span class="sfa0">=</span><span class="sc80">0</span><span class="s1388">):</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7d0">n</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">start</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">for</span><span class="s1f40"> </span><span class="s7d0">elem</span><span class="s1f40"> </span><span class="sfa0">in</span><span class="s1f40"> </span><span class="s7d0">sequence</span><span class="s1388">:</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">yield</span><span class="s1f40"> </span><span class="s7d0">n</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">elem</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7d0">n</span><span class="s1f40"> </span><span class="sfa0">+=</span><span class="s1f40"> </span><span class="sc80">1</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">start</span>
+    <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">sequence</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">n</span><span class="p">,</span> <span class="n">elem</span>
+        <span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span></code></pre></div>
 <p>当我们打印range时，会发现结果并不是我们想的是一个列表：</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s3e8">print</span><span class="s1388">(</span><span class="s7d0">range</span><span class="s1388">(</span><span class="sc80">10</span><span class="s1388">))</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">range</span><span class="s1388">(</span><span class="sc80">0</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">10</span><span class="s1388">)</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="k">print</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span></code></pre></div>
 <p>range()返回的对象的行为在很多方面很像一个列表，但实际上它并不是列表。当你迭代它的时候它会依次返回期望序列的元素，但是它不会真正产生一个列表，因此可以节省空间。
 这样的对象称为可迭代对象（iterable）。它们适合被一些函数和构造器使用，这些函数和构造器期望可以从可迭代对象中获取连续的元素，直到没有新的元素为止。for语句就是这样的一个迭代器（iterator）。还有一个是<code>list()</code>函数，它从可迭代对象创建列表。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="sfa0">&gt;&gt;&gt;</span><span class="s1f40"> </span><span class="s7d0">list</span><span class="s1388">(</span><span class="s7d0">range</span><span class="s1388">(</span><span class="sc80">5</span><span class="s1388">))</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1388">[</span><span class="sc80">0</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">1</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">4</span><span class="s1388">]</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span></code></pre></div>
 <h3 id="break-continue和循环中的else子句">break、continue和循环中的else子句</h3>
 
 <p>break语句用于跳出最近的for或while循环。</p>
@@ -301,46 +292,44 @@
 <p>当break将控制传出带有finally子句的try语句时，在离开循环之前会执行finally子句。</p>
 
 <p>循环语句可以有一个else子句；当循环是因为迭代完整个列表(for语句)或者循环条件不成立（while语句）终止，而非由break语句终止时，else子句将被执行。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s3e8">for</span><span class="s1f40"> </span><span class="s7d0">n</span><span class="s1f40"> </span><span class="sfa0">in</span><span class="s1f40"> </span><span class="s7d0">range</span><span class="s1388">(</span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">10</span><span class="s1388">):</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">for</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="s1f40"> </span><span class="sfa0">in</span><span class="s1f40"> </span><span class="s7d0">range</span><span class="s1388">(</span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">n</span><span class="s1388">):</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s7d0">n</span><span class="s1f40"> </span><span class="sfa0">%</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1388">:</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s3e8">print</span><span class="s1388">(</span><span class="s7d0">n</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;equals&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">x</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;*&#39;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">n</span><span class="sfa0">//</span><span class="s7d0">x</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40">            </span><span class="s3e8">break</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">else</span><span class="s1388">:</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s1770"># loop fell through without finding a factor</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">print</span><span class="s1388">(</span><span class="s7d0">n</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc1c"></span><span class="sc1c">&#39;is a prime number&#39;</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output：</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sc80">2</span><span class="s1f40"> </span><span class="sfa0">is</span><span class="s1f40"> </span><span class="s7d0">a</span><span class="s1f40"> </span><span class="s7d0">prime</span><span class="s1f40"> </span><span class="s7d0">number</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sc80">3</span><span class="s1f40"> </span><span class="sfa0">is</span><span class="s1f40"> </span><span class="s7d0">a</span><span class="s1f40"> </span><span class="s7d0">prime</span><span class="s1f40"> </span><span class="s7d0">number</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sc80">4</span><span class="s1f40"> </span><span class="s7d0">equals</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sc80">5</span><span class="s1f40"> </span><span class="sfa0">is</span><span class="s1f40"> </span><span class="s7d0">a</span><span class="s1f40"> </span><span class="s7d0">prime</span><span class="s1f40"> </span><span class="s7d0">number</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sc80">6</span><span class="s1f40"> </span><span class="s7d0">equals</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sc80">7</span><span class="s1f40"> </span><span class="sfa0">is</span><span class="s1f40"> </span><span class="s7d0">a</span><span class="s1f40"> </span><span class="s7d0">prime</span><span class="s1f40"> </span><span class="s7d0">number</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sc80">8</span><span class="s1f40"> </span><span class="s7d0">equals</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s1f40"> </span><span class="sc80">4</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sc80">9</span><span class="s1f40"> </span><span class="s7d0">equals</span><span class="s1f40"> </span><span class="sc80">3</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s1f40"> </span><span class="sc80">3</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;equals&#39;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">n</span><span class="o">//</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">break</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># loop fell through without finding a factor</span>
+        <span class="k">print</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;is a prime number&#39;</span><span class="p">)</span>
+
+<span class="c1"># output：</span>
+<span class="mi">2</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">prime</span> <span class="n">number</span>
+<span class="mi">3</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">prime</span> <span class="n">number</span>
+<span class="mi">4</span> <span class="n">equals</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="mi">5</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">prime</span> <span class="n">number</span>
+<span class="mi">6</span> <span class="n">equals</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="mi">7</span> <span class="ow">is</span> <span class="n">a</span> <span class="n">prime</span> <span class="n">number</span>
+<span class="mi">8</span> <span class="n">equals</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="mi">9</span> <span class="n">equals</span> <span class="mi">3</span> <span class="o">*</span> <span class="mi">3</span></code></pre></div>
 <p>仔细看，上面的代码中else子句属于for循环，不属于if语句。</p>
 
 <p>与循环一起使用的else子句更类似于try语句的else子句而不是if语句的else子句：try语句的else子句在没有任何异常发生时运行，而循环的else子句在没有break发生时运行。</p>
 
 <p>continue语句表示继续下一次迭代：</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s3e8">for</span><span class="s1f40"> </span><span class="s7d0">num</span><span class="s1f40"> </span><span class="sfa0">in</span><span class="s1f40"> </span><span class="s7d0">range</span><span class="s1388">(</span><span class="sc80">2</span><span class="s1388">,</span><span class="s1f40"> </span><span class="sc80">10</span><span class="s1388">):</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">if</span><span class="s1f40"> </span><span class="s7d0">num</span><span class="s1f40"> </span><span class="sfa0">%</span><span class="s1f40"> </span><span class="sc80">2</span><span class="s1f40"> </span><span class="sfa0">==</span><span class="s1f40"> </span><span class="sc80">0</span><span class="s1388">:</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">print</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#34;Found an even number&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">num</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s3e8">continue</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">print</span><span class="s1388">(</span><span class="sc1c"></span><span class="sc1c">&#34;Found a number&#34;</span><span class="s1388">,</span><span class="s1f40"> </span><span class="s7d0">num</span><span class="s1388">)</span><span class="s1f40">
-</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># output</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># Found an even number 2</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># Found a number 3</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># Found an even number 4</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># Found a number 5</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># Found an even number 6</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># Found a number 7</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># Found an even number 8</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770"># Found a number 9</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;Found an even number&#34;</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+        <span class="k">continue</span>
+    <span class="k">print</span><span class="p">(</span><span class="sa"></span><span class="s2">&#34;Found a number&#34;</span><span class="p">,</span> <span class="n">num</span><span class="p">)</span>
+
+<span class="c1"># output</span>
+<span class="c1"># Found an even number 2</span>
+<span class="c1"># Found a number 3</span>
+<span class="c1"># Found an even number 4</span>
+<span class="c1"># Found a number 5</span>
+<span class="c1"># Found an even number 6</span>
+<span class="c1"># Found a number 7</span>
+<span class="c1"># Found an even number 8</span>
+<span class="c1"># Found a number 9</span></code></pre></div>
 <p>continue在语法上只可以出现在for或while循环中，但不能嵌套在这些循环内的函数定义、类定义和finally子句中。它继续最内层循环的下一轮。</p>
 
 <p>当continue将控制传出带有finally子句的try语句时，在真正开始下一轮循环之前会执行finally子句。</p>
@@ -350,9 +339,8 @@
 <p>pass语句什么也不做。它用于语法上必须要有一条语句，但程序什么也不需要做的场合。通常在编写新代码时作为函数体或控制体的占位符。</p>
 
 <p>它也通常用于创建最小的类：</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="s3e8">class</span><span class="s1f40"> </span><span class="s7d4">MyEmptyClass</span><span class="s1388">:</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s3e8">pass</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="k">class</span> <span class="nc">MyEmptyClass</span><span class="p">:</span>
+    <span class="k">pass</span></code></pre></div>
 <hr />
 
 <p>参考资料：</p>
@@ -367,7 +355,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>214</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>218</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

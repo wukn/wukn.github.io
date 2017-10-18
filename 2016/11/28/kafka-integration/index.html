@@ -33,7 +33,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.29" />
+<meta name="generator" content="Hugo 0.30" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/28/kafka-integration/" />
@@ -193,7 +193,7 @@
   <section class="main post-detail">
     <header class="post-header">
       <h1 class="post-title">[译][Kafka]集成Kafka</h1>
-      <p class="post-meta">@wukn · Nov 28, 2016 · 2 min read</p>
+      <p class="post-meta">@wukn · Nov 28, 2016 · 3 min read</p>
     </header>
     <article class="post-content"><blockquote>
 <p>《Learing Apache Kafka-Second Edition》</p>
@@ -240,58 +240,53 @@
 参数<code>brokerZkStr</code>可以是<code>localhost:9092</code>；参数<code>brokerZkPath</code>是topic和partition信息存储的根目录，默认值是<code>/brokers</code>。</p>
 
 <p><code>StaticHosts</code>用于静态分区信息：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s1770">//localhost:9092. Uses default port as 9092.
-</span><span class="s1770"></span><span class="s7d0">Broker</span><span class="s1f40"> </span><span class="s7d0">brokerPartition0</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Broker</span><span class="sfa0">(</span><span class="sc1c">&#34;localhost&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770">//localhost:9092. Takes the port explicitly
-</span><span class="s1770"></span><span class="s7d0">Broker</span><span class="s1f40"> </span><span class="s7d0">brokerPartition1</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Broker</span><span class="sfa0">(</span><span class="sc1c">&#34;localhost&#34;</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">9092</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770">//localhost:9092 specified as one string.
-</span><span class="s1770"></span><span class="s7d0">Broker</span><span class="s1f40"> </span><span class="s7d0">brokerPartition2</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">Broker</span><span class="sfa0">(</span><span class="sc1c">&#34;localhost:9092&#34;</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">GlobalPartitionInformation</span><span class="s1f40"> </span><span class="s7d0">partitionInfo</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">GlobalPartitionInformation</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770">//mapping form partition 0 to brokerPartition0
-</span><span class="s1770"></span><span class="s7d0">partitionInfo</span><span class="sfa0">.</span><span class="s7d1">addPartition</span><span class="sfa0">(</span><span class="s7d0">0</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">brokerPartition0</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770">//mapping form partition 1 to brokerPartition1
-</span><span class="s1770"></span><span class="s7d0">partitionInfo</span><span class="sfa0">.</span><span class="s7d1">addPartition</span><span class="sfa0">(</span><span class="s7d0">1</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">brokerPartition1</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770">//mapping form partition 2 to brokerPartition2
-</span><span class="s1770"></span><span class="s7d0">partitionInfo</span><span class="sfa0">.</span><span class="s7d1">addPartition</span><span class="sfa0">(</span><span class="s7d0">2</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">brokerPartition2</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">StaticHosts</span><span class="s1f40"> </span><span class="s7d0">hosts</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">StaticHosts</span><span class="sfa0">(</span><span class="s7d0">partitionInfo</span><span class="sfa0">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//localhost:9092. Uses default port as 9092.
+</span><span class="c1"></span><span class="n">Broker</span> <span class="n">brokerPartition0</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Broker</span><span class="o">(</span><span class="s">&#34;localhost&#34;</span><span class="o">);</span>
+<span class="c1">//localhost:9092. Takes the port explicitly
+</span><span class="c1"></span><span class="n">Broker</span> <span class="n">brokerPartition1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Broker</span><span class="o">(</span><span class="s">&#34;localhost&#34;</span><span class="o">,</span> <span class="n">9092</span><span class="o">);</span>
+<span class="c1">//localhost:9092 specified as one string.
+</span><span class="c1"></span><span class="n">Broker</span> <span class="n">brokerPartition2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Broker</span><span class="o">(</span><span class="s">&#34;localhost:9092&#34;</span><span class="o">);</span>
+<span class="n">GlobalPartitionInformation</span> <span class="n">partitionInfo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">GlobalPartitionInformation</span><span class="o">();</span>
+<span class="c1">//mapping form partition 0 to brokerPartition0
+</span><span class="c1"></span><span class="n">partitionInfo</span><span class="o">.</span><span class="na">addPartition</span><span class="o">(</span><span class="n">0</span><span class="o">,</span> <span class="n">brokerPartition0</span><span class="o">);</span>
+<span class="c1">//mapping form partition 1 to brokerPartition1
+</span><span class="c1"></span><span class="n">partitionInfo</span><span class="o">.</span><span class="na">addPartition</span><span class="o">(</span><span class="n">1</span><span class="o">,</span> <span class="n">brokerPartition1</span><span class="o">);</span>
+<span class="c1">//mapping form partition 2 to brokerPartition2
+</span><span class="c1"></span><span class="n">partitionInfo</span><span class="o">.</span><span class="na">addPartition</span><span class="o">(</span><span class="n">2</span><span class="o">,</span> <span class="n">brokerPartition2</span><span class="o">);</span>
+<span class="n">StaticHosts</span> <span class="n">hosts</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StaticHosts</span><span class="o">(</span><span class="n">partitionInfo</span><span class="o">);</span></code></pre></div>
 <p>创建StaticHosts实例时，首先要创建GlobalPartitionInformation实例，其次是KafkaConfig实例用来构造Kafka spout：
 * <code>public KafkaConfig(BrokerHosts hosts, String topic)</code>
 * <code>public KafkaConfig(BrokerHosts hosts, String topic, String clientId)</code>
 参数<code>BrokerHosts</code>为Kafka broker列表；参数<code>topic</code>为topic名称；参数<code>clientId</code>被用做ZooKeeper路径的一部分，spout作为consumer在ZooKeeper中存储当前消费的offset。</p>
 
 <p><code>KafkaConfig</code>类还有一些public类型的变量，用于控制应用的行为和spout从Kafka集群获取消息的方式：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">fetchSizeBytes</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">1024</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s1f40"> </span><span class="s7d0">1024</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">socketTimeoutMs</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">10000</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">fetchMaxWait</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">10000</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">bufferSizeBytes</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">1024</span><span class="s1f40"> </span><span class="sfa0">*</span><span class="s1f40"> </span><span class="s7d0">1024</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s7d0">MultiScheme</span><span class="s1f40"> </span><span class="s7d0">scheme</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">RawMultiScheme</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">boolean</span><span class="s1f40"> </span><span class="s7d0">forceFromStart</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">false</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">long</span><span class="s1f40"> </span><span class="s7d0">startOffsetTime</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">kafka</span><span class="sfa0">.</span><span class="s7d1">api</span><span class="sfa0">.</span><span class="s7d1">OffsetRequest</span><span class="sfa0">.</span><span class="s7d1">EarliestTime</span><span class="sfa0">();</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">long</span><span class="s1f40"> </span><span class="s7d0">maxOffsetBehind</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">Long</span><span class="sfa0">.</span><span class="s7d1">MAX_VALUE</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">boolean</span><span class="s1f40"> </span><span class="s7d0">useStartOffsetTimeIfOffsetOutOfRange</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">true</span><span class="sfa0">;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s3e8">public</span><span class="s1f40"> </span><span class="s3e8">int</span><span class="s1f40"> </span><span class="s7d0">metricsTimeBucketSizeInSecs</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s7d0">60</span><span class="sfa0">;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">int</span> <span class="n">fetchSizeBytes</span> <span class="o">=</span> <span class="n">1024</span> <span class="o">*</span> <span class="n">1024</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="n">socketTimeoutMs</span> <span class="o">=</span> <span class="n">10000</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="n">fetchMaxWait</span> <span class="o">=</span> <span class="n">10000</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="n">bufferSizeBytes</span> <span class="o">=</span> <span class="n">1024</span> <span class="o">*</span> <span class="n">1024</span><span class="o">;</span>
+<span class="kd">public</span> <span class="n">MultiScheme</span> <span class="n">scheme</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RawMultiScheme</span><span class="o">();</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="n">forceFromStart</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kt">long</span> <span class="n">startOffsetTime</span> <span class="o">=</span> <span class="n">kafka</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">OffsetRequest</span><span class="o">.</span><span class="na">EarliestTime</span><span class="o">();</span>
+<span class="kd">public</span> <span class="kt">long</span> <span class="n">maxOffsetBehind</span> <span class="o">=</span> <span class="n">Long</span><span class="o">.</span><span class="na">MAX_VALUE</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="n">useStartOffsetTimeIfOffsetOutOfRange</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kt">int</span> <span class="n">metricsTimeBucketSizeInSecs</span> <span class="o">=</span> <span class="n">60</span><span class="o">;</span></code></pre></div>
 <p><code>Spoutconfig</code>类扩展了<code>KafkaConfig</code>类：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s3e8">public</span><span class="s1f40"> </span><span class="s7d9">SpoutConfig</span><span class="s1f40"></span><span class="sfa0">(</span><span class="s7d0">BrokerHosts</span><span class="s1f40"> </span><span class="s7d0">hosts</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">topic</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">zkRoot</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">String</span><span class="s1f40"> </span><span class="s7d0">id</span><span class="sfa0">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">SpoutConfig</span><span class="o">(</span><span class="n">BrokerHosts</span> <span class="n">hosts</span><span class="o">,</span> <span class="n">String</span> <span class="n">topic</span><span class="o">,</span> <span class="n">String</span> <span class="n">zkRoot</span><span class="o">,</span> <span class="n">String</span> <span class="n">id</span><span class="o">);</span></code></pre></div>
 <p>参数<code>zkRoot</code>为ZooKeeper的根路径；参数<code>id</code>为spout的唯一标识。</p>
 
 <p>初始化<code>KafkaSpout</code>实例的代码如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s1770">// Creating instance for BrokerHosts interface implementation
-</span><span class="s1770"></span><span class="s7d0">BrokerHosts</span><span class="s1f40"> </span><span class="s7d0">hosts</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">ZkHosts</span><span class="sfa0">(</span><span class="s7d0">brokerZkConnString</span><span class="sfa0">);</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="sfa0">/</span><span class="s1f40"> </span><span class="s7d0">Creating</span><span class="s1f40"> </span><span class="s7d0">instance</span><span class="s1f40"> </span><span class="s7d0">of</span><span class="s1f40"> </span><span class="s7d0">SpoutConfig</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7d0">SpoutConfig</span><span class="s1f40"> </span><span class="s7d0">spoutConfig</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">SpoutConfig</span><span class="sfa0">(</span><span class="s7d0">brokerHosts</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">topicName</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="sc1c">&#34;/&#34;</span><span class="s1f40"> </span><span class="sfa0">+</span><span class="s1f40"> </span><span class="s7d0">topicName</span><span class="sfa0">,</span><span class="s1f40"> </span><span class="s7d0">UUID</span><span class="sfa0">.</span><span class="s7d1">randomUUID</span><span class="sfa0">().</span><span class="s7d1">toString</span><span class="sfa0">());</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770">// Defines how the byte[] consumed from kafka gets transformed into a storm tuple
-</span><span class="s1770"></span><span class="s7d0">spoutConfig</span><span class="sfa0">.</span><span class="s7d1">scheme</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">SchemeAsMultiScheme</span><span class="sfa0">(</span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">StringScheme</span><span class="sfa0">());</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s1770">// Creating instance of KafkaSpout
-</span><span class="s1770"></span><span class="s7d0">KafkaSpout</span><span class="s1f40"> </span><span class="s7d0">kafkaSpout</span><span class="s1f40"> </span><span class="sfa0">=</span><span class="s1f40"> </span><span class="s3e8">new</span><span class="s1f40"> </span><span class="s7d0">KafkaSpout</span><span class="sfa0">(</span><span class="s7d0">spoutConfig</span><span class="sfa0">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">// Creating instance for BrokerHosts interface implementation
+</span><span class="c1"></span><span class="n">BrokerHosts</span> <span class="n">hosts</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZkHosts</span><span class="o">(</span><span class="n">brokerZkConnString</span><span class="o">);</span>
+<span class="o">/</span> <span class="n">Creating</span> <span class="n">instance</span> <span class="n">of</span> <span class="n">SpoutConfig</span>
+<span class="n">SpoutConfig</span> <span class="n">spoutConfig</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SpoutConfig</span><span class="o">(</span><span class="n">brokerHosts</span><span class="o">,</span> <span class="n">topicName</span><span class="o">,</span> <span class="s">&#34;/&#34;</span> <span class="o">+</span> <span class="n">topicName</span><span class="o">,</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+<span class="c1">// Defines how the byte[] consumed from kafka gets transformed into a storm tuple
+</span><span class="c1"></span><span class="n">spoutConfig</span><span class="o">.</span><span class="na">scheme</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SchemeAsMultiScheme</span><span class="o">(</span><span class="k">new</span> <span class="n">StringScheme</span><span class="o">());</span>
+<span class="c1">// Creating instance of KafkaSpout
+</span><span class="c1"></span><span class="n">KafkaSpout</span> <span class="n">kafkaSpout</span> <span class="o">=</span> <span class="k">new</span> <span class="n">KafkaSpout</span><span class="o">(</span><span class="n">spoutConfig</span><span class="o">);</span></code></pre></div>
 <p><img src="https://wukn.github.io/img/post/kafka/integration/storm-integrate-kafka.png" alt="" /></p>
 
 <p>Kafka spout与Storm使用同一个ZooKeeper实例，来存储offset的状态和记录已经消费的segment。这些offset被存储在ZooKeeper指定的根路径下。kafka spout在下游故障或超时时使用这些offset来重新处理tuple。spout可以倒回到之前的offset而不是从最后保存的offset开始，Kafka根据指定的时间戳来选择offset：</p>
-<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="s7d0">spoutConfig</span><span class="sfa0">.</span><span class="s7d1">forceStartOffsetTime</span><span class="sfa0">(</span><span class="s7d0">TIMESTAMP</span><span class="sfa0">);</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">spoutConfig</span><span class="o">.</span><span class="na">forceStartOffsetTime</span><span class="o">(</span><span class="n">TIMESTAMP</span><span class="o">);</span></code></pre></div>
 <p>这里，值<code>-1</code>强制spout从最新的offset重启；值<code>-2</code>强制spout从最早的offset重启。</p>
 
 <h3 id="hadoop集成kafka">Hadoop集成Kafka</h3>
@@ -329,10 +324,9 @@
 <li>下载<a href="http://mirrors.hust.edu.cn/apache/hadoop/common/">Hadoop Common</a></li>
 <li>解压缩后，bin文件夹添加到<code>PATH</code>中</li>
 </ol>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1770">#Assuming your installation directory is /opt/Hadoop
-</span><span class="s1770"></span><span class="s7d0">export</span><span class="s1f40"> </span><span class="s7d0">HADOOP_HOME</span><span class="s1f40"></span><span class="sfa0">=</span><span class="s1f40">/opt/hadoop
-</span><span class="s1f40"></span><span class="s7d0">export</span><span class="s1f40"> </span><span class="s7d0">PATH</span><span class="s1f40"></span><span class="sfa0">=</span><span class="s7d0">$PATH</span><span class="s1f40">:</span><span class="s7d0">$HADOOP</span><span class="s1f40"> HOME/bin</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="c1">#Assuming your installation directory is /opt/Hadoop
+</span><span class="c1"></span><span class="nb">export</span> <span class="nv">HADOOP_HOME</span><span class="o">=</span>/opt/hadoop
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$HADOOP</span> HOME/bin</code></pre></div>
 <ol>
 <li>配置文件<code>etc/hadoop/core-site.xml</code>：
 <code>xml
@@ -345,32 +339,27 @@
 </code>
 配置文件<code>etc/hadoop/hdfs-site.xml</code>：</li>
 </ol>
-<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="s7e2">&lt;configuration&gt;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7e2">&lt;property&gt;</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7e2">&lt;name&gt;</span><span class="s1f40">dfs.replication</span><span class="s7e2">&lt;/name&gt;</span><span class="s1f40">
-</span><span class="s1f40">        </span><span class="s7e2">&lt;value&gt;</span><span class="s1f40">1</span><span class="s7e2">&lt;/value&gt;</span><span class="s1f40">
-</span><span class="s1f40">    </span><span class="s7e2">&lt;/property&gt;</span><span class="s1f40">
-</span><span class="s1f40"></span><span class="s7e2">&lt;/configuration&gt;</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;property&gt;</span>
+        <span class="nt">&lt;name&gt;</span>dfs.replication<span class="nt">&lt;/name&gt;</span>
+        <span class="nt">&lt;value&gt;</span>1<span class="nt">&lt;/value&gt;</span>
+    <span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span></code></pre></div>
 <ol>
 <li>ssh无密码连接到localhost：</li>
 </ol>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">ssh localhost</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">ssh localhost</code></pre></div>
 <p>如果ssh不能无密码连接localhost，执行以下命令：</p>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">ssh-keygen -t dsa -P </span><span class="sc1c">&#39;&#39;</span><span class="s1f40"> -f ~/.ssh/id_dsa
-</span><span class="s1f40">cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">ssh-keygen -t dsa -P <span class="s1">&#39;&#39;</span> -f ~/.ssh/id_dsa
+cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys</code></pre></div>
 <ol>
 <li>格式化文件系统</li>
 </ol>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">bin/hdfs namenode -format</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">bin/hdfs namenode -format</code></pre></div>
 <ol>
 <li>启动守护进程NameNode和DataNode：</li>
 </ol>
-<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash"><span class="s1f40">sbin/start-dfs.sh</span></code></pre>
-</div>
+<div class="highlight"><pre class="chroma"><code class="language-bash" data-lang="bash">sbin/start-dfs.sh</code></pre></div>
 <ol>
 <li>Hadoop集群设置完毕，所在Web浏览器中通过<code>http://localhost:50070/</code>访问NameNode。</li>
 </ol>
@@ -445,7 +434,7 @@ STORE member_info INTO 'kafka://localhost:9092/member_info' USING kafka.bridge.A
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>320</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>324</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
