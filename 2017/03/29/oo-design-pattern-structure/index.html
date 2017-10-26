@@ -27,7 +27,7 @@
     <meta name="twitter:description" content=" 结构型模式用于处理类或对象的组合。
  
 " />
-    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="http://wukn.github.io/img/avatar.jpg" />
   
 
 
@@ -36,8 +36,8 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="https://wukn.github.io/2017/03/29/oo-design-pattern-structure/" />
-<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+<link rel="canonical" href="http://wukn.github.io/2017/03/29/oo-design-pattern-structure/" />
+<link rel="alternative" href="http://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -62,18 +62,18 @@
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="http://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="http://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="http://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="http://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="http://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="http://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+<link rel="stylesheet" href="http://wukn.github.io/css/bundle.css" />
 
 
   
@@ -106,7 +106,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="http://wukn.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">wukn blog</h2>
   
@@ -121,13 +121,13 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item  is-active"><a href="http://wukn.github.io/">Home</a></li>
       
         <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item "><a href="http://wukn.github.io/tags">Tags</a></li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item "><a href="http://wukn.github.io/about/">About</a></li>
       
     </ul>
   </nav>
@@ -171,7 +171,7 @@
       
 
       <li class="social-item">
-        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="http://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -183,7 +183,7 @@
       
 
       <li class="social-item">
-        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="http://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -211,7 +211,7 @@
 
 <p>需要修改或屏蔽某一个或若干个类的部分功能，复用另外一部分功能，可使用静态代理。若是需要拦截一批类中的某些方法，在方法的前后插入一些一致的操作，假设这些类有一致的接口，可使用JDK的动态代理或cglib。（动态代理没看过啊，Hibernate中好像用到了吧）</p>
 
-<p><img src="https://wukn.github.io/img/post/design-pattern/proxy.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/design-pattern/proxy.png" alt="" /></p>
 
 <p>Proxy保存一个引用使得代理可以访问实体。若RealSubject和Subject接口相同，Proxy会引用Subject；Proxy具有与Subject的接口相同的接口；Proxy控制对实体的存取，并可能负责创建和删除它。Subject定义RealSubject和Proxy的共用接口，这样就能在任何使用RealSubject的地方使用Proxy。RealSubject为定义21Proxy所代表的实体。</p>
 
@@ -235,11 +235,11 @@
 
 <p>类适配器使用多重继承对一个接口与另一个接口进行匹配：</p>
 
-<p><img src="https://wukn.github.io/img/post/design-pattern/class-adapter.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/design-pattern/class-adapter.png" alt="" /></p>
 
 <p>对象适配器依赖于对象组合：</p>
 
-<p><img src="https://wukn.github.io/img/post/design-pattern/object-adapter.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/design-pattern/object-adapter.png" alt="" /></p>
 
 <p>Target定义Client使用的与特定领域相关的接口。Client与符合Target接口的对象协同。Adaptee定义一个已存在的接口，这个接口需要适配。Adapter对Adaptee接口与Target接口进行适配。</p>
 
@@ -261,7 +261,7 @@
 <li>当不能采用生成子类的方法进行扩充时。一种情况是，可能有大量独立的扩展，为支持每一种组合将产生大量的子类，使得子类数目呈爆炸增长。另一种情况可能是因为类定义被隐藏，或类定义不能用于生成子类。</li>
 </ul>
 
-<p><img src="https://wukn.github.io/img/post/design-pattern/decorator.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/design-pattern/decorator.png" alt="" /></p>
 
 <p>Component定义一个对象接口，可以给这些对象动态地添加职责。ConcreteComponent定义一个对象，可以给这个对象添加一些职责。Decorator记录一个指向Component对象的引用，并定义一个与Component接口一致的接口。ConcreteDecorator负责向组件添加职责。Decorator将请求转发给他的Component对象，并有可能在转发请求前后执行一些附加的动作。</p>
 
@@ -286,7 +286,7 @@
 <li>想在多个对象之间共享实现，但同时要求用户不知道这一点。</li>
 </ul>
 
-<p><img src="https://wukn.github.io/img/post/design-pattern/bridge.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/design-pattern/bridge.png" alt="" /></p>
 
 <p>Abstration定义抽象类的接口，并维护一个指向Implementor类型对象的引用。RefinedAbstraction扩充由Abstration定义的接口。Implementor定义实现类的接口，该接口不一定要与Abstraction的接口完全一致，事实上这两个接口可以完全不同；一般来讲，Implementor接口仅提供基本的操作，而Abstraction则定义了基于这些基本操作的较高层次的操作。ConcreteImplementor实现Implementor接口并定义它的具体实现。</p>
 
@@ -309,7 +309,7 @@
 <li>希望用户忽略组合对象与单个对象的不同，用户将统一地使用组合结构中的所有对象。</li>
 </ul>
 
-<p><img src="https://wukn.github.io/img/post/design-pattern/composite.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/design-pattern/composite.png" alt="" /></p>
 
 <p>Component为组合中的对象声明接口，并在适当的情况下实现所有类共有接口的默认行为，（可选）在递归结构中定义一个接口用于访问一个父部件并在合适的情况下实现它。Leaf在组合中表示叶节点对象，叶节点没有子节点。Composite定义有子部件的那些部件的行为，它需要存储子部件，并在Component接口中实现与子部件有关的操作。</p>
 
@@ -325,7 +325,7 @@
 
 <p>外观模式跟中介者模式很类似，都是为了处理复杂的耦合关系，不同的是外观模式处理的是类之间复杂的依赖关系，中介者模式处理的是对象之间复杂的交互关系。</p>
 
-<p><img src="https://wukn.github.io/img/post/design-pattern/facade.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/design-pattern/facade.png" alt="" /></p>
 
 <p>Facade类知道哪些子系统类负责处理请求，它将用户的请求代理给适当的子系统对象。子系统类对象负责实现子系统的功能，它们处理由Facade对象指派的任务。子系统对象没有facade的任何相关信息。</p>
 
@@ -345,7 +345,7 @@
 <li>应用程序不依赖于对象标识</li>
 </ul>
 
-<p><img src="https://wukn.github.io/img/post/design-pattern/flyweight.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/design-pattern/flyweight.png" alt="" /></p>
 
 <p>Flyweight描述一个接口，通过这个接口flyweight可以接受并作用于外部状态。ConcreteFlyweight实现Flyweight接口，ConcreteFlyweight对象必须是可共享的，它所存储的状态必须是内部的，即它必须独立于ConcreteFlyweight对象的场景。并非所有的Flyweight子类都需要被共享，FlyWeight接口使共享成为可能，但他并不强制共享。在Flyweight对象结构的某些层次，UnsharedConcreteFlyweight通常将ConcreteFlyweight对象作为子节点。FlyweightFactory创建并管理flyweight对象，确保合理地共享flyweight。Client维持一个对flyweight的引用，计算或存储一个（多个）flyweight的外部状态。</p>
 
@@ -376,7 +376,7 @@
       
       <ul class="post-tags">
         
-          <li><a href="https://wukn.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="tag">设计模式</span></a></li>
+          <li><a href="http://wukn.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="tag">设计模式</span></a></li>
         
       </ul>
       
@@ -399,7 +399,7 @@
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
 
 
-<script src="https://wukn.github.io/js/bundle.js"></script>
+<script src="http://wukn.github.io/js/bundle.js"></script>
 
 
 <script>

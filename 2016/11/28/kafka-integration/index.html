@@ -27,7 +27,7 @@
     <meta name="twitter:description" content=" 《Learing Apache Kafka-Second Edition》
  
 " />
-    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="http://wukn.github.io/img/avatar.jpg" />
   
 
 
@@ -36,8 +36,8 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="https://wukn.github.io/2016/11/28/kafka-integration/" />
-<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+<link rel="canonical" href="http://wukn.github.io/2016/11/28/kafka-integration/" />
+<link rel="alternative" href="http://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -62,18 +62,18 @@
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="http://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="http://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="http://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="http://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="http://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="http://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+<link rel="stylesheet" href="http://wukn.github.io/css/bundle.css" />
 
 
   
@@ -106,7 +106,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="http://wukn.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">wukn blog</h2>
   
@@ -121,13 +121,13 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item  is-active"><a href="http://wukn.github.io/">Home</a></li>
       
         <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item "><a href="http://wukn.github.io/tags">Tags</a></li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item "><a href="http://wukn.github.io/about/">About</a></li>
       
     </ul>
   </nav>
@@ -171,7 +171,7 @@
       
 
       <li class="social-item">
-        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="http://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -183,7 +183,7 @@
       
 
       <li class="social-item">
-        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="http://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -213,7 +213,7 @@
 * Spout：源源不断的数据流。
 * Bolt：spout将数据传递给bolt。所有的数据处理都是由bolt完成，如数据的过滤、聚合、计算、存储等。</p>
 
-<p><img src="https://wukn.github.io/img/post/kafka/integration/storm.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/kafka/integration/storm.png" alt="" /></p>
 
 <p>我们可以将Storm看成很多bolt组成的链，每个bolt对spout提供的数据流进行一些处理。</p>
 
@@ -283,7 +283,7 @@
 </span><span class="c1"></span><span class="n">spoutConfig</span><span class="o">.</span><span class="na">scheme</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SchemeAsMultiScheme</span><span class="o">(</span><span class="k">new</span> <span class="n">StringScheme</span><span class="o">());</span>
 <span class="c1">// Creating instance of KafkaSpout
 </span><span class="c1"></span><span class="n">KafkaSpout</span> <span class="n">kafkaSpout</span> <span class="o">=</span> <span class="k">new</span> <span class="n">KafkaSpout</span><span class="o">(</span><span class="n">spoutConfig</span><span class="o">);</span></code></pre></div>
-<p><img src="https://wukn.github.io/img/post/kafka/integration/storm-integrate-kafka.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/kafka/integration/storm-integrate-kafka.png" alt="" /></p>
 
 <p>Kafka spout与Storm使用同一个ZooKeeper实例，来存储offset的状态和记录已经消费的segment。这些offset被存储在ZooKeeper指定的根路径下。kafka spout在下游故障或超时时使用这些offset来重新处理tuple。spout可以倒回到之前的offset而不是从最后保存的offset开始，Kafka根据指定的时间戳来选择offset：</p>
 <div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">spoutConfig</span><span class="o">.</span><span class="na">forceStartOffsetTime</span><span class="o">(</span><span class="n">TIMESTAMP</span><span class="o">);</span></code></pre></div>
@@ -299,7 +299,7 @@
 
 <p>Hadoop基于MapReduce框架，MapReduce提供了并行分布式大规模计算借口。Hadoop有它自己的分布式文件系统HDFS（Hadoop Distributed File System）。在典型的Hadoop集群中，HDFS将数据分成很小的块（称为block）分布到所有的节点中，同时也会为每个block建立副本以确保有节点失效时仍能从其他节点读取到数据。</p>
 
-<p><img src="https://wukn.github.io/img/post/kafka/integration/hadoop.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/kafka/integration/hadoop.png" alt="" /></p>
 
 <p>Hadoop有以下组件：
 * Name Node：这是一个与HDFS交互的单点。name node中存储数据block在节点中的分布信息。
@@ -372,7 +372,7 @@ cat ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys</code></pre></div>
 
 <p>Hadoop producer提供了从Hadoop集群向Kafka发布数据的桥梁：</p>
 
-<p><img src="https://wukn.github.io/img/post/kafka/integration/hadoop-integrate-kafka-producer.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/kafka/integration/hadoop-integrate-kafka-producer.png" alt="" /></p>
 
 <p>Kafka中topic可看作URI，连接到指定Kafka broker的URI格式为：</p>
 
@@ -407,7 +407,7 @@ STORE member_info INTO 'kafka://localhost:9092/member_info' USING kafka.bridge.A
 
 <p>Hadoop consumer是一个从Kafka broker拉取数据并推送到HDFS中的Hadoop job。</p>
 
-<p><img src="https://wukn.github.io/img/post/kafka/integration/hadoop-integrate-kafka-consumer.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/kafka/integration/hadoop-integrate-kafka-consumer.png" alt="" /></p>
 
 <p>一个Hadoop job并行地将Kafka数据写到HDFS中，加载数据的mapper数量取决于输入文件夹中文件的数量。输出文件夹中包括来自Kafka的数据和更新的topic offset。每个mapper在map task结束时将最后消费的消息offset写入HDFS。如果job是被或者被重启，每个mapper只是从HDFS中存储的offset处开始读取。</p>
 
@@ -429,7 +429,7 @@ STORE member_info INTO 'kafka://localhost:9092/member_info' USING kafka.bridge.A
       
       <ul class="post-tags">
         
-          <li><a href="https://wukn.github.io/tags/kafka"><span class="tag">Kafka</span></a></li>
+          <li><a href="http://wukn.github.io/tags/kafka"><span class="tag">Kafka</span></a></li>
         
       </ul>
       
@@ -452,7 +452,7 @@ STORE member_info INTO 'kafka://localhost:9092/member_info' USING kafka.bridge.A
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
 
 
-<script src="https://wukn.github.io/js/bundle.js"></script>
+<script src="http://wukn.github.io/js/bundle.js"></script>
 
 
 <script>

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Architecture on wukn blog</title>
-    <link>https://wukn.github.io/tags/architecture/</link>
+    <link>http://wukn.github.io/tags/architecture/</link>
     <description>Recent content in Architecture on wukn blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     <lastBuildDate>Sun, 06 Aug 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://wukn.github.io/tags/architecture/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://wukn.github.io/tags/architecture/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>恰如其分的软件架构</title>
-      <link>https://wukn.github.io/2017/08/06/properly-architecture/</link>
+      <link>http://wukn.github.io/2017/08/06/properly-architecture/</link>
       <pubDate>Sun, 06 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/08/06/properly-architecture/</guid>
+      <guid>http://wukn.github.io/2017/08/06/properly-architecture/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;恰如其分的软件架构&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>[译][软件架构模式]-基于空间的架构Space-based Architecture</title>
-      <link>https://wukn.github.io/2016/10/21/space-based-architecture/</link>
+      <link>http://wukn.github.io/2016/10/21/space-based-architecture/</link>
       <pubDate>Fri, 21 Oct 2016 04:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/21/space-based-architecture/</guid>
+      <guid>http://wukn.github.io/2016/10/21/space-based-architecture/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;大部分Web应用的处理流程为：浏览器发起的请求精经过Web服务器、应用服务器和数据库服务器的处理。当用户量不大时这样的模式没有任何问题。但随着用户访问量的增加，系统开始出现性能瓶颈，首先是Web服务器层，其次是应用服务器层，最后是数据库服务器层。处理的措施通常是水平扩展Web服务器。这是比较容易实现的。但是用户量过大时，水平扩展Web服务层后，瓶颈会转移到应用服务层。应用服务层的水平扩展相对比较复杂一些了，也会导致瓶颈转移到数据库服务层。而数据库服务层扩展起来代价更高。&lt;/p&gt;
 
@@ -42,10 +42,10 @@
     
     <item>
       <title>[译][软件架构模式]-微服务架构Microservices Architecture</title>
-      <link>https://wukn.github.io/2016/10/21/microservices-architecture/</link>
+      <link>http://wukn.github.io/2016/10/21/microservices-architecture/</link>
       <pubDate>Fri, 21 Oct 2016 03:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/21/microservices-architecture/</guid>
+      <guid>http://wukn.github.io/2016/10/21/microservices-architecture/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;微服务架构是个正在快速发展的架构，可替代独立应用程序和面向服务架构（service-oriented architecture）。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -55,10 +55,10 @@
     
     <item>
       <title>[译][软件架构模式]-微内核架构Microkernel Architecture</title>
-      <link>https://wukn.github.io/2016/10/21/microkernel-architecture/</link>
+      <link>http://wukn.github.io/2016/10/21/microkernel-architecture/</link>
       <pubDate>Fri, 21 Oct 2016 02:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/21/microkernel-architecture/</guid>
+      <guid>http://wukn.github.io/2016/10/21/microkernel-architecture/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;微内核架构有时也被成为插件架构模式（plug-in architecture pattern），通常用于实现基于产品的应用，如Eclipse和Firefox。然而许多公司也将内部的业务软件做成软件产品，提供版本、发版说明和插件特性。微内核架构模式通过插件向核心应用添加额外的功能，提供了可扩展性和功能的独立和分离。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -68,10 +68,10 @@
     
     <item>
       <title>[译][软件架构模式]-事件驱动架构Event-Driven Architecture</title>
-      <link>https://wukn.github.io/2016/10/21/event-driven-architecture/</link>
+      <link>http://wukn.github.io/2016/10/21/event-driven-architecture/</link>
       <pubDate>Fri, 21 Oct 2016 01:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/21/event-driven-architecture/</guid>
+      <guid>http://wukn.github.io/2016/10/21/event-driven-architecture/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;事件驱动架构是个流行的分布式异步架构模式，用于构建高伸缩性的应用。它有很高的适应性，既适用于小型应用，也适合大型复杂应用。事件驱动架构是由高度解耦的、目标单一、可异步接收和处理事件的组件组成。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -81,10 +81,10 @@
     
     <item>
       <title>[译][软件架构模式]-分层架构Layered Architecture</title>
-      <link>https://wukn.github.io/2016/10/21/layered-architecture/</link>
+      <link>http://wukn.github.io/2016/10/21/layered-architecture/</link>
       <pubDate>Fri, 21 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/21/layered-architecture/</guid>
+      <guid>http://wukn.github.io/2016/10/21/layered-architecture/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;分层架构模式是最常用的架构模式，也被成为N层架构模式。大部分架构师、设计者、开发者都熟知该模式。它与传统的IT通信和组织结构十分匹配，因此大部分业务应用开发自然而然选择它。&lt;/p&gt;
 &lt;/blockquote&gt;

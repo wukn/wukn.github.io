@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kafka on wukn blog</title>
-    <link>https://wukn.github.io/tags/kafka/</link>
+    <link>http://wukn.github.io/tags/kafka/</link>
     <description>Recent content in Kafka on wukn blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     <lastBuildDate>Mon, 28 Nov 2016 06:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://wukn.github.io/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://wukn.github.io/tags/kafka/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>[译][Kafka]Kafka运维</title>
-      <link>https://wukn.github.io/2016/11/28/kafka-operation/</link>
+      <link>http://wukn.github.io/2016/11/28/kafka-operation/</link>
       <pubDate>Mon, 28 Nov 2016 06:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/28/kafka-operation/</guid>
+      <guid>http://wukn.github.io/2016/11/28/kafka-operation/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;《Learing Apache Kafka-Second Edition》&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>[译][Kafka]集成Kafka</title>
-      <link>https://wukn.github.io/2016/11/28/kafka-integration/</link>
+      <link>http://wukn.github.io/2016/11/28/kafka-integration/</link>
       <pubDate>Mon, 28 Nov 2016 05:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/28/kafka-integration/</guid>
+      <guid>http://wukn.github.io/2016/11/28/kafka-integration/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;《Learing Apache Kafka-Second Edition》&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -40,10 +40,10 @@
     
     <item>
       <title>[译][Kafka]开发Consumer</title>
-      <link>https://wukn.github.io/2016/11/28/kafka-consumer-development/</link>
+      <link>http://wukn.github.io/2016/11/28/kafka-consumer-development/</link>
       <pubDate>Mon, 28 Nov 2016 04:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/28/kafka-consumer-development/</guid>
+      <guid>http://wukn.github.io/2016/11/28/kafka-consumer-development/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;《Learing Apache Kafka-Second Edition》&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -53,10 +53,10 @@
     
     <item>
       <title>[译][Kafka]开发Producer</title>
-      <link>https://wukn.github.io/2016/11/28/kafka-producer-development/</link>
+      <link>http://wukn.github.io/2016/11/28/kafka-producer-development/</link>
       <pubDate>Mon, 28 Nov 2016 03:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/28/kafka-producer-development/</guid>
+      <guid>http://wukn.github.io/2016/11/28/kafka-producer-development/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;《Learing Apache Kafka-Second Edition》&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -66,10 +66,10 @@
     
     <item>
       <title>[译][Kafka]Kafka设计</title>
-      <link>https://wukn.github.io/2016/11/28/kafka-design/</link>
+      <link>http://wukn.github.io/2016/11/28/kafka-design/</link>
       <pubDate>Mon, 28 Nov 2016 02:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/28/kafka-design/</guid>
+      <guid>http://wukn.github.io/2016/11/28/kafka-design/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;《Learing Apache Kafka-Second Edition》&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -79,10 +79,10 @@
     
     <item>
       <title>[译][Kafka]部署Kafka集群</title>
-      <link>https://wukn.github.io/2016/11/28/kafka-cluster/</link>
+      <link>http://wukn.github.io/2016/11/28/kafka-cluster/</link>
       <pubDate>Mon, 28 Nov 2016 01:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/28/kafka-cluster/</guid>
+      <guid>http://wukn.github.io/2016/11/28/kafka-cluster/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;《Learing Apache Kafka-Second Edition》&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -92,10 +92,10 @@
     
     <item>
       <title>[译][Kafka]Kafka简介</title>
-      <link>https://wukn.github.io/2016/11/28/kafka-introduction/</link>
+      <link>http://wukn.github.io/2016/11/28/kafka-introduction/</link>
       <pubDate>Mon, 28 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/28/kafka-introduction/</guid>
+      <guid>http://wukn.github.io/2016/11/28/kafka-introduction/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;《Learing Apache Kafka-Second Edition》&lt;/p&gt;
 &lt;/blockquote&gt;

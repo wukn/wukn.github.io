@@ -27,7 +27,7 @@
     <meta name="twitter:description" content=" Angular表单通常包含控件数据绑定、变化跟踪、输入验证、错误展示等。
  
 " />
-    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="http://wukn.github.io/img/avatar.jpg" />
   
 
 
@@ -36,8 +36,8 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="https://wukn.github.io/2016/12/24/angular2-forms/" />
-<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+<link rel="canonical" href="http://wukn.github.io/2016/12/24/angular2-forms/" />
+<link rel="alternative" href="http://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -62,18 +62,18 @@
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="http://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="http://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="http://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="http://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="http://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="http://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+<link rel="stylesheet" href="http://wukn.github.io/css/bundle.css" />
 
 
   
@@ -106,7 +106,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="http://wukn.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">wukn blog</h2>
   
@@ -121,13 +121,13 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item  is-active"><a href="http://wukn.github.io/">Home</a></li>
       
         <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item "><a href="http://wukn.github.io/tags">Tags</a></li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item "><a href="http://wukn.github.io/about/">About</a></li>
       
     </ul>
   </nav>
@@ -171,7 +171,7 @@
       
 
       <li class="social-item">
-        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="http://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -183,7 +183,7 @@
       
 
       <li class="social-item">
-        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="http://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -216,7 +216,7 @@
 
 <p>我们要实现一个简单的的注册页面，当有必填项没填时，显示验证信息并禁用提交按钮：</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/forms/form.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/forms/form.png" alt="" /></p>
 
 <p>首先，创建一个项目文件夹<code>angular2-forms</code>，按照<a href="https://wukn.github.io/2016/11/29/angluar2-quick-start/">QuickStart</a>创建项目。</p>
 
@@ -358,7 +358,7 @@
 
 <p>运行应用，结果如下：</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/forms/form1.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/forms/form1.png" alt="" /></p>
 
 <p>界面上没有数据，是因为我们还没有绑定<code>User</code>。前面我们已经了解了属性绑定和事件绑定来更新组件属性后和页面的值。这里使用一种新的方法，使用<code>[(ngModel)]</code>指令实现双向数据绑定。</p>
 
@@ -373,7 +373,7 @@
 
 <p>如果现在运行应用，改变界面上Name的输入值，可以看到TODO那一行会在每次修改Name时显示当前的值，说明双向数据绑定生效了！</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/forms/ngmodel1.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/forms/ngmodel1.png" alt="" /></p>
 
 <p>注意到我们还为<code>&lt;input&gt;</code>标签添加了一个<code>name</code>属性。这个属性值得是唯一的。在表单中使用<code>[(ngModel)]</code>时<code>name</code>属性是必需的。</p>
 
@@ -409,7 +409,7 @@
 <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>看起来结果如下：</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/forms/form2.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/forms/form2.png" alt="" /></p>
 
 <h3 id="ngmodel-的原理"><code>[(ngModel)]</code>的原理</h3>
 
@@ -453,13 +453,13 @@
 <p>运行后我们按照下面四步来检查效果：</p>
 
 <p>1.打开后不点击
-<img src="https://wukn.github.io/img/post/angular2/forms/ngmodel-class1.png" alt="" />
+<img src="http://wukn.github.io/img/post/angular2/forms/ngmodel-class1.png" alt="" />
 2.点击输入框，再点其他地方离开输入框
-<img src="https://wukn.github.io/img/post/angular2/forms/ngmodel-class2.png" alt="" />
+<img src="http://wukn.github.io/img/post/angular2/forms/ngmodel-class2.png" alt="" />
 3.在输入框中输入若干字符
-<img src="https://wukn.github.io/img/post/angular2/forms/ngmodel-class3.png" alt="" />
+<img src="http://wukn.github.io/img/post/angular2/forms/ngmodel-class3.png" alt="" />
 4.清空输入框
-<img src="https://wukn.github.io/img/post/angular2/forms/ngmodel-class4.png" alt="" /></p>
+<img src="http://wukn.github.io/img/post/angular2/forms/ngmodel-class4.png" alt="" /></p>
 
 <p>测试完毕后删掉模板引用变量<code>spy</code>和TODO。</p>
 
@@ -467,7 +467,7 @@
 
 <p>接下来，我们使用CSS样式来为提示字段是否必填和数据有效性。数据验证有效则输入框左侧显示绿色，无效则显示红色。效果如图：</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/forms/validate.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/forms/validate.png" alt="" /></p>
 
 <p>添加两个样式来实现上面的效果。在项目根文件夹下创建文件<code>forms.css</code>：</p>
 <div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="p">.</span><span class="nc">ng-valid</span><span class="o">[</span><span class="nt">required</span><span class="o">],</span> <span class="p">.</span><span class="nc">ng-valid</span><span class="p">.</span><span class="nc">required</span>  <span class="p">{</span>
@@ -481,7 +481,7 @@
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;forms.css&#34;</span><span class="p"></span><span class="p">&gt;</span></code></pre></div>
 <p>上面的提示只指示验证是否有效，如果无效的话，没有给出错误消息。因此我们加上提示消息：</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/forms/validate-msg.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/forms/validate-msg.png" alt="" /></p>
 
 <p>为<code>name</code>对应的input添加模板引用变量，并在它下面添加显示错误信息的<code>&lt;div&gt;</code>：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">label</span> <span class="na">for</span><span class="o">=</span><span class="s">&#34;name&#34;</span><span class="p"></span><span class="p">&gt;</span>Name<span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>
@@ -572,7 +572,7 @@
 
 <p>在浏览器中的效果如下：</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/forms/form3.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/forms/form3.png" alt="" /></p>
 
 <hr />
 
@@ -583,7 +583,7 @@
       
       <ul class="post-tags">
         
-          <li><a href="https://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
+          <li><a href="http://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
         
       </ul>
       
@@ -606,7 +606,7 @@
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
 
 
-<script src="https://wukn.github.io/js/bundle.js"></script>
+<script src="http://wukn.github.io/js/bundle.js"></script>
 
 
 <script>

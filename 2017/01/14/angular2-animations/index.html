@@ -27,7 +27,7 @@
     <meta name="twitter:description" content=" 看一看Angular2的动画系统。
  
 " />
-    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="http://wukn.github.io/img/avatar.jpg" />
   
 
 
@@ -36,8 +36,8 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="https://wukn.github.io/2017/01/14/angular2-animations/" />
-<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+<link rel="canonical" href="http://wukn.github.io/2017/01/14/angular2-animations/" />
+<link rel="alternative" href="http://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -62,18 +62,18 @@
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="http://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="http://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="http://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="http://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="http://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="http://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+<link rel="stylesheet" href="http://wukn.github.io/css/bundle.css" />
 
 
   
@@ -106,7 +106,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="http://wukn.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">wukn blog</h2>
   
@@ -121,13 +121,13 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item  is-active"><a href="http://wukn.github.io/">Home</a></li>
       
         <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item "><a href="http://wukn.github.io/tags">Tags</a></li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item "><a href="http://wukn.github.io/about/">About</a></li>
       
     </ul>
   </nav>
@@ -171,7 +171,7 @@
       
 
       <li class="social-item">
-        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="http://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -183,7 +183,7 @@
       
 
       <li class="social-item">
-        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="http://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -209,7 +209,7 @@
 
 <p>我们可以基于模型的属性让一个元素在两种状态之间切换，就像这样：</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/animations/animation_basic_click.gif" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/animations/animation_basic_click.gif" alt="" /></p>
 
 <p>动画是在<code>@Component</code>的元数据内定义的。在添加动画之前需要引入一些相关的函数：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span>
@@ -308,7 +308,7 @@
 <p>定义完状态后就要定义状态之间的切换，每个transition控制状态之间的切换时间：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive =&gt; active&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-in&#39;</span><span class="p">)),</span>
 <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;active =&gt; inactive&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-out&#39;</span><span class="p">))</span></code></pre></div>
-<p><img src="https://wukn.github.io/img/post/angular2/animations/ng_animate_transitions_inactive_active.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/animations/ng_animate_transitions_inactive_active.png" alt="" /></p>
 
 <p>如果多个transition的动画内容相同，可以将它们合并到同一个定义中：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive =&gt; active, active =&gt; inactive&#39;</span><span class="p">,</span>
@@ -335,7 +335,7 @@
 <li><code>* =&gt; *</code>任意的状态切换</li>
 </ul>
 
-<p><img src="https://wukn.github.io/img/post/angular2/animations/ng_animate_transitions_inactive_active_wildcards.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/animations/ng_animate_transitions_inactive_active_wildcards.png" alt="" /></p>
 
 <h4 id="void状态">void状态</h4>
 
@@ -343,7 +343,7 @@
 
 <p>例如，<code>* =&gt; void</code>动画会在元素离开视图的时候起作用。</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/animations/ng_animate_transitions_void_in.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/animations/ng_animate_transitions_void_in.png" alt="" /></p>
 
 <p>通配符*也会匹配void状态。</p>
 
@@ -351,7 +351,7 @@
 
 <p>使用<code>void</code>和<code>*</code>可以定义元素进入和离开的动画。进入为<code>void =&gt; *</code>，离开为<code>* =&gt; void</code>。</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/animations/animation_enter_leave.gif" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/animations/animation_enter_leave.gif" alt="" /></p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">animations</span><span class="o">:</span> <span class="p">[</span>
   <span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;flyInOut&#39;</span><span class="p">,</span> <span class="p">[</span>
     <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0)&#39;</span><span class="p">})),</span>
@@ -380,11 +380,11 @@
 <li>Active hero leave: <code>active =&gt; void</code></li>
 </ul>
 
-<p><img src="https://wukn.github.io/img/post/angular2/animations/animation_enter_leave_states.gif" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/animations/animation_enter_leave_states.gif" alt="" /></p>
 
 <p>这样我们可以设计出更精细的动画：</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/animations/ng_animate_transitions_inactive_active_void.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/animations/ng_animate_transitions_inactive_active_void.png" alt="" /></p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">animations</span><span class="o">:</span> <span class="p">[</span>
   <span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;heroState&#39;</span><span class="p">,</span> <span class="p">[</span>
     <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;inactive&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0) scale(1)&#39;</span><span class="p">})),</span>
@@ -417,7 +417,7 @@
 
 <p>有时候一些样式的坐标属性值直到运行的时候才能够知道。例如元素根据它的内容和屏幕的大小决定它的宽度和高度。</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/animations/animation_auto.gif" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/animations/animation_auto.gif" alt="" /></p>
 
 <p>这种情况下可以使用特殊的<code>*</code>属性值，这样就是在运行时计算出这个属性值并添加到动画中。</p>
 
@@ -466,7 +466,7 @@
 
 <p>下面这个例子中，进入和离开动画的持续时间都是200ms，但是缓冲特效不一样。</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/animations/animation_timings.gif" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/animations/animation_timings.gif" alt="" /></p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">animations</span><span class="o">:</span> <span class="p">[</span>
   <span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;flyInOut&#39;</span><span class="p">,</span> <span class="p">[</span>
     <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0)&#39;</span><span class="p">})),</span>
@@ -493,7 +493,7 @@
 
 <p>例如，使用关键帧为进入和离开动画添加弹跳效果。</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/animations/animation_multistep.gif" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/animations/animation_multistep.gif" alt="" /></p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">animations</span><span class="o">:</span> <span class="p">[</span>
   <span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;flyInOut&#39;</span><span class="p">,</span> <span class="p">[</span>
     <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0)&#39;</span><span class="p">})),</span>
@@ -523,7 +523,7 @@
 
 <p>这种场景可以使用动画组（group）。例如，为进入和离开动画使用两个不同的定时效果，它们会并行的作用在同一个元素上，但是是分开执行的。</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/animations/animation_groups.gif" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/animations/animation_groups.gif" alt="" /></p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">animations</span><span class="o">:</span> <span class="p">[</span>
   <span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;flyInOut&#39;</span><span class="p">,</span> <span class="p">[</span>
     <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;in&#39;</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">width</span><span class="o">:</span> <span class="mi">120</span><span class="p">,</span> <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0)&#39;</span><span class="p">,</span> <span class="nx">opacity</span><span class="o">:</span> <span class="mi">1</span><span class="p">})),</span>
@@ -582,7 +582,7 @@
       
       <ul class="post-tags">
         
-          <li><a href="https://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
+          <li><a href="http://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
         
       </ul>
       
@@ -605,7 +605,7 @@
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
 
 
-<script src="https://wukn.github.io/js/bundle.js"></script>
+<script src="http://wukn.github.io/js/bundle.js"></script>
 
 
 <script>

@@ -27,7 +27,7 @@
     <meta name="twitter:description" content=" Angular的层级依赖注入系统支持与组件树并行的嵌套注入。
  
 " />
-    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="http://wukn.github.io/img/avatar.jpg" />
   
 
 
@@ -36,8 +36,8 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="https://wukn.github.io/2017/03/06/angular2-hierarchical-injectors/" />
-<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+<link rel="canonical" href="http://wukn.github.io/2017/03/06/angular2-hierarchical-injectors/" />
+<link rel="alternative" href="http://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -62,18 +62,18 @@
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="http://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="http://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="http://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="http://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="http://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="http://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+<link rel="stylesheet" href="http://wukn.github.io/css/bundle.css" />
 
 
   
@@ -106,7 +106,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="http://wukn.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">wukn blog</h2>
   
@@ -121,13 +121,13 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item  is-active"><a href="http://wukn.github.io/">Home</a></li>
       
         <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item "><a href="http://wukn.github.io/tags">Tags</a></li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item "><a href="http://wukn.github.io/about/">About</a></li>
       
     </ul>
   </nav>
@@ -171,7 +171,7 @@
       
 
       <li class="social-item">
-        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="http://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -183,7 +183,7 @@
       
 
       <li class="social-item">
-        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="http://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -213,7 +213,7 @@
 
 <p>在之前的案例中，顶部的<code>AppComponent</code>拥有几个子组件，其中一个是<code>HeroesListComponent</code>。<code>HeroesListComponent</code>又包含并管理多个<code>HeroTaxReturnComponent</code>的实例。当同时有三个实例时，组件树就像下图所示：</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/hierarchical-injectors/component-hierarchy.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/hierarchical-injectors/component-hierarchy.png" alt="" /></p>
 
 <h4 id="注入器冒泡">注入器冒泡</h4>
 
@@ -256,7 +256,7 @@
 
 <p>假设<code>HeroListComponent</code>显示一个hero列表。现在要计算每个hero的税收。工作人员点击一个hero的名字，打开一个编辑计税的组件。每个选中的hero都会打开一个它自己的计税组件，这样就有多个计税组件同时运行。每个计税组件有它自己的编辑会话，修改它们将不会相互影响。</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/hierarchical-injectors/hid-heroes-anim.gif" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/hierarchical-injectors/hid-heroes-anim.gif" alt="" /></p>
 
 <p><code>HeroTaxReturnService</code>如下，它调用一个<code>HeroTaxReturn</code>：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// src/app/hero-tax-return.service.ts
@@ -334,11 +334,11 @@
 
 <p>假设我们创建一个名为A的car组件来显示由上面三个泛化的服务组成的car。接着，创建一个子组件B时，使用的是<code>CarService</code>和<code>EngineService</code>的一个具体实现。组件B又有个子组件C，C又使用了一个它所特有的CarService实现。</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/hierarchical-injectors/car-components.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/hierarchical-injectors/car-components.png" alt="" /></p>
 
 <p>这时就需要为每个组件的注入器注册不同的提供者：</p>
 
-<p><img src="https://wukn.github.io/img/post/angular2/hierarchical-injectors/injector-tree.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/angular2/hierarchical-injectors/injector-tree.png" alt="" /></p>
 
 <hr />
 
@@ -349,7 +349,7 @@
       
       <ul class="post-tags">
         
-          <li><a href="https://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
+          <li><a href="http://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
         
       </ul>
       
@@ -372,7 +372,7 @@
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
 
 
-<script src="https://wukn.github.io/js/bundle.js"></script>
+<script src="http://wukn.github.io/js/bundle.js"></script>
 
 
 <script>

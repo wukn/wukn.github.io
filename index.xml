@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>wukn blog</title>
-    <link>https://wukn.github.io/</link>
+    <link>http://wukn.github.io/</link>
     <description>Recent content on wukn blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     <lastBuildDate>Wed, 18 Oct 2017 00:00:00 +0800</lastBuildDate>
     
-	<atom:link href="https://wukn.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="http://wukn.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>[k8s] 部署kubernetes集群——（六）部署Traefik</title>
-      <link>https://wukn.github.io/2017/10/18/install-kubernetes-cluster-v1.8.0-deploy-traefik/</link>
+      <link>http://wukn.github.io/2017/10/18/install-kubernetes-cluster-v1.8.0-deploy-traefik/</link>
       <pubDate>Wed, 18 Oct 2017 00:00:00 +0800</pubDate>
       
-      <guid>https://wukn.github.io/2017/10/18/install-kubernetes-cluster-v1.8.0-deploy-traefik/</guid>
+      <guid>http://wukn.github.io/2017/10/18/install-kubernetes-cluster-v1.8.0-deploy-traefik/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Traefik是一款开源的反向代理与负载均衡工具。它可以与常见的微服务系统直接整合，可以实现自动化动态配置。它原生支持Kubernetes作为后端。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>[k8s] 部署kubernetes集群——（五）部署DNS、Dashboard和Heapster插件</title>
-      <link>https://wukn.github.io/2017/10/09/install-kubernetes-cluster-v1.8.0-deploy-dns-dashboard-heapster/</link>
+      <link>http://wukn.github.io/2017/10/09/install-kubernetes-cluster-v1.8.0-deploy-dns-dashboard-heapster/</link>
       <pubDate>Mon, 09 Oct 2017 00:00:00 +0800</pubDate>
       
-      <guid>https://wukn.github.io/2017/10/09/install-kubernetes-cluster-v1.8.0-deploy-dns-dashboard-heapster/</guid>
+      <guid>http://wukn.github.io/2017/10/09/install-kubernetes-cluster-v1.8.0-deploy-dns-dashboard-heapster/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;在Kubernetes集群内部署DNS、Dashboard和Heapster插件。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -40,10 +40,10 @@
     
     <item>
       <title>[k8s] 部署kubernetes集群——（三）部署Master节点</title>
-      <link>https://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-master/</link>
+      <link>http://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-master/</link>
       <pubDate>Sun, 08 Oct 2017 00:00:00 +0800</pubDate>
       
-      <guid>https://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-master/</guid>
+      <guid>http://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-master/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Kubernetes master节点上需要kube-apiserver、kube-scheduler、kube-controller-manager。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -57,10 +57,10 @@
     
     <item>
       <title>[k8s] 部署kubernetes集群——（四）部署Node节点</title>
-      <link>https://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-node/</link>
+      <link>http://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-node/</link>
       <pubDate>Sun, 08 Oct 2017 00:00:00 +0800</pubDate>
       
-      <guid>https://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-node/</guid>
+      <guid>http://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-node/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Kubernetes node节点上需要docker、flannel、kublet和kube-proxy。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -72,10 +72,10 @@
     
     <item>
       <title>[k8s] 部署kubernetes集群——（二）部署etcd和flannel</title>
-      <link>https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-deploy-master/</link>
+      <link>http://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-deploy-master/</link>
       <pubDate>Mon, 02 Oct 2017 00:00:00 +0800</pubDate>
       
-      <guid>https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-deploy-master/</guid>
+      <guid>http://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-deploy-master/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Kubernetes使用etcd存储集群状态数据。因此需要部署一个etcd集群，这里复用master的三台机器。&lt;/p&gt;
 
@@ -87,10 +87,10 @@
     
     <item>
       <title>[k8s] 部署kubernetes集群——（一）准备工作</title>
-      <link>https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-prepare/</link>
+      <link>http://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-prepare/</link>
       <pubDate>Sun, 01 Oct 2017 15:00:00 +0800</pubDate>
       
-      <guid>https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-prepare/</guid>
+      <guid>http://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-prepare/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Kubernetes集群节点分为master和node角色，master节点上需要kube-apiserver、kube-scheduler、kube-controller-manager。node节点上需要flannel、docker、kubelet、kube-proxy。master的高可用依赖etcd。集群内容器通信使用flannel搭建的vxlan网络。组件之间的通信使用TLS证书进行加密。使用时通常还需要kubedns、dashboard、heapster、docker registry等组组件。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -100,10 +100,10 @@
     
     <item>
       <title>About</title>
-      <link>https://wukn.github.io/about/</link>
+      <link>http://wukn.github.io/about/</link>
       <pubDate>Sun, 24 Sep 2017 17:52:44 +0800</pubDate>
       
-      <guid>https://wukn.github.io/about/</guid>
+      <guid>http://wukn.github.io/about/</guid>
       <description>Expand your universe.
 Write the Code. Change the World.
  wukn</description>
@@ -111,10 +111,10 @@ Write the Code. Change the World.
     
     <item>
       <title>微服务</title>
-      <link>https://wukn.github.io/2017/08/20/microservices/</link>
+      <link>http://wukn.github.io/2017/08/20/microservices/</link>
       <pubDate>Sun, 20 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/08/20/microservices/</guid>
+      <guid>http://wukn.github.io/2017/08/20/microservices/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;微服务文集&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -124,10 +124,10 @@ Write the Code. Change the World.
     
     <item>
       <title>恰如其分的软件架构</title>
-      <link>https://wukn.github.io/2017/08/06/properly-architecture/</link>
+      <link>http://wukn.github.io/2017/08/06/properly-architecture/</link>
       <pubDate>Sun, 06 Aug 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/08/06/properly-architecture/</guid>
+      <guid>http://wukn.github.io/2017/08/06/properly-architecture/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;恰如其分的软件架构&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -137,10 +137,10 @@ Write the Code. Change the World.
     
     <item>
       <title>分布式存储系统</title>
-      <link>https://wukn.github.io/2017/07/23/distribute-storage-system/</link>
+      <link>http://wukn.github.io/2017/07/23/distribute-storage-system/</link>
       <pubDate>Sun, 23 Jul 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/07/23/distribute-storage-system/</guid>
+      <guid>http://wukn.github.io/2017/07/23/distribute-storage-system/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;分布式存储系统&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -150,10 +150,10 @@ Write the Code. Change the World.
     
     <item>
       <title>云计算基础架构及关键应用</title>
-      <link>https://wukn.github.io/2017/06/09/cloud-architecture/</link>
+      <link>http://wukn.github.io/2017/06/09/cloud-architecture/</link>
       <pubDate>Fri, 09 Jun 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/06/09/cloud-architecture/</guid>
+      <guid>http://wukn.github.io/2017/06/09/cloud-architecture/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;云计算基础架构及关键应用&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -163,10 +163,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[设计模式]行为型模式</title>
-      <link>https://wukn.github.io/2017/04/04/oo-design-pattern-behavior/</link>
+      <link>http://wukn.github.io/2017/04/04/oo-design-pattern-behavior/</link>
       <pubDate>Tue, 04 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/04/04/oo-design-pattern-behavior/</guid>
+      <guid>http://wukn.github.io/2017/04/04/oo-design-pattern-behavior/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;行为型模式用于处理类或对象的交互和职责分配。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -176,10 +176,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[设计模式]结构型模式</title>
-      <link>https://wukn.github.io/2017/03/29/oo-design-pattern-structure/</link>
+      <link>http://wukn.github.io/2017/03/29/oo-design-pattern-structure/</link>
       <pubDate>Wed, 29 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/29/oo-design-pattern-structure/</guid>
+      <guid>http://wukn.github.io/2017/03/29/oo-design-pattern-structure/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;结构型模式用于处理类或对象的组合。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -189,10 +189,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[设计模式]创建型模式</title>
-      <link>https://wukn.github.io/2017/03/24/oo-design-pattern-create/</link>
+      <link>http://wukn.github.io/2017/03/24/oo-design-pattern-create/</link>
       <pubDate>Fri, 24 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/24/oo-design-pattern-create/</guid>
+      <guid>http://wukn.github.io/2017/03/24/oo-design-pattern-create/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;创建型模式用于处理对象的创建。&lt;/p&gt;
 
@@ -204,10 +204,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[设计模式]总览</title>
-      <link>https://wukn.github.io/2017/03/22/oo-design-pattern-overview/</link>
+      <link>http://wukn.github.io/2017/03/22/oo-design-pattern-overview/</link>
       <pubDate>Wed, 22 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/22/oo-design-pattern-overview/</guid>
+      <guid>http://wukn.github.io/2017/03/22/oo-design-pattern-overview/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;设计模式是把过去成功的并且被重复使用的设计经验以人们能够有效利用的方式记录下来。&lt;/p&gt;
 
@@ -219,10 +219,10 @@ Write the Code. Change the World.
     
     <item>
       <title>面向对象的SOILD原则</title>
-      <link>https://wukn.github.io/2017/03/20/oo-solid/</link>
+      <link>http://wukn.github.io/2017/03/20/oo-solid/</link>
       <pubDate>Mon, 20 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/20/oo-solid/</guid>
+      <guid>http://wukn.github.io/2017/03/20/oo-solid/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;SOLID（单一职责、开放闭合、里氏替换、接口隔离以及依赖倒置）。&lt;/p&gt;
 
@@ -234,10 +234,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Python3] 模块</title>
-      <link>https://wukn.github.io/2017/03/16/python3-module/</link>
+      <link>http://wukn.github.io/2017/03/16/python3-module/</link>
       <pubDate>Thu, 16 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/16/python3-module/</guid>
+      <guid>http://wukn.github.io/2017/03/16/python3-module/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Python3 模块。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -247,10 +247,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Python3] 函数</title>
-      <link>https://wukn.github.io/2017/03/15/python3-functions/</link>
+      <link>http://wukn.github.io/2017/03/15/python3-functions/</link>
       <pubDate>Wed, 15 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/15/python3-functions/</guid>
+      <guid>http://wukn.github.io/2017/03/15/python3-functions/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Python3 函数。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -260,10 +260,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Python3] 控制流</title>
-      <link>https://wukn.github.io/2017/03/14/python3-control-flow/</link>
+      <link>http://wukn.github.io/2017/03/14/python3-control-flow/</link>
       <pubDate>Tue, 14 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/14/python3-control-flow/</guid>
+      <guid>http://wukn.github.io/2017/03/14/python3-control-flow/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Python3 控制流。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -273,10 +273,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Python3] 映射（字典）</title>
-      <link>https://wukn.github.io/2017/03/13/python3-map-dict/</link>
+      <link>http://wukn.github.io/2017/03/13/python3-map-dict/</link>
       <pubDate>Mon, 13 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/13/python3-map-dict/</guid>
+      <guid>http://wukn.github.io/2017/03/13/python3-map-dict/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Python3 映射——字典。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -286,10 +286,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Python3] 集合</title>
-      <link>https://wukn.github.io/2017/03/12/python3-set/</link>
+      <link>http://wukn.github.io/2017/03/12/python3-set/</link>
       <pubDate>Sun, 12 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/12/python3-set/</guid>
+      <guid>http://wukn.github.io/2017/03/12/python3-set/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Python3 集合。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -299,10 +299,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Python3] 序列（列表、元组、Range）</title>
-      <link>https://wukn.github.io/2017/03/11/python3-sequence-list-tuple-range/</link>
+      <link>http://wukn.github.io/2017/03/11/python3-sequence-list-tuple-range/</link>
       <pubDate>Sat, 11 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/11/python3-sequence-list-tuple-range/</guid>
+      <guid>http://wukn.github.io/2017/03/11/python3-sequence-list-tuple-range/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Python3 序列——列表、元组、Range。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -312,10 +312,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Python3] 序列（字符串）</title>
-      <link>https://wukn.github.io/2017/03/10/python3-sequence-string/</link>
+      <link>http://wukn.github.io/2017/03/10/python3-sequence-string/</link>
       <pubDate>Fri, 10 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/10/python3-sequence-string/</guid>
+      <guid>http://wukn.github.io/2017/03/10/python3-sequence-string/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Python3 序列——字符串。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -325,10 +325,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Python3] 序列</title>
-      <link>https://wukn.github.io/2017/03/09/python3-sequence/</link>
+      <link>http://wukn.github.io/2017/03/09/python3-sequence/</link>
       <pubDate>Thu, 09 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/09/python3-sequence/</guid>
+      <guid>http://wukn.github.io/2017/03/09/python3-sequence/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;序列类型（Sequence Types）是包含一组成员的连续列表，这些成员紧邻排列，并且可以通过序号（下标偏移量）访问其中的一个或多个成员。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -340,10 +340,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Python3] 数值</title>
-      <link>https://wukn.github.io/2017/03/08/python3-numbers/</link>
+      <link>http://wukn.github.io/2017/03/08/python3-numbers/</link>
       <pubDate>Wed, 08 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/08/python3-numbers/</guid>
+      <guid>http://wukn.github.io/2017/03/08/python3-numbers/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Python中的数值分为整型（int）、浮点型（float）和复数（complex）。还有一个布尔型（bool）是整型的子类型。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -353,10 +353,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Python3] 简介</title>
-      <link>https://wukn.github.io/2017/03/07/python3-introduction/</link>
+      <link>http://wukn.github.io/2017/03/07/python3-introduction/</link>
       <pubDate>Tue, 07 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/07/python3-introduction/</guid>
+      <guid>http://wukn.github.io/2017/03/07/python3-introduction/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Python是一门功能强大的编程语言，它具有高效的高级数据结构和简单而有效的面向对象编程的特性。Python优雅的语法和动态类型、以及其解释性的性质，决定了它适合脚本编写和快速开发应用。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -366,10 +366,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Hierarchical Injectors</title>
-      <link>https://wukn.github.io/2017/03/06/angular2-hierarchical-injectors/</link>
+      <link>http://wukn.github.io/2017/03/06/angular2-hierarchical-injectors/</link>
       <pubDate>Mon, 06 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/06/angular2-hierarchical-injectors/</guid>
+      <guid>http://wukn.github.io/2017/03/06/angular2-hierarchical-injectors/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Angular的层级依赖注入系统支持与组件树并行的嵌套注入。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -379,10 +379,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Component Styles</title>
-      <link>https://wukn.github.io/2017/03/04/angular2-component-styles/</link>
+      <link>http://wukn.github.io/2017/03/04/angular2-component-styles/</link>
       <pubDate>Sat, 04 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/04/angular2-component-styles/</guid>
+      <guid>http://wukn.github.io/2017/03/04/angular2-component-styles/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;让我们来看看如何为组件添加CSS样式。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -392,10 +392,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Attribute Directives</title>
-      <link>https://wukn.github.io/2017/03/01/angular2-attribute-directives/</link>
+      <link>http://wukn.github.io/2017/03/01/angular2-attribute-directives/</link>
       <pubDate>Wed, 01 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/03/01/angular2-attribute-directives/</guid>
+      <guid>http://wukn.github.io/2017/03/01/angular2-attribute-directives/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;属性指令用于改变DOM元素的外观或行为。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -405,10 +405,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Animations</title>
-      <link>https://wukn.github.io/2017/01/14/angular2-animations/</link>
+      <link>http://wukn.github.io/2017/01/14/angular2-animations/</link>
       <pubDate>Sat, 14 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/01/14/angular2-animations/</guid>
+      <guid>http://wukn.github.io/2017/01/14/angular2-animations/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;看一看Angular2的动画系统。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -418,10 +418,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] NgModule</title>
-      <link>https://wukn.github.io/2017/01/11/angular2-ngmodules/</link>
+      <link>http://wukn.github.io/2017/01/11/angular2-ngmodules/</link>
       <pubDate>Wed, 11 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/01/11/angular2-ngmodules/</guid>
+      <guid>http://wukn.github.io/2017/01/11/angular2-ngmodules/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;使用@NgModule定义应用的模块。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -431,10 +431,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Case Study -HTTP</title>
-      <link>https://wukn.github.io/2017/01/05/angular2-case-study-http/</link>
+      <link>http://wukn.github.io/2017/01/05/angular2-case-study-http/</link>
       <pubDate>Thu, 05 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/01/05/angular2-case-study-http/</guid>
+      <guid>http://wukn.github.io/2017/01/05/angular2-case-study-http/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;使用TypeScript构建Angular2应用。将服务改成HTTP服务。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -444,10 +444,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Case Study - Routing</title>
-      <link>https://wukn.github.io/2017/01/04/angular2-case-study-routing/</link>
+      <link>http://wukn.github.io/2017/01/04/angular2-case-study-routing/</link>
       <pubDate>Wed, 04 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/01/04/angular2-case-study-routing/</guid>
+      <guid>http://wukn.github.io/2017/01/04/angular2-case-study-routing/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;使用TypeScript构建Angular2应用。使用路由功能在多个视图之间导航。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -457,10 +457,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Structural Directives</title>
-      <link>https://wukn.github.io/2017/01/03/angular2-structural-directives/</link>
+      <link>http://wukn.github.io/2017/01/03/angular2-structural-directives/</link>
       <pubDate>Tue, 03 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2017/01/03/angular2-structural-directives/</guid>
+      <guid>http://wukn.github.io/2017/01/03/angular2-structural-directives/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Angular提供了一个强大的模板引擎供去我们来操作DOM结构中的元素。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -470,10 +470,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Case Study - Multiple Components and Services</title>
-      <link>https://wukn.github.io/2016/12/30/angular2-case-study-multiple-components/</link>
+      <link>http://wukn.github.io/2016/12/30/angular2-case-study-multiple-components/</link>
       <pubDate>Fri, 30 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/12/30/angular2-case-study-multiple-components/</guid>
+      <guid>http://wukn.github.io/2016/12/30/angular2-case-study-multiple-components/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;使用TypeScript构建Angular2应用。多组件交互和服务。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -483,10 +483,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Case Study</title>
-      <link>https://wukn.github.io/2016/12/26/angular2-case-study/</link>
+      <link>http://wukn.github.io/2016/12/26/angular2-case-study/</link>
       <pubDate>Mon, 26 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/12/26/angular2-case-study/</guid>
+      <guid>http://wukn.github.io/2016/12/26/angular2-case-study/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;用一个案例学习如何构建Angular2应用。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -496,10 +496,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Template Syntax</title>
-      <link>https://wukn.github.io/2016/12/25/angular2-template-syntax/</link>
+      <link>http://wukn.github.io/2016/12/25/angular2-template-syntax/</link>
       <pubDate>Sun, 25 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/12/25/angular2-template-syntax/</guid>
+      <guid>http://wukn.github.io/2016/12/25/angular2-template-syntax/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;让我们看看如何编写模板来展示数据和利用数据绑定处理用户事件。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -509,10 +509,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Dependency Injection</title>
-      <link>https://wukn.github.io/2016/12/24/angular2-dependency-injection/</link>
+      <link>http://wukn.github.io/2016/12/24/angular2-dependency-injection/</link>
       <pubDate>Sat, 24 Dec 2016 01:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/12/24/angular2-dependency-injection/</guid>
+      <guid>http://wukn.github.io/2016/12/24/angular2-dependency-injection/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Angular的依赖注入系统会准时（just-in-time）创建和传递依赖的服务。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -522,10 +522,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Forms</title>
-      <link>https://wukn.github.io/2016/12/24/angular2-forms/</link>
+      <link>http://wukn.github.io/2016/12/24/angular2-forms/</link>
       <pubDate>Sat, 24 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/12/24/angular2-forms/</guid>
+      <guid>http://wukn.github.io/2016/12/24/angular2-forms/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Angular表单通常包含控件数据绑定、变化跟踪、输入验证、错误展示等。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -535,10 +535,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] User Input</title>
-      <link>https://wukn.github.io/2016/12/21/angular2-user-input/</link>
+      <link>http://wukn.github.io/2016/12/21/angular2-user-input/</link>
       <pubDate>Wed, 21 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/12/21/angular2-user-input/</guid>
+      <guid>http://wukn.github.io/2016/12/21/angular2-user-input/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;用户操作出发DOM事件。我们通过事件绑定来监听事件，将更新的值回写到组件和数据模型中。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -548,10 +548,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Displaying Data</title>
-      <link>https://wukn.github.io/2016/12/14/angular2-displaying-data/</link>
+      <link>http://wukn.github.io/2016/12/14/angular2-displaying-data/</link>
       <pubDate>Wed, 14 Dec 2016 01:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/12/14/angular2-displaying-data/</guid>
+      <guid>http://wukn.github.io/2016/12/14/angular2-displaying-data/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;利用属性绑定在UI中显示数据。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -561,10 +561,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Root Module</title>
-      <link>https://wukn.github.io/2016/12/14/angular2-root-module/</link>
+      <link>http://wukn.github.io/2016/12/14/angular2-root-module/</link>
       <pubDate>Wed, 14 Dec 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/12/14/angular2-root-module/</guid>
+      <guid>http://wukn.github.io/2016/12/14/angular2-root-module/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;根模块是用来告诉Angular如何构建和启动应用的。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -574,10 +574,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Architecture Overview</title>
-      <link>https://wukn.github.io/2016/11/30/angular2-architecture-overview/</link>
+      <link>http://wukn.github.io/2016/11/30/angular2-architecture-overview/</link>
       <pubDate>Wed, 30 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/30/angular2-architecture-overview/</guid>
+      <guid>http://wukn.github.io/2016/11/30/angular2-architecture-overview/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Angular是一个使用HTML和JavaScript或能编译成JavaScript的TypeScript等编写客户端应用的框架。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -587,10 +587,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Angular2] Quick Start</title>
-      <link>https://wukn.github.io/2016/11/29/angluar2-quick-start/</link>
+      <link>http://wukn.github.io/2016/11/29/angluar2-quick-start/</link>
       <pubDate>Tue, 29 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/29/angluar2-quick-start/</guid>
+      <guid>http://wukn.github.io/2016/11/29/angluar2-quick-start/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;使用TypeScript构建Angular2应用。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -600,10 +600,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Kafka]Kafka运维</title>
-      <link>https://wukn.github.io/2016/11/28/kafka-operation/</link>
+      <link>http://wukn.github.io/2016/11/28/kafka-operation/</link>
       <pubDate>Mon, 28 Nov 2016 06:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/28/kafka-operation/</guid>
+      <guid>http://wukn.github.io/2016/11/28/kafka-operation/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;《Learing Apache Kafka-Second Edition》&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -613,10 +613,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Kafka]集成Kafka</title>
-      <link>https://wukn.github.io/2016/11/28/kafka-integration/</link>
+      <link>http://wukn.github.io/2016/11/28/kafka-integration/</link>
       <pubDate>Mon, 28 Nov 2016 05:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/28/kafka-integration/</guid>
+      <guid>http://wukn.github.io/2016/11/28/kafka-integration/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;《Learing Apache Kafka-Second Edition》&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -626,10 +626,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Kafka]开发Consumer</title>
-      <link>https://wukn.github.io/2016/11/28/kafka-consumer-development/</link>
+      <link>http://wukn.github.io/2016/11/28/kafka-consumer-development/</link>
       <pubDate>Mon, 28 Nov 2016 04:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/28/kafka-consumer-development/</guid>
+      <guid>http://wukn.github.io/2016/11/28/kafka-consumer-development/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;《Learing Apache Kafka-Second Edition》&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -639,10 +639,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Kafka]开发Producer</title>
-      <link>https://wukn.github.io/2016/11/28/kafka-producer-development/</link>
+      <link>http://wukn.github.io/2016/11/28/kafka-producer-development/</link>
       <pubDate>Mon, 28 Nov 2016 03:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/28/kafka-producer-development/</guid>
+      <guid>http://wukn.github.io/2016/11/28/kafka-producer-development/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;《Learing Apache Kafka-Second Edition》&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -652,10 +652,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Kafka]Kafka设计</title>
-      <link>https://wukn.github.io/2016/11/28/kafka-design/</link>
+      <link>http://wukn.github.io/2016/11/28/kafka-design/</link>
       <pubDate>Mon, 28 Nov 2016 02:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/28/kafka-design/</guid>
+      <guid>http://wukn.github.io/2016/11/28/kafka-design/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;《Learing Apache Kafka-Second Edition》&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -665,10 +665,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Kafka]部署Kafka集群</title>
-      <link>https://wukn.github.io/2016/11/28/kafka-cluster/</link>
+      <link>http://wukn.github.io/2016/11/28/kafka-cluster/</link>
       <pubDate>Mon, 28 Nov 2016 01:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/28/kafka-cluster/</guid>
+      <guid>http://wukn.github.io/2016/11/28/kafka-cluster/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;《Learing Apache Kafka-Second Edition》&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -678,10 +678,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][Kafka]Kafka简介</title>
-      <link>https://wukn.github.io/2016/11/28/kafka-introduction/</link>
+      <link>http://wukn.github.io/2016/11/28/kafka-introduction/</link>
       <pubDate>Mon, 28 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/28/kafka-introduction/</guid>
+      <guid>http://wukn.github.io/2016/11/28/kafka-introduction/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;《Learing Apache Kafka-Second Edition》&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -693,10 +693,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] Mapping</title>
-      <link>https://wukn.github.io/2016/11/12/knockoutjs-mapping/</link>
+      <link>http://wukn.github.io/2016/11/12/knockoutjs-mapping/</link>
       <pubDate>Sat, 12 Nov 2016 10:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/12/knockoutjs-mapping/</guid>
+      <guid>http://wukn.github.io/2016/11/12/knockoutjs-mapping/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -706,10 +706,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] Microtask queue</title>
-      <link>https://wukn.github.io/2016/11/12/knockoutjs-microtask-queue/</link>
+      <link>http://wukn.github.io/2016/11/12/knockoutjs-microtask-queue/</link>
       <pubDate>Sat, 12 Nov 2016 09:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/12/knockoutjs-microtask-queue/</guid>
+      <guid>http://wukn.github.io/2016/11/12/knockoutjs-microtask-queue/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -719,10 +719,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] Rate-limiting observable notification</title>
-      <link>https://wukn.github.io/2016/11/12/knockoutjs-ratelimit-observable/</link>
+      <link>http://wukn.github.io/2016/11/12/knockoutjs-ratelimit-observable/</link>
       <pubDate>Sat, 12 Nov 2016 08:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/12/knockoutjs-ratelimit-observable/</guid>
+      <guid>http://wukn.github.io/2016/11/12/knockoutjs-ratelimit-observable/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -732,10 +732,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] Deferred update</title>
-      <link>https://wukn.github.io/2016/11/12/knockoutjs-deferred-update/</link>
+      <link>http://wukn.github.io/2016/11/12/knockoutjs-deferred-update/</link>
       <pubDate>Sat, 12 Nov 2016 07:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/12/knockoutjs-deferred-update/</guid>
+      <guid>http://wukn.github.io/2016/11/12/knockoutjs-deferred-update/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -745,10 +745,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] Extending observables</title>
-      <link>https://wukn.github.io/2016/11/12/knockoutjs-extending-observables/</link>
+      <link>http://wukn.github.io/2016/11/12/knockoutjs-extending-observables/</link>
       <pubDate>Sat, 12 Nov 2016 06:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/12/knockoutjs-extending-observables/</guid>
+      <guid>http://wukn.github.io/2016/11/12/knockoutjs-extending-observables/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -758,10 +758,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] JSON</title>
-      <link>https://wukn.github.io/2016/11/12/knockoutjs-work-with-json/</link>
+      <link>http://wukn.github.io/2016/11/12/knockoutjs-work-with-json/</link>
       <pubDate>Sat, 12 Nov 2016 05:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/12/knockoutjs-work-with-json/</guid>
+      <guid>http://wukn.github.io/2016/11/12/knockoutjs-work-with-json/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -771,10 +771,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] Components</title>
-      <link>https://wukn.github.io/2016/11/12/knockoutjs-components/</link>
+      <link>http://wukn.github.io/2016/11/12/knockoutjs-components/</link>
       <pubDate>Sat, 12 Nov 2016 04:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/12/knockoutjs-components/</guid>
+      <guid>http://wukn.github.io/2016/11/12/knockoutjs-components/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -784,10 +784,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] Bindings - Creating custom binding</title>
-      <link>https://wukn.github.io/2016/11/12/knockoutjs-bindings-creating-custom-binding/</link>
+      <link>http://wukn.github.io/2016/11/12/knockoutjs-bindings-creating-custom-binding/</link>
       <pubDate>Sat, 12 Nov 2016 03:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/12/knockoutjs-bindings-creating-custom-binding/</guid>
+      <guid>http://wukn.github.io/2016/11/12/knockoutjs-bindings-creating-custom-binding/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -797,10 +797,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] Bindings - Syntax</title>
-      <link>https://wukn.github.io/2016/11/12/knockoutjs-bindings-syntax/</link>
+      <link>http://wukn.github.io/2016/11/12/knockoutjs-bindings-syntax/</link>
       <pubDate>Sat, 12 Nov 2016 02:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/12/knockoutjs-bindings-syntax/</guid>
+      <guid>http://wukn.github.io/2016/11/12/knockoutjs-bindings-syntax/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -810,10 +810,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] Bindings - Template</title>
-      <link>https://wukn.github.io/2016/11/12/knockoutjs-bindings-template/</link>
+      <link>http://wukn.github.io/2016/11/12/knockoutjs-bindings-template/</link>
       <pubDate>Sat, 12 Nov 2016 01:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/12/knockoutjs-bindings-template/</guid>
+      <guid>http://wukn.github.io/2016/11/12/knockoutjs-bindings-template/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -823,10 +823,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] Bindings - Control flow</title>
-      <link>https://wukn.github.io/2016/11/12/knockoutjs-bindings-control-flow/</link>
+      <link>http://wukn.github.io/2016/11/12/knockoutjs-bindings-control-flow/</link>
       <pubDate>Sat, 12 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/12/knockoutjs-bindings-control-flow/</guid>
+      <guid>http://wukn.github.io/2016/11/12/knockoutjs-bindings-control-flow/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -836,10 +836,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] Bindings - Work with form fields</title>
-      <link>https://wukn.github.io/2016/11/12/knockoutjs-bindings-work-with-form-fields/</link>
+      <link>http://wukn.github.io/2016/11/12/knockoutjs-bindings-work-with-form-fields/</link>
       <pubDate>Sat, 12 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/12/knockoutjs-bindings-work-with-form-fields/</guid>
+      <guid>http://wukn.github.io/2016/11/12/knockoutjs-bindings-work-with-form-fields/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -849,10 +849,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] Bindings - Controlling text and appearence</title>
-      <link>https://wukn.github.io/2016/11/05/knockoutjs-bindings-controlling-text-and-appearence/</link>
+      <link>http://wukn.github.io/2016/11/05/knockoutjs-bindings-controlling-text-and-appearence/</link>
       <pubDate>Sat, 05 Nov 2016 02:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/05/knockoutjs-bindings-controlling-text-and-appearence/</guid>
+      <guid>http://wukn.github.io/2016/11/05/knockoutjs-bindings-controlling-text-and-appearence/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -862,10 +862,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] Observables</title>
-      <link>https://wukn.github.io/2016/11/05/knockoutjs-observables/</link>
+      <link>http://wukn.github.io/2016/11/05/knockoutjs-observables/</link>
       <pubDate>Sat, 05 Nov 2016 01:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/05/knockoutjs-observables/</guid>
+      <guid>http://wukn.github.io/2016/11/05/knockoutjs-observables/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -875,10 +875,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][KnockoutJS] Introduction</title>
-      <link>https://wukn.github.io/2016/11/05/knockoutjs-introduction/</link>
+      <link>http://wukn.github.io/2016/11/05/knockoutjs-introduction/</link>
       <pubDate>Sat, 05 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/11/05/knockoutjs-introduction/</guid>
+      <guid>http://wukn.github.io/2016/11/05/knockoutjs-introduction/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -888,10 +888,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][RabbitMQ] Clustering and High Availability</title>
-      <link>https://wukn.github.io/2016/10/21/rabbitmq-clustering-ha/</link>
+      <link>http://wukn.github.io/2016/10/21/rabbitmq-clustering-ha/</link>
       <pubDate>Mon, 24 Oct 2016 04:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/21/rabbitmq-clustering-ha/</guid>
+      <guid>http://wukn.github.io/2016/10/21/rabbitmq-clustering-ha/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;使用RabitMQ构建RPC应用。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -901,10 +901,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][RabbitMQ] Remote Procedure Call</title>
-      <link>https://wukn.github.io/2016/10/24/rabbitmq-rpc/</link>
+      <link>http://wukn.github.io/2016/10/24/rabbitmq-rpc/</link>
       <pubDate>Mon, 24 Oct 2016 03:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/24/rabbitmq-rpc/</guid>
+      <guid>http://wukn.github.io/2016/10/24/rabbitmq-rpc/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;使用RabitMQ构建RPC应用。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -914,10 +914,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][RabbitMQ] Publish/Subscribe、Routing、Topic</title>
-      <link>https://wukn.github.io/2016/10/24/rabbitmq-publish-subscribe-routing-topic/</link>
+      <link>http://wukn.github.io/2016/10/24/rabbitmq-publish-subscribe-routing-topic/</link>
       <pubDate>Mon, 24 Oct 2016 02:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/24/rabbitmq-publish-subscribe-routing-topic/</guid>
+      <guid>http://wukn.github.io/2016/10/24/rabbitmq-publish-subscribe-routing-topic/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;发布订阅模式下，一个消息会被传递给多个consumer。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -927,10 +927,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][RabbitMQ] Work Queues</title>
-      <link>https://wukn.github.io/2016/10/24/rabbitmq-work-queues/</link>
+      <link>http://wukn.github.io/2016/10/24/rabbitmq-work-queues/</link>
       <pubDate>Mon, 24 Oct 2016 01:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/24/rabbitmq-work-queues/</guid>
+      <guid>http://wukn.github.io/2016/10/24/rabbitmq-work-queues/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;RabbitMQ是一个message broker，本质上就是接收producer的消息，传递给consumer，其中可以根据给定的需要设置消息路由、缓存、持久化。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -940,10 +940,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][RabbitMQ] Introduction</title>
-      <link>https://wukn.github.io/2016/10/24/rabbitmq-introduction/</link>
+      <link>http://wukn.github.io/2016/10/24/rabbitmq-introduction/</link>
       <pubDate>Mon, 24 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/24/rabbitmq-introduction/</guid>
+      <guid>http://wukn.github.io/2016/10/24/rabbitmq-introduction/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;RabbitMQ是一个messaging broker，一个消息传递的中介。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -953,10 +953,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][软件架构模式]-基于空间的架构Space-based Architecture</title>
-      <link>https://wukn.github.io/2016/10/21/space-based-architecture/</link>
+      <link>http://wukn.github.io/2016/10/21/space-based-architecture/</link>
       <pubDate>Fri, 21 Oct 2016 04:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/21/space-based-architecture/</guid>
+      <guid>http://wukn.github.io/2016/10/21/space-based-architecture/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;大部分Web应用的处理流程为：浏览器发起的请求精经过Web服务器、应用服务器和数据库服务器的处理。当用户量不大时这样的模式没有任何问题。但随着用户访问量的增加，系统开始出现性能瓶颈，首先是Web服务器层，其次是应用服务器层，最后是数据库服务器层。处理的措施通常是水平扩展Web服务器。这是比较容易实现的。但是用户量过大时，水平扩展Web服务层后，瓶颈会转移到应用服务层。应用服务层的水平扩展相对比较复杂一些了，也会导致瓶颈转移到数据库服务层。而数据库服务层扩展起来代价更高。&lt;/p&gt;
 
@@ -968,10 +968,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][软件架构模式]-微服务架构Microservices Architecture</title>
-      <link>https://wukn.github.io/2016/10/21/microservices-architecture/</link>
+      <link>http://wukn.github.io/2016/10/21/microservices-architecture/</link>
       <pubDate>Fri, 21 Oct 2016 03:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/21/microservices-architecture/</guid>
+      <guid>http://wukn.github.io/2016/10/21/microservices-architecture/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;微服务架构是个正在快速发展的架构，可替代独立应用程序和面向服务架构（service-oriented architecture）。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -981,10 +981,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][软件架构模式]-微内核架构Microkernel Architecture</title>
-      <link>https://wukn.github.io/2016/10/21/microkernel-architecture/</link>
+      <link>http://wukn.github.io/2016/10/21/microkernel-architecture/</link>
       <pubDate>Fri, 21 Oct 2016 02:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/21/microkernel-architecture/</guid>
+      <guid>http://wukn.github.io/2016/10/21/microkernel-architecture/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;微内核架构有时也被成为插件架构模式（plug-in architecture pattern），通常用于实现基于产品的应用，如Eclipse和Firefox。然而许多公司也将内部的业务软件做成软件产品，提供版本、发版说明和插件特性。微内核架构模式通过插件向核心应用添加额外的功能，提供了可扩展性和功能的独立和分离。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -994,10 +994,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][软件架构模式]-事件驱动架构Event-Driven Architecture</title>
-      <link>https://wukn.github.io/2016/10/21/event-driven-architecture/</link>
+      <link>http://wukn.github.io/2016/10/21/event-driven-architecture/</link>
       <pubDate>Fri, 21 Oct 2016 01:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/21/event-driven-architecture/</guid>
+      <guid>http://wukn.github.io/2016/10/21/event-driven-architecture/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;事件驱动架构是个流行的分布式异步架构模式，用于构建高伸缩性的应用。它有很高的适应性，既适用于小型应用，也适合大型复杂应用。事件驱动架构是由高度解耦的、目标单一、可异步接收和处理事件的组件组成。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1007,10 +1007,10 @@ Write the Code. Change the World.
     
     <item>
       <title>[译][软件架构模式]-分层架构Layered Architecture</title>
-      <link>https://wukn.github.io/2016/10/21/layered-architecture/</link>
+      <link>http://wukn.github.io/2016/10/21/layered-architecture/</link>
       <pubDate>Fri, 21 Oct 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/21/layered-architecture/</guid>
+      <guid>http://wukn.github.io/2016/10/21/layered-architecture/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;分层架构模式是最常用的架构模式，也被成为N层架构模式。大部分架构师、设计者、开发者都熟知该模式。它与传统的IT通信和组织结构十分匹配，因此大部分业务应用开发自然而然选择它。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1020,10 +1020,10 @@ Write the Code. Change the World.
     
     <item>
       <title>Start</title>
-      <link>https://wukn.github.io/2016/10/14/start/</link>
+      <link>http://wukn.github.io/2016/10/14/start/</link>
       <pubDate>Fri, 14 Oct 2016 15:00:00 +0000</pubDate>
       
-      <guid>https://wukn.github.io/2016/10/14/start/</guid>
+      <guid>http://wukn.github.io/2016/10/14/start/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;Stay Hungry, Stay Foolish.&amp;rdquo;&lt;/p&gt;
 &lt;/blockquote&gt;

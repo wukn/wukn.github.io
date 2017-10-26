@@ -27,7 +27,7 @@
     <meta name="twitter:description" content=" 《Learing Apache Kafka-Second Edition》
  
 " />
-    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="http://wukn.github.io/img/avatar.jpg" />
   
 
 
@@ -36,8 +36,8 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="https://wukn.github.io/2016/11/28/kafka-design/" />
-<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+<link rel="canonical" href="http://wukn.github.io/2016/11/28/kafka-design/" />
+<link rel="alternative" href="http://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -62,18 +62,18 @@
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="http://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="http://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="http://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="http://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="http://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="http://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+<link rel="stylesheet" href="http://wukn.github.io/css/bundle.css" />
 
 
   
@@ -106,7 +106,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="http://wukn.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">wukn blog</h2>
   
@@ -121,13 +121,13 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item  is-active"><a href="http://wukn.github.io/">Home</a></li>
       
         <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item "><a href="http://wukn.github.io/tags">Tags</a></li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item "><a href="http://wukn.github.io/about/">About</a></li>
       
     </ul>
   </nav>
@@ -171,7 +171,7 @@
       
 
       <li class="social-item">
-        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="http://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -183,7 +183,7 @@
       
 
       <li class="social-item">
-        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="http://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -218,7 +218,7 @@
 
 <p>Kafka既不是队列平台（消息由consumer pool中的某一个consumer接收），也不是发布订阅平台（消息被发布给每个consumer）。在一个基本的结构中，producer发布消息到Kafka的topic中（message queue的同义词）。topic也可以看做是消息类别。topic是由作为Kafka server的broker创建的。如果需要，broker也会存储消息。conmuser订阅（一个或多个）topic来获取消息。这里，broker和consumer之间分别使用ZooKeeper记录状态信息和消息的offset。如下图所示：</p>
 
-<p><img src="https://wukn.github.io/img/post/kafka/design/basic-architecture.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/kafka/design/basic-architecture.png" alt="" /></p>
 
 <p>图中展示的是单节点单broker架构，一个topic有四个partition。图中包含了Kafka集群的五个组成部分：Zookeeper，broker,topic，producer，consumer。</p>
 
@@ -282,7 +282,7 @@
 
 <p>尽管Kafka具有高可伸缩性，为了集群的更好的稳定性和高可用性，复制机制保证了即使broker故障消息也会被发布和消费。producer和consumer都是replication-aware的。如下图所示：</p>
 
-<p><img src="https://wukn.github.io/img/post/kafka/design/replication-mechanism.png" alt="" /></p>
+<p><img src="http://wukn.github.io/img/post/kafka/design/replication-mechanism.png" alt="" /></p>
 
 <p>在复制机制中，每个消息partition有n个副本，可以支持n-1个故障。n个副本中有一个作为lead。ZooKeeper保存了lead副本和follow的in-sync replicas（ISR）。lead副本负责维护所有的follow的in-sync replicas（ISR）。</p>
 
@@ -312,7 +312,7 @@
       
       <ul class="post-tags">
         
-          <li><a href="https://wukn.github.io/tags/kafka"><span class="tag">Kafka</span></a></li>
+          <li><a href="http://wukn.github.io/tags/kafka"><span class="tag">Kafka</span></a></li>
         
       </ul>
       
@@ -335,7 +335,7 @@
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
 
 
-<script src="https://wukn.github.io/js/bundle.js"></script>
+<script src="http://wukn.github.io/js/bundle.js"></script>
 
 
 <script>

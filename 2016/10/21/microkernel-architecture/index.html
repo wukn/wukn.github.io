@@ -27,7 +27,7 @@
     <meta name="twitter:description" content=" 微内核架构有时也被成为插件架构模式（plug-in architecture pattern），通常用于实现基于产品的应用，如Eclipse和Firefox。然而许多公司也将内部的业务软件做成软件产品，提供版本、发版说明和插件特性。微内核架构模式通过插件向核心应用添加额外的功能，提供了可扩展性和功能的独立和分离。
  
 " />
-    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="http://wukn.github.io/img/avatar.jpg" />
   
 
 
@@ -36,8 +36,8 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="https://wukn.github.io/2016/10/21/microkernel-architecture/" />
-<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+<link rel="canonical" href="http://wukn.github.io/2016/10/21/microkernel-architecture/" />
+<link rel="alternative" href="http://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -62,18 +62,18 @@
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="http://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="http://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="http://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="http://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="http://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="http://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+<link rel="stylesheet" href="http://wukn.github.io/css/bundle.css" />
 
 
   
@@ -106,7 +106,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="http://wukn.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">wukn blog</h2>
   
@@ -121,13 +121,13 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item  is-active"><a href="http://wukn.github.io/">Home</a></li>
       
         <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item "><a href="http://wukn.github.io/tags">Tags</a></li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item "><a href="http://wukn.github.io/about/">About</a></li>
       
     </ul>
   </nav>
@@ -171,7 +171,7 @@
       
 
       <li class="social-item">
-        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="http://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -183,7 +183,7 @@
       
 
       <li class="social-item">
-        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="http://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -205,7 +205,7 @@
 
 <p>微内核架构包含两部分组件：核心系统（core system）和插件模块（plug-in modules）。应用逻辑被分割为独立的插件模块和核心系统，提供了可扩展性、灵活性、功能隔离和自定义处理逻辑的特性。</p>
 
-<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/microkernel_architecture/microkernel_architecture_pattern.png" alt="" />
+<p><img src="http://wukn.github.io/img/post/software_architecture_pattern/microkernel_architecture/microkernel_architecture_pattern.png" alt="" />
 图1 微内核架构模式（microkernel architecture pattern）</p>
 
 <p>微内核架构的核心系统通常提供系统运行所需的最小功能集。许多操作系统使用的就是微内核架构，这也是它名字的由来。从商业应用程序的角度来看，核心系统一般是通用业务逻辑，没有特殊情况、特殊规则或复杂情形下的自定义代码。</p>
@@ -230,7 +230,7 @@
 
 <p>如图2中所示，核心系统claims processing包含了处理索赔过程的基本业务逻辑。每个插件模块包含一个州的特殊规则。这个例子中，插件模块可以通过自定义代码或分离规则引擎实例来实现。最重要的是，每个州的独特的规则从核心系统中剥离出来，可以被添加或移除，修改时不影响或会稍微影响核心系统与其它插件。</p>
 
-<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/microkernel_architecture/microkernel_architecture_example.png" alt="" />
+<p><img src="http://wukn.github.io/img/post/software_architecture_pattern/microkernel_architecture/microkernel_architecture_example.png" alt="" />
 图2 微内核架构案例</p>
 
 <h2 id="注意事项">注意事项</h2>
@@ -290,7 +290,7 @@
       
       <ul class="post-tags">
         
-          <li><a href="https://wukn.github.io/tags/architecture"><span class="tag">Architecture</span></a></li>
+          <li><a href="http://wukn.github.io/tags/architecture"><span class="tag">Architecture</span></a></li>
         
       </ul>
       
@@ -313,7 +313,7 @@
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
 
 
-<script src="https://wukn.github.io/js/bundle.js"></script>
+<script src="http://wukn.github.io/js/bundle.js"></script>
 
 
 <script>
