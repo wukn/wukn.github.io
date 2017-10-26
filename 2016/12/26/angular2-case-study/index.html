@@ -27,7 +27,7 @@
     <meta name="twitter:description" content=" 用一个案例学习如何构建Angular2应用。
  
 " />
-    <meta name="twitter:image" content="http://wukn.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
 
@@ -36,8 +36,8 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="http://wukn.github.io/2016/12/26/angular2-case-study/" />
-<link rel="alternative" href="http://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+<link rel="canonical" href="https://wukn.github.io/2016/12/26/angular2-case-study/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -62,18 +62,18 @@
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="http://wukn.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="http://wukn.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="http://wukn.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="http://wukn.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="http://wukn.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="http://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="http://wukn.github.io/css/bundle.css" />
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
 
 
   
@@ -106,7 +106,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="http://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">wukn blog</h2>
   
@@ -121,13 +121,13 @@
       
       
       
-        <li class="menu-item  is-active"><a href="http://wukn.github.io/">Home</a></li>
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
       
         <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
       
-        <li class="menu-item "><a href="http://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
       
-        <li class="menu-item "><a href="http://wukn.github.io/about/">About</a></li>
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
       
     </ul>
   </nav>
@@ -171,7 +171,7 @@
       
 
       <li class="social-item">
-        <a href="http://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -183,7 +183,7 @@
       
 
       <li class="social-item">
-        <a href="http://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -205,7 +205,7 @@
 
 <p>应用的界面包括一个Dashboard和hero列表，并能编辑hero详细信息。最终效果如下：</p>
 
-<p><img src="http://wukn.github.io/img/post/angular2/case-study/toh.gif" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/angular2/case-study/toh.gif" alt="" /></p>
 
 <p>我们会学习到使用内置的指令来显示/隐藏元素和显示数据列表，创建一个显示hero详细信息的组件和一个显示hero数组列表的组件，为只读数据使用单向数据绑定，为可编辑的字段使用双向数据绑定，为用户事件绑定组件的方法，从列表试图中选择一项后跳转到该项的详细试图，使用pipe处理数据格式，创建服务，使用路由在不同的视图和组件之间导航。</p>
 
@@ -222,7 +222,7 @@
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero}} details!&lt;/h2&gt;&#39;</span></code></pre></div>
 <p>现在效果如下：</p>
 
-<p><img src="http://wukn.github.io/img/post/angular2/case-study/1.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/angular2/case-study/1.png" alt="" /></p>
 
 <p>这里用到了单向数据绑定的插值绑定方法。</p>
 
@@ -263,7 +263,7 @@
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;&lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;&lt;div&gt;&lt;label&gt;name: &lt;/label&gt;{{hero.name}}&lt;/div&gt;&#39;</span></code></pre></div>
 <p>显示效果如下：</p>
 
-<p><img src="http://wukn.github.io/img/post/angular2/case-study/2.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/angular2/case-study/2.png" alt="" /></p>
 
 <p>为了让模板更具有可读性，我们将模板改成多行模式：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span><span class="sb">`
@@ -286,7 +286,7 @@
 </span><span class="sb">  `</span></code></pre></div>
 <p>现在name就显示在文本框里了：</p>
 
-<p><img src="http://wukn.github.io/img/post/angular2/case-study/3.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/angular2/case-study/3.png" alt="" /></p>
 
 <p>这时候我们发现，修改文本框里的值，name并不会改变。因为这里只是单向数据绑定。改成双向数据绑定：</p>
 
@@ -310,7 +310,7 @@
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">input</span> <span class="p">[(</span><span class="nx">ngModel</span><span class="p">)]</span><span class="o">=</span><span class="s2">&#34;hero.name&#34;</span> <span class="nx">placeholder</span><span class="o">=</span><span class="s2">&#34;name&#34;</span><span class="o">&gt;</span></code></pre></div>
 <p>现在我们修改文本框里的值，hero的name属性值也跟着变了：</p>
 
-<p><img src="http://wukn.github.io/img/post/angular2/case-study/4.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/angular2/case-study/4.png" alt="" /></p>
 
 <p>完整的<code>app.component.ts</code>如下：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
@@ -415,7 +415,7 @@
 </span><span class="sb">`</span><span class="p">]</span></code></pre></div>
 <p>现在列表就出来了：</p>
 
-<p><img src="http://wukn.github.io/img/post/angular2/case-study/5.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/angular2/case-study/5.png" alt="" /></p>
 
 <p>完整的<code>app.component.ts</code>如下：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
@@ -550,7 +550,7 @@
 &lt;/li&gt;
 </code></pre>
 
-<p><img src="http://wukn.github.io/img/post/angular2/case-study/6.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/angular2/case-study/6.png" alt="" /></p>
 
 <p>完整的<code>app.component.ts</code>如下：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
@@ -671,7 +671,7 @@
       
       <ul class="post-tags">
         
-          <li><a href="http://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
+          <li><a href="https://wukn.github.io/tags/angular2"><span class="tag">Angular2</span></a></li>
         
       </ul>
       
@@ -694,7 +694,7 @@
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
 
 
-<script src="http://wukn.github.io/js/bundle.js"></script>
+<script src="https://wukn.github.io/js/bundle.js"></script>
 
 
 <script>

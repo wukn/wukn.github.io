@@ -27,7 +27,7 @@
     <meta name="twitter:description" content=" 行为型模式用于处理类或对象的交互和职责分配。
  
 " />
-    <meta name="twitter:image" content="http://wukn.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
 
@@ -36,8 +36,8 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="http://wukn.github.io/2017/04/04/oo-design-pattern-behavior/" />
-<link rel="alternative" href="http://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+<link rel="canonical" href="https://wukn.github.io/2017/04/04/oo-design-pattern-behavior/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -62,18 +62,18 @@
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="http://wukn.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="http://wukn.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="http://wukn.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="http://wukn.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="http://wukn.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="http://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="http://wukn.github.io/css/bundle.css" />
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
 
 
   
@@ -106,7 +106,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="http://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">wukn blog</h2>
   
@@ -121,13 +121,13 @@
       
       
       
-        <li class="menu-item  is-active"><a href="http://wukn.github.io/">Home</a></li>
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
       
         <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
       
-        <li class="menu-item "><a href="http://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
       
-        <li class="menu-item "><a href="http://wukn.github.io/about/">About</a></li>
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
       
     </ul>
   </nav>
@@ -171,7 +171,7 @@
       
 
       <li class="social-item">
-        <a href="http://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -183,7 +183,7 @@
       
 
       <li class="social-item">
-        <a href="http://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -209,7 +209,7 @@
 
 <p>当有一个语言需要解释执行，并且可将该语言中的句子表示为一个抽象语法树时，可使用解释器模式。</p>
 
-<p><img src="http://wukn.github.io/img/post/design-pattern/interpreter.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/design-pattern/interpreter.png" alt="" /></p>
 
 <p>AbstractExpression（抽象表达式）声明一个抽象的解释操作，这个接口为抽象语法树中所有的节点共享。TerminalExpression（终结符表达式）实现与文法中的终结符相关联的解释操作；一个句子中的每个终结符需要该类的一个实例。对于文法中每一条规则都需要一个NonterminalExpression（非终结符表达式）类，它为每个符号都维护一个AbstractExpression类型的实例变量；它为文法中的非终结符实现解释操作，解释一般要递归地调用表示规则的那些对象的解释操作。Context（上下文）包含解释器之外的一些全局信息。</p>
 
@@ -229,7 +229,7 @@
 <li>控制子类扩展。</li>
 </ul>
 
-<p><img src="http://wukn.github.io/img/post/design-pattern/template-method.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/design-pattern/template-method.png" alt="" /></p>
 
 <p>AbstractClass（抽象类）定义抽象的原语操作（primitive operation），具体的子类将重新定义它们以实现一个算法的各步骤；同时实现一个模板方法，定义一个算法的骨架，该模板方法不仅调用原语操作，也调用定义在AbstractClass或其它对象中的操作。ConcreteClass（具体类）实现原语操作以完成算法中与特定子类相关的步骤。</p>
 
@@ -249,7 +249,7 @@
 <li>可以处理一个请求的对象集合应被动态指定。</li>
 </ul>
 
-<p><img src="http://wukn.github.io/img/post/design-pattern/chain-of-responsibility.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/design-pattern/chain-of-responsibility.png" alt="" /></p>
 
 <p>Handler定义一个处理请求的接口，（可选）实现后继链。ConcreteHandler处理它所负责的请求；它可以访问它的后继者，如果可处理该请求，就处理之，否则就将该请求转发给它的后继者。</p>
 
@@ -265,7 +265,7 @@
 
 <p>命令模式跟职责链模式类似，都是为了处理请求或者命令而存在的，而且二者都是为了将请求者与响应者解耦。不同的是命令模式中，客户端需要知道一个命令的接收者，在创建命令的时候就把接收者与命令绑定在一起发送给调用者；而职责链模式中，客户端并不关心最终处理请求的对象是谁，客户端只是封装一个请求对象，随后交给职责链的头部而已，因此两者的实现方式有较大的区别。</p>
 
-<p><img src="http://wukn.github.io/img/post/design-pattern/command.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/design-pattern/command.png" alt="" /></p>
 
 <p>Command声明执行操作的接口。ConcreteCommand将一个接收者对象绑定于一个动作，调用接收者相应的操作，以实现Execute。Client创建一个具体命令对象并设定它的接收者。Invoker要求该命令执行这个请求。Reveiver知道如何实施与执行一个请求相关的操作。任何类都可能作为一个接收者。</p>
 
@@ -289,7 +289,7 @@
 <li>为遍历不同的聚合结构提供一个同意的接口（即，支持多态迭代）。</li>
 </ul>
 
-<p><img src="http://wukn.github.io/img/post/design-pattern/iterator.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/design-pattern/iterator.png" alt="" /></p>
 
 <p>Iterator迭代器定义访问和遍历元素的接口。ConcreteIterator实现迭代器的接口，对聚合遍历时跟踪当前位置。Aggregate聚合定义创建相应迭代器对象的接口。ConcreteAggragate实现创建相应迭代器的接口，该操作返回ConcreteIterator的一个适当的实例。</p>
 
@@ -311,7 +311,7 @@
 <li>想定制一个分布在多个类中的行为，而又不想生成太多的子类。</li>
 </ul>
 
-<p><img src="http://wukn.github.io/img/post/design-pattern/mediator.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/design-pattern/mediator.png" alt="" /></p>
 
 <p>Mediator（中介者）定义一个用于与各同事（Colleague）对象通信。ConcreteMediator通过协调各同事对象实现协作行为，它需要了解并维护它的各个同事。每一个同事类都知道它的中介者对象；每一个同事对象在需要与其他的同事通信的时候，与它的中介者通信。</p>
 
@@ -332,7 +332,7 @@
 <li>如果一个用接口来让其它对象直接得到这些状态，将会暴露对象的实现细节并破坏对象的封装性。</li>
 </ul>
 
-<p><img src="http://wukn.github.io/img/post/design-pattern/memento.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/design-pattern/memento.png" alt="" /></p>
 
 <p>Memento（备忘录）存储原发器对象的内部状态。原发器根据需要决定备忘录存储原发器的哪些内部状态。防止原发器以外的其它对象访问备忘录。备忘录实际上有两个接口，管理者（caretaker）只能看到备忘录的窄接口，它只能将备忘录传递给其它对象。相反，原发器能够看到一个宽接口，允许它访问返回到先前状态所需的所有数据。理想的情况是只允许生成本备忘录的那个原发器访问本备忘录的内部状态。Originator（原发器）创建一个备忘录，用以记录当前时刻它的内部状态，它可以使用备忘录来恢复内部状态。Caretaker（负责人）负责保存好备忘录，它不能对备忘录的内容进行操作或检查。</p>
 
@@ -352,7 +352,7 @@
 <li>当一个对象必须通知其它对象，而它又不能假定其它对象是谁。换言之，不希望这些对象是紧密耦合的。</li>
 </ul>
 
-<p><img src="http://wukn.github.io/img/post/design-pattern/observer.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/design-pattern/observer.png" alt="" /></p>
 
 <p>Subject（目标）知道它的观察者，可以有任意多个观察者观察同一个目标。Subject提供注册和删除观察者对象的接口。Observer（观察者）为那些在目标发生改变时需获得通知的对象定义一个更新接口。ConcreteSubject将有关状态存入各ConcreteObserver对象，当它的状态发生改变时，向它的各个观察者发出通知。ConcreteObserver维护一个指向ConcreteObserver对象的引用；存储有关状态，这些状态应与目标的状态保持一致；实现Observer的更新接口以使自身状态与目标状态保持一致。</p>
 
@@ -368,7 +368,7 @@
 <li>根据一个目标的请求，它更新所有依赖于这个目标的观察者。</li>
 </ul>
 
-<p><img src="http://wukn.github.io/img/post/design-pattern/observer2.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/design-pattern/observer2.png" alt="" /></p>
 
 <p>有两种特殊的ChangeManager。SimpleChangeManager总是更新每一个目标的所有观察者，比较简单。DAGChangeManager处理目标及其观察者之间依赖关系构成的无环有向图。当一个观察者观察多个目标时，DAGChangeManager比SimpleChangeManager要好一些。在这种情况下，两个或更多个目标中产生的改变可能会产生冗余的更新，DAGChangeManager保证观察者仅接收一个更新。</p>
 
@@ -389,7 +389,7 @@
 <li>一个操作中含有庞大的多分支条件语句，且这些分支依赖于该对象的状态。这个状态通常用一个或多个枚举常量表示。通常，有多个操作包含这一相同的条件结构。状态模式将每一个条件分支放入一个独立的类中。这使得我们可以根据对象自身的情况将对象的状态作为一个对象，这一对象可以不依赖于其它对象而独立变化。</li>
 </ul>
 
-<p><img src="http://wukn.github.io/img/post/design-pattern/state.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/design-pattern/state.png" alt="" /></p>
 
 <p>Context定义用户感兴趣的接口；它维护一个ConcreteState子类的实例，这个实例定义当前状态。State定义一个接口以封装与Context的一个特定状态相关的行为。每一个ConcreteState子类实现一个与Context的一个状态相关的行为。</p>
 
@@ -410,7 +410,7 @@
 <li>一个类定义了多种行为，并且这些行为在这个类的操作中以多个条件语句的形式出现。将相关的条件分支移入它们各自的Strategy类中以代替这些条件语句。</li>
 </ul>
 
-<p><img src="http://wukn.github.io/img/post/design-pattern/strategy.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/design-pattern/strategy.png" alt="" /></p>
 
 <p>Strategy定义所有支持的算法的公共接口。Context使用这个接口来调用某concreteStrategy定义的算法。ConcreteStrategy以Stategy接口实现某具体算法。Context用一个ConcreteStrategy对象来配置，它需要维护一个对Stategy对象的引用，可以定义一个接口来让Strategy访问它的数据。</p>
 
@@ -430,7 +430,7 @@
 <li>定义对象结构的类很少改变，但经常需要在此结构上定义新的操作。改变对象结构类需要重定义对所有访问者的接口，这可能需要很大的代价。如果对象结构类经常改变，那么可能还是在这些类中定义这些操作比较好。</li>
 </ul>
 
-<p><img src="http://wukn.github.io/img/post/design-pattern/visitor.png" alt="" /></p>
+<p><img src="https://wukn.github.io/img/post/design-pattern/visitor.png" alt="" /></p>
 
 <p>Visitor为该对象结构中ConcreteElement的每一个类声明一个Visit操作，该操作的名字和特征标识了发送Visit请求给该访问者的哪个类。这使得访问者可以确定正被访问元素的具体的类。这样访问者就可以通过该元素的特定接口直接访问它。ConcreteVisitor实现每个由Visitor声明的操作。每个操作实现本算法的一部分，而该算法片段乃是对应于结构中对象的类。ConcreteVisitor为该算法提提供了上下文并存储它的局部状态。Element定义了一个Accept操作，它以一个Visitor作为参数。ConcreteElement实现Accept操作。ObjectStructure能枚举它的元素，它可以提供一个高层的接口以允许该访问者访问它的元素，它可以是一个复合对象或是一个集合。</p>
 
@@ -472,7 +472,7 @@
       
       <ul class="post-tags">
         
-          <li><a href="http://wukn.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="tag">设计模式</span></a></li>
+          <li><a href="https://wukn.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="tag">设计模式</span></a></li>
         
       </ul>
       
@@ -495,7 +495,7 @@
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
 
 
-<script src="http://wukn.github.io/js/bundle.js"></script>
+<script src="https://wukn.github.io/js/bundle.js"></script>
 
 
 <script>

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>设计模式 on wukn blog</title>
-    <link>http://wukn.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+    <link>https://wukn.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
     <description>Recent content in 设计模式 on wukn blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     <lastBuildDate>Tue, 04 Apr 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://wukn.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wukn.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>[设计模式]行为型模式</title>
-      <link>http://wukn.github.io/2017/04/04/oo-design-pattern-behavior/</link>
+      <link>https://wukn.github.io/2017/04/04/oo-design-pattern-behavior/</link>
       <pubDate>Tue, 04 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2017/04/04/oo-design-pattern-behavior/</guid>
+      <guid>https://wukn.github.io/2017/04/04/oo-design-pattern-behavior/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;行为型模式用于处理类或对象的交互和职责分配。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>[设计模式]结构型模式</title>
-      <link>http://wukn.github.io/2017/03/29/oo-design-pattern-structure/</link>
+      <link>https://wukn.github.io/2017/03/29/oo-design-pattern-structure/</link>
       <pubDate>Wed, 29 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2017/03/29/oo-design-pattern-structure/</guid>
+      <guid>https://wukn.github.io/2017/03/29/oo-design-pattern-structure/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;结构型模式用于处理类或对象的组合。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -40,10 +40,10 @@
     
     <item>
       <title>[设计模式]创建型模式</title>
-      <link>http://wukn.github.io/2017/03/24/oo-design-pattern-create/</link>
+      <link>https://wukn.github.io/2017/03/24/oo-design-pattern-create/</link>
       <pubDate>Fri, 24 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2017/03/24/oo-design-pattern-create/</guid>
+      <guid>https://wukn.github.io/2017/03/24/oo-design-pattern-create/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;创建型模式用于处理对象的创建。&lt;/p&gt;
 
@@ -55,10 +55,10 @@
     
     <item>
       <title>[设计模式]总览</title>
-      <link>http://wukn.github.io/2017/03/22/oo-design-pattern-overview/</link>
+      <link>https://wukn.github.io/2017/03/22/oo-design-pattern-overview/</link>
       <pubDate>Wed, 22 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2017/03/22/oo-design-pattern-overview/</guid>
+      <guid>https://wukn.github.io/2017/03/22/oo-design-pattern-overview/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;设计模式是把过去成功的并且被重复使用的设计经验以人们能够有效利用的方式记录下来。&lt;/p&gt;
 
@@ -70,10 +70,10 @@
     
     <item>
       <title>面向对象的SOILD原则</title>
-      <link>http://wukn.github.io/2017/03/20/oo-solid/</link>
+      <link>https://wukn.github.io/2017/03/20/oo-solid/</link>
       <pubDate>Mon, 20 Mar 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2017/03/20/oo-solid/</guid>
+      <guid>https://wukn.github.io/2017/03/20/oo-solid/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;SOLID（单一职责、开放闭合、里氏替换、接口隔离以及依赖倒置）。&lt;/p&gt;
 

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>K8s on wukn blog</title>
-    <link>http://wukn.github.io/tags/k8s/</link>
+    <link>https://wukn.github.io/tags/k8s/</link>
     <description>Recent content in K8s on wukn blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     <lastBuildDate>Wed, 18 Oct 2017 00:00:00 +0800</lastBuildDate>
     
-	<atom:link href="http://wukn.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wukn.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>[k8s] 部署kubernetes集群——（六）部署Traefik</title>
-      <link>http://wukn.github.io/2017/10/18/install-kubernetes-cluster-v1.8.0-deploy-traefik/</link>
+      <link>https://wukn.github.io/2017/10/18/install-kubernetes-cluster-v1.8.0-deploy-traefik/</link>
       <pubDate>Wed, 18 Oct 2017 00:00:00 +0800</pubDate>
       
-      <guid>http://wukn.github.io/2017/10/18/install-kubernetes-cluster-v1.8.0-deploy-traefik/</guid>
+      <guid>https://wukn.github.io/2017/10/18/install-kubernetes-cluster-v1.8.0-deploy-traefik/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Traefik是一款开源的反向代理与负载均衡工具。它可以与常见的微服务系统直接整合，可以实现自动化动态配置。它原生支持Kubernetes作为后端。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>[k8s] 部署kubernetes集群——（五）部署DNS、Dashboard和Heapster插件</title>
-      <link>http://wukn.github.io/2017/10/09/install-kubernetes-cluster-v1.8.0-deploy-dns-dashboard-heapster/</link>
+      <link>https://wukn.github.io/2017/10/09/install-kubernetes-cluster-v1.8.0-deploy-dns-dashboard-heapster/</link>
       <pubDate>Mon, 09 Oct 2017 00:00:00 +0800</pubDate>
       
-      <guid>http://wukn.github.io/2017/10/09/install-kubernetes-cluster-v1.8.0-deploy-dns-dashboard-heapster/</guid>
+      <guid>https://wukn.github.io/2017/10/09/install-kubernetes-cluster-v1.8.0-deploy-dns-dashboard-heapster/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;在Kubernetes集群内部署DNS、Dashboard和Heapster插件。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -40,10 +40,10 @@
     
     <item>
       <title>[k8s] 部署kubernetes集群——（三）部署Master节点</title>
-      <link>http://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-master/</link>
+      <link>https://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-master/</link>
       <pubDate>Sun, 08 Oct 2017 00:00:00 +0800</pubDate>
       
-      <guid>http://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-master/</guid>
+      <guid>https://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-master/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Kubernetes master节点上需要kube-apiserver、kube-scheduler、kube-controller-manager。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -57,10 +57,10 @@
     
     <item>
       <title>[k8s] 部署kubernetes集群——（四）部署Node节点</title>
-      <link>http://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-node/</link>
+      <link>https://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-node/</link>
       <pubDate>Sun, 08 Oct 2017 00:00:00 +0800</pubDate>
       
-      <guid>http://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-node/</guid>
+      <guid>https://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-node/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Kubernetes node节点上需要docker、flannel、kublet和kube-proxy。&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -72,10 +72,10 @@
     
     <item>
       <title>[k8s] 部署kubernetes集群——（二）部署etcd和flannel</title>
-      <link>http://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-deploy-master/</link>
+      <link>https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-deploy-master/</link>
       <pubDate>Mon, 02 Oct 2017 00:00:00 +0800</pubDate>
       
-      <guid>http://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-deploy-master/</guid>
+      <guid>https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-deploy-master/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Kubernetes使用etcd存储集群状态数据。因此需要部署一个etcd集群，这里复用master的三台机器。&lt;/p&gt;
 
@@ -87,10 +87,10 @@
     
     <item>
       <title>[k8s] 部署kubernetes集群——（一）准备工作</title>
-      <link>http://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-prepare/</link>
+      <link>https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-prepare/</link>
       <pubDate>Sun, 01 Oct 2017 15:00:00 +0800</pubDate>
       
-      <guid>http://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-prepare/</guid>
+      <guid>https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-prepare/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Kubernetes集群节点分为master和node角色，master节点上需要kube-apiserver、kube-scheduler、kube-controller-manager。node节点上需要flannel、docker、kubelet、kube-proxy。master的高可用依赖etcd。集群内容器通信使用flannel搭建的vxlan网络。组件之间的通信使用TLS证书进行加密。使用时通常还需要kubedns、dashboard、heapster、docker registry等组组件。&lt;/p&gt;
 &lt;/blockquote&gt;

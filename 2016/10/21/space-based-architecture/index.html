@@ -29,7 +29,7 @@
 对于有大量用户并发访问的应用，通常数据库的并发处理事务量是关键的限制因素。尽管有很多缓存技术和数据库扩展工具可以解决该问题，但事实上扩展出可承受极端负载的应用是很难的。
  
 " />
-    <meta name="twitter:image" content="http://wukn.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
 
@@ -38,8 +38,8 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="http://wukn.github.io/2016/10/21/space-based-architecture/" />
-<link rel="alternative" href="http://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+<link rel="canonical" href="https://wukn.github.io/2016/10/21/space-based-architecture/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -64,18 +64,18 @@
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="http://wukn.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="http://wukn.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="http://wukn.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="http://wukn.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="http://wukn.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="http://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="http://wukn.github.io/css/bundle.css" />
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
 
 
   
@@ -108,7 +108,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="http://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">wukn blog</h2>
   
@@ -123,13 +123,13 @@
       
       
       
-        <li class="menu-item  is-active"><a href="http://wukn.github.io/">Home</a></li>
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
       
         <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
       
-        <li class="menu-item "><a href="http://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
       
-        <li class="menu-item "><a href="http://wukn.github.io/about/">About</a></li>
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
       
     </ul>
   </nav>
@@ -173,7 +173,7 @@
       
 
       <li class="social-item">
-        <a href="http://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -185,7 +185,7 @@
       
 
       <li class="social-item">
-        <a href="http://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -213,7 +213,7 @@
 
 <p>该架构模式中有两个主要组件：处理单元（processing unit）和虚拟化中间件（virtualized middleware）。如图1所示。处理单元组件包含应用组件（或部分应用组件），它包含Web组件和后端的业务逻辑。处理单元通常包含应用程序模块、内存中的数据网格和一个可选的异步持久化转移模块。还包含一个复制引擎供虚拟中间件调用，来同步各单元之间的数据变化。</p>
 
-<p><img src="http://wukn.github.io/img/post/software_architecture_pattern/space_based_architecture/space_based_architecture.png" alt="" />
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/space_based_architecture/space_based_architecture.png" alt="" />
 图1 基于空间的架构</p>
 
 <p>虚拟化中间件组件用于管理和通信。它包含可以控制各种数据同步和请求处理的组件。在虚拟化中间件内，有消息网格、数据网格、处理网格、调度管理器。</p>
@@ -222,7 +222,7 @@
 
 <p>基于空间架构的魔力在于虚拟化中间件和各个处理单元内部的内存中数据网格。图2所示，典型的处理组件包含应用模块、内存中数据网格、可选的异步持久化转移模块和数据复制引擎。</p>
 
-<p><img src="http://wukn.github.io/img/post/software_architecture_pattern/space_based_architecture/processing_unit.png" alt="" />
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/space_based_architecture/processing_unit.png" alt="" />
 图2 处理单元组件</p>
 
 <p>虚拟化中间件是该架构的控制器，处理请求、会话、数据复制、分布式请求处理、处理单元配置。主要有四种类型：消息网格、数据网格、处理网格、配置管理器。</p>
@@ -231,21 +231,21 @@
 
 <p>如图3所示，消息网格管理输入的请求和会话信息。当一个请求到达虚拟化中间件组件，消息网格组件决定哪些活动的处理组件是可以接收请求，并将其指派给某一个处理单元。可以使用简单的轮询算法，也可以跟踪处理单元的处理情况使用下一个可用的算法。</p>
 
-<p><img src="http://wukn.github.io/img/post/software_architecture_pattern/space_based_architecture/messaging_grid.png" alt="" />
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/space_based_architecture/messaging_grid.png" alt="" />
 图3 消息网格组件</p>
 
 <h3 id="数据网格">数据网格</h3>
 
 <p>数据网格组件在数据变化时和每个处理单元的数据复制引擎交互，进行同步数据。由于消息网格会将请求指派给任意一个处理单元，每个处理单元的内存中的数据必须是完全一致的。尽管图4中展示的是单元间的同步数据复制，实际上是异步完成的，处理时间在微秒级别。</p>
 
-<p><img src="http://wukn.github.io/img/post/software_architecture_pattern/space_based_architecture/data_grid.png" alt="" />
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/space_based_architecture/data_grid.png" alt="" />
 图4 数据网格组件</p>
 
 <h3 id="处理网格">处理网格</h3>
 
 <p>处理网格是可选的组件，用于协调和编排多个处理组件之间的分布式请求处理。</p>
 
-<p><img src="http://wukn.github.io/img/post/software_architecture_pattern/space_based_architecture/processing_grid.png" alt="" />
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/space_based_architecture/processing_grid.png" alt="" />
 图5 处理网格</p>
 
 <h2 id="配置管理器">配置管理器</h2>
@@ -311,7 +311,7 @@
       
       <ul class="post-tags">
         
-          <li><a href="http://wukn.github.io/tags/architecture"><span class="tag">Architecture</span></a></li>
+          <li><a href="https://wukn.github.io/tags/architecture"><span class="tag">Architecture</span></a></li>
         
       </ul>
       
@@ -334,7 +334,7 @@
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
 
 
-<script src="http://wukn.github.io/js/bundle.js"></script>
+<script src="https://wukn.github.io/js/bundle.js"></script>
 
 
 <script>

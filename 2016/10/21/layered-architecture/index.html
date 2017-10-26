@@ -27,7 +27,7 @@
     <meta name="twitter:description" content=" 分层架构模式是最常用的架构模式，也被成为N层架构模式。大部分架构师、设计者、开发者都熟知该模式。它与传统的IT通信和组织结构十分匹配，因此大部分业务应用开发自然而然选择它。
  
 " />
-    <meta name="twitter:image" content="http://wukn.github.io/img/avatar.jpg" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
 
@@ -36,8 +36,8 @@
 <meta name="generator" content="Hugo 0.30.2" />
 
 
-<link rel="canonical" href="http://wukn.github.io/2016/10/21/layered-architecture/" />
-<link rel="alternative" href="http://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+<link rel="canonical" href="https://wukn.github.io/2016/10/21/layered-architecture/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
 
 
 <meta name="renderer" content="webkit" />
@@ -62,18 +62,18 @@
 <meta name='msapplication-navbutton-color' content="#5fbf5e" />
 <meta name="msapplication-TileColor" content="#5fbf5e" />
 <meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
-<link rel="icon" href="http://wukn.github.io/img/favicon.ico" />
-<link rel="icon" type="image/png" sizes="16x16" href="http://wukn.github.io/img/favicon-16x16.png" />
-<link rel="icon" type="image/png" sizes="32x32" href="http://wukn.github.io/img/favicon-32x32.png" />
-<link rel="icon" sizes="192x192" href="http://wukn.github.io/img/touch-icon-android.png" />
-<link rel="apple-touch-icon" href="http://wukn.github.io/img/touch-icon-apple.png" />
-<link rel="mask-icon" href="http://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
 
 
 
 <link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
 
-<link rel="stylesheet" href="http://wukn.github.io/css/bundle.css" />
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
 
 
   
@@ -106,7 +106,7 @@
     
     
   <header class="site-header">
-  <img class="avatar" src="http://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
   
   <h2 class="title">wukn blog</h2>
   
@@ -121,13 +121,13 @@
       
       
       
-        <li class="menu-item  is-active"><a href="http://wukn.github.io/">Home</a></li>
+        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
       
         <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
       
-        <li class="menu-item "><a href="http://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
       
-        <li class="menu-item "><a href="http://wukn.github.io/about/">About</a></li>
+        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
       
     </ul>
   </nav>
@@ -171,7 +171,7 @@
       
 
       <li class="social-item">
-        <a href="http://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
       </li>
 
       
@@ -183,7 +183,7 @@
       
 
       <li class="social-item">
-        <a href="http://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
       </li>
 
     </ul>
@@ -207,7 +207,7 @@
 
 <p>分层架构模式的每一层对应着应用的特定角色和职责。例如，持久层负责处理用户交互和浏览器通信逻辑，业务层负责执行特定的与请求相关的业务规则。架构中的每一层将需要完成的工作进行抽象，来满足特定的业务请求。例如，展示层不需要知道也不需要关系如何获取用户数据，它只需要将信息以特定的格式展示到界面上。相似的，业务层不需要关心如何展示数据和数据从哪来，它只需要从持久层获取数据，对数据进行业务逻辑处理（计算、聚合等等），并将结果向上传递给展示层。</p>
 
-<p><img src="http://wukn.github.io/img/post/software_architecture_pattern/layer_architecture/layered_architecture_pattern.png" alt="" />
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/layer_architecture/layered_architecture_pattern.png" alt="" />
 图1 分层架构模式(layered architecture pattern)</p>
 
 <p>分层架构的一个特性就是关注分离（separation of concerns）。层中的组件只负责本层的逻辑。例如展示层只处理展示的逻辑，业务层只处理业务逻辑。这样对组件进行分类使得在架构中易于构建具有有效的角色和职责的模块，同样易于开发、测试、管理和维护，得益于清晰的组件接口和组建的有限的作用域。</p>
@@ -216,7 +216,7 @@
 
 <p>注意在图2中，架构的每一层被标记为封闭的（closed）。这是分层架构模式中最重要的一个概念。封闭的层意味着，一个请求在层与层之间移动时，它必须经过它下面的层才能到达下下一层。例如，展示层产生的请求必须先经过业务层再经过持久层才能最终到达数据库层。</p>
 
-<p><img src="http://wukn.github.io/img/post/software_architecture_pattern/layer_architecture/closed_layers_and_request_access.png" alt="" />
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/layer_architecture/closed_layers_and_request_access.png" alt="" />
 图2 封闭层和请求访问流程(closed layers and request access)</p>
 
 <p>为什么不允许展示层直接访问持久层或数据库层呢？毕竟，在展示层直接访问数据库层比将数据库读取信写信息层层传递更快啊。这个问题的答案在于一个关键的概念：隔离层（layers of isolation）。</p>
@@ -231,7 +231,7 @@
 
 <p>如图3中所示，服务层标记为开放的（open），意味着请求可以跨过该开放层直接访问下一层。例子中，业务层可以不经过服务层而直接到达持久层，这样是更合理的。</p>
 
-<p><img src="http://wukn.github.io/img/post/software_architecture_pattern/layer_architecture/open_layers_and_request_flow.png" alt="" />
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/layer_architecture/open_layers_and_request_flow.png" alt="" />
 图3 开放层和请求流程(open layers and request flow)</p>
 
 <p>利用层开放和封闭的概念有助于定义架构的层和请求流之间的关系，也为设计者和开发者提供了必要的信息以了解架构中各层的访问限制。没有合适的确定架构中每一层是开放还是封闭，通常会导致架构紧耦合且脆弱，难以测试、维护和部署。</p>
@@ -242,7 +242,7 @@
 
 <p>Customer Screen用于接收请求并展示用户信息，它不知道数据在哪，怎样获取，设计几张数据库表。只要它接收了获取某个用户信息的请求，它就将请求传递给Customer Delegate模块。该模块知道业务层哪个模块能处理请求，如何访问该业务层模块，以及需要的数据（契约）。业务层的Customer Object负责聚合该业务请求所需的所有数据（在例子中就是获取客户信息）。它调用持久层的数据访问对象Customer Dao和Order Dao分别获取客户数据和订单数据。这两个数据访问对象执行SQL语句，获取相应的数据，将数据回传给业务层的Customer Object。一旦Customer Object接收到数据，它将数据进行聚合再回传给Customer Delegate，再回传给Customer Screen展示给用户。</p>
 
-<p><img src="http://wukn.github.io/img/post/software_architecture_pattern/layer_architecture/layered_architecture_example.png" alt="" />
+<p><img src="https://wukn.github.io/img/post/software_architecture_pattern/layer_architecture/layered_architecture_example.png" alt="" />
 图4 分层架构案例</p>
 
 <h2 id="注意事项">注意事项</h2>
@@ -304,7 +304,7 @@
       
       <ul class="post-tags">
         
-          <li><a href="http://wukn.github.io/tags/architecture"><span class="tag">Architecture</span></a></li>
+          <li><a href="https://wukn.github.io/tags/architecture"><span class="tag">Architecture</span></a></li>
         
       </ul>
       
@@ -327,7 +327,7 @@
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
 
 
-<script src="http://wukn.github.io/js/bundle.js"></script>
+<script src="https://wukn.github.io/js/bundle.js"></script>
 
 
 <script>

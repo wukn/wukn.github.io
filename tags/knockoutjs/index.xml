@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Knockoutjs on wukn blog</title>
-    <link>http://wukn.github.io/tags/knockoutjs/</link>
+    <link>https://wukn.github.io/tags/knockoutjs/</link>
     <description>Recent content in Knockoutjs on wukn blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
     <lastBuildDate>Sat, 12 Nov 2016 10:00:00 +0000</lastBuildDate>
     
-	<atom:link href="http://wukn.github.io/tags/knockoutjs/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://wukn.github.io/tags/knockoutjs/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>[译][KnockoutJS] Mapping</title>
-      <link>http://wukn.github.io/2016/11/12/knockoutjs-mapping/</link>
+      <link>https://wukn.github.io/2016/11/12/knockoutjs-mapping/</link>
       <pubDate>Sat, 12 Nov 2016 10:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/12/knockoutjs-mapping/</guid>
+      <guid>https://wukn.github.io/2016/11/12/knockoutjs-mapping/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -27,10 +27,10 @@
     
     <item>
       <title>[译][KnockoutJS] Microtask queue</title>
-      <link>http://wukn.github.io/2016/11/12/knockoutjs-microtask-queue/</link>
+      <link>https://wukn.github.io/2016/11/12/knockoutjs-microtask-queue/</link>
       <pubDate>Sat, 12 Nov 2016 09:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/12/knockoutjs-microtask-queue/</guid>
+      <guid>https://wukn.github.io/2016/11/12/knockoutjs-microtask-queue/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -40,10 +40,10 @@
     
     <item>
       <title>[译][KnockoutJS] Rate-limiting observable notification</title>
-      <link>http://wukn.github.io/2016/11/12/knockoutjs-ratelimit-observable/</link>
+      <link>https://wukn.github.io/2016/11/12/knockoutjs-ratelimit-observable/</link>
       <pubDate>Sat, 12 Nov 2016 08:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/12/knockoutjs-ratelimit-observable/</guid>
+      <guid>https://wukn.github.io/2016/11/12/knockoutjs-ratelimit-observable/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -53,10 +53,10 @@
     
     <item>
       <title>[译][KnockoutJS] Deferred update</title>
-      <link>http://wukn.github.io/2016/11/12/knockoutjs-deferred-update/</link>
+      <link>https://wukn.github.io/2016/11/12/knockoutjs-deferred-update/</link>
       <pubDate>Sat, 12 Nov 2016 07:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/12/knockoutjs-deferred-update/</guid>
+      <guid>https://wukn.github.io/2016/11/12/knockoutjs-deferred-update/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -66,10 +66,10 @@
     
     <item>
       <title>[译][KnockoutJS] Extending observables</title>
-      <link>http://wukn.github.io/2016/11/12/knockoutjs-extending-observables/</link>
+      <link>https://wukn.github.io/2016/11/12/knockoutjs-extending-observables/</link>
       <pubDate>Sat, 12 Nov 2016 06:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/12/knockoutjs-extending-observables/</guid>
+      <guid>https://wukn.github.io/2016/11/12/knockoutjs-extending-observables/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -79,10 +79,10 @@
     
     <item>
       <title>[译][KnockoutJS] JSON</title>
-      <link>http://wukn.github.io/2016/11/12/knockoutjs-work-with-json/</link>
+      <link>https://wukn.github.io/2016/11/12/knockoutjs-work-with-json/</link>
       <pubDate>Sat, 12 Nov 2016 05:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/12/knockoutjs-work-with-json/</guid>
+      <guid>https://wukn.github.io/2016/11/12/knockoutjs-work-with-json/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -92,10 +92,10 @@
     
     <item>
       <title>[译][KnockoutJS] Components</title>
-      <link>http://wukn.github.io/2016/11/12/knockoutjs-components/</link>
+      <link>https://wukn.github.io/2016/11/12/knockoutjs-components/</link>
       <pubDate>Sat, 12 Nov 2016 04:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/12/knockoutjs-components/</guid>
+      <guid>https://wukn.github.io/2016/11/12/knockoutjs-components/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -105,10 +105,10 @@
     
     <item>
       <title>[译][KnockoutJS] Bindings - Creating custom binding</title>
-      <link>http://wukn.github.io/2016/11/12/knockoutjs-bindings-creating-custom-binding/</link>
+      <link>https://wukn.github.io/2016/11/12/knockoutjs-bindings-creating-custom-binding/</link>
       <pubDate>Sat, 12 Nov 2016 03:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/12/knockoutjs-bindings-creating-custom-binding/</guid>
+      <guid>https://wukn.github.io/2016/11/12/knockoutjs-bindings-creating-custom-binding/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -118,10 +118,10 @@
     
     <item>
       <title>[译][KnockoutJS] Bindings - Syntax</title>
-      <link>http://wukn.github.io/2016/11/12/knockoutjs-bindings-syntax/</link>
+      <link>https://wukn.github.io/2016/11/12/knockoutjs-bindings-syntax/</link>
       <pubDate>Sat, 12 Nov 2016 02:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/12/knockoutjs-bindings-syntax/</guid>
+      <guid>https://wukn.github.io/2016/11/12/knockoutjs-bindings-syntax/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -131,10 +131,10 @@
     
     <item>
       <title>[译][KnockoutJS] Bindings - Template</title>
-      <link>http://wukn.github.io/2016/11/12/knockoutjs-bindings-template/</link>
+      <link>https://wukn.github.io/2016/11/12/knockoutjs-bindings-template/</link>
       <pubDate>Sat, 12 Nov 2016 01:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/12/knockoutjs-bindings-template/</guid>
+      <guid>https://wukn.github.io/2016/11/12/knockoutjs-bindings-template/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -144,10 +144,10 @@
     
     <item>
       <title>[译][KnockoutJS] Bindings - Control flow</title>
-      <link>http://wukn.github.io/2016/11/12/knockoutjs-bindings-control-flow/</link>
+      <link>https://wukn.github.io/2016/11/12/knockoutjs-bindings-control-flow/</link>
       <pubDate>Sat, 12 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/12/knockoutjs-bindings-control-flow/</guid>
+      <guid>https://wukn.github.io/2016/11/12/knockoutjs-bindings-control-flow/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -157,10 +157,10 @@
     
     <item>
       <title>[译][KnockoutJS] Bindings - Work with form fields</title>
-      <link>http://wukn.github.io/2016/11/12/knockoutjs-bindings-work-with-form-fields/</link>
+      <link>https://wukn.github.io/2016/11/12/knockoutjs-bindings-work-with-form-fields/</link>
       <pubDate>Sat, 12 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/12/knockoutjs-bindings-work-with-form-fields/</guid>
+      <guid>https://wukn.github.io/2016/11/12/knockoutjs-bindings-work-with-form-fields/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -170,10 +170,10 @@
     
     <item>
       <title>[译][KnockoutJS] Bindings - Controlling text and appearence</title>
-      <link>http://wukn.github.io/2016/11/05/knockoutjs-bindings-controlling-text-and-appearence/</link>
+      <link>https://wukn.github.io/2016/11/05/knockoutjs-bindings-controlling-text-and-appearence/</link>
       <pubDate>Sat, 05 Nov 2016 02:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/05/knockoutjs-bindings-controlling-text-and-appearence/</guid>
+      <guid>https://wukn.github.io/2016/11/05/knockoutjs-bindings-controlling-text-and-appearence/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -183,10 +183,10 @@
     
     <item>
       <title>[译][KnockoutJS] Observables</title>
-      <link>http://wukn.github.io/2016/11/05/knockoutjs-observables/</link>
+      <link>https://wukn.github.io/2016/11/05/knockoutjs-observables/</link>
       <pubDate>Sat, 05 Nov 2016 01:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/05/knockoutjs-observables/</guid>
+      <guid>https://wukn.github.io/2016/11/05/knockoutjs-observables/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -196,10 +196,10 @@
     
     <item>
       <title>[译][KnockoutJS] Introduction</title>
-      <link>http://wukn.github.io/2016/11/05/knockoutjs-introduction/</link>
+      <link>https://wukn.github.io/2016/11/05/knockoutjs-introduction/</link>
       <pubDate>Sat, 05 Nov 2016 00:00:00 +0000</pubDate>
       
-      <guid>http://wukn.github.io/2016/11/05/knockoutjs-introduction/</guid>
+      <guid>https://wukn.github.io/2016/11/05/knockoutjs-introduction/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;KnockoutJS文档官网：&lt;a href=&#34;http://knockoutjs.com/documentation/introduction.html&amp;quot;&#34;&gt;http://knockoutjs.com/documentation/introduction.html&amp;quot;&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
