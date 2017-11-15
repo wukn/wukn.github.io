@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://wukn.github.io/2017/11/15/delete-some-files-in-shell/</loc>
+    <lastmod>2017-11-15T00:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://wukn.github.io/2017/10/18/install-kubernetes-cluster-v1.8.0-deploy-traefik/</loc>
     <lastmod>2017-10-18T00:00:00+08:00</lastmod>
   </url>
@@ -436,7 +441,7 @@
   
   <url>
     <loc>https://wukn.github.io/post/</loc>
-    <lastmod>2017-10-18T00:00:00+08:00</lastmod>
+    <lastmod>2017-11-15T00:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -453,6 +458,12 @@
   </url>
   
   <url>
+    <loc>https://wukn.github.io/tags/shell/</loc>
+    <lastmod>2017-11-15T00:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://wukn.github.io/tags/</loc>
     <lastmod>2017-03-06T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -460,7 +471,7 @@
   
   <url>
     <loc>https://wukn.github.io/</loc>
-    <lastmod>2017-10-18T00:00:00+08:00</lastmod>
+    <lastmod>2017-11-15T00:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
