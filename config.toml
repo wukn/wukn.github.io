@@ -32,7 +32,7 @@ copyright = "© Creative Commons Attribution-NonCommercial 4.0 International Lic
 [[menu.main]]
   name = "Tags"
   weight = 30
-  identifier = "tagss"
+  identifier = "tags"
   url = "/tags"
 
 # Add your own params here
