@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" 使用TypeScript构建Angular2应用。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] Quick Start" />
+  <meta property="og:description" content=" 使用TypeScript构建Angular2应用。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2016/11/29/angluar2-quick-start/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/29/angluar2-quick-start/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -212,7 +244,8 @@
   <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
   <span class="nx">template</span><span class="o">:</span> <span class="sb">`&lt;h1&gt;Hello {{name}}&lt;/h1&gt;`</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span> <span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Angular&#39;</span><span class="p">;</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span> <span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Angular&#39;</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
 <p>每一个组件以一个装饰器函数<code>@Component</code>为开始，这个装饰器函数接受一个元数据对象，这个元数据对象描述了HTML模板和组件类是如何工作的。</p>
 
 <p>元数据对象的selector属性告诉Angular在index.html文件的自定义标签<code>&lt;my-app&gt;</code>内部显示该组件。</p>
@@ -237,7 +270,8 @@ npm start</code></pre></div>
   <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
   <span class="nx">template</span><span class="o">:</span> <span class="sb">`&lt;h1&gt;Hello {{name}}&lt;/h1&gt;`</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span> <span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Angular&#39;</span><span class="p">;</span> <span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/app.module.ts
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span> <span class="nx">name</span> <span class="o">=</span> <span class="s1">&#39;Angular&#39;</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/app.module.ts
 </span><span class="c1"></span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
@@ -248,12 +282,14 @@ npm start</code></pre></div>
   <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">],</span>
   <span class="nx">bootstrap</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/main.ts
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/main.ts
 </span><span class="c1"></span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">platformBrowserDynamic</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser-dynamic&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">AppModule</span> <span class="p">}</span>              <span class="nx">from</span> <span class="s1">&#39;./app.module&#39;</span><span class="p">;</span>
 
-<span class="nx">platformBrowserDynamic</span><span class="p">().</span><span class="nx">bootstrapModule</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span></code></pre></div>
+<span class="nx">platformBrowserDynamic</span><span class="p">().</span><span class="nx">bootstrapModule</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span>
+</code></pre></div>
 <p><code>app.component.ts</code>文件定义了一个名为<code>AppComponent</code>的组件，它是应用的根组件。</p>
 
 <p><code>app.module.ts</code>文件定义了一个名为<code>AppModule</code>的模块，它用来告诉Angular如何组装应用。</p>
@@ -280,7 +316,7 @@ npm start</code></pre></div>
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>351</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>481</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -288,7 +324,7 @@ npm start</code></pre></div>
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -296,7 +332,28 @@ npm start</code></pre></div>
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

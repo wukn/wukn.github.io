@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" Angular是一个使用HTML和JavaScript或能编译成JavaScript的TypeScript等编写客户端应用的框架。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] Architecture Overview" />
+  <meta property="og:description" content=" Angular是一个使用HTML和JavaScript或能编译成JavaScript的TypeScript等编写客户端应用的框架。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2016/11/30/angular2-architecture-overview/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/30/angular2-architecture-overview/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -252,7 +284,8 @@
   <span class="nx">exports</span><span class="o">:</span>      <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">],</span>
   <span class="nx">bootstrap</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>PS：这里只是为了展示export的用法，其实不需要export AppComponent。一个根模块不需要export任何东西，因为没有其它模块会import根模块。</p>
 
 <p>通过引导根模块来启动应用。例如在<code>main.ts</code>文件中引导<code>AppModule</code>：</p>
@@ -261,14 +294,17 @@
 <span class="k">import</span> <span class="p">{</span> <span class="nx">platformBrowserDynamic</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser-dynamic&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">AppModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./app.module&#39;</span><span class="p">;</span>
 
-<span class="nx">platformBrowserDynamic</span><span class="p">().</span><span class="nx">bootstrapModule</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span></code></pre></div>
+<span class="nx">platformBrowserDynamic</span><span class="p">().</span><span class="nx">bootstrapModule</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span>
+</code></pre></div>
 <h4 id="angular模块-vs-javascript模块">Angular模块 vs. JavaScript模块</h4>
 
 <p>Angular模块是带有<code>@NgModule</code>装饰器的类，它是Angular的一个特性。</p>
 
 <p>JavaScript也有它自己的模块系统。在JavaScript中，每一个文件就是一个模块，所有在该文件内定义的对象都属于该模块。使用关键字export将模块中的对象声明为public类型。使用import来访问其它模块的public类型的对象。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>     <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">AppComponent</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./app.component&#39;</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <h4 id="angluar-libraries">Angluar Libraries</h4>
 
 <p><img src="https://wukn.github.io/img/post/angular2/architecture/library-module.png" alt="" /></p>
@@ -276,11 +312,14 @@
 <p>Angular内置了很多JavaScript模块，它们的名字以<code>@angular</code>开头。可以使用npm包管理器来安装他们，然后用JavaScript的<code>import</code>语句导入他们。</p>
 
 <p>例如，从<code>@angular/core</code>中引入Angularde<code>Component</code>装饰器：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+</code></pre></div>
 <p>还有，使用JavaScript的import语句从Angular库中引入Angular模块：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">BrowserModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/platform-browser&#39;</span><span class="p">;</span>
+</code></pre></div>
 <p>这是之前根模块的简单例子，该模块需要调用<code>BrowserModule</code>，在它的<code>@NgModule</code>元数据的<code>imports</code>属性中添加：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">imports</span><span class="o">:</span>      <span class="p">[</span> <span class="nx">BrowserModule</span> <span class="p">],</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">imports</span><span class="o">:</span>      <span class="p">[</span> <span class="nx">BrowserModule</span> <span class="p">],</span>
+</code></pre></div>
 <p>这种方式是将Angular模块和JavaScript模块系统结合起来使用的。</p>
 
 <h3 id="组件-component">组件（Component）</h3>
@@ -301,7 +340,8 @@
   <span class="p">}</span>
 
   <span class="nx">selectHero</span><span class="p">(</span><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Angular会根据用户的操作创建、更新以及销毁组件。可以使用生命周期钩子（lifecycle hook）看看组件的每个生命周期阶段。</p>
 
 <h3 id="模板-template">模板（Template）</h3>
@@ -318,7 +358,8 @@
     <span class="p">{{</span><span class="nx">hero</span><span class="p">.</span><span class="nx">name</span><span class="p">}}</span>
   <span class="o">&lt;</span><span class="err">/li&gt;</span>
 <span class="o">&lt;</span><span class="err">/ul&gt;</span>
-<span class="o">&lt;</span><span class="nx">hero</span><span class="o">-</span><span class="nx">detail</span> <span class="o">*</span><span class="nx">ngIf</span><span class="o">=</span><span class="s2">&#34;selectedHero&#34;</span> <span class="p">[</span><span class="nx">hero</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;selectedHero&#34;</span><span class="o">&gt;&lt;</span><span class="err">/hero-detail&gt;</span></code></pre></div>
+<span class="o">&lt;</span><span class="nx">hero</span><span class="o">-</span><span class="nx">detail</span> <span class="o">*</span><span class="nx">ngIf</span><span class="o">=</span><span class="s2">&#34;selectedHero&#34;</span> <span class="p">[</span><span class="nx">hero</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;selectedHero&#34;</span><span class="o">&gt;&lt;</span><span class="err">/hero-detail&gt;</span>
+</code></pre></div>
 <p>代码中的<code>*ngFor</code>、<code>{{hero.name}}</code>、<code>(click)</code>、<code>[hero]</code>和<code>&lt;hero-detail&gt;</code>这些都是Angular的<a href="https://angular.io/docs/ts/latest/guide/template-syntax.html">模板语法</a>。</p>
 
 <p>最后一行的<code>&lt;hero-detail&gt;</code>标签是一个自定义元素，代表一个组件<code>HeroDetailComponent</code>。</p>
@@ -344,7 +385,8 @@
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">HeroListComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
 <span class="cm">/* . . . */</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>装饰器<code>@Component</code>标识这个类是一个组件类。</p>
 
 <p>装饰器<code>@Component</code>接受一个配置对象作为参数，Angular根据这个参数来创建和展示这个组件和它的视图。</p>
@@ -373,7 +415,8 @@
 </span><span class="c1"></span>
 <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">hero</span><span class="p">.</span><span class="nx">name</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/li&gt;</span>
 <span class="o">&lt;</span><span class="nx">hero</span><span class="o">-</span><span class="nx">detail</span> <span class="p">[</span><span class="nx">hero</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;selectedHero&#34;</span><span class="o">&gt;&lt;</span><span class="err">/hero-detail&gt;</span>
-<span class="o">&lt;</span><span class="nx">li</span> <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">&#34;selectHero(hero)&#34;</span><span class="o">&gt;&lt;</span><span class="err">/li&gt;</span></code></pre></div>
+<span class="o">&lt;</span><span class="nx">li</span> <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">&#34;selectHero(hero)&#34;</span><span class="o">&gt;&lt;</span><span class="err">/li&gt;</span>
+</code></pre></div>
 <p><code>{{hero.name}}</code>插值表达式，将组件的<code>hero.name</code>属性值显示在<code>&lt;li&gt;</code>标签内。</p>
 
 <p><code>[hero]</code>属性绑定，将父组件<code>HeroListComponent</code>的<code>selectedHero</code>赋给子组件<code>HeroDetailComponent</code>的<code>hero</code>属性。</p>
@@ -383,7 +426,8 @@
 <p>还有一种方式为双向数据绑定，使用<code>ngModel</code>指令，将属性绑定和事件绑定合并到一个记号中。例如：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/hero-detail.component.html (ngModel)
 </span><span class="c1"></span>
-<span class="o">&lt;</span><span class="nx">input</span> <span class="p">[(</span><span class="nx">ngModel</span><span class="p">)]</span><span class="o">=</span><span class="s2">&#34;hero.name&#34;</span><span class="o">&gt;</span></code></pre></div>
+<span class="o">&lt;</span><span class="nx">input</span> <span class="p">[(</span><span class="nx">ngModel</span><span class="p">)]</span><span class="o">=</span><span class="s2">&#34;hero.name&#34;</span><span class="o">&gt;</span>
+</code></pre></div>
 <p>Angular会在每个JavaScript事件循环中处理所有的数据绑定，从组件树的根开始遍历所有组件。</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/architecture/parent-child-binding.png" alt="" /></p>
@@ -404,7 +448,8 @@
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/hero-list.component.html (structural)
 </span><span class="c1"></span>
 <span class="o">&lt;</span><span class="nx">li</span> <span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">&#34;let hero of heroes&#34;</span><span class="o">&gt;&lt;</span><span class="err">/li&gt;</span>
-<span class="o">&lt;</span><span class="nx">hero</span><span class="o">-</span><span class="nx">detail</span> <span class="o">*</span><span class="nx">ngIf</span><span class="o">=</span><span class="s2">&#34;selectedHero&#34;</span><span class="o">&gt;&lt;</span><span class="err">/hero-detail&gt;</span></code></pre></div>
+<span class="o">&lt;</span><span class="nx">hero</span><span class="o">-</span><span class="nx">detail</span> <span class="o">*</span><span class="nx">ngIf</span><span class="o">=</span><span class="s2">&#34;selectedHero&#34;</span><span class="o">&gt;&lt;</span><span class="err">/hero-detail&gt;</span>
+</code></pre></div>
 <p>× <code>*ngFor</code>告诉Angular为<code>heroes</code>列表中的每一个<code>hero</code>创建一个<code>&lt;li&gt;</code>标签。
 * <code>*ngIf</code>当组件的selectedHero存在时显示一个<code>HeroDetail</code>组件</p>
 
@@ -413,7 +458,8 @@
 <p>用于双向数据绑定的<code>ngModel</code>就是一个属性指令。它可以通过设置显示值和相应事件来修改一个已经存在的元素的行为。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/hero-detail.component.html (ngModel)
 </span><span class="c1"></span>
-<span class="o">&lt;</span><span class="nx">input</span> <span class="p">[(</span><span class="nx">ngModel</span><span class="p">)]</span><span class="o">=</span><span class="s2">&#34;hero.name&#34;</span><span class="o">&gt;</span></code></pre></div>
+<span class="o">&lt;</span><span class="nx">input</span> <span class="p">[(</span><span class="nx">ngModel</span><span class="p">)]</span><span class="o">=</span><span class="s2">&#34;hero.name&#34;</span><span class="o">&gt;</span>
+</code></pre></div>
 <p>其它常用的指令有<code>ngSwitch</code>、<code>ngStyle</code>和<code>ngClass</code>。</p>
 
 <h3 id="服务-service">服务（Service）</h3>
@@ -425,7 +471,8 @@
   <span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span>   <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">}</span>
   <span class="nx">error</span><span class="p">(</span><span class="nx">msg</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span> <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">}</span>
   <span class="nx">warn</span><span class="p">(</span><span class="nx">msg</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span>  <span class="p">{</span> <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="nx">msg</span><span class="p">);</span> <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><code>HeroService</code>获取数据并返回一个Promise。该服务依赖于<code>LogService</code>和<code>BackendService</code>。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/hero.service.ts
 </span><span class="c1"></span>
@@ -443,7 +490,8 @@
 </span><span class="c1"></span>    <span class="p">});</span>
     <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>组件类经保持简单，它不应该处理从服务器获取数据、校验输入数据、记录日志等。这些任务应该委托给服务来处理。组件应该只是视图和应用逻辑的中间人。</p>
 
 <p>一个好的组件应该只为数据绑定提供属性和方法，将所有其它不相关的事情委托给服务来处理。</p>
@@ -457,7 +505,8 @@
 <p>Angular会根据构造函数的参数类型分辨所需要的服务组件。例如：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/hero-list.component (constructor)
 </span><span class="c1"></span>
-<span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">_service</span><span class="o">:</span> <span class="nx">HeroService</span><span class="p">){</span> <span class="p">}</span></code></pre></div>
+<span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">_service</span><span class="o">:</span> <span class="nx">HeroService</span><span class="p">){</span> <span class="p">}</span>
+</code></pre></div>
 <p>当Angular创建组件时，它向Injector询问组件所需的服务。Injector维护一个它创建的服务实例的容器。当请求的服务实例不在容器中时，injector就创建一个并添加到容器中，然后将服务返回给Angular。当所有所需的服务都返回了，Angular就可以用这些服务作为参数调用组件的构造函数了。</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/architecture/injector-injects.png" alt="" /></p>
@@ -471,7 +520,8 @@
   <span class="nx">BackendService</span><span class="p">,</span>
   <span class="nx">HeroService</span><span class="p">,</span>
   <span class="nx">Logger</span>
-<span class="p">],</span></code></pre></div>
+<span class="p">],</span>
+</code></pre></div>
 <p>此外，也可以在组件层面注册：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/hero-list.component.ts (component providers)
 </span><span class="c1"></span>
@@ -480,7 +530,8 @@
   <span class="nx">selector</span><span class="o">:</span>    <span class="s1">&#39;hero-list&#39;</span><span class="p">,</span>
   <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;hero-list.component.html&#39;</span><span class="p">,</span>
   <span class="nx">providers</span><span class="o">:</span>  <span class="p">[</span> <span class="nx">HeroService</span> <span class="p">]</span>
-<span class="p">})</span></code></pre></div>
+<span class="p">})</span>
+</code></pre></div>
 <p>在组件层面注册意味着每一个新的组件实例都有一个新的服务实例。</p>
 
 <p>关于依赖注入，要注意的以下几点：</p>
@@ -506,7 +557,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>350</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>480</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -514,7 +565,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -522,7 +573,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

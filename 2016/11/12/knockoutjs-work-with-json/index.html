@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][KnockoutJS] JSON" />
+  <meta property="og:description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2016/11/12/knockoutjs-work-with-json/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-work-with-json/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -209,12 +241,14 @@
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s2">&#34;/some/url&#34;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Now use this data to update your view models,
 </span><span class="c1"></span>    <span class="c1">// and Knockout will update your UI automatically
-</span><span class="c1"></span><span class="p">})</span></code></pre></div>
+</span><span class="c1"></span><span class="p">})</span>
+</code></pre></div>
 <p>保存数据到服务器：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="cm">/* Your data in JSON format - see below */</span><span class="p">;</span>
 <span class="nx">$</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="s2">&#34;/some/url&#34;</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">returnedData</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// This callback is executed if the post was successful     
-</span><span class="c1"></span><span class="p">})</span></code></pre></div>
+</span><span class="c1"></span><span class="p">})</span>
+</code></pre></div>
 <p>除了jQuery也可以用其它的方式加载和保存数据。ko要做的就是：
 * 保存时，将视图模型数据转换成简单的json格式。
 * 加载时，用接收的数据更新到视图模型。</p>
@@ -239,12 +273,14 @@
 <span class="p">};</span>
 <span class="nx">viewModel</span><span class="p">.</span><span class="nx">hasALotOfPets</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">pets</span><span class="p">().</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">2</span>
-<span class="p">},</span> <span class="nx">viewModel</span><span class="p">)</span></code></pre></div>
+<span class="p">},</span> <span class="nx">viewModel</span><span class="p">)</span>
+</code></pre></div>
 <p>将其转换成json字符串：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">jsonData</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">toJSON</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span>
 
 <span class="c1">// Result: jsonData is now a string equal to the following value
-</span><span class="c1"></span><span class="err">// &#39;{&#34;firstName&#34;:&#34;Bert&#34;,&#34;lastName&#34;:&#34;Smith&#34;,&#34;pets&#34;:[&#34;Cat&#34;,&#34;Dog&#34;,&#34;Fish&#34;],&#34;type&#34;:&#34;Customer&#34;,&#34;hasALotOfPets&#34;:true}&#39;</span></code></pre></div>
+</span><span class="c1">// &#39;{&#34;firstName&#34;:&#34;Bert&#34;,&#34;lastName&#34;:&#34;Smith&#34;,&#34;pets&#34;:[&#34;Cat&#34;,&#34;Dog&#34;,&#34;Fish&#34;],&#34;type&#34;:&#34;Customer&#34;,&#34;hasALotOfPets&#34;:true}&#39;
+</span><span class="c1"></span></code></pre></div>
 <p>也可以得到序列化前的普通js对象：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">var</span> <span class="nx">plainJs</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">toJS</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span>
 
@@ -256,7 +292,8 @@
 </span><span class="c1">//      pets: [&#34;Cat&#34;,&#34;Dog&#34;,&#34;Fish&#34;],
 </span><span class="c1">//      type: &#34;Customer&#34;,
 </span><span class="c1">//      hasALotOfPets: true
-</span><span class="c1"></span><span class="err">//   }</span></code></pre></div>
+</span><span class="c1">//   }
+</span><span class="c1"></span></code></pre></div>
 <p>注意，<code>ko.toJSON</code>接收的参数是和<code>JSON.stringify</code>一样的。例如传递一些额外的参数：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">pre</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: ko.toJSON($root, null, 2)&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">pre</span><span class="p">&gt;</span></code></pre></div>
 <h2 id="使用json更新视图模型">使用json更新视图模型</h2>
@@ -268,7 +305,8 @@
 
 <span class="c1">// Update view model properties
 </span><span class="c1"></span><span class="nx">viewModel</span><span class="p">.</span><span class="nx">firstName</span><span class="p">(</span><span class="nx">parsed</span><span class="p">.</span><span class="nx">firstName</span><span class="p">);</span>
-<span class="nx">viewModel</span><span class="p">.</span><span class="nx">pets</span><span class="p">(</span><span class="nx">parsed</span><span class="p">.</span><span class="nx">pets</span><span class="p">);</span></code></pre></div>
+<span class="nx">viewModel</span><span class="p">.</span><span class="nx">pets</span><span class="p">(</span><span class="nx">parsed</span><span class="p">.</span><span class="nx">pets</span><span class="p">);</span>
+</code></pre></div>
 <p>除了这种手动更新模型属性的方法，可以使用映射插件来减少代码量。</p>
 
 <hr />
@@ -285,7 +323,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>368</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>497</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -293,7 +331,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -301,7 +339,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

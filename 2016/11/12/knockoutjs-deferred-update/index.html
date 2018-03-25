@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][KnockoutJS] Deferred update" />
+  <meta property="og:description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2016/11/12/knockoutjs-deferred-update/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-deferred-update/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -213,7 +245,8 @@
 <h2 id="启用deferred更新">启用deferred更新</h2>
 
 <p>默认deferred更新是关闭的。要使用它，必须在初始化视图模型前启用：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">deferUpdates</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">deferUpdates</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</code></pre></div>
 <p>当deferUpdates启用了，所有的监控属性、计算监控属性和绑定都被设置为延迟更新和通知。在创建基于ko的应用之前启用该特性可以不用担心中间值更新问题了。但是，要注意的是，在已有的应用中启用延迟更新可能会破坏原代码中依赖的同步更新或中间值通知。</p>
 
 <h3 id="例-避免ui多次更新">例：避免UI多次更新</h3>
@@ -258,11 +291,13 @@
 <span class="nx">ko</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">deferUpdates</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 <span class="kd">var</span> <span class="nx">vmStandard</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AppViewModel</span><span class="p">(</span><span class="s1">&#39;standard&#39;</span><span class="p">);</span>
 
-<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">([</span><span class="nx">vmStandard</span><span class="p">,</span> <span class="nx">vmDeferred</span><span class="p">]);</span></code></pre></div>
+<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">([</span><span class="nx">vmStandard</span><span class="p">,</span> <span class="nx">vmDeferred</span><span class="p">]);</span>
+</code></pre></div>
 <h2 id="为指定监控属性使用deferred更新">为指定监控属性使用deferred更新</h2>
 
 <p>不希望对整个应用使用deferred更新时，也可以为指定监控属性使用，通过使用<code>deferred</code>扩展器（对监控属性、计算监控属性和监控数组都适用）：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">().</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">deferred</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">data</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">().</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">deferred</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+</code></pre></div>
 <h3 id="例-避免多次ajax请求">例：避免多次ajax请求</h3>
 
 <p>下面的模型表示一个可以渲染成分页列表的数据：</p>
@@ -277,7 +312,8 @@
         <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">page</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">pageIndex</span><span class="p">(),</span> <span class="nx">size</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">pageSize</span><span class="p">()</span> <span class="p">};</span>
         <span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s1">&#39;/Some/Json/Service&#39;</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentPageData</span><span class="p">);</span>
     <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>可以看到，计算监控属性同时依赖于<code>pageIndex</code>和<code>pageSize</code>，因此在模型第一次实例化和以后<code>pageIndex</code>或<code>pageSize</code>更新时，代码会使用getJSON来重新加载<code>currentPageData</code>。</p>
 
 <p>这时有个潜在的效率问题，例如同时改变<code>pageIndex</code>和<code>pageSize</code>的值时，会触发两次ajax请求：</p>
@@ -285,7 +321,8 @@
     <span class="c1">// Whenever you change the page size, we always reset the page index to 1
 </span><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">pageSize</span><span class="p">(</span><span class="nx">newPageSize</span><span class="p">);</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">pageIndex</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>这会浪费带宽和服务器资源，并且导致不可预知的竞态条件。</p>
 
 <p>对计算监控属性使用deferred更新可以保证当前任务中的依赖多次改变时只出发一次更新。</p>
@@ -293,7 +330,8 @@
     <span class="c1">// This evaluation logic is exactly the same as before
 </span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">params</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">page</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">pageIndex</span><span class="p">(),</span> <span class="nx">size</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">pageSize</span><span class="p">()</span> <span class="p">};</span>
     <span class="nx">$</span><span class="p">.</span><span class="nx">getJSON</span><span class="p">(</span><span class="s1">&#39;/Some/Json/Service&#39;</span><span class="p">,</span> <span class="nx">params</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentPageData</span><span class="p">);</span>
-<span class="p">},</span> <span class="k">this</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">deferred</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span></code></pre></div>
+<span class="p">},</span> <span class="k">this</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">deferred</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+</code></pre></div>
 <h3 id="强制deferred更新提前发生">强制deferred更新提前发生</h3>
 
 <p>尽管可以延迟更新，更少的UI更新让异步通知看起来更好，但是如果想立刻更新UI怎么办？这种情况下可以使用<code>ko.tasks.runEarly method</code>：</p>
@@ -304,7 +342,8 @@
 </span><span class="c1"></span><span class="nx">ko</span><span class="p">.</span><span class="nx">tasks</span><span class="p">.</span><span class="nx">runEarly</span><span class="p">();</span>
 
 <span class="c1">// add the item in a new location
-</span><span class="c1"></span><span class="nx">myArray</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">targetIndex</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span></code></pre></div>
+</span><span class="c1"></span><span class="nx">myArray</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="nx">targetIndex</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">items</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
+</code></pre></div>
 <h3 id="强制延迟更新的监控属性始终通知订阅者">强制延迟更新的监控属性始终通知订阅者</h3>
 
 <p>当监控属性的值是原始类型时（数字、字符串、bool值、null），监控属性只会在设置的值与之前的值不一样时才通知依赖者。因此，原始值得监控属性延迟更新时，只会在当前任务结束前，值的确不一样了才发出通知。也就是说如果原始类型监控属性延迟更新，当值变化了又变回原来的值，是不会通知更新的。</p>
@@ -314,7 +353,8 @@
 
 <span class="nx">myViewModel</span><span class="p">.</span><span class="nx">fullName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">pureComputed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">myViewModel</span><span class="p">.</span><span class="nx">firstName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&#34; &#34;</span> <span class="o">+</span> <span class="nx">myViewModel</span><span class="p">.</span><span class="nx">lastName</span><span class="p">();</span>
-<span class="p">}).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">notify</span><span class="o">:</span> <span class="s1">&#39;always&#39;</span> <span class="p">});</span></code></pre></div>
+<span class="p">}).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">notify</span><span class="o">:</span> <span class="s1">&#39;always&#39;</span> <span class="p">});</span>
+</code></pre></div>
 <hr />
 
 <p>参考资料：</p>
@@ -329,7 +369,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>368</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>497</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -337,7 +377,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -345,7 +385,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

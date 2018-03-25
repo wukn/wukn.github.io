@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" 看一看Angular2的动画系统。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] Animations" />
+  <meta property="og:description" content=" 看一看Angular2的动画系统。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2017/01/14/angular2-animations/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/01/14/angular2-animations/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -220,7 +252,8 @@
   <span class="nx">style</span><span class="p">,</span>
   <span class="nx">transition</span><span class="p">,</span>
   <span class="nx">animate</span>
-<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span></code></pre></div>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+</code></pre></div>
 <p>有了这些以后，可以在组件的元数据中定义一个<code>heroState</code>动画触发器（animation trigger）。使用动画在<code>active</code>和<code>inactive</code>两个状态之间切换。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">animations</span><span class="o">:</span> <span class="p">[</span>
   <span class="nx">trigger</span><span class="p">(</span><span class="s1">&#39;heroState&#39;</span><span class="p">,</span> <span class="p">[</span>
@@ -235,7 +268,8 @@
     <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive =&gt; active&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-in&#39;</span><span class="p">)),</span>
     <span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;active =&gt; inactive&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-out&#39;</span><span class="p">))</span>
   <span class="p">])</span>
-<span class="p">]</span></code></pre></div>
+<span class="p">]</span>
+</code></pre></div>
 <p>使用<code>[@triggerName]</code>语法为元素添加动画：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="sb">`
 </span><span class="sb">  &lt;ul&gt;
@@ -245,7 +279,8 @@
 </span><span class="sb">      {{hero.name}}
 </span><span class="sb">    &lt;/li&gt;
 </span><span class="sb">  &lt;/ul&gt;
-</span><span class="sb">`</span><span class="p">,</span></code></pre></div>
+</span><span class="sb">`</span><span class="p">,</span>
+</code></pre></div>
 <p>这里为每个元素都添加了动画，属性值绑定的是表达式<code>hero.state</code>，它的值要么是<code>active</code>要么是<code>inactive</code>。</p>
 
 <p>这样就完成了动画的添加。完整的代码如下：</p>
@@ -289,7 +324,8 @@
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">HeroListBasicComponent</span> <span class="p">{</span>
   <span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">heroes</span><span class="o">:</span> <span class="nx">Heroes</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="状态和切换">状态和切换</h3>
 
 <p>Angular的动画定义分为逻辑状态和状态之间的切换。</p>
@@ -304,17 +340,21 @@
 <span class="nx">state</span><span class="p">(</span><span class="s1">&#39;active&#39;</span><span class="p">,</span>   <span class="nx">style</span><span class="p">({</span>
   <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#cfd8dc&#39;</span><span class="p">,</span>
   <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;scale(1.1)&#39;</span>
-<span class="p">})),</span></code></pre></div>
+<span class="p">})),</span>
+</code></pre></div>
 <p>定义完状态后就要定义状态之间的切换，每个transition控制状态之间的切换时间：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive =&gt; active&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-in&#39;</span><span class="p">)),</span>
-<span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;active =&gt; inactive&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-out&#39;</span><span class="p">))</span></code></pre></div>
+<span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;active =&gt; inactive&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-out&#39;</span><span class="p">))</span>
+</code></pre></div>
 <p><img src="https://wukn.github.io/img/post/angular2/animations/ng_animate_transitions_inactive_active.png" alt="" /></p>
 
 <p>如果多个transition的动画内容相同，可以将它们合并到同一个定义中：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive =&gt; active, active =&gt; inactive&#39;</span><span class="p">,</span>
- <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-out&#39;</span><span class="p">))</span></code></pre></div>
+ <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-out&#39;</span><span class="p">))</span>
+</code></pre></div>
 <p>如果两个方向的转换的动画内容相同，还可以使用简写<code>&lt;=&gt;</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive &lt;=&gt; active&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-out&#39;</span><span class="p">))</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive &lt;=&gt; active&#39;</span><span class="p">,</span> <span class="nx">animate</span><span class="p">(</span><span class="s1">&#39;100ms ease-out&#39;</span><span class="p">))</span>
+</code></pre></div>
 <p>在动画的过程中添加样式，但是它不会覆盖元素的最终样式。可以在<code>transition</code>中以行内的方式定义中间样式。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;inactive =&gt; active&#39;</span><span class="p">,</span> <span class="p">[</span>
   <span class="nx">style</span><span class="p">({</span>
@@ -325,7 +365,8 @@
     <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s1">&#39;#eee&#39;</span><span class="p">,</span>
     <span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;scale(1)&#39;</span>
   <span class="p">}))</span>
-<span class="p">]),</span></code></pre></div>
+<span class="p">]),</span>
+</code></pre></div>
 <h4 id="通配状态">通配状态*</h4>
 
 <p>通配符*匹配任意的动画状态。例如：</p>
@@ -363,12 +404,14 @@
       <span class="nx">animate</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(100%)&#39;</span><span class="p">}))</span>
     <span class="p">])</span>
   <span class="p">])</span>
-<span class="p">]</span></code></pre></div>
+<span class="p">]</span>
+</code></pre></div>
 <p>注意上面void状态的样式是直接在transition中定义的，而不是单独定义一个<code>state(void)</code>。这样，进入和离开的动画就不一样，从左边进入，从右边离开。</p>
 
 <p>这两种常见的动画有个别名：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;:enter&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="p">...</span> <span class="p">]);</span> <span class="c1">// void =&gt; *
-</span><span class="c1"></span><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;:leave&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="p">...</span> <span class="p">]);</span> <span class="err">// * =&gt; void</span></code></pre></div>
+</span><span class="c1"></span><span class="nx">transition</span><span class="p">(</span><span class="s1">&#39;:leave&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="p">...</span> <span class="p">]);</span> <span class="c1">// * =&gt; void
+</span><span class="c1"></span></code></pre></div>
 <h3 id="案例-从不同的状态进入和离开">案例：从不同的状态进入和离开</h3>
 
 <p>结合之前的状态可以定义不同状态的元素的进入和离开动画。</p>
@@ -406,7 +449,8 @@
       <span class="nx">animate</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">transform</span><span class="o">:</span> <span class="s1">&#39;translateX(0) scale(0)&#39;</span><span class="p">}))</span>
     <span class="p">])</span>
   <span class="p">])</span>
-<span class="p">]</span></code></pre></div>
+<span class="p">]</span>
+</code></pre></div>
 <h3 id="可作为动画的属性和单位">可作为动画的属性和单位</h3>
 
 <p>由于Angular的动画是基于Web Animations的，我们可以使用任何浏览器认为可作为动画（animatable）的属性。这包括位置、大小、转换、颜色、边框、等等。W3C维护了一个<a href="https://www.w3.org/TR/css3-transitions/#animatable-properties">可作为动画的属性</a>列表。</p>
@@ -430,7 +474,8 @@
       <span class="nx">animate</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="nx">style</span><span class="p">({</span><span class="nx">height</span><span class="o">:</span> <span class="mi">0</span><span class="p">}))</span>
     <span class="p">])</span>
   <span class="p">])</span>
-<span class="p">]</span></code></pre></div>
+<span class="p">]</span>
+</code></pre></div>
 <h3 id="动画的定时">动画的定时</h3>
 
 <p>每个transition可以定义三种时间属性，持续时间（duration）、延迟时间（delay）和缓冲函数（easing function）。它们是在一个transition的定时字符串中。</p>
@@ -484,7 +529,8 @@
       <span class="p">}))</span>
     <span class="p">])</span>
   <span class="p">])</span>
-<span class="p">]</span></code></pre></div>
+<span class="p">]</span>
+</code></pre></div>
 <h3 id="多步骤动画">多步骤动画</h3>
 
 <p>动画关键帧（keyframes）将一个简单的切换变成了有一个或多个中间样式的复杂的动画。</p>
@@ -512,7 +558,8 @@
       <span class="p">]))</span>
     <span class="p">])</span>
   <span class="p">])</span>
-<span class="p">]</span></code></pre></div>
+<span class="p">]</span>
+</code></pre></div>
 <p>关键帧的offset参数可以忽略。如果忽略那么就是每个关键帧之间时间间隔相等。例如，三个没有offset的关键帧将会接收到0、0.5和1作为offset。</p>
 
 <h3 id="并行动画组">并行动画组</h3>
@@ -551,7 +598,8 @@
       <span class="p">])</span>
     <span class="p">])</span>
   <span class="p">])</span>
-<span class="p">]</span></code></pre></div>
+<span class="p">]</span>
+</code></pre></div>
 <p>一个组作用于元素的转换和宽度，另一个组作用于调整元素的透明度。</p>
 
 <h3 id="动画回调">动画回调</h3>
@@ -568,7 +616,8 @@
 </span><span class="sb">      {{hero.name}}
 </span><span class="sb">    &lt;/li&gt;
 </span><span class="sb">  &lt;/ul&gt;
-</span><span class="sb">`</span><span class="p">,</span></code></pre></div>
+</span><span class="sb">`</span><span class="p">,</span>
+</code></pre></div>
 <p>回调函数接受一个<code>AnimationTransitionEvent</code>，它包含一些有用的属性，如<code>fromState</code>、<code>toState</code>和<code>totalTime</code>。</p>
 
 <p>Those callbacks will fire whether or not an animation is picked up.</p>
@@ -587,7 +636,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>305</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>435</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -595,7 +644,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -603,7 +652,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

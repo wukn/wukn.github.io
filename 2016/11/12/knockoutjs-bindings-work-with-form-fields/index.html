@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][KnockoutJS] Bindings - Work with form fields" />
+  <meta property="og:description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2016/11/12/knockoutjs-bindings-work-with-form-fields/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-bindings-work-with-form-fields/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -285,7 +317,8 @@
     <span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>注5：存在jQuery时，ko会使用juery来处理事件。可以使用<code>ko.applyBindings</code>选项让ko使用原生的事件处理。</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">ko</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">useOnlyNativeEvents</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">ko</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">useOnlyNativeEvents</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</code></pre></div>
 <h2 id="event">event</h2>
 
 <p>event用于为DOM元素添加指定事件。可以绑定任何事件，如<code>keypress</code>、<code>mouseover</code>或<code>mouseout</code>。
@@ -496,7 +529,7 @@
 <p>例：click-to-edit，使用<code>hasFocus</code>来切换编辑状态</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>
     Name:
-    <span class="p">&lt;</span><span class="nt">b</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: !editing(), text: name, click: edit&#34;</span><span class="p"></span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="p">/</span><span class="nt">b</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">b</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: !editing(), text: name, click: edit&#34;</span><span class="p"></span><span class="p">&gt;</span><span class="ni">&amp;nbsp;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">b</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: editing, value: name, hasFocus: editing&#34;</span> <span class="p">/</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">em</span><span class="p"></span><span class="p">&gt;</span>Click the name to edit it; click elsewhere to apply changes.<span class="p">&lt;</span><span class="p">/</span><span class="nt">em</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
@@ -725,7 +758,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>368</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>498</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -733,7 +766,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -741,7 +774,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

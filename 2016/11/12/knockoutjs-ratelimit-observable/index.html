@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][KnockoutJS] Rate-limiting observable notification" />
+  <meta property="og:description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2016/11/12/knockoutjs-ratelimit-observable/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-ratelimit-observable/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -218,7 +250,8 @@
 </span><span class="c1"></span><span class="nx">someObservableOrComputed</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="mi">500</span> <span class="p">});</span>
 
 <span class="c1">// Longhand: Specify timeout and/or method
-</span><span class="c1"></span><span class="nx">someObservableOrComputed</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="p">{</span> <span class="nx">timeout</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span> <span class="nx">method</span><span class="o">:</span> <span class="s2">&#34;notifyWhenChangesStop&#34;</span> <span class="p">}</span> <span class="p">});</span></code></pre></div>
+</span><span class="c1"></span><span class="nx">someObservableOrComputed</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="p">{</span> <span class="nx">timeout</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span> <span class="nx">method</span><span class="o">:</span> <span class="s2">&#34;notifyWhenChangesStop&#34;</span> <span class="p">}</span> <span class="p">});</span>
+</code></pre></div>
 <p><code>method</code>选项是在通知发起时触发，有两个参数：</p>
 
 <ul>
@@ -231,11 +264,14 @@
 
 <span class="kd">var</span> <span class="nx">upperCaseName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">name</span><span class="p">().</span><span class="nx">toUpperCase</span><span class="p">();</span>
-<span class="p">});</span></code></pre></div>
+<span class="p">});</span>
+</code></pre></div>
 <p>通常会这样改变name的值：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">name</span><span class="p">(</span><span class="s1">&#39;The New Bert&#39;</span><span class="p">);</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">name</span><span class="p">(</span><span class="s1">&#39;The New Bert&#39;</span><span class="p">);</span>
+</code></pre></div>
 <p>这时upperCaseName会立即更新。而如果使用了rateLimit：</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s1">&#39;Bert&#39;</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="mi">500</span> <span class="p">});</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">name</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s1">&#39;Bert&#39;</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="mi">500</span> <span class="p">});</span>
+</code></pre></div>
 <p>那么upperCaseName不会在name变化后立即重新计算，name会在值变化后等待500ms再将新的值通知给upperCaseName。不管在这500ms内name的值变化了多少次，upperCaseName只会收到一次最新值得通知。</p>
 
 <h3 id="例2-在用户停止输入时执行一些逻辑">例2：在用户停止输入时执行一些逻辑</h3>
@@ -262,7 +298,8 @@
     <span class="p">},</span> <span class="k">this</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="k">new</span> <span class="nx">AppViewModel</span><span class="p">());</span></code></pre></div>
+<span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="k">new</span> <span class="nx">AppViewModel</span><span class="p">());</span>
+</code></pre></div>
 <h3 id="计算监控属性的特殊情况">计算监控属性的特殊情况</h3>
 
 <p>对于计算监控属性，rateLimit定时器是在它依赖的监控属性其中一个变化时开始触发，而不是在计算监控属性的值变化时。计算监控属性只会在需要它的值时才重新评估——延时已到应该发出通知了，或者当它的值被直接访问。如果需要计算监控属性的最新值，可以使用<code>peek</code>方法。</p>
@@ -274,13 +311,15 @@
 <p>为了保证订阅者始终能收更新到通知，即使值一样，可以使用notify扩展器：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">myViewModel</span><span class="p">.</span><span class="nx">fullName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">myViewModel</span><span class="p">.</span><span class="nx">firstName</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&#34; &#34;</span> <span class="o">+</span> <span class="nx">myViewModel</span><span class="p">.</span><span class="nx">lastName</span><span class="p">();</span>
-<span class="p">}).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">notify</span><span class="o">:</span> <span class="s1">&#39;always&#39;</span><span class="p">,</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="mi">500</span> <span class="p">});</span></code></pre></div>
+<span class="p">}).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">notify</span><span class="o">:</span> <span class="s1">&#39;always&#39;</span><span class="p">,</span> <span class="nx">rateLimit</span><span class="o">:</span> <span class="mi">500</span> <span class="p">});</span>
+</code></pre></div>
 <h3 id="与deferred的比较">与deferred的比较</h3>
 
 <p>deferred与rateLimit相似，deferred是通过异步通知和更新的来达到延迟目的的。但defferred用的不是延时的方式，而是在当前任务结束后立刻更新。在使用ko v3.4.0版本之后可以用deferred来代替rateLimit：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">computed</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
     <span class="c1">// ....
-</span><span class="c1"></span><span class="p">}).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">deferred</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span></code></pre></div>
+</span><span class="c1"></span><span class="p">}).</span><span class="nx">extend</span><span class="p">({</span> <span class="nx">deferred</span><span class="o">:</span> <span class="kc">true</span> <span class="p">});</span>
+</code></pre></div>
 <hr />
 
 <p>参考资料：</p>
@@ -295,7 +334,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>368</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>497</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -303,7 +342,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -311,7 +350,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

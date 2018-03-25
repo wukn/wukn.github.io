@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" Angular表单通常包含控件数据绑定、变化跟踪、输入验证、错误展示等。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] Forms" />
+  <meta property="og:description" content=" Angular表单通常包含控件数据绑定、变化跟踪、输入验证、错误展示等。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2016/12/24/angular2-forms/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/12/24/angular2-forms/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -234,7 +266,8 @@
     <span class="kr">public</span> <span class="nx">city</span><span class="o">:</span> <span class="nx">string</span><span class="p">,</span>
     <span class="kr">public</span> <span class="nx">email</span><span class="o">?:</span> <span class="nx">string</span>
   <span class="p">)</span> <span class="p">{</span>  <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>TypeScript编译器会为<code>constructor</code>的每个<code>public</code>参数生成一个公有字段，并在创建新实例的时候将参数值赋给对应的字段。</p>
 
 <p><code>email</code>是可选的（看到email后面的问号了吗），所以实例化的时候可是省略这个参数。</p>
@@ -243,7 +276,8 @@
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">user</span> <span class="o">=</span>  <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Kun&#39;</span><span class="p">,</span>
                        <span class="s1">&#39;HF&#39;</span><span class="p">,</span>
                        <span class="s1">&#39;kun@wukn.org&#39;</span><span class="p">);</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;My name is &#39;</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span> <span class="err">// &#34;My name is Kun&#34;</span></code></pre></div>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;My name is &#39;</span> <span class="o">+</span> <span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span> <span class="c1">// &#34;My name is Kun&#34;
+</span><span class="c1"></span></code></pre></div>
 <h3 id="创建form组件">创建Form组件</h3>
 
 <p>一个Angular表单包含两部分：基于HTML的模板和处理数据及用户交互的组件。</p>
@@ -264,7 +298,8 @@
   <span class="nx">onSubmit</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">submitted</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="p">}</span>
   <span class="c1">// TODO: Remove this when we&#39;re done
 </span><span class="c1"></span>  <span class="nx">get</span> <span class="nx">diagnostic</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">model</span><span class="p">);</span> <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>创建组件没有什么特别之处，前面都提到过了。</p>
 
 <ol>
@@ -298,7 +333,8 @@
   <span class="p">],</span>
   <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>修改的地方有三处：</p>
 
 <ol>
@@ -315,7 +351,8 @@
   <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
   <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;user-form&gt;&lt;/user-form&gt;&#39;</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>这里我们只是将模板改成了新创建的<code>UserFormComponent</code>的selector。</p>
 
 <h3 id="创建html表单模板">创建HTML表单模板</h3>
@@ -351,7 +388,8 @@
   <span class="o">&lt;</span><span class="nx">select</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;form-control&#34;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;city&#34;</span> <span class="nx">required</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">option</span> <span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">&#34;let city of cities&#34;</span> <span class="p">[</span><span class="nx">value</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;city&#34;</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">city</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/option&gt;</span>
   <span class="o">&lt;</span><span class="err">/select&gt;</span>
-<span class="o">&lt;</span><span class="err">/div&gt;</span></code></pre></div>
+<span class="o">&lt;</span><span class="err">/div&gt;</span>
+</code></pre></div>
 <p>这里将对<code>cities</code>数组中的每个<code>city</code>重复生成<code>&lt;options&gt;</code>标签。</p>
 
 <h2 id="使用-ngmodel-双向绑定数据">使用<code>*ngModel</code>双向绑定数据</h2>
@@ -423,7 +461,8 @@
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">input</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&#34;text&#34;</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;form-control&#34;</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&#34;name&#34;</span>
   <span class="nx">required</span>
   <span class="p">[</span><span class="nx">ngModel</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;model.name&#34;</span> <span class="nx">name</span><span class="o">=</span><span class="s2">&#34;name&#34;</span>
-  <span class="p">(</span><span class="nx">ngModelChange</span><span class="p">)</span><span class="o">=</span><span class="s2">&#34;model.name = $event&#34;</span> <span class="o">&gt;</span></code></pre></div>
+  <span class="p">(</span><span class="nx">ngModelChange</span><span class="p">)</span><span class="o">=</span><span class="s2">&#34;model.name = $event&#34;</span> <span class="o">&gt;</span>
+</code></pre></div>
 <p>这里的属性绑定跟之前介绍的是一样的，但是事件绑定看起来就有点奇怪了。<code>ngModelChange</code>并不是<code>&lt;input&gt;</code>元素的事件，它实际上是<code>NgModel</code>指令的事件属性。当Angular遇到<code>[(x)]</code>这样的绑定时，它希望指令<code>x</code>有一个<code>x</code>输入属性和一个<code>xChange</code>输出属性。</p>
 
 <p>另一个奇怪的地方是模板表达式<code>model.name = $event</code>。我们在前面见过来自DOM事件的<code>$event</code>对象。<code>ngModelChange</code>属性并不产生DOM事件，它只是一个Angular的<code>EventEmitter</code>属性，当该事件触发时，它返回的是input文本框的值。</p>
@@ -508,7 +547,8 @@
 <p>在组件中添加方法：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">newUser</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">model</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">User</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>运行应用并点击<code>Add User</code>按钮，必填项的文本框左侧会显示红色，但是不会显示提示信息，因为我们并没有改变控件中的值。</p>
 
 <p>输入名称后再点击<code>Add User</code>按钮，这时候会现实提示信息。其实我们并不想在创建新用户的时候显示这个提示信息。为什么会这样呢？我们显示的还是一个空的User也显示提示消息了。</p>
@@ -549,7 +589,8 @@
 <p>这个表单在页面打开时是可见的，因为<code>submitted</code>值为<code>false</code>，直到我们提交了表单，它才会是<code>true</code>。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">submitted</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
 
-<span class="nx">onSubmit</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">submitted</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="p">}</span></code></pre></div>
+<span class="nx">onSubmit</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">submitted</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
 <p>当我们点击Submit按钮，<code>submitted</code>值变成<code>true</code>，表单就会被隐藏。这时候显示一些其他信息：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">hidden</span><span class="err">]=&#34;!</span><span class="na">submitted</span><span class="err">&#34;</span><span class="p"></span><span class="p">&gt;</span>
   <span class="p">&lt;</span><span class="nt">h2</span><span class="p"></span><span class="p">&gt;</span>You submitted the following:<span class="p">&lt;</span><span class="p">/</span><span class="nt">h2</span><span class="p">&gt;</span>
@@ -588,7 +629,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>326</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>456</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -596,7 +637,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -604,7 +645,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

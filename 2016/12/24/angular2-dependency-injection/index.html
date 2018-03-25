@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" Angular的依赖注入系统会准时（just-in-time）创建和传递依赖的服务。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] Dependency Injection" />
+  <meta property="og:description" content=" Angular的依赖注入系统会准时（just-in-time）创建和传递依赖的服务。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2016/12/24/angular2-dependency-injection/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/12/24/angular2-dependency-injection/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -219,7 +251,8 @@
     <span class="k">return</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">description</span><span class="si">}</span><span class="sb"> car with `</span> <span class="o">+</span>
       <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">engine</span><span class="p">.</span><span class="nx">cylinders</span><span class="si">}</span><span class="sb"> cylinders and </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">tires</span><span class="p">.</span><span class="nx">make</span><span class="si">}</span><span class="sb"> tires.`</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><code>Car</code>在它的构造函数里创建它所需的所有东西。这有什么问题呢？</p>
 
 <p>问题就是，<code>Car</code>类是脆弱的，固定的，不易于测试。<code>Car</code>需要engine和tires，然后就在构造函数里从指定的类<code>Engine</code>和<code>Tires</code>实例化，创建它自己的对象。</p>
@@ -245,7 +278,8 @@
     <span class="k">return</span> <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">description</span><span class="si">}</span><span class="sb"> car with `</span> <span class="o">+</span>
       <span class="sb">`</span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">engine</span><span class="p">.</span><span class="nx">cylinders</span><span class="si">}</span><span class="sb"> cylinders and </span><span class="si">${</span><span class="k">this</span><span class="p">.</span><span class="nx">tires</span><span class="p">.</span><span class="nx">make</span><span class="si">}</span><span class="sb"> tires.`</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>我们将依赖的定义移到了构造函数中。<code>Car</code>类不再自己创建engine和tires，而是直接使用它们。</p>
 
 <blockquote>
@@ -254,7 +288,8 @@
 
 <p>创建car时只要将engine和tires传给构造函数。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// Simple car with 4 cylinders and Flintstone tires.
-</span><span class="c1"></span><span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">(</span><span class="k">new</span> <span class="nx">Engine</span><span class="p">(),</span> <span class="k">new</span> <span class="nx">Tires</span><span class="p">());</span></code></pre></div>
+</span><span class="c1"></span><span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">(</span><span class="k">new</span> <span class="nx">Engine</span><span class="p">(),</span> <span class="k">new</span> <span class="nx">Tires</span><span class="p">());</span>
+</code></pre></div>
 <p>这样，所依赖的engine和tires的定义就从<code>Car</code>类中解耦出来了。我们可以传入任何类型的engine和tires，只要它们符合engine和tires的接口。</p>
 
 <p>如果扩展了<code>Engine</code>类，那么<code>Car</code>类本身没有任何问题，不需要修改。但是<code>Car</code>的使用者需要修改：</p>
@@ -263,13 +298,15 @@
 <span class="p">}</span>
 <span class="c1">// Super car with 12 cylinders and Flintstone tires.
 </span><span class="c1"></span><span class="kd">let</span> <span class="nx">bigCylinders</span> <span class="o">=</span> <span class="mi">12</span><span class="p">;</span>
-<span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">(</span><span class="k">new</span> <span class="nx">Engine2</span><span class="p">(</span><span class="nx">bigCylinders</span><span class="p">),</span> <span class="k">new</span> <span class="nx">Tires</span><span class="p">());</span></code></pre></div>
+<span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">(</span><span class="k">new</span> <span class="nx">Engine2</span><span class="p">(</span><span class="nx">bigCylinders</span><span class="p">),</span> <span class="k">new</span> <span class="nx">Tires</span><span class="p">());</span>
+</code></pre></div>
 <p>这样<code>Car</code>类就很方便测试了，我们可以传入模拟数据来测试。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">class</span> <span class="nx">MockEngine</span> <span class="k">extends</span> <span class="nx">Engine</span> <span class="p">{</span> <span class="nx">cylinders</span> <span class="o">=</span> <span class="mi">8</span><span class="p">;</span> <span class="p">}</span>
 <span class="k">class</span> <span class="nx">MockTires</span>  <span class="k">extends</span> <span class="nx">Tires</span>  <span class="p">{</span> <span class="nx">make</span> <span class="o">=</span> <span class="s1">&#39;YokoGoodStone&#39;</span><span class="p">;</span> <span class="p">}</span>
 
 <span class="c1">// Test car with 8 cylinders and YokoGoodStone tires.
-</span><span class="c1"></span><span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">(</span><span class="k">new</span> <span class="nx">MockEngine</span><span class="p">(),</span> <span class="k">new</span> <span class="nx">MockTires</span><span class="p">());</span></code></pre></div>
+</span><span class="c1"></span><span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Car</span><span class="p">(</span><span class="k">new</span> <span class="nx">MockEngine</span><span class="p">(),</span> <span class="k">new</span> <span class="nx">MockTires</span><span class="p">());</span>
+</code></pre></div>
 <p>依赖注入就是将类从外部接收依赖而不是自己创建他们。</p>
 
 <p>Cool！但是<code>Car</code>类的使用者怎么办呢？它必须知道<code>Car</code>、<code>Engine</code>和<code>Tires</code>。<code>Car</code>类将问题抛给了它的使用者了。我们需要有人来负责组装这些部件。</p>
@@ -289,11 +326,13 @@
   <span class="nx">createTires</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="k">new</span> <span class="nx">Tires</span><span class="p">();</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>这个看起来还不错，但是随着应用的增长，工厂类变成了一个巨大的依赖网，维护起来就很麻烦了。</p>
 
 <p>可不可以我们只需要列出我们想创建的东西而不用定义它应该注入哪些依赖呢？这就是依赖注入框架要解决的问题。假设框架中有个<code>injector</code>，我们将一些类注册到这个<code>injector</code>，它会算出如何创建这些类。当我们需要一个<code>Car</code>时，直接向<code>injector</code>要就行了。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">Car</span><span class="p">);</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">Car</span><span class="p">);</span>
+</code></pre></div>
 <p>所有问题都解决了。完美！<code>Car</code>不需要知道如何创建<code>Engine</code>或<code>Tires</code>。使用者也不需要知道如何创建<code>Car</code>。这些工作全部交给依赖注入框架。</p>
 
 <h3 id="angluar的依赖注入">Angluar的依赖注入</h3>
@@ -307,7 +346,8 @@
   <span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
   <span class="nx">isSecret</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/heroes/heroes.component.ts
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/heroes/heroes.component.ts
 </span><span class="c1"></span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span>          <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
 <span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
@@ -317,7 +357,8 @@
 </span><span class="sb">  &lt;hero-list&gt;&lt;/hero-list&gt;
 </span><span class="sb">  `</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">HeroesComponent</span> <span class="p">{</span> <span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/heroes/hero-list.component.ts
+<span class="k">export</span> <span class="k">class</span> <span class="nx">HeroesComponent</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/heroes/hero-list.component.ts
 </span><span class="c1"></span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">HEROES</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;./mock-heroes&#39;</span><span class="p">;</span>
@@ -331,7 +372,8 @@
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">HeroListComponent</span> <span class="p">{</span>
   <span class="nx">heroes</span> <span class="o">=</span> <span class="nx">HEROES</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/heroes/mock-heroes.ts
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/heroes/mock-heroes.ts
 </span><span class="c1"></span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
 <span class="k">export</span> <span class="kd">var</span> <span class="nx">HEROES</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">[]</span> <span class="o">=</span> <span class="p">[</span>
@@ -345,7 +387,8 @@
   <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span> <span class="nx">isSecret</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dr IQ&#39;</span> <span class="p">},</span>
   <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">19</span><span class="p">,</span> <span class="nx">isSecret</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Magma&#39;</span> <span class="p">},</span>
   <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span> <span class="nx">isSecret</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>  <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Tornado&#39;</span> <span class="p">}</span>
-<span class="p">];</span></code></pre></div>
+<span class="p">];</span>
+</code></pre></div>
 <p><code>HeroesComponent</code>是<code>HeroListComponent</code>的父组件。</p>
 
 <p>现在<code>HeroListComponent</code>从<code>HEROES</code>获取数据。如果我们想进行测试，或者将数据获取方式改成从服务器获取，那么我们就要修改<code>heroes</code>的实现，而且可能还要修改用到<code>HEROES</code>模拟数据的地方。因此我们创建service来隐藏数据的获取方式。</p>
@@ -356,7 +399,8 @@
 <span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">HeroService</span> <span class="p">{</span>
   <span class="nx">getHeroes</span><span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">HEROES</span><span class="p">;</span>  <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><code>HeroService</code>提供了<code>getHeroes</code>方法来返回模拟数据，而它的使用者就不需要知道数据从哪来。</p>
 
 <p>这里不是一个真正的Service类。真实情况应该是从远程服务器获取数据，这个API得是异步的，也许返回的是一个Promise。就是说使用该服务的组件也要修改代码。</p>
@@ -368,7 +412,8 @@
 <p>我们不需要自己创建injector，Angular在启动阶段会创建一个应用层的injector。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app.main.ts
 </span><span class="c1"></span>
-<span class="nx">platformBrowserDynamic</span><span class="p">().</span><span class="nx">bootstrapModule</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span></code></pre></div>
+<span class="nx">platformBrowserDynamic</span><span class="p">().</span><span class="nx">bootstrapModule</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span>
+</code></pre></div>
 <p>但是我们需要通过注册provider来配置injector。我们可以在一个<code>NgModule</code>或者组件中注册provider。</p>
 
 <h4 id="在-ngmodule-中注册provider">在<code>NgModule</code>中注册provider</h4>
@@ -392,7 +437,8 @@
   <span class="p">],</span>
   <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <h4 id="在组件中注册provider">在组件中注册provider</h4>
 
 <p>这是改进后的<code>HeroesComponent</code>，添加了注册<code>HeroService</code>：</p>
@@ -410,7 +456,8 @@
 </span><span class="sb">  &lt;hero-list&gt;&lt;/hero-list&gt;
 </span><span class="sb">  `</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">HeroesComponent</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">HeroesComponent</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>如何选择在<code>NgModule</code>还是组件中注册呢？</p>
 
 <p>NgModule中的provider是注册到根jinjector中。这意味着NgModule中注册的provider将在整个应用中可访问。而在组件中注册的provider只是在该组件及其子组件中可用。</p>
@@ -438,18 +485,21 @@
   <span class="nx">constructor</span><span class="p">(</span><span class="nx">heroService</span><span class="o">:</span> <span class="nx">HeroService</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">();</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>注意看修改后的构造函数：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">constructor</span><span class="p">(</span><span class="nx">heroService</span><span class="o">:</span> <span class="nx">HeroService</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">();</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>这里不是仅仅为构造函数添加了一个参数。我们看到参数的类型是<code>HeroService</code>，并且<code>HeroListComponent</code>类有一个<code>@Component</code>装饰器。再回想一下父组件<code>HeroesComponent</code>的<code>providers</code>中的<code>HeroService</code>。所有这些信息在一起，告诉了Angular在创建新的<code>HeroListComponent</code>实例的时候注入一个<code>HeroService</code>实例。</p>
 
 <h4 id="隐式依赖创建">隐式依赖创建</h4>
 
 <p>在之前的代码里我们看到如何创建injector和创建实例：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">injector</span> <span class="o">=</span> <span class="nx">ReflectiveInjector</span><span class="p">.</span><span class="nx">resolveAndCreate</span><span class="p">([</span><span class="nx">Car</span><span class="p">,</span> <span class="nx">Engine</span><span class="p">,</span> <span class="nx">Tires</span><span class="p">]);</span>
-<span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">Car</span><span class="p">);</span></code></pre></div>
+<span class="kd">let</span> <span class="nx">car</span> <span class="o">=</span> <span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">Car</span><span class="p">);</span>
+</code></pre></div>
 <p>实际上我们不需要这样做显式调用injector，Angular会为在创建组件的时候创建和调用injector。我们完全可以将这部分工作交给Angular来做，享受自动依赖注入的便捷。</p>
 
 <h4 id="单例service">单例service</h4>
@@ -467,7 +517,8 @@
 <span class="nx">it</span><span class="p">(</span><span class="s1">&#39;should have heroes when HeroListComponent created&#39;</span><span class="p">,</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="kd">let</span> <span class="nx">hlc</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HeroListComponent</span><span class="p">(</span><span class="nx">mockService</span><span class="p">);</span>
   <span class="nx">expect</span><span class="p">(</span><span class="nx">hlc</span><span class="p">.</span><span class="nx">heroes</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="nx">expectedHeroes</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
-<span class="p">});</span></code></pre></div>
+<span class="p">});</span>
+</code></pre></div>
 <h4 id="当service依赖另外的service">当service依赖另外的service？</h4>
 
 <p>上面的<code>HeroService</code>很简单，没有依赖其它service。如果它也有依赖的service呢，比如说logging service？跟上面一样，添加依赖注入：</p>
@@ -483,7 +534,8 @@
     <span class="k">this</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Getting heroes ...&#39;</span><span class="p">);</span>
     <span class="k">return</span> <span class="nx">HEROES</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="injectable"><code>@Injectable</code></h3>
 
 <p>注意到上面的service类使用了<code>@Injectable()</code>装饰器。<code>@Injectable()</code>表示这个类可以用injector实例化。一般来说，injector在为没有标记<code>@Injectable()</code>的类实例化注入依赖的时候会报错。之前不用加是因为我们那时还没有注入参数。</p>
@@ -518,13 +570,16 @@
     <span class="k">this</span><span class="p">.</span><span class="nx">logs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>我们希望在整个应用中使用同一个的logger service，所以我们将它放在项目的<code>app</code>文件夹下，并且注册到<code>AppModule</code>的provider数组中。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/app.component.ts
 </span><span class="c1"></span>
-<span class="nx">providers</span><span class="o">:</span> <span class="p">[</span><span class="nx">Logger</span><span class="p">]</span></code></pre></div>
+<span class="nx">providers</span><span class="o">:</span> <span class="p">[</span><span class="nx">Logger</span><span class="p">]</span>
+</code></pre></div>
 <p>如果我们忘记注册它，那么Angular会报错：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">EXCEPTION</span><span class="o">:</span> <span class="nx">No</span> <span class="nx">provider</span> <span class="k">for</span> <span class="nx">Logger</span><span class="o">!</span> <span class="p">(</span><span class="nx">HeroListComponent</span> <span class="o">-&gt;</span> <span class="nx">HeroService</span> <span class="o">-&gt;</span> <span class="nx">Logger</span><span class="p">)</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">EXCEPTION</span><span class="o">:</span> <span class="nx">No</span> <span class="nx">provider</span> <span class="k">for</span> <span class="nx">Logger</span><span class="o">!</span> <span class="p">(</span><span class="nx">HeroListComponent</span> <span class="o">-&gt;</span> <span class="nx">HeroService</span> <span class="o">-&gt;</span> <span class="nx">Logger</span><span class="p">)</span>
+</code></pre></div>
 <h3 id="injector-provider">Injector provider</h3>
 
 <p>injector依赖provider来创建要注入到组件或其他服务的服务实例。</p>
@@ -532,7 +587,8 @@
 <p>前面我们在<code>AppModule</code>的providers中注册了<code>Logger</code>：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/app.module.ts
 </span><span class="c1"></span>
-<span class="nx">providers</span><span class="o">:</span> <span class="p">[</span><span class="nx">Logger</span><span class="p">]</span></code></pre></div>
+<span class="nx">providers</span><span class="o">:</span> <span class="p">[</span><span class="nx">Logger</span><span class="p">]</span>
+</code></pre></div>
 <p>有很多种方式来提供一个看起来和表现起来都像<code>Logger</code>的东西。<code>Logger</code>类本身当然是可以的。但它不是唯一的方式。</p>
 
 <p>我们可以用可选的provider来配置injector，传递一个表现起来像<code>Logger</code>的对象。我们可以提供一个子类，可以提供一个很像logger的对象，可以提供一个调用logger工厂函数的provider。任意一种方式都有适用的场景。</p>
@@ -542,9 +598,11 @@
 <h4 id="provider-类和-provide-对象字面量"><code>Provider</code>类和<code>provide</code>对象字面量</h4>
 
 <p>在前面<code>providers</code>数组是这样写的：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">providers</span><span class="o">:</span> <span class="p">[</span><span class="nx">Logger</span><span class="p">]</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">providers</span><span class="o">:</span> <span class="p">[</span><span class="nx">Logger</span><span class="p">]</span>
+</code></pre></div>
 <p>它实际上是一个简写方式，实际上是有两个属性的<code>provider</code>对象字面量：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">Logger</span><span class="p">,</span> <span class="nx">useClass</span><span class="o">:</span> <span class="nx">Logger</span> <span class="p">}]</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">Logger</span><span class="p">,</span> <span class="nx">useClass</span><span class="o">:</span> <span class="nx">Logger</span> <span class="p">}]</span>
+</code></pre></div>
 <p>第一个属性是token，作为定位依赖值和注册provider的key。</p>
 
 <p>第二个属性是provider定义对象，我们可以认为是创建依赖值的菜单。有很多种方式创建依赖值&hellip;同样有很多种方式类写这个菜单。</p>
@@ -552,7 +610,8 @@
 <h4 id="替换类provider">替换类provider</h4>
 
 <p>偶尔我们会要求使用另一个类来提供服务。下面的代码告诉injector在别人需要<code>Logger</code>的时候返回一个<code>BetterLogger</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">Logger</span><span class="p">,</span> <span class="nx">useClass</span><span class="o">:</span> <span class="nx">BetterLogger</span> <span class="p">}]</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">Logger</span><span class="p">,</span> <span class="nx">useClass</span><span class="o">:</span> <span class="nx">BetterLogger</span> <span class="p">}]</span>
+</code></pre></div>
 <h4 id="有依赖的类provider">有依赖的类provider</h4>
 
 <p>也许<code>EvenBetterLogger</code>需要从注入的<code>UserService</code>中获取用户信息，正好我们在应用层注入了它。</p>
@@ -564,14 +623,17 @@
     <span class="kd">let</span> <span class="nx">name</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">userService</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
     <span class="k">super</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Message to </span><span class="si">${</span><span class="nx">name</span><span class="si">}</span><span class="sb">: </span><span class="si">${</span><span class="nx">message</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>注册它：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[</span> <span class="nx">UserService</span><span class="p">,</span>
-  <span class="p">{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">Logger</span><span class="p">,</span> <span class="nx">useClass</span><span class="o">:</span> <span class="nx">EvenBetterLogger</span> <span class="p">}]</span></code></pre></div>
+  <span class="p">{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">Logger</span><span class="p">,</span> <span class="nx">useClass</span><span class="o">:</span> <span class="nx">EvenBetterLogger</span> <span class="p">}]</span>
+</code></pre></div>
 <h2 id="injector-provider-1">Injector provider</h2>
 
 <p>injector依赖<code>providers</code>来创建实例。我们必须注册service的provider，injector才知道如何来创建实例。例如，我们在<code>AppComponent</code>的<code>providers</code>中注册了<code>Logger</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">providers</span><span class="o">:</span> <span class="p">[</span><span class="nx">Logger</span><span class="p">]</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">providers</span><span class="o">:</span> <span class="p">[</span><span class="nx">Logger</span><span class="p">]</span>
+</code></pre></div>
 <p><code>providers</code>数组里看起来是个service类。实际上是能提供那个service类的<code>Provider</code>类实例。有很多种方式来提供看起来和表现起来像<code>Logger</code>的一些东西。<code>Logger</code>类它自己自然是可以的。除此之外，我们还可以提供一个<code>Logger</code>相似的对象或者会调用<code>Logger</code>工厂函数的类。</p>
 
 <h3 id="provide函数">provide函数</h3>
@@ -581,7 +643,8 @@
 <p>不管是<code>Provider</code>类还是<code>provide</code>函数，都需要提供两个参数：第一个参数是用来定位依赖值和注册provider的标识；第二个参数是一个provider定义对象。</p>
 
 <p>例如，我们可以用另一个类来提供服务，当service需要<code>Logger</code>时，injector会提供<code>BetterLogger</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[</span><span class="nx">provide</span><span class="p">(</span><span class="nx">Logger</span><span class="p">,</span> <span class="p">{</span><span class="nx">useClass</span><span class="o">:</span> <span class="nx">BetterLogger</span><span class="p">})]</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[</span><span class="nx">provide</span><span class="p">(</span><span class="nx">Logger</span><span class="p">,</span> <span class="p">{</span><span class="nx">useClass</span><span class="o">:</span> <span class="nx">BetterLogger</span><span class="p">})]</span>
+</code></pre></div>
 <p>甚至是依赖其他service的<code>EvenBetterLogger</code>：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Injectable</span><span class="p">()</span>
 <span class="k">class</span> <span class="nx">EvenBetterLogger</span> <span class="p">{</span>
@@ -592,10 +655,12 @@
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">logs</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>在providers中配置：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[</span> <span class="nx">UserService</span><span class="p">,</span>
-  <span class="nx">provide</span><span class="p">(</span><span class="nx">Logger</span><span class="p">,</span> <span class="p">{</span><span class="nx">useClass</span><span class="o">:</span> <span class="nx">EvenBetterLogger</span><span class="p">})</span> <span class="p">]</span></code></pre></div>
+  <span class="nx">provide</span><span class="p">(</span><span class="nx">Logger</span><span class="p">,</span> <span class="p">{</span><span class="nx">useClass</span><span class="o">:</span> <span class="nx">EvenBetterLogger</span><span class="p">})</span> <span class="p">]</span>
+</code></pre></div>
 <h3 id="别名类provider">别名类provider</h3>
 
 <p>假设一个老组件依赖<code>OldLogger</code>。<code>OldLogger</code>有着跟<code>NewLogger</code>一样的接口。由于某些原因，我们没法更新<code>OldLogger</code>。现在我们希望，老的组件在在需要<code>OldLogger</code>时，用<code>NewLogger</code>实例来代替它。也就是希望injector在组件需要<code>NewLogger</code>或<code>OldLogger</code>时都返回<code>NewLogger</code>实例。相当于<code>OldLogger</code>是<code>NewLogger</code>的别名。</p>
@@ -603,11 +668,13 @@
 <p>我们可能会想到这样做：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[</span> <span class="nx">NewLogger</span><span class="p">,</span>
   <span class="c1">// Not aliased! Creates two instances of `NewLogger`
-</span><span class="c1"></span>  <span class="p">{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">OldLogger</span><span class="p">,</span> <span class="nx">useClass</span><span class="o">:</span> <span class="nx">NewLogger</span><span class="p">}]</span></code></pre></div>
+</span><span class="c1"></span>  <span class="p">{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">OldLogger</span><span class="p">,</span> <span class="nx">useClass</span><span class="o">:</span> <span class="nx">NewLogger</span><span class="p">}]</span>
+</code></pre></div>
 <p>但是这样在应用中会有两个<code>NewLogger</code>实例。解决方案是使用<code>useExisting</code>选项：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[</span> <span class="nx">NewLogger</span><span class="p">,</span>
   <span class="c1">// Alias OldLogger w/ reference to NewLogger
-</span><span class="c1"></span>  <span class="p">{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">OldLogger</span><span class="p">,</span> <span class="nx">useExisting</span><span class="o">:</span> <span class="nx">NewLogger</span><span class="p">}]</span></code></pre></div>
+</span><span class="c1"></span>  <span class="p">{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">OldLogger</span><span class="p">,</span> <span class="nx">useExisting</span><span class="o">:</span> <span class="nx">NewLogger</span><span class="p">}]</span>
+</code></pre></div>
 <h4 id="value-provider">Value provider</h4>
 
 <p>有时提供一个已经存在的对象比要求injector创建一个更简单：</p>
@@ -615,9 +682,11 @@
 </span><span class="c1"></span><span class="kd">let</span> <span class="nx">silentLogger</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">logs</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Silent logger says &#34;Shhhhh!&#34;. Provided via &#34;useValue&#34;&#39;</span><span class="p">],</span>
   <span class="nx">log</span><span class="o">:</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{}</span>
-<span class="p">};</span></code></pre></div>
+<span class="p">};</span>
+</code></pre></div>
 <p>那么我们可以使用<code>useValue</code>选项：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">Logger</span><span class="p">,</span> <span class="nx">useValue</span><span class="o">:</span> <span class="nx">silentLogger</span> <span class="p">}]</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">[{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">Logger</span><span class="p">,</span> <span class="nx">useValue</span><span class="o">:</span> <span class="nx">silentLogger</span> <span class="p">}]</span>
+</code></pre></div>
 <h4 id="factory-provider">Factory provider</h4>
 
 <p>有时候我们需要动态地创建依赖的值，基于一些直到最后才能知道的一些信息。还有注入的服务没有独立访问这些资源的权限等情况。</p>
@@ -639,13 +708,15 @@
   <span class="kd">let</span> <span class="nx">auth</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">isAuthorized</span> <span class="o">?</span> <span class="s1">&#39;authorized &#39;</span> <span class="o">:</span> <span class="s1">&#39;unauthorized&#39;</span><span class="p">;</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="sb">`Getting heroes for </span><span class="si">${</span><span class="nx">auth</span><span class="si">}</span><span class="sb"> user.`</span><span class="p">);</span>
   <span class="k">return</span> <span class="nx">HEROES</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">hero</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">isAuthorized</span> <span class="o">||</span> <span class="o">!</span><span class="nx">hero</span><span class="p">.</span><span class="nx">isSecret</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>我们可以注入<code>Logger</code>，但是却没法注入布尔值<code>isAuthorized</code>。我们将<code>HeroService</code>创建实例的工作交给一个factory provider。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/heroes/hero.service.provider.ts
 </span><span class="c1"></span>
 <span class="kd">let</span> <span class="nx">heroServiceFactory</span> <span class="o">=</span> <span class="p">(</span><span class="nx">logger</span><span class="o">:</span> <span class="nx">Logger</span><span class="p">,</span> <span class="nx">userService</span><span class="o">:</span> <span class="nx">UserService</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="k">new</span> <span class="nx">HeroService</span><span class="p">(</span><span class="nx">logger</span><span class="p">,</span> <span class="nx">userService</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nx">isAuthorized</span><span class="p">);</span>
-<span class="p">};</span></code></pre></div>
+<span class="p">};</span>
+</code></pre></div>
 <p>尽管<code>HeroService</code>不能访问<code>UserService</code>，但是这个工厂函数可以。</p>
 
 <p>将<code>Logger</code>和<code>UserService</code>注入到factory provider：</p>
@@ -655,7 +726,8 @@
   <span class="p">{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">HeroService</span><span class="p">,</span>
     <span class="nx">useFactory</span><span class="o">:</span> <span class="nx">heroServiceFactory</span><span class="p">,</span>
     <span class="nx">deps</span><span class="o">:</span> <span class="p">[</span><span class="nx">Logger</span><span class="p">,</span> <span class="nx">UserService</span><span class="p">]</span>
-  <span class="p">};</span></code></pre></div>
+  <span class="p">};</span>
+</code></pre></div>
 <p><code>useFactory</code>字段告诉Angular这个provider是一个工厂函数，它的实现是<code>heroServiceFactory</code>。</p>
 
 <p><code>deps</code>属性是一个provider token数组。<code>Logger</code>和<code>UserService</code>类将作为它们自己的类provider的token。injector会解析这些token并注入与工厂函数的参数匹配的服务。</p>
@@ -675,13 +747,15 @@
 </span><span class="sb">  `</span><span class="p">,</span>
   <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span><span class="nx">heroServiceProvider</span><span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">HeroesComponent</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">HeroesComponent</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <h3 id="依赖注入token">依赖注入token</h3>
 
 <p>我们向injector注册一个provider，关联了一个依赖注入token，injector内部维护了一个token-provider映射map，token就是这个map的key。</p>
 
 <p>在之前的例子中，依赖的值是一个类的实例，这个类的类型就作为token了。就像这样：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">heroService</span><span class="o">:</span> <span class="nx">HeroService</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">HeroService</span><span class="p">);</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">heroService</span><span class="o">:</span> <span class="nx">HeroService</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">HeroService</span><span class="p">);</span>
+</code></pre></div>
 <p>我们在构造函数中指定参数的类型后，Angular就知道该注入那个实例了：</p>
 
 <pre><code>constructor(heroService: HeroService)
@@ -702,15 +776,18 @@
 <span class="k">export</span> <span class="k">const</span> <span class="nx">HERO_DI_CONFIG</span><span class="o">:</span> <span class="nx">AppConfig</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">apiEndpoint</span><span class="o">:</span> <span class="s1">&#39;api.heroes.com&#39;</span><span class="p">,</span>
   <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;Dependency Injection&#39;</span>
-<span class="p">};</span></code></pre></div>
+<span class="p">};</span>
+</code></pre></div>
 <p>我们想把<code>config</code>对象注册到injector中可以使用value provider。但是如何使用它的token呢？并没有一个类作为它的token。也没有<code>AppConfig</code>类。</p>
 
 <h4 id="typescript接口不是有效的token">TypeScript接口不是有效的token</h4>
 
 <p><code>HERO_DI_CONFIG</code>常量有一个接口<code>AppConfig</code>，但是它不能作为token：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// FAIL!  Can&#39;t use interface as provider token
-</span><span class="c1"></span><span class="p">[{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">AppConfig</span><span class="p">,</span> <span class="nx">useValue</span><span class="o">:</span> <span class="nx">HERO_DI_CONFIG</span> <span class="p">})]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// FAIL! Can&#39;t inject using the interface as the parameter type
-</span><span class="c1"></span><span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">config</span><span class="o">:</span> <span class="nx">AppConfig</span><span class="p">){</span> <span class="p">}</span></code></pre></div>
+</span><span class="c1"></span><span class="p">[{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">AppConfig</span><span class="p">,</span> <span class="nx">useValue</span><span class="o">:</span> <span class="nx">HERO_DI_CONFIG</span> <span class="p">})]</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// FAIL! Can&#39;t inject using the interface as the parameter type
+</span><span class="c1"></span><span class="nx">constructor</span><span class="p">(</span><span class="kr">private</span> <span class="nx">config</span><span class="o">:</span> <span class="nx">AppConfig</span><span class="p">){</span> <span class="p">}</span>
+</code></pre></div>
 <p>这样看起来很奇怪，因为在强类型语言中使用依赖注入，接口是最好的依赖查找key。</p>
 
 <p>这不是Angular的问题。因为Javascript中没有接口，接口是TypeScript的设计时的东西。TypeScript接口在编译成JavaScritp之后就不见啦。</p>
@@ -720,11 +797,14 @@
 <p>针对non-class dependencies这种情况，一种方法是定义和使用OpaqueToken：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">OpaqueToken</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
 
-<span class="k">export</span> <span class="kd">let</span> <span class="nx">APP_CONFIG</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OpaqueToken</span><span class="p">(</span><span class="s1">&#39;app.config&#39;</span><span class="p">);</span></code></pre></div>
+<span class="k">export</span> <span class="kd">let</span> <span class="nx">APP_CONFIG</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">OpaqueToken</span><span class="p">(</span><span class="s1">&#39;app.config&#39;</span><span class="p">);</span>
+</code></pre></div>
 <p>注册和使用：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">providers</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">APP_CONFIG</span><span class="p">,</span> <span class="nx">useValue</span><span class="o">:</span> <span class="nx">HERO_DI_CONFIG</span> <span class="p">}]</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">constructor</span><span class="p">(</span><span class="err">@</span><span class="nx">Inject</span><span class="p">(</span><span class="nx">APP_CONFIG</span><span class="p">)</span> <span class="nx">config</span><span class="o">:</span> <span class="nx">AppConfig</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">providers</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">APP_CONFIG</span><span class="p">,</span> <span class="nx">useValue</span><span class="o">:</span> <span class="nx">HERO_DI_CONFIG</span> <span class="p">}]</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">constructor</span><span class="p">(</span><span class="err">@</span><span class="nx">Inject</span><span class="p">(</span><span class="nx">APP_CONFIG</span><span class="p">)</span> <span class="nx">config</span><span class="o">:</span> <span class="nx">AppConfig</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">title</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>尽管<code>AppConfig</code>接口在依赖注入中没什么用，但它能提供类型支持。</p>
 
 <p>或者我们可以在一个ngModule提供和注入配置对象，例如，在<code>AppModule</code>中：</p>
@@ -733,7 +813,8 @@
 <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span>
   <span class="nx">UserService</span><span class="p">,</span>
   <span class="p">{</span> <span class="nx">provide</span><span class="o">:</span> <span class="nx">APP_CONFIG</span><span class="p">,</span> <span class="nx">useValue</span><span class="o">:</span> <span class="nx">HERO_DI_CONFIG</span> <span class="p">}</span>
-<span class="p">],</span></code></pre></div>
+<span class="p">],</span>
+</code></pre></div>
 <p>Angular内部就是使用OpaqueToken的，例如HTTP_PROVIDERS 。实际上Provider内部会把所有字符串和类类型都转成OpaqueToken。</p>
 
 <h3 id="直接使用injector-罕见的情况">直接使用injector（罕见的情况）</h3>
@@ -758,7 +839,8 @@
     <span class="kd">let</span> <span class="nx">rousDontExist</span> <span class="o">=</span> <span class="sb">`R.O.U.S.&#39;s? I don&#39;t think they exist!`</span><span class="p">;</span>
     <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">injector</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">ROUS</span><span class="p">,</span> <span class="nx">rousDontExist</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><code>Injector</code>自身也是可注入的。</p>
 
 <p>注意这些服务他们自己是没有注入到组件的，它们是通过调用<code>injector.get</code>来获取的。</p>
@@ -775,11 +857,13 @@ We avoid this technique unless we genuinely need it. It encourages a careless gr
 <p>我们的<code>HeroService</code>需要<code>Logger</code>。怎样让我们没有<code>Logger</code>该service也能工作呢？如果有就使用，如果没有就忽略。</p>
 
 <p>引入<code>@Optional()</code>装饰器，修改构造函数，告诉injector <code>_logger</code>是可选的：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Optional</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">constructor</span><span class="p">(</span><span class="err">@</span><span class="nx">Optional</span><span class="p">()</span> <span class="kr">private</span> <span class="nx">logger</span><span class="o">:</span> <span class="nx">Logger</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Optional</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">constructor</span><span class="p">(</span><span class="err">@</span><span class="nx">Optional</span><span class="p">()</span> <span class="kr">private</span> <span class="nx">logger</span><span class="o">:</span> <span class="nx">Logger</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">logger</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">logger</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">some_message</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>使用<code>@Optional()</code>时，我们必须要在代码中处理值为null的情况。如果在上面的代码中没有注册logger，那么injector会将<code>logger</code>的值赋为null。</p>
 
 <hr />
@@ -796,7 +880,7 @@ We avoid this technique unless we genuinely need it. It encourages a careless gr
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>326</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>456</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -804,7 +888,7 @@ We avoid this technique unless we genuinely need it. It encourages a careless gr
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -812,7 +896,28 @@ We avoid this technique unless we genuinely need it. It encourages a careless gr
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

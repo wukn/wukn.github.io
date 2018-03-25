@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" Angular的层级依赖注入系统支持与组件树并行的嵌套注入。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] Hierarchical Injectors" />
+  <meta property="og:description" content=" Angular的层级依赖注入系统支持与组件树并行的嵌套注入。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2017/03/06/angular2-hierarchical-injectors/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/03/06/angular2-hierarchical-injectors/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -247,7 +279,8 @@
   <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;villains-list&#39;</span><span class="p">,</span>
   <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;./villains-list.component.html&#39;</span><span class="p">,</span>
   <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">VillainsService</span> <span class="p">]</span>
-<span class="p">})</span></code></pre></div>
+<span class="p">})</span>
+</code></pre></div>
 <p>这样<code>VillainsService</code>只在<code>VillainsListComponent</code>和它的子组件中可访问。它仍然是一个单例，只不过它是villain领域的一个单例。</p>
 
 <h4 id="多个编辑会话">多个编辑会话</h4>
@@ -283,7 +316,8 @@
     <span class="k">this</span><span class="p">.</span><span class="nx">taxReturn</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">currentTaxReturn</span><span class="p">;</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">saveTaxReturn</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">currentTaxReturn</span><span class="p">).</span><span class="nx">subscribe</span><span class="p">();</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><code>HeroTaxReturnComponent</code>如下：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// src/app/hero-tax-return.component.ts
 </span><span class="c1"></span>
@@ -321,7 +355,8 @@
     <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">;</span>
     <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">message</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>如果<code>HeroTaxReturnService</code>这个服务是应用级别的单例，那就有大问题了。每个组件实例共享同一个服务实例。每个组件将会覆盖其它组件的数据。</p>
 
 <p>所以代码中是将它放在<code>HeroTaxReturnComponent</code>的提供者里。由于每个组件实例有它自己的注入器，每个组件将有一个它自己的似有的服务实例。从而避免了冲突。</p>
@@ -354,7 +389,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>254</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>384</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -362,7 +397,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -370,7 +405,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

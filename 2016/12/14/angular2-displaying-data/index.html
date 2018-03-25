@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" 利用属性绑定在UI中显示数据。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] Displaying Data" />
+  <meta property="og:description" content=" 利用属性绑定在UI中显示数据。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2016/12/14/angular2-displaying-data/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/12/14/angular2-displaying-data/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -221,7 +253,8 @@
 <span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
   <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
   <span class="nx">myHero</span> <span class="o">=</span> <span class="s1">&#39;Windstorm&#39;</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>我们为组件添加了两个属性：<code>title</code>和<code>myHero</code>。同时在模板中添加了这两个属性的显示。</p>
 
 <p>在应用运行过程中，Angular会自动读取组件的属性，接将属性值添加到浏览器中。这些属性变化时Angular也会更新UI。准确地说，属性的更新显示发生在与视图相关的某些异步事件之后，如击键、timer完成、异步XHR响应。</p>
@@ -243,7 +276,8 @@
     <span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">myHero</span> <span class="o">=</span> <span class="s1">&#39;Windstorm&#39;</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="ngfor显示组件的数组属性">NgFor显示组件的数组属性</h3>
 
 <p>我们为组件添加一个数组属性<code>heroes</code>，然后将<code>myHero</code>重定义为数组的第一个元素。在模板中使用<code>NgFor</code>指令显示数组中的每一项数据。</p>
@@ -265,7 +299,8 @@
   <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
   <span class="nx">heroes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Windstorm&#39;</span><span class="p">,</span> <span class="s1">&#39;Bombasto&#39;</span><span class="p">,</span> <span class="s1">&#39;Magneta&#39;</span><span class="p">,</span> <span class="s1">&#39;Tornado&#39;</span><span class="p">];</span>
   <span class="nx">myHero</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>在<code>&lt;li&gt;</code>标签上使用了<code>*ngFor</code>，意思是将<code>&lt;li&gt;</code>元素（以及它的子元素）作为迭代模板。</p>
 
 <p>指令中的<code>hero</code>是定义了一个模板输入变量（template input variable），详情请看<a href="https://angular.io/docs/ts/latest/guide/template-syntax.html">模板语法</a>中的<a href="https://angular.io/docs/ts/latest/guide/template-syntax.html#ngForMicrosyntax">microsyntax</a>。</p>
@@ -283,7 +318,8 @@
   <span class="nx">constructor</span><span class="p">(</span>
     <span class="kr">public</span> <span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">,</span>
     <span class="kr">public</span> <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>看起来好像我们没有定义属性，其实这里是利用的TypeScript的缩写方式。看构造函数的第一个参数<code>public id: number,</code>，实际上它有三层含义：</p>
 
 <ul>
@@ -318,14 +354,16 @@
     <span class="k">new</span> <span class="nx">Hero</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;Tornado&#39;</span><span class="p">)</span>
   <span class="p">];</span>
   <span class="nx">myHero</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>显示效果与上面是一样的。</p>
 
 <h2 id="ngif条件显示">NgIf条件显示</h2>
 
 <p>有时候，应用在某些特定条件满足时才显示某些视图。<code>NgIf</code>指令会根据条件表达式的值决定是添加视图还是移除视图。
 在模板最后添加：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">p</span> <span class="o">*</span><span class="nx">ngIf</span><span class="o">=</span><span class="s2">&#34;heroes.length &gt; 3&#34;</span><span class="o">&gt;</span><span class="nx">There</span> <span class="nx">are</span> <span class="nx">many</span> <span class="nx">heroes</span><span class="o">!&lt;</span><span class="err">/p&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">p</span> <span class="o">*</span><span class="nx">ngIf</span><span class="o">=</span><span class="s2">&#34;heroes.length &gt; 3&#34;</span><span class="o">&gt;</span><span class="nx">There</span> <span class="nx">are</span> <span class="nx">many</span> <span class="nx">heroes</span><span class="o">!&lt;</span><span class="err">/p&gt;</span>
+</code></pre></div>
 <p><code>*ngIf=&quot;heroes.length &gt; 3&quot;</code>的双引号里是模板表达式，看起来跟TypeScript很像。当该表达式成立时，Angular会将这个标签添加到DOM中，显示这条信息。表达式不成立时，Angular会忽略这个标签，就不显示这条信息了。</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/display-data/final.png" alt="" /></p>
@@ -350,7 +388,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>336</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>466</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -358,7 +396,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -366,7 +404,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" 用户操作出发DOM事件。我们通过事件绑定来监听事件，将更新的值回写到组件和数据模型中。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] User Input" />
+  <meta property="og:description" content=" 用户操作出发DOM事件。我们通过事件绑定来监听事件，将更新的值回写到组件和数据模型中。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2016/12/21/angular2-user-input/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/12/21/angular2-user-input/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -224,7 +256,8 @@
   <span class="nx">onClickMe</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">clickMessage</span> <span class="o">=</span> <span class="s1">&#39;You are my hero!&#39;</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>当用户点击按钮，Angular调用组件的<code>onClickMe</code>方法。</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/user-input/click-event.png" alt="" /></p>
@@ -245,7 +278,8 @@
   <span class="nx">onKey</span><span class="p">(</span><span class="nx">event</span><span class="o">:</span><span class="nx">any</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// without type info
 </span><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">values</span> <span class="o">+=</span> <span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="s1">&#39; | &#39;</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>当用户按下按键并释放后，<code>keyup</code>事件就触发了，Angular会在内<code>$event</code>变量里提供一个DOM事件对象，并传递给组件的<code>onKey()</code>方法。</p>
 
 <p><code>$event</code>对象的类型是由触发的事件的类型决定的。不同类型的DOM事件对应<code>$event</code>对象的属性不相同。</p>
@@ -261,7 +295,8 @@
   <span class="nx">onKey</span><span class="p">(</span><span class="nx">event</span><span class="o">:</span> <span class="nx">KeyboardEvent</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// with type info
 </span><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">values</span> <span class="o">+=</span> <span class="p">(</span><span class="o">&lt;</span><span class="nx">HTMLInputElement</span><span class="o">&gt;</span><span class="nx">event</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">value</span> <span class="o">+</span> <span class="s1">&#39; | &#39;</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>现在<code>$event</code>就是指定的<code>KeyboardEvent</code>。不是所有的元素都有<code>value</code>这个属性，所以这里将<code>target</code>强制转换成一个<code>input</code>元素。</p>
 
 <p>使用强类型将DOM事件传递给组件方法也会带来一些问题：组件的方法需要知道模板的太多信息，有点违反了模板一组件之间需要分离关注度这一原则。</p>
@@ -276,7 +311,8 @@
 </span><span class="sb">    &lt;p&gt;{{box.value}}&lt;/p&gt;
 </span><span class="sb">  `</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>上面的代码中，为<code>&lt;input&gt;</code>元素声明了一个模板引用变量<code>box</code>。它就是<code>&lt;input&gt;</code>元素的引用，因此可以在模板的其他地方访问这个变量。</p>
 
 <p>这样模板就跟组件分离开了。模板不再需要绑定组件，组件也不需要做什么了。</p>
@@ -298,7 +334,8 @@
   <span class="nx">onKey</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">values</span> <span class="o">+=</span> <span class="nx">value</span> <span class="o">+</span> <span class="s1">&#39; | &#39;</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="按键事件过滤-使用-key-enter">按键事件过滤（使用<code>key.enter</code>）</h3>
 
 <p>上面的<code>(keyup)</code>事件处理了所有的按键。也许我们只关心Enter键，因为塔代表用户完成输入了。一种方法是，在处理方法中进行过滤，先检查<code>$event.keyCode</code>是否为Enter，如果是再继续后面的处理。</p>
@@ -314,7 +351,8 @@
 <span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
   <span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
   <span class="nx">onEnter</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="blur事件">blur事件</h3>
 
 <p>上面的例子没有考虑用户把鼠标移到页面其它地方使input失去焦点的情况。接下来为文本框添加<code>blur</code>事件的监听。</p>
@@ -331,7 +369,8 @@
 <span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
   <span class="nx">value</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
   <span class="nx">update</span><span class="p">(</span><span class="nx">value</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="案例">案例</h3>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
   <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-app&#39;</span><span class="p">,</span>
@@ -352,7 +391,8 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">newHero</span><span class="p">);</span>
     <span class="p">}</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><img src="https://wukn.github.io/img/post/angular2/user-input/list-example.png" alt="" /></p>
 
 <p>借助这个例子，我们复习一下事件绑定的要点：</p>
@@ -381,7 +421,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>329</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>459</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -389,7 +429,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -397,7 +437,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][KnockoutJS] Bindings - Creating custom binding" />
+  <meta property="og:description" content=" &amp;ldquo;KnockoutJS文档官网：http://knockoutjs.com/documentation/introduction.html&amp;quot;
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2016/11/12/knockoutjs-bindings-creating-custom-binding/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-bindings-creating-custom-binding/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -216,7 +248,8 @@
 </span><span class="c1"></span>        <span class="c1">// and again whenever any observables/computeds that are accessed change
 </span><span class="c1"></span>        <span class="c1">// Update the DOM element based on the supplied values here.
 </span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">};</span></code></pre></div>
+<span class="p">};</span>
+</code></pre></div>
 <p>然后就可以向DOM元素使用它了。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;yourBindingName: someValue&#34;</span><span class="p"></span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <h3 id="回调函数">回调函数</h3>
@@ -251,7 +284,8 @@
 </span><span class="c1"></span>        <span class="k">else</span>
             <span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">).</span><span class="nx">slideUp</span><span class="p">(</span><span class="nx">duration</span><span class="p">);</span>   <span class="c1">// Make the element invisible
 </span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">};</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;slideVisible: giftWrap, slideDuration:600&#34;</span><span class="p"></span><span class="p">&gt;</span>You have selected the option<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">};</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;slideVisible: giftWrap, slideDuration:600&#34;</span><span class="p"></span><span class="p">&gt;</span>You have selected the option<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">label</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: giftWrap&#34;</span> <span class="p">/</span><span class="p">&gt;</span> Gift wrap<span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>
 
 <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
@@ -269,7 +303,8 @@
     <span class="nx">update</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">,</span> <span class="nx">allBindings</span><span class="p">)</span> <span class="p">{</span>
         <span class="c1">// Leave as before
 </span><span class="c1"></span>    <span class="p">}</span>
-<span class="p">};</span></code></pre></div>
+<span class="p">};</span>
+</code></pre></div>
 <h3 id="dom变化后更新监控属性">DOM变化后更新监控属性</h3>
 
 <p>上面展示了如何使用<code>update</code>来根据监控属性变化更新DOM元素，那怎样在用户操作DOM元素之后更新关联的监控属性呢？
@@ -292,7 +327,8 @@
         <span class="k">else</span>
             <span class="nx">element</span><span class="p">.</span><span class="nx">blur</span><span class="p">();</span>
     <span class="p">}</span>
-<span class="p">};</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Name: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;hasFocus: editingName&#34;</span> <span class="p">/</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">};</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Name: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;hasFocus: editingName&#34;</span> <span class="p">/</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
 
 <span class="c">&lt;!-- Showing that we can both read and write the focus state --&gt;</span>
 <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: editingName&#34;</span><span class="p"></span><span class="p">&gt;</span>You&#39;re editing the name<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
@@ -313,7 +349,8 @@
 </span><span class="c1"></span>        <span class="kd">var</span> <span class="nx">shouldAllowBindings</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">unwrap</span><span class="p">(</span><span class="nx">valueAccessor</span><span class="p">());</span>
         <span class="k">return</span> <span class="p">{</span> <span class="nx">controlsDescendantBindings</span><span class="o">:</span> <span class="o">!</span><span class="nx">shouldAllowBindings</span> <span class="p">};</span>
     <span class="p">}</span>
-<span class="p">};</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;allowBindings: true&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">};</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;allowBindings: true&#34;</span><span class="p"></span><span class="p">&gt;</span>
     <span class="c">&lt;!-- This will display Replacement, because bindings are applied --&gt;</span>
     <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: &#39;Replacement&#39;&#34;</span><span class="p"></span><span class="p">&gt;</span>Original<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
@@ -336,7 +373,8 @@
         <span class="c1">// Also tell KO *not* to bind the descendants itself, otherwise they will be bound twice
 </span><span class="c1"></span>        <span class="k">return</span> <span class="p">{</span> <span class="nx">controlsDescendantBindings</span><span class="o">:</span> <span class="kc">true</span> <span class="p">};</span>
     <span class="p">}</span>
-<span class="p">};</span></code></pre></div>
+<span class="p">};</span>
+</code></pre></div>
 <p>可以看到，绑定上下文有个<code>extend</code>方法，返回一个复制的并带有额外属性的上下文。<code>extend</code>方法接受的参数要么是一个带有属性的对象，要么是能返回这样的对象的函数。建议使用函数作为参数，这样后续的绑定值变化也会更新到绑定上下文中，并且不影响当前的绑定上下文，也就是说不影响兄弟层级的元素，只会影响后代元素。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;withProperties: { emotion: &#39;happy&#39; }&#34;</span><span class="p"></span><span class="p">&gt;</span>
     Today I feel <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: emotion&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>. <span class="c">&lt;!-- Displays: happy --&gt;</span>
@@ -363,7 +401,8 @@
         <span class="c1">// Also tell KO *not* to bind the descendants itself, otherwise they will be bound twice
 </span><span class="c1"></span>        <span class="k">return</span> <span class="p">{</span> <span class="nx">controlsDescendantBindings</span><span class="o">:</span> <span class="kc">true</span> <span class="p">};</span>
     <span class="p">}</span>
-<span class="p">};</span></code></pre></div>
+<span class="p">};</span>
+</code></pre></div>
 <p>这样，<code>withProperties</code>绑定就可以嵌套使用了，并且每个嵌套层级可以通过<code>$parentContext</code>访问父层。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;withProperties: { displayMode: &#39;twoColumn&#39; }&#34;</span><span class="p"></span><span class="p">&gt;</span>
     The outer display mode is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: displayMode&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>.
@@ -391,7 +430,8 @@
             <span class="nx">elem</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">chosenChild</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
         <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">};</span></code></pre></div>
+<span class="p">};</span>
+</code></pre></div>
 <p>这对普通DOM元素是可用的：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;randomOrder: true&#34;</span><span class="p"></span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>First<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
@@ -405,7 +445,8 @@
     <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>Third<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="c">&lt;!-- /ko --&gt;</span></code></pre></div>
 <p>要想<code>randomOrder</code>支持虚拟元素，需要配置ko：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">virtualElements</span><span class="p">.</span><span class="nx">allowedBindings</span><span class="p">.</span><span class="nx">randomOrder</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">virtualElements</span><span class="p">.</span><span class="nx">allowedBindings</span><span class="p">.</span><span class="nx">randomOrder</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+</code></pre></div>
 <p>这样就不会报错了，但仍然不起作用，因为绑定中调用的是普通DOM的API，不识别虚拟元素。这就是为什么ko要求显式地声明支持虚拟元素。使用虚拟元素API更新自定义绑定：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">randomOrder</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">)</span> <span class="p">{</span>
@@ -425,7 +466,8 @@
             <span class="nx">ko</span><span class="p">.</span><span class="nx">virtualElements</span><span class="p">.</span><span class="nx">prepend</span><span class="p">(</span><span class="nx">elem</span><span class="p">,</span> <span class="nx">chosenChild</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span>
         <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">};</span></code></pre></div>
+<span class="p">};</span>
+</code></pre></div>
 <p>现在该绑定对普通DOM元素和虚拟元素都支持了，因为<code>ko.virtualElements</code>的API是兼容普通DOM元素的。</p>
 
 <h3 id="虚拟元素api">虚拟元素API</h3>
@@ -489,14 +531,16 @@
 </span><span class="c1"></span>            <span class="nx">$el</span><span class="p">.</span><span class="nx">myWidget</span><span class="p">(</span><span class="s2">&#34;destroy&#34;</span><span class="p">);</span>
         <span class="p">});</span>
     <span class="p">}</span>
-<span class="p">};</span></code></pre></div>
+<span class="p">};</span>
+</code></pre></div>
 <h3 id="覆盖外部数据的清除逻辑">覆盖外部数据的清除逻辑</h3>
 
 <p>当ko移除元素时会执行清除逻辑来清除该元素关联的任何数据。在清除逻辑中，如果jQuery可用，那么是通过调用jQuery的<code>cleanData</code>方法。在一些高级的应用场景中，可能希望阻止或自定义数据移除的方式。可以通过覆盖<code>ko.utils.domNodeDisposal.cleanExternalData(node)</code>支持自定义逻辑。例如，要阻止调用<code>cleanData</code>，可以用一个空函数来替代标准的<code>cleanExternalData</code>实现。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">utils</span><span class="p">.</span><span class="nx">domNodeDisposal</span><span class="p">.</span><span class="nx">cleanExternalData</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
     <span class="c1">// Do nothing. Now any jQuery data associated with elements will
 </span><span class="c1"></span>    <span class="c1">// not be cleaned up when the elements are removed from the DOM.
-</span><span class="c1"></span><span class="p">};</span></code></pre></div>
+</span><span class="c1"></span><span class="p">};</span>
+</code></pre></div>
 <p>###使用预处理（preprocessing）扩展ko的绑定语法</p>
 
 <p>从ko V3.0版本开始，ko支持通过添加一个可以在绑定过程中重写DOM节点并绑定字符串的回调函数来定义一个自定义语法。</p>
@@ -510,13 +554,15 @@
     <span class="c1">// Return stringFromMarkup if you don&#39;t want to change anything, or return
 </span><span class="c1"></span>    <span class="c1">// some other string if you want Knockout to behave as if that was the
 </span><span class="c1"></span>    <span class="c1">// syntax provided in the original HTML
-</span><span class="c1"></span><span class="p">}</span></code></pre></div>
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div>
 <h3 id="例1-为绑定设置默认值">例1：为绑定设置默认值</h3>
 
 <p>如果绑定是没有指定value，会默认为<code>undefined</code>。可以使用预处理器使绑定有个初始值。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">uniqueName</span><span class="p">.</span><span class="nx">preprocess</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">val</span> <span class="o">||</span> <span class="s1">&#39;true&#39;</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><code>uniqueName</code>将允许绑定时不指定value，而默认为<code>true</code>。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: someModelProperty, uniqueName&#34;</span> <span class="p">/</span><span class="p">&gt;</span></code></pre></div>
 <h3 id="例2-为事件绑定表达式">例2：为事件绑定表达式</h3>
@@ -551,7 +597,8 @@
 </span><span class="c1"></span>    <span class="c1">//    - Use DOM APIs such as removeChild to remove &#39;node&#39; if required
 </span><span class="c1"></span>    <span class="c1">//    - Return an array of any new nodes that you&#39;ve just inserted
 </span><span class="c1"></span>    <span class="c1">//      so that Knockout can apply any bindings to them
-</span><span class="c1"></span><span class="p">}</span></code></pre></div>
+</span><span class="c1"></span><span class="p">}</span>
+</code></pre></div>
 <h3 id="例3-虚拟模板元素">例3：虚拟模板元素</h3>
 
 <p>用常规的语法在虚拟元素上使用模板时比较复杂。通过使用预处理，可以添加一个使用单注解的模板格式：</p>
@@ -570,7 +617,8 @@
 </span><span class="c1"></span>            <span class="k">return</span> <span class="p">[</span><span class="nx">c1</span><span class="p">,</span> <span class="nx">c2</span><span class="p">];</span>
         <span class="p">}</span>
     <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>然后可以在视图中这样使用模板：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- template: &#39;some-template&#39; --&gt;</span></code></pre></div>
 <h2 id="ko-bindingprovider-instance-preprocessnode-node">ko.bindingProvider.instance.preprocessNode(node)</h2>
@@ -591,7 +639,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>368</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>497</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -599,7 +647,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -607,7 +655,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

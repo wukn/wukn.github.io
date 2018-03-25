@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" 让我们看看如何编写模板来展示数据和利用数据绑定处理用户事件。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] Template Syntax" />
+  <meta property="og:description" content=" 让我们看看如何编写模板来展示数据和利用数据绑定处理用户事件。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2016/12/25/angular2-template-syntax/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/12/25/angular2-template-syntax/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -331,7 +363,8 @@
 </ul>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{{</span><span class="nx">expression</span><span class="p">}}</span>
 <span class="p">[</span><span class="nx">target</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;expression&#34;</span>
-<span class="nx">bind</span><span class="o">-</span><span class="nx">target</span> <span class="o">=</span> <span class="s2">&#34;expression&#34;</span></code></pre></div>
+<span class="nx">bind</span><span class="o">-</span><span class="nx">target</span> <span class="o">=</span> <span class="s2">&#34;expression&#34;</span>
+</code></pre></div>
 <ul>
 <li>从目标视图数据源到数据源的单向数据绑定，绑定类型有Event。
 <code>js
@@ -432,7 +465,8 @@ bindon-target = &quot;expression&quot;
 <span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">class</span><span class="err">.</span><span class="na">special</span><span class="err">]=&#34;</span><span class="na">isSpecial</span><span class="err">&#34;</span><span class="p"></span><span class="p">&gt;</span>Special<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>Style绑定</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c">&lt;!--</span><span class="nx">style</span> <span class="nx">property</span><span class="o">--&gt;</span>
-<span class="o">&lt;</span><span class="nx">button</span> <span class="p">[</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;isSpecial ? &#39;red&#39; : &#39;green&#39;&#34;</span><span class="o">&gt;</span></code></pre></div>
+<span class="o">&lt;</span><span class="nx">button</span> <span class="p">[</span><span class="nx">style</span><span class="p">.</span><span class="nx">color</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&#34;isSpecial ? &#39;red&#39; : &#39;green&#39;&#34;</span><span class="o">&gt;</span>
+</code></pre></div>
 <h3 id="property-binding-属性绑定">Property binding（属性绑定）</h3>
 
 <p>当我们需要将一个视图元素的属性设置为一个模板表达式的值时，我们使用属性绑定。</p>
@@ -444,7 +478,8 @@ bindon-target = &quot;expression&quot;
 <p>或者是设置指令的属性：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">ngClass</span><span class="err">]=&#34;</span><span class="na">classes</span><span class="err">&#34;</span><span class="p"></span><span class="p">&gt;</span>[ngClass] binding to the classes property<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>或者是自定义组件的模型属性（也是父子组件交互的一种方式）：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">user</span><span class="o">-</span><span class="nx">detail</span> <span class="p">[</span><span class="nx">user</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;currentUser&#34;</span><span class="o">&gt;&lt;</span><span class="err">/user-detail&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">user</span><span class="o">-</span><span class="nx">detail</span> <span class="p">[</span><span class="nx">user</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;currentUser&#34;</span><span class="o">&gt;&lt;</span><span class="err">/user-detail&gt;</span>
+</code></pre></div>
 <p>人们通常将属性绑定称为单向数据绑定，因为数据是从组件的属性流向目标元素的属性。我们无法通过属性绑定来读取一个目标元素的值。</p>
 
 <p>同样我们也无法通过属性绑定来调用目标元素的事件。如果元素触发了事件，我们可以用事件绑定来处理它。如果我们必须读取一个目标元素的属性或调用它的方法，需要借助一些其它的手段，例如<a href="https://angular.io/docs/ts/latest/api/core/index/ViewChild-decorator.html">ViewChild</a>和<a href="https://angular.io/docs/ts/latest/api/core/index/ContentChild-decorator.html">ContentChild</a>。</p>
@@ -495,7 +530,8 @@ bindon-target = &quot;expression&quot;
 <h4 id="内容安全问题">内容安全问题</h4>
 
 <p>假设有这样个变量：</p>
-<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">evilTitle</span> <span class="o">=</span> <span class="s1">&#39;Template &lt;script&gt;alert(&#34;evil never sleeps&#34;)&lt;/script&gt;Syntax&#39;</span><span class="p">;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">evilTitle</span> <span class="o">=</span> <span class="s1">&#39;Template &lt;script&gt;alert(&#34;evil never sleeps&#34;)&lt;/script&gt;Syntax&#39;</span><span class="p">;</span>
+</code></pre></div>
 <p>Angular在数据绑定的时候会对危险的HTML发出告警。它会在显示值之前进行处理，不会让script标签泄露到HTML中，无论是插值绑定还是属性绑定都不会。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">span</span><span class="p"></span><span class="p">&gt;</span>&#34;{{evilTitle}}&#34; is the <span class="p">&lt;</span><span class="nt">i</span><span class="p"></span><span class="p">&gt;</span>interpolated<span class="p">&lt;</span><span class="p">/</span><span class="nt">i</span><span class="p">&gt;</span> evil title.<span class="p">&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>&#34;<span class="p">&lt;</span><span class="nt">span</span> <span class="err">[</span><span class="na">innerHTML</span><span class="err">]=&#34;</span><span class="na">evilTitle</span><span class="err">&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>&#34; is the <span class="p">&lt;</span><span class="nt">i</span><span class="p"></span><span class="p">&gt;</span>property bound<span class="p">&lt;</span><span class="p">/</span><span class="nt">i</span><span class="p">&gt;</span> evil title.<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span></code></pre></div>
@@ -617,7 +653,8 @@ Can't bind to 'colspan' since it isn't a known native property
 
 <span class="k">delete</span><span class="p">()</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">deleteRequest</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">user</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>假设一个托管父组件绑定了<code>UserDetailComponent</code>的<code>deleteRequest</code>事件：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">user-detail</span> <span class="err">(</span><span class="na">deleteRequest</span><span class="err">)=&#34;</span><span class="na">deleteUser</span><span class="err">($</span><span class="na">event</span><span class="err">)&#34;</span> <span class="err">[</span><span class="na">user</span><span class="err">]=&#34;</span><span class="na">currentUser</span><span class="err">&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">user-detail</span><span class="p">&gt;</span></code></pre></div>
 <p>当发起<code>deleteRequest</code>时，Angular调用父组件的<code>deleteUser</code>方法，使用<code>$event</code>变量传递要删除的user。</p>
@@ -650,7 +687,8 @@ Can't bind to 'colspan' since it isn't a known native property
     <span class="k">this</span><span class="p">.</span><span class="nx">size</span> <span class="o">=</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="mi">40</span><span class="p">,</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">size</span> <span class="o">+</span> <span class="nx">delta</span><span class="p">));</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">sizeChange</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">size</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>初始<code>size</code>值是来自属性绑定。点击按钮调整<code>size</code>的值，在最大值最小值的限制内，并在调整值的时候触发<code>sizeChange</code>事件。</p>
 
 <p>下面的<code>AppComponent.fontSizePx</code>是<code>SizerComponent</code>的双向数据绑定：</p>
@@ -691,7 +729,8 @@ Can't bind to 'colspan' since it isn't a known native property
   <span class="p">],</span>
   <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>其实我们可以使用<code>&lt;input&gt;</code>元素的<code>value</code>属性和<code>input</code>事件实现跟<code>ngModel</code>相同的效果：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">input</span> <span class="err">[</span><span class="na">value</span><span class="err">]=&#34;</span><span class="na">currentUser</span><span class="err">.</span><span class="na">firstName</span><span class="err">&#34;</span>
        <span class="err">(</span><span class="na">input</span><span class="err">)=&#34;</span><span class="na">currentUser</span><span class="err">.</span><span class="na">firstName</span><span class="o">=</span><span class="s">$event.target.value&#34;</span> <span class="p"></span><span class="p">&gt;</span></code></pre></div>
@@ -734,7 +773,8 @@ Can't bind to 'colspan' since it isn't a known native property
 </span><span class="c1"></span>    <span class="nx">special</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">isSpecial</span><span class="p">,</span>     <span class="c1">// true
 </span><span class="c1"></span>  <span class="p">}</span>
   <span class="k">return</span> <span class="nx">classes</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>将<code>NgClass</code>属性绑定到<code>setClasses</code>方法：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">ngClass</span><span class="err">]=&#34;</span><span class="na">setClasses</span><span class="err">()&#34;</span><span class="p"></span><span class="p">&gt;</span>This div is saveable and special<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <h4 id="ngstyle">NgStyle</h4>
@@ -754,7 +794,8 @@ Can't bind to 'colspan' since it isn't a known native property
 </span><span class="c1"></span>    <span class="s1">&#39;font-size&#39;</span><span class="o">:</span>   <span class="k">this</span><span class="p">.</span><span class="nx">isSpecial</span>    <span class="o">?</span> <span class="s1">&#39;24px&#39;</span>   <span class="o">:</span> <span class="s1">&#39;8px&#39;</span><span class="p">,</span>     <span class="c1">// 24px
 </span><span class="c1"></span>  <span class="p">}</span>
   <span class="k">return</span> <span class="nx">styles</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>将<code>NgStyle</code>属性绑定到<code>setStyles</code>方法：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="err">[</span><span class="na">ngStyle</span><span class="err">]=&#34;</span><span class="na">setStyles</span><span class="err">()&#34;</span><span class="p"></span><span class="p">&gt;</span>
   This div is italic, normal weight, and extra large (24px)
@@ -821,7 +862,8 @@ Can't bind to 'colspan' since it isn't a known native property
 <p><code>NgFor</code>指令在列表很大时性能可能并不是很好。例如，我们从服务器更新useres数组，新的数组中可能大部分都是之前显示的，我们可以根据id来判断每个user是否改变。但是Angular只会看到新的数组引用，它会移除掉之前的所有元素，根据新数组重新构建并插入元素。</p>
 
 <p>我们可以提供一个tracking函数来告诉Angular如何识别数组项是否一样：具有相同的<code>user.id</code>的user是相同的。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">trackByUseres</span><span class="p">(</span><span class="nx">index</span><span class="o">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span> <span class="nx">User</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span> <span class="p">}</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">trackByUseres</span><span class="p">(</span><span class="nx">index</span><span class="o">:</span> <span class="nx">number</span><span class="p">,</span> <span class="nx">user</span><span class="o">:</span> <span class="nx">User</span><span class="p">)</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">user</span><span class="p">.</span><span class="nx">id</span><span class="p">;</span> <span class="p">}</span>
+</code></pre></div>
 <p>设置<code>NgForTrackBy</code>指令为定义的tracking函数，Angular提供了好几种绑定语法，例如：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&#34;let user of useres; trackBy:trackByUseres&#34;</span><span class="p"></span><span class="p">&gt;</span>({{user.id}}) {{user.fullName}}<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>tracking函数不能消除所有的DOM更新。如果同一个对象的属性有变化，那Angular还是会更新它的。</p>
@@ -925,12 +967,14 @@ Can't bind to 'colspan' since it isn't a known native property
 
 <p>目标属性必须被显式地声明为输入或者输出：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Input</span><span class="p">()</span>  <span class="nx">user</span><span class="o">:</span> <span class="nx">User</span><span class="p">;</span>
-<span class="err">@</span><span class="nx">Output</span><span class="p">()</span> <span class="nx">deleteRequest</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="o">&lt;</span><span class="nx">User</span><span class="o">&gt;</span><span class="p">();</span></code></pre></div>
+<span class="err">@</span><span class="nx">Output</span><span class="p">()</span> <span class="nx">deleteRequest</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="o">&lt;</span><span class="nx">User</span><span class="o">&gt;</span><span class="p">();</span>
+</code></pre></div>
 <p>或者在指令元数据的<code>inputs</code>和<code>outputs</code>数组中指定：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
   <span class="nx">inputs</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">],</span>
   <span class="nx">outputs</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;deleteRequest&#39;</span><span class="p">],</span>
-<span class="p">})</span></code></pre></div>
+<span class="p">})</span>
+</code></pre></div>
 <p>输入属性通常接收数据值。输出属性暴露出事件生产者，例如<code>EventEmitter</code>对象。</p>
 
 <p><code>UserDetailComponent.user</code>是个输入属性，因为数据从模板绑定表达式流向属性。<code>UserDetailComponent.deleteRequest</code>是一个输出属性，因为事件从该属性发出，指向模板声明的处理者。</p>
@@ -944,11 +988,13 @@ Can't bind to 'colspan' since it isn't a known native property
 <p>然而指令的名称没有具体的指令类里属性的名字那样带有那么多含义。指令的名称很少会描述属性到底是干嘛的。</p>
 
 <p>将组件的<code>clicks</code>事件属性起个别名<code>myClick</code>。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Output</span><span class="p">(</span><span class="s1">&#39;myClick&#39;</span><span class="p">)</span> <span class="nx">clicks</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">();</span> <span class="err">//  @Output(alias) propertyName = ...</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Output</span><span class="p">(</span><span class="s1">&#39;myClick&#39;</span><span class="p">)</span> <span class="nx">clicks</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">EventEmitter</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">();</span> <span class="c1">//  @Output(alias) propertyName = ...
+</span><span class="c1"></span></code></pre></div>
 <p>或者实在元数据中指定：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Directive</span><span class="p">({</span>
   <span class="nx">outputs</span><span class="o">:</span><span class="p">[</span><span class="s1">&#39;clicks:myClick&#39;</span><span class="p">]</span>  <span class="c1">// propertyName:alias
-</span><span class="c1"></span><span class="p">})</span></code></pre></div>
+</span><span class="c1"></span><span class="p">})</span>
+</code></pre></div>
 <p><code>myClick</code>在指令内部实际上是<code>clicks</code>属性。</p>
 
 <h3 id="template-expression-operator-模板表达式运算符">Template expression operator（模板表达式运算符）</h3>
@@ -1003,7 +1049,7 @@ Can't bind to 'colspan' since it isn't a known native property
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>325</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>455</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -1011,7 +1057,7 @@ Can't bind to 'colspan' since it isn't a known native property
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -1019,7 +1065,28 @@ Can't bind to 'colspan' since it isn't a known native property
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

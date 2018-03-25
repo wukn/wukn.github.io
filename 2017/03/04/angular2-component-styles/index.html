@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" 让我们来看看如何为组件添加CSS样式。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] Component Styles" />
+  <meta property="og:description" content=" 让我们来看看如何为组件添加CSS样式。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2017/03/04/angular2-component-styles/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/03/04/angular2-component-styles/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -219,7 +251,8 @@
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">HeroAppComponent</span> <span class="p">{</span>
 <span class="cm">/* . . . */</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>在组件的style中定义的选择器只会作用与组件的模板内。这种模块化的机制比传统的CSS更好用。</p>
 
 <ul>
@@ -291,7 +324,8 @@
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">HeroAppComponent</span> <span class="p">{</span>
 <span class="cm">/* . . . */</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <h4 id="元数据中设置styleurls">元数据中设置styleUrls</h4>
 
 <p>为<code>@Component</code>装饰器添加数组属性<code>styleUrls</code>，引入外部CSS文件。</p>
@@ -306,11 +340,13 @@
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">HeroDetailsComponent</span> <span class="p">{</span>
 <span class="cm">/* . . . */</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>这个URL相对于应用的根目录，通常也就是<code>index.html</code>所在的目录。也可以指定相对于组件文件的URL，见附2。</p>
 
 <p>如果使用Webpack，还可以使用<code>styles</code>属性在构建时从外部文件加载样式。例如：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">styles</span><span class="o">:</span> <span class="p">[</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;my.component.css&#39;</span><span class="p">)]</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">styles</span><span class="o">:</span> <span class="p">[</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;my.component.css&#39;</span><span class="p">)]</span>
+</code></pre></div>
 <h4 id="模板中行内定义样式">模板中行内定义样式</h4>
 
 <p>可以将样式写在模板中<code>&lt;style&gt;</code>标签内。</p>
@@ -326,7 +362,8 @@
 </span><span class="sb">    &lt;h3&gt;Controls&lt;/h3&gt;
 </span><span class="sb">    &lt;button (click)=&#34;activate()&#34;&gt;Activate&lt;/button&gt;
 </span><span class="sb">  `</span>
-<span class="p">})</span></code></pre></div>
+<span class="p">})</span>
+</code></pre></div>
 <h4 id="模板链接标签">模板链接标签</h4>
 
 <p>还可以在模板内使用<code>&lt;link&gt;</code>标签。</p>
@@ -342,7 +379,8 @@
 </span><span class="sb">        {{member}}
 </span><span class="sb">      &lt;/li&gt;
 </span><span class="sb">    &lt;/ul&gt;`</span>
-<span class="p">})</span></code></pre></div>
+<span class="p">})</span>
+</code></pre></div>
 <h4 id="css-imports">CSS <code>@imports</code></h4>
 
 <p>可以使用标准的CSS <code>@import</code>规则来向CSS文件中引入CSS文件。</p>
@@ -365,7 +403,8 @@
 
 <p>要设置组件的封装模式，使用组件元数据的<code>encapsulation</code>属性：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// warning: few browsers support shadow DOM encapsulation at this time
-</span><span class="c1"></span><span class="nx">encapsulation</span><span class="o">:</span> <span class="nx">ViewEncapsulation</span><span class="p">.</span><span class="nx">Native</span></code></pre></div>
+</span><span class="c1"></span><span class="nx">encapsulation</span><span class="o">:</span> <span class="nx">ViewEncapsulation</span><span class="p">.</span><span class="nx">Native</span>
+</code></pre></div>
 <p>使用<code>Native</code>模式的前提是浏览器原生支持shadow DOM。</p>
 
 <h3 id="附1-一窥emulated视图封装生成的css">附1：一窥Emulated视图封装生成的CSS</h3>
@@ -414,7 +453,8 @@ quest-summary.component.css
   <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;./quest-summary.component.html&#39;</span><span class="p">,</span>
   <span class="nx">styleUrls</span><span class="o">:</span>  <span class="p">[</span><span class="s1">&#39;./quest-summary.component.css&#39;</span><span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">QuestSummaryComponent</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">QuestSummaryComponent</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <hr />
 
 <p>参考资料：</p>
@@ -429,7 +469,7 @@ quest-summary.component.css
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>256</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>386</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -437,7 +477,7 @@ quest-summary.component.css
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -445,7 +485,28 @@ quest-summary.component.css
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

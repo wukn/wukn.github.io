@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" Angular提供了一个强大的模板引擎供去我们来操作DOM结构中的元素。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] Structural Directives" />
+  <meta property="og:description" content=" Angular提供了一个强大的模板引擎供去我们来操作DOM结构中的元素。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2017/01/03/angular2-structural-directives/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/01/03/angular2-structural-directives/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -340,7 +372,8 @@
   <span class="nx">statement1</span><span class="p">;</span>
   <span class="nx">statement2</span><span class="p">;</span>
   <span class="nx">statement3</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>没有花括号的话，JavaScript只会将第一个表达式作为if的内容，而实际上我们想吧三个表达式作为一个代码块。<code>&lt;ng-container&gt;</code>为Angular语法实现了类似的需求。</p>
 
 <h3 id="星号前缀">星号前缀</h3>
@@ -486,7 +519,8 @@
 
 <span class="err">@</span><span class="nx">Directive</span><span class="p">({</span> <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;[myUnless]&#39;</span><span class="p">})</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">UnlessDirective</span> <span class="p">{</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>指令属性名称应该使用lowerCamelCase拼写方式，且带个前缀。不要使用<code>ng</code>作为前缀，它是Angular用的。</p>
 
 <p>指令的类名以<code>Directive</code>结尾。Angular自己的指令并不是这样的。</p>
@@ -498,7 +532,8 @@
 <p>在指令的构造函数中注入它们：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">constructor</span><span class="p">(</span>
   <span class="kr">private</span> <span class="nx">templateRef</span><span class="o">:</span> <span class="nx">TemplateRef</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span><span class="p">,</span>
-  <span class="kr">private</span> <span class="nx">viewContainer</span><span class="o">:</span> <span class="nx">ViewContainerRef</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+  <span class="kr">private</span> <span class="nx">viewContainer</span><span class="o">:</span> <span class="nx">ViewContainerRef</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>这个指令的用法是希望绑定一个布尔结果的表达式给<code>[myUnless]</code>，这意味着指令需要一个<code>myUnless</code>输入属性：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">set</span> <span class="nx">myUnless</span><span class="p">(</span><span class="nx">condition</span><span class="o">:</span> <span class="kr">boolean</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">condition</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">hasView</span><span class="p">)</span> <span class="p">{</span>
@@ -508,7 +543,8 @@
     <span class="k">this</span><span class="p">.</span><span class="nx">viewContainer</span><span class="p">.</span><span class="nx">clear</span><span class="p">();</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">hasView</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>完整的代码如下：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// unless.directive.ts
 </span><span class="c1"></span>
@@ -531,7 +567,8 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">hasView</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
     <span class="p">}</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>使用的时候把这个指令添加到应用的模块的<code>declarations</code>数组中，然后在模板中使用它。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span> <span class="err">*</span><span class="na">myUnless</span><span class="o">=</span><span class="s">&#34;condition&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;unless a&#34;</span><span class="p"></span><span class="p">&gt;</span>
   (A) This paragraph is displayed because the condition is false.
@@ -559,7 +596,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>316</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>446</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -567,7 +604,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -575,7 +612,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

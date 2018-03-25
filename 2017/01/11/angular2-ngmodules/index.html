@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" 使用@NgModule定义应用的模块。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] NgModule" />
+  <meta property="og:description" content=" 使用@NgModule定义应用的模块。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2017/01/11/angular2-ngmodules/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/01/11/angular2-ngmodules/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -244,7 +276,8 @@
   <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">],</span>
   <span class="nx">bootstrap</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p><code>@NgModule</code>的元数据中引入了辅助模块<code>BrowserModule</code>，这是每个浏览器应用必须要引入的。<code>BrowserModule</code>会注册一些重要的服务的provider，例如指令<code>NgIf</code>和<code>NgFor</code>，这样在这个模块的组件模板中就能直接使用这些指令了。</p>
 
 <p><code>declarations</code>声明了应用的根组件。一个最简单的<code>AppComponent</code>示例如下：</p>
@@ -258,7 +291,8 @@
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
   <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Minimal NgModule&#39;</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>最后，<code>@NgModule.bootstrap</code>属性声明<code>AppComponent</code>为启动组件。</p>
 
 <h3 id="启动根模块">启动根模块</h3>
@@ -279,7 +313,8 @@
 </span><span class="c1"></span><span class="k">import</span> <span class="p">{</span> <span class="nx">AppModule</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./app.module&#39;</span><span class="p">;</span>
 
 <span class="c1">// Compile and launch the module
-</span><span class="c1"></span><span class="nx">platformBrowserDynamic</span><span class="p">().</span><span class="nx">bootstrapModule</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span></code></pre></div>
+</span><span class="c1"></span><span class="nx">platformBrowserDynamic</span><span class="p">().</span><span class="nx">bootstrapModule</span><span class="p">(</span><span class="nx">AppModule</span><span class="p">);</span>
+</code></pre></div>
 <h3 id="结合aot-ahead-of-time-编译器静态加载">结合AOT（Ahead-Of-time）编译器静态加载</h3>
 
 <p>static方式可以产生更小的应用，启动起来会更快，尤其在移动终端和高延迟网络环境下。</p>
@@ -294,7 +329,8 @@
 </span><span class="c1"></span><span class="k">import</span> <span class="p">{</span> <span class="nx">AppModuleNgFactory</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./app.module.ngfactory&#39;</span><span class="p">;</span>
 
 <span class="c1">// Launch with the app module factory.
-</span><span class="c1"></span><span class="nx">platformBrowser</span><span class="p">().</span><span class="nx">bootstrapModuleFactory</span><span class="p">(</span><span class="nx">AppModuleNgFactory</span><span class="p">);</span></code></pre></div>
+</span><span class="c1"></span><span class="nx">platformBrowser</span><span class="p">().</span><span class="nx">bootstrapModuleFactory</span><span class="p">(</span><span class="nx">AppModuleNgFactory</span><span class="p">);</span>
+</code></pre></div>
 <p>因为整个应用是预编译过的，就不需要将编译器发布到浏览器中，也不需要在浏览器中编译。这样下载到浏览器中的代码就比动态方式的更小，而且是可以直接运行的。这会有很明显的性能提升。</p>
 
 <p>JIT和AOT这两种编译器对同一个<code>AppModule</code>文件都会生成<code>AppModuleNgFactory</code>类。JIT编译器是需要的时候才生成、在内存中、在浏览器中。AOT编译器会将编译结果放到我们引入的这个文件中。</p>
@@ -320,14 +356,17 @@
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
       <span class="sb">`* AppRoot highlight called for </span><span class="si">${</span><span class="nx">el</span><span class="p">.</span><span class="nx">nativeElement</span><span class="p">.</span><span class="nx">tagName</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>更新<code>AppComponent</code>中的模板，使用这个指令：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1 highlight&gt;{{title}}&lt;/h1&gt;&#39;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1 highlight&gt;{{title}}&lt;/h1&gt;&#39;</span>
+</code></pre></div>
 <p>如果现在启动应用，会发现指令没有起作用。因为必须要在<code>AppModule</code>中声明这个指令：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
   <span class="nx">AppComponent</span><span class="p">,</span>
   <span class="nx">HighlightDirective</span><span class="p">,</span>
-<span class="p">],</span></code></pre></div>
+<span class="p">],</span>
+</code></pre></div>
 <h4 id="定义组件">定义组件</h4>
 
 <p>将模板中的Title重构成一个单独的组件<code>TitleComponent</code>。组件的模板中绑定组件的<code>title</code>和<code>subtitle</code>属性：</p>
@@ -345,7 +384,8 @@
 <span class="k">export</span> <span class="k">class</span> <span class="nx">TitleComponent</span> <span class="p">{</span>
   <span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">subtitle</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
   <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Angular Modules&#39;</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>将<code>AppComponent</code>中的模板改成使用该组件：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/app.component.ts (v1)
 </span><span class="c1"></span>
@@ -357,13 +397,15 @@
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
   <span class="nx">subtitle</span> <span class="o">=</span> <span class="s1">&#39;(v1)&#39;</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Angular现在还不识别<code>&lt;app-title&gt;</code>标签，因为还没有在<code>AppModule</code>中声明它：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
   <span class="nx">AppComponent</span><span class="p">,</span>
   <span class="nx">HighlightDirective</span><span class="p">,</span>
   <span class="nx">TitleComponent</span><span class="p">,</span>
-<span class="p">],</span></code></pre></div>
+<span class="p">],</span>
+</code></pre></div>
 <h3 id="service-provider">Service Provider</h3>
 
 <p>模块是为模块内的所有组件提供service的一种好方法。</p>
@@ -381,13 +423,15 @@
 <span class="cm">/** Dummy version of an authenticated user service */</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">UserService</span> <span class="p">{</span>
   <span class="nx">userName</span> <span class="o">=</span> <span class="s1">&#39;Sherlock Holmes&#39;</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>假设我们要在应用的标题下面显示一条用户登录信息。更新<code>TitleComponent</code>的模板：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c">&lt;!--</span> <span class="nx">app</span><span class="err">/title.component.html --&gt;</span>
 <span class="o">&lt;</span><span class="nx">h1</span> <span class="nx">highlight</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">title</span><span class="p">}}</span> <span class="p">{{</span><span class="nx">subtitle</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/h1&gt;</span>
 <span class="o">&lt;</span><span class="nx">p</span> <span class="o">*</span><span class="nx">ngIf</span><span class="o">=</span><span class="s2">&#34;user&#34;</span><span class="o">&gt;</span>
   <span class="o">&lt;</span><span class="nx">i</span><span class="o">&gt;</span><span class="nx">Welcome</span><span class="p">,</span> <span class="p">{{</span><span class="nx">user</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/i&gt;</span>
-<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span></code></pre></div>
+<span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
+</code></pre></div>
 <p>更新<code>TitleComponent</code>类，在构造函数中注入<code>UserService</code>并设置组件的<code>user</code>属性：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/title.component.ts
 </span><span class="c1"></span>
@@ -407,15 +451,18 @@
   <span class="nx">constructor</span><span class="p">(</span><span class="nx">userService</span><span class="o">:</span> <span class="nx">UserService</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">user</span> <span class="o">=</span> <span class="nx">userService</span><span class="p">.</span><span class="nx">userName</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>我们定义了<code>UserService</code>。现在让它可以为所有组件所用，将它加到<code>AppModule</code>的<code>providers</code>属性中就行啦：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">UserService</span> <span class="p">],</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">UserService</span> <span class="p">],</span>
+</code></pre></div>
 <h3 id="引入模块">引入模块</h3>
 
 <p>注意上面的<code>TitleComponent</code>模板中用到了<code>*ngIf</code>指令。尽管<code>AppModule</code>没有声明<code>NgIf</code>，但是Angular却认识它，这是为什么呢？</p>
 
 <p>因为在<code>AppModule</code>中引入了<code>BrowserModule</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">imports</span><span class="o">:</span> <span class="p">[</span> <span class="nx">BrowserModule</span> <span class="p">],</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">imports</span><span class="o">:</span> <span class="p">[</span> <span class="nx">BrowserModule</span> <span class="p">],</span>
+</code></pre></div>
 <p>引入了<code>BrowserModule</code>模块之后，在<code>AppModule</code>的组件模板中就可以使用被引入的模块的公共组件、指令和管道。</p>
 
 <p>注：实际上，<code>NgIf</code>是在<code>@angular/common</code>的<code>CommonModule</code>中声明的。<code>NgFor</code>也在这个模块中。<code>BrowserModule</code>引入了<code>CommonModule</code>又重新导出了它。这样引入<code>BrowserModule</code>之后就自动得到了<code>CommonModule</code>中的指令。</p>
@@ -436,7 +483,8 @@
 <span class="nx">template</span><span class="o">:</span> <span class="sb">`
 </span><span class="sb">  &lt;app-title [subtitle]=&#34;subtitle&#34;&gt;&lt;/app-title&gt;
 </span><span class="sb">  &lt;app-contact&gt;&lt;/app-contact&gt;
-</span><span class="sb">`</span></code></pre></div>
+</span><span class="sb">`</span>
+</code></pre></div>
 <p><code>ContactComponent</code>还比较复杂，它有自己的<code>ContactService</code>，一个名为<code>Awesome</code>的自定义管道，还有一个指令<code>HighlightDirective</code>。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- app/contact/contact.component.html --&gt;</span>
 
@@ -502,7 +550,8 @@
     <span class="k">this</span><span class="p">.</span><span class="nx">msg</span> <span class="o">=</span> <span class="nx">msg</span><span class="p">;</span>
     <span class="nx">setTimeout</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">msg</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="mi">1500</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* app/contact/contact.component.css */</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* app/contact/contact.component.css */</span>
 
 <span class="p">.</span><span class="nc">ng-valid</span><span class="o">[</span><span class="nt">required</span><span class="o">]</span> <span class="p">{</span>
   <span class="k">border-left</span><span class="p">:</span> <span class="mi">5</span><span class="kt">px</span> <span class="kc">solid</span> <span class="mh">#42A948</span><span class="p">;</span> <span class="c">/* green */</span>
@@ -550,7 +599,8 @@
     <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">getContacts</span><span class="p">()</span>
       <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">heroes</span> <span class="p">=&gt;</span> <span class="nx">heroes</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">hero</span> <span class="p">=&gt;</span> <span class="nx">hero</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="o">+</span><span class="nx">id</span><span class="p">));</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/contact/awesome.pipe.ts
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/contact/awesome.pipe.ts
 </span><span class="c1"></span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Pipe</span><span class="p">,</span> <span class="nx">PipeTransform</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
 <span class="err">@</span><span class="nx">Pipe</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;awesome&#39;</span> <span class="p">})</span>
@@ -559,7 +609,8 @@
   <span class="nx">transform</span><span class="p">(</span><span class="nx">phrase</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">phrase</span> <span class="o">?</span> <span class="s1">&#39;Awesome &#39;</span> <span class="o">+</span> <span class="nx">phrase</span> <span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/contact/highlight.directive.ts
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/contact/highlight.directive.ts
 </span><span class="c1"></span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Directive</span><span class="p">,</span> <span class="nx">ElementRef</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
 <span class="err">@</span><span class="nx">Directive</span><span class="p">({</span> <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;[highlight], input&#39;</span> <span class="p">})</span>
@@ -570,11 +621,13 @@
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
       <span class="sb">`* Contact highlight called for </span><span class="si">${</span><span class="nx">el</span><span class="p">.</span><span class="nx">nativeElement</span><span class="p">.</span><span class="nx">tagName</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>注意模板中的双向数据绑定<code>ngModel</code>，它是<code>NgModel</code>指令的选择器。</p>
 
 <p>尽管<code>NgModel</code>是Angular指令，但是编译器还不认识它，因为（1）<code>AppModule</code>没有声明它，（2）它不是通过<code>BrowserModule</code>引入的。将<code>FormsModule</code>添加到<code>AppModule</code>元数据的<code>imports</code>列表中：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">imports</span><span class="o">:</span> <span class="p">[</span> <span class="nx">BrowserModule</span><span class="p">,</span> <span class="nx">FormsModule</span> <span class="p">],</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">imports</span><span class="o">:</span> <span class="p">[</span> <span class="nx">BrowserModule</span><span class="p">,</span> <span class="nx">FormsModule</span> <span class="p">],</span>
+</code></pre></div>
 <blockquote>
 <blockquote>
 <blockquote>
@@ -592,13 +645,16 @@
   <span class="nx">AwesomePipe</span><span class="p">,</span>
   <span class="nx">ContactComponent</span><span class="p">,</span>
   <span class="nx">ContactHighlightDirective</span>
-<span class="p">],</span></code></pre></div>
+<span class="p">],</span>
+</code></pre></div>
 <p>有两个指令都叫<code>HighlightDirective</code>。这里采取了一种变通的方式，为第二个起了个别名：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span>
   <span class="nx">HighlightDirective</span> <span class="nx">as</span> <span class="nx">ContactHighlightDirective</span>
-<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./contact/highlight.directive&#39;</span><span class="p">;</span></code></pre></div>
+<span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./contact/highlight.directive&#39;</span><span class="p">;</span>
+</code></pre></div>
 <p><code>ContactComponent</code>从构造函数中注入的<code>ContactService</code>获取数据。我们必须在某个地方提供这个这个服务才行。<code>ContactComponent</code>可以提供它，但这样就只能在这个组件内使用了。我们希望在其它跟这个组件相关的组件也能使用这个服务。因此将它添加到<code>AppModule</code>元数据的<code>providers</code>列表中。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">ContactService</span><span class="p">,</span> <span class="nx">UserService</span> <span class="p">],</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">ContactService</span><span class="p">,</span> <span class="nx">UserService</span> <span class="p">],</span>
+</code></pre></div>
 <h4 id="application-scoped-providers">Application-scoped Providers</h4>
 
 <p><code>ContactService</code>Provider现在是应用程序范围的。因为Angular会将模块的<code>providers</code>注册到应用的根注入器中。从技术上来说<code>ContactService</code>属于Contact业务领域。其它领域的类不需要引入也不应该注入<code>ContactService</code>。</p>
@@ -623,7 +679,8 @@
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
       <span class="sb">`* AppRoot highlight called for </span><span class="si">${</span><span class="nx">el</span><span class="p">.</span><span class="nx">nativeElement</span><span class="p">.</span><span class="nx">tagName</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/contact/highlight.directive.ts
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/contact/highlight.directive.ts
 </span><span class="c1"></span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Directive</span><span class="p">,</span> <span class="nx">ElementRef</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
 <span class="err">@</span><span class="nx">Directive</span><span class="p">({</span> <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;[highlight], input&#39;</span> <span class="p">})</span>
@@ -634,7 +691,8 @@
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span>
       <span class="sb">`* Contact highlight called for </span><span class="si">${</span><span class="nx">el</span><span class="p">.</span><span class="nx">nativeElement</span><span class="p">.</span><span class="nx">tagName</span><span class="si">}</span><span class="sb">`</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>Angular会只使用其中一个吗？不。实际上两个都会生效。两个指令会竞争为元素设置背景颜色，后声明的那个指令最终赢得竞争，因为它修改DOM时会覆盖前面的。</p>
 
 <p>其实真正的问题是引入了两个不同的类去做同一件事。如果是多次引入同一个类，Angular会自动去重的。但现在的情况是在不同的文件中定义了两个不同的类，只是碰巧它俩的名字一样。从Angular的角度来看它俩是不同的。Angular会同时保留它俩，并依次作用到元素上。</p>
@@ -692,7 +750,8 @@
   <span class="nx">exports</span><span class="o">:</span>      <span class="p">[</span> <span class="nx">ContactComponent</span> <span class="p">],</span>
   <span class="nx">providers</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">ContactService</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">ContactModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">ContactModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>模块不会从其他模块继承声明的组件、指令和管道。<code>AppModule</code>引入的东西跟<code>AppModule</code>引入的是不相关的。<code>ContactComponent</code>要想使用<code>[(ngModel)]</code>绑定，那么<code>ContactModule</code>必须引入<code>FormsModule</code>。</p>
 
 <p>这里<code>BrowserModule</code>替换成了<code>CommonModule</code>。原因见<a href="https://angular.io/docs/ts/latest/cookbook/ngmodule-faq.html#q-browser-vs-common-module">FAQ</a>。</p>
@@ -726,7 +785,8 @@
   <span class="nx">providers</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">UserService</span> <span class="p">],</span>
   <span class="nx">bootstrap</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">],</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <h3 id="通过路由器延迟加载模块">通过路由器延迟加载模块</h3>
 
 <p>现在应用包括两个模块了，Hero和Contact。我们想再加一个模块Crisis。然后在应用启动的时候加载<code>ContactComponent</code>。也就是说<code>ContactModule</code>保持贪婪式加载，而<code>HeroModule</code>和<code>CrisisModule</code>改为延迟加载。</p>
@@ -742,7 +802,8 @@
 </span><span class="sb">    &lt;a routerLink=&#34;heroes&#34;  routerLinkActive=&#34;active&#34;&gt;Heroes&lt;/a&gt;
 </span><span class="sb">  &lt;/nav&gt;
 </span><span class="sb">  &lt;router-outlet&gt;&lt;/router-outlet&gt;
-</span><span class="sb">`</span></code></pre></div>
+</span><span class="sb">`</span>
+</code></pre></div>
 <h4 id="应用的路由">应用的路由</h4>
 
 <p>相应地修改<code>AppModule</code>：</p>
@@ -769,7 +830,8 @@
   <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span><span class="p">,</span> <span class="nx">HighlightDirective</span><span class="p">,</span> <span class="nx">TitleComponent</span> <span class="p">],</span>
   <span class="nx">bootstrap</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>该模块仍然引入了<code>ContactModulE</code>，因为它的路由和组件要在应用启动的时候加载。</p>
 
 <p>注意这里没有引入<code>HeroModule</code>和<code>CrisisModule</code>。它们将会在用户导航到它们的路由时动态地获取和加载。</p>
@@ -790,7 +852,8 @@
   <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span><span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">routes</span><span class="p">)],</span>
   <span class="nx">exports</span><span class="o">:</span> <span class="p">[</span><span class="nx">RouterModule</span><span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppRoutingModule</span> <span class="p">{}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppRoutingModule</span> <span class="p">{}</span>
+</code></pre></div>
 <p>这个文件中定义了三个路由。</p>
 
 <p>第一个路由是将空URL（例如<code>https://host.com</code>）重定向到<code>contact</code>(<code>https://host.com/contact</code>)。<code>contact</code>路由没有在这里定义，它是定义在Contact特性的自己的路由模块中（<code>contact-routing.module.ts</code>）。为拥有路由组件的特性模块定义一个它自己的路由文件可以说是一个最佳实践。</p>
@@ -810,7 +873,8 @@
   <span class="nx">BrowserModule</span><span class="p">,</span>
   <span class="nx">ContactModule</span><span class="p">,</span>
   <span class="nx">AppRoutingModule</span>
-<span class="p">],</span></code></pre></div>
+<span class="p">],</span>
+</code></pre></div>
 <h4 id="路由到特性模块">路由到特性模块</h4>
 
 <p>创建文件<code>app/contact/contact-routing.module.ts</code>，在这个文件里定义上面提到的<code>contact</code>路由以及提供<code>ContactRoutingModule</code>：</p>
@@ -822,7 +886,8 @@
   <span class="p">])],</span>
   <span class="nx">exports</span><span class="o">:</span> <span class="p">[</span><span class="nx">RouterModule</span><span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">ContactRoutingModule</span> <span class="p">{}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">ContactRoutingModule</span> <span class="p">{}</span>
+</code></pre></div>
 <p>这次是将路由配置清单传递给<code>RouterModule</code>的<code>forChild</code>方法。它是专门为特性模块设计的，只是为了提供额外的路由。</p>
 
 <p><code>ContactModule</code>中有两处细微但很重要的变化，它引入了<code>ContactRoutingModule</code>，并且不再导出<code>ContactComponent</code>：</p>
@@ -833,7 +898,8 @@
   <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span> <span class="nx">ContactComponent</span><span class="p">,</span> <span class="nx">HighlightDirective</span><span class="p">,</span> <span class="nx">AwesomePipe</span> <span class="p">],</span>
   <span class="nx">providers</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">ContactService</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">ContactModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">ContactModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>现在是通过路由导航到<code>ContactComponent</code>，所以没有理由再将它设置为公共的。它甚至都不需要selector了，因为没有模板引用它了。</p>
 
 <h4 id="路由延迟加载的模块">路由延迟加载的模块</h4>
@@ -864,7 +930,8 @@
     <span class="nx">HighlightDirective</span>
   <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">HeroModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">HeroModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>它引入了<code>FormsModule</code>，因为<code>HeroDetailComponent</code>模板中用到了<code>[(ngModel)]</code>。跟<code>ContactModule</code>和<code>CrisisModule</code>一样，它引入了<code>HeroRoutingModule</code>。</p>
 
 <p><code>CrisisModule</code>是类似的，不再细说。</p>
@@ -888,7 +955,8 @@
   <span class="nx">ngOnInit</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">.</span><span class="nx">snapshot</span><span class="p">.</span><span class="nx">params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="mi">10</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/crisis/crisis-list.component.ts
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/crisis/crisis-list.component.ts
 </span><span class="c1"></span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span><span class="p">,</span> <span class="nx">OnInit</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
 
@@ -911,7 +979,8 @@
   <span class="nx">ngOnInit</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">crisises</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">crisisService</span><span class="p">.</span><span class="nx">getCrises</span><span class="p">();</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/crisis/crisis-routing.modlue.ts
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/crisis/crisis-routing.modlue.ts
 </span><span class="c1"></span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>            <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Routes</span><span class="p">,</span>
@@ -930,7 +999,8 @@
   <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span><span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forChild</span><span class="p">(</span><span class="nx">routes</span><span class="p">)],</span>
   <span class="nx">exports</span><span class="o">:</span> <span class="p">[</span><span class="nx">RouterModule</span><span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">CrisisRoutingModule</span> <span class="p">{}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/crisis/crisis.modlue.ts
+<span class="k">export</span> <span class="k">class</span> <span class="nx">CrisisRoutingModule</span> <span class="p">{}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/crisis/crisis.modlue.ts
 </span><span class="c1"></span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">NgModule</span> <span class="p">}</span>      <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">CommonModule</span> <span class="p">}</span>  <span class="nx">from</span> <span class="s1">&#39;@angular/common&#39;</span><span class="p">;</span>
@@ -945,7 +1015,8 @@
   <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span> <span class="nx">CrisisDetailComponent</span><span class="p">,</span> <span class="nx">CrisisListComponent</span> <span class="p">],</span>
   <span class="nx">providers</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">CrisisService</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">CrisisModule</span> <span class="p">{}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/crisis/crisis.service.ts
+<span class="k">export</span> <span class="k">class</span> <span class="nx">CrisisModule</span> <span class="p">{}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/crisis/crisis.service.ts
 </span><span class="c1"></span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Injectable</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
 
@@ -976,7 +1047,8 @@
       <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">heroes</span> <span class="p">=&gt;</span> <span class="nx">heroes</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">hero</span> <span class="p">=&gt;</span> <span class="nx">hero</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="o">+</span><span class="nx">id</span><span class="p">));</span>
   <span class="p">}</span>
 
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="共享模块">共享模块</h3>
 
 <p>前面遗留了一个问题，我们一共实现了三个版本的<code>HighlightDirective</code>。让我们添加一个共享模块来放这些常用的组件、指令和管道，然后将它们共享给所需要的模块。</p>
@@ -995,7 +1067,8 @@
   <span class="nx">exports</span><span class="o">:</span>      <span class="p">[</span> <span class="nx">AwesomePipe</span><span class="p">,</span> <span class="nx">HighlightDirective</span><span class="p">,</span>
                   <span class="nx">CommonModule</span><span class="p">,</span> <span class="nx">FormsModule</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">SharedModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">SharedModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>要注意的是：
 * 这里引入了<code>CommonModule</code>，因为它的组件中需要用到一些常用指令
 * 它声明并导出了工具性质的管道、指令和组件，正如我们所期望的
@@ -1039,7 +1112,8 @@
   <span class="nx">providers</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">UserService</span> <span class="p">]</span>
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">CoreModule</span> <span class="p">{</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>重构了<code>CoreModule</code>和<code>SharedModule</code>之后，其它的模块也要做一些清理。</p>
 
 <p>更新后的<code>AppModule</code>：</p>
@@ -1064,7 +1138,8 @@
   <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">],</span>
   <span class="nx">bootstrap</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>更新后的<code>ContactModule</code>：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/contact/contact.module.ts (v4)
 </span><span class="c1"></span>
@@ -1078,7 +1153,8 @@
   <span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span> <span class="nx">ContactComponent</span> <span class="p">],</span>
   <span class="nx">providers</span><span class="o">:</span>    <span class="p">[</span> <span class="nx">ContactService</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">ContactModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">ContactModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <h3 id="使用coremodule-forroot配置核心服务">使用CoreModule.forRoot配置核心服务</h3>
 
 <p>一个向应用添加provider的模块也可以提供配置这些provider的东西。</p>
@@ -1099,7 +1175,8 @@
 </span><span class="c1"></span>
 <span class="nx">constructor</span><span class="p">(</span><span class="err">@</span><span class="nx">Optional</span><span class="p">()</span> <span class="nx">config</span><span class="o">:</span> <span class="nx">UserServiceConfig</span><span class="p">)</span> <span class="p">{</span>
   <span class="k">if</span> <span class="p">(</span><span class="nx">config</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">_userName</span> <span class="o">=</span> <span class="nx">config</span><span class="p">.</span><span class="nx">userName</span><span class="p">;</span> <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>这里是接收<code>UserServiceConfig</code>对象的<code>CoreModule.forRoot</code>：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/core/core.module.ts (forRoot)
 </span><span class="c1"></span>
@@ -1110,7 +1187,8 @@
       <span class="p">{</span><span class="nx">provide</span><span class="o">:</span> <span class="nx">UserServiceConfig</span><span class="p">,</span> <span class="nx">useValue</span><span class="o">:</span> <span class="nx">config</span> <span class="p">}</span>
     <span class="p">]</span>
   <span class="p">};</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>最后，在<code>AppModule</code>的<code>imports</code>中调用它：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app//app.module.ts (imports)
 </span><span class="c1"></span>
@@ -1119,7 +1197,8 @@
     <span class="nx">ContactModule</span><span class="p">,</span>
     <span class="nx">CoreModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">({</span><span class="nx">userName</span><span class="o">:</span> <span class="s1">&#39;Miss Marple&#39;</span><span class="p">}),</span>
     <span class="nx">AppRoutingModule</span>
-  <span class="p">],</span></code></pre></div>
+  <span class="p">],</span>
+</code></pre></div>
 <h3 id="阻止coremodule的重复引入">阻止CoreModule的重复引入</h3>
 
 <p>只有根模块<code>AppModule</code>应该引入<code>CoreModule</code>。延迟加载的模块引用它会出现一些奇怪的问题。</p>
@@ -1130,7 +1209,8 @@
     <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span>
       <span class="s1">&#39;CoreModule is already loaded. Import it in the AppModule only&#39;</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>构造函数中将自己注入给了自己。这看起来是个很奇怪的循环。</p>
 
 <p>如果Angular实在当前的注入器中查找<code>CoreModule</code>，那么这的确是个死循环。装饰器<code>@SkipSelf</code>意思是“在父层级的注入器中查找<code>for CoreModule</code>”。</p>
@@ -1155,7 +1235,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>308</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>438</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -1163,7 +1243,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -1171,7 +1251,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

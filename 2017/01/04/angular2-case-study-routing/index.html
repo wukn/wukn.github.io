@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" 使用TypeScript构建Angular2应用。使用路由功能在多个视图之间导航。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] Case Study - Routing" />
+  <meta property="og:description" content=" 使用TypeScript构建Angular2应用。使用路由功能在多个视图之间导航。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2017/01/04/angular2-case-study-routing/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/01/04/angular2-case-study-routing/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -247,7 +279,8 @@
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
   <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><code>AppModule</code>中也要做一些修改。在<code>declarations</code>数组中添加<code>HeroesComponent</code>，要不Angular不认识<code>my-heroes</code>标签;在<code>providers</code>数组中添加<code>HeroService</code>，因为在其它每个视图中都要用到它；添加相应的文件的import：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/app.module.ts
 </span><span class="c1"></span>
@@ -274,7 +307,8 @@
   <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>还要移除<code>HeroesComponent</code>的模板中<code>&lt;h1&gt;{{title}}&lt;/h1&gt;</code>；移除的<code>providers</code>数组中的<code>HeroService</code>。因为这两个都移到<code>AppComponent</code>中去了。</p>
 
 <p>现在应用程序跑起来还是跟之前的效果是一样的。说明重构生效了。</p>
@@ -304,7 +338,8 @@
     <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;heroes&#39;</span><span class="p">,</span>
     <span class="nx">component</span><span class="o">:</span> <span class="nx">HeroesComponent</span>
   <span class="p">}</span>
-<span class="p">])</span></code></pre></div>
+<span class="p">])</span>
+</code></pre></div>
 <p>路由就是一个路由定义数组。目前我们只加了一个路由定义。</p>
 
 <p>路由定义包含两部分：</p>
@@ -351,7 +386,8 @@
   <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>这里使用了<code>forRoot</code>方法，因为我们是在为应用的根路径提供配置的路由器。</p>
 
 <p>如果我们在浏览器的地址栏中添加<code>/heroes</code>，那么这个URL就匹配到<code>heroes</code>这个路由并显示<code>HeroesComponent</code>。但是在哪里显示呢？</p>
@@ -367,7 +403,8 @@
 </span><span class="sb">   &lt;h1&gt;{{title}}&lt;/h1&gt;
 </span><span class="sb">   &lt;a routerLink=&#34;/heroes&#34;&gt;Heroes&lt;/a&gt;
 </span><span class="sb">   &lt;router-outlet&gt;&lt;/router-outlet&gt;
-</span><span class="sb"> `</span></code></pre></div>
+</span><span class="sb"> `</span>
+</code></pre></div>
 <p>注意，我们绑定的是链接标签的<code>routerLink</code>。<code>RouterLink</code>是<code>RouterModule</code>提供的另一个指令，告诉路由器当用户点击这个链接是该跳转到哪里。</p>
 
 <p>刷新浏览器，我们将应用的标题和heroes链接，不会看到heroes列表。</p>
@@ -391,25 +428,29 @@
   <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-dashboard&#39;</span><span class="p">,</span>
   <span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h3&gt;My Dashboard&lt;/h3&gt;&#39;</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">DashboardComponent</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">DashboardComponent</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>回到<code>app.module.ts</code>中，在路由定义数组中添加一条路由：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
   <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;dashboard&#39;</span><span class="p">,</span>
   <span class="nx">component</span><span class="o">:</span> <span class="nx">DashboardComponent</span>
-<span class="p">},</span></code></pre></div>
+<span class="p">},</span>
+</code></pre></div>
 <p>并在<code>declarations</code>数组中添加<code>DashboardComponent</code>：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">declarations</span><span class="o">:</span> <span class="p">[</span>
   <span class="nx">AppComponent</span><span class="p">,</span>
   <span class="nx">DashboardComponent</span><span class="p">,</span>
   <span class="nx">HeroDetailComponent</span><span class="p">,</span>
   <span class="nx">HeroesComponent</span>
-<span class="p">],</span></code></pre></div>
+<span class="p">],</span>
+</code></pre></div>
 <p>我们希望在应用启动的时候就默认显示Dashboard。也就是将<code>/</code>重定向到<code>/dashboard</code>：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
   <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;&#39;</span><span class="p">,</span>
   <span class="nx">redirectTo</span><span class="o">:</span> <span class="s1">&#39;/dashboard&#39;</span><span class="p">,</span>
   <span class="nx">pathMatch</span><span class="o">:</span> <span class="s1">&#39;full&#39;</span>
-<span class="p">},</span></code></pre></div>
+<span class="p">},</span>
+</code></pre></div>
 <p>在模板中添加导航链接：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="sb">`
 </span><span class="sb">   &lt;h1&gt;{{title}}&lt;/h1&gt;
@@ -418,7 +459,8 @@
 </span><span class="sb">     &lt;a routerLink=&#34;/heroes&#34;&gt;Heroes&lt;/a&gt;
 </span><span class="sb">   &lt;/nav&gt;
 </span><span class="sb">   &lt;router-outlet&gt;&lt;/router-outlet&gt;
-</span><span class="sb"> `</span></code></pre></div>
+</span><span class="sb"> `</span>
+</code></pre></div>
 <p>这里将两个链接放到了<code>&lt;nav&gt;</code>标签里，是为了方便后面添加样式。</p>
 
 <p>现在显示的效果如下：</p>
@@ -441,10 +483,12 @@
   <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
   <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-dashboard&#39;</span><span class="p">,</span>
   <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;dashboard.component.html&#39;</span><span class="p">,</span>
-<span class="p">})</span></code></pre></div>
+<span class="p">})</span>
+</code></pre></div>
 <p>修改<code>dashboard.component.ts</code>文件，添加import：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
-<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span></code></pre></div>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span>
+</code></pre></div>
 <p>实现<code>DashboardComponent</code>类：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">export</span> <span class="k">class</span> <span class="nx">DashboardComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
 
@@ -456,7 +500,8 @@
     <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">()</span>
       <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">heroes</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="nx">heroes</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">));</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>现在刷新浏览器，可以看到Dashboard会显示四个hero。</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/routing/route-dashboard2.png" alt="" /></p>
@@ -474,7 +519,8 @@
 <p>像上面一样，添加一个hero-detail路由。</p>
 
 <p>这里有点特别的是，我们需要告诉<code>HeroDetailComponent</code>该显示哪个Hero，目前<code>HeroesComponent</code>是直接通过属性传递参数的，而<code>DashboardComponent</code>还不知道任何要传递的参数。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">my</span><span class="o">-</span><span class="nx">hero</span><span class="o">-</span><span class="nx">detail</span> <span class="p">[</span><span class="nx">hero</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;selectedHero&#34;</span><span class="o">&gt;&lt;</span><span class="err">/my-hero-detail&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">my</span><span class="o">-</span><span class="nx">hero</span><span class="o">-</span><span class="nx">detail</span> <span class="p">[</span><span class="nx">hero</span><span class="p">]</span><span class="o">=</span><span class="s2">&#34;selectedHero&#34;</span><span class="o">&gt;&lt;</span><span class="err">/my-hero-detail&gt;</span>
+</code></pre></div>
 <p>属性绑定这种方式在路由的场景里似乎也不行。我们不能将整个hero对象放到URL中，也不希望这样做。</p>
 
 <h4 id="参数化的路由">参数化的路由</h4>
@@ -488,7 +534,8 @@
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">{</span>
   <span class="nx">path</span><span class="o">:</span> <span class="s1">&#39;detail/:id&#39;</span><span class="p">,</span>
   <span class="nx">component</span><span class="o">:</span> <span class="nx">HeroDetailComponent</span>
-<span class="p">},</span></code></pre></div>
+<span class="p">},</span>
+</code></pre></div>
 <p><code>:id</code>表示这是一个路由参数，当导航到<code>HeroDetailComponent</code>时将<code>id</code>值传给该组件。</p>
 
 <p>现在路由是不可用的，<code>HeroDetailComponent</code>还需要很大的修整。</p>
@@ -513,7 +560,8 @@
 <span class="p">})</span>
 <span class="k">export</span> <span class="k">class</span> <span class="nx">HeroDetailComponent</span> <span class="p">{</span>
   <span class="err">@</span><span class="nx">Input</span><span class="p">()</span> <span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>新的<code>HeroDetailComponent</code>应该不再接受Hero对象作为参数，而是从<code>ActivatedRoute</code>的<code>params</code>中得到的参数<code>id</code>，然后使用<code>HeroService</code>获取对应id的hero。</p>
 
 <p>添加相应的import：</p>
@@ -522,23 +570,28 @@
 <span class="k">import</span> <span class="p">{</span> <span class="nx">ActivatedRoute</span><span class="p">,</span> <span class="nx">Params</span> <span class="p">}</span>   <span class="nx">from</span> <span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="p">{</span> <span class="nx">Location</span> <span class="p">}</span>                 <span class="nx">from</span> <span class="s1">&#39;@angular/common&#39;</span><span class="p">;</span>
 
-<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span></code></pre></div>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">HeroService</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero.service&#39;</span><span class="p">;</span>
+</code></pre></div>
 <p>在构造函数中注入<code>ActivatedRoute</code>、<code>HeroService</code>和<code>Location</code>这三个服务：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">constructor</span><span class="p">(</span>
   <span class="kr">private</span> <span class="nx">heroService</span><span class="o">:</span> <span class="nx">HeroService</span><span class="p">,</span>
   <span class="kr">private</span> <span class="nx">route</span><span class="o">:</span> <span class="nx">ActivatedRoute</span><span class="p">,</span>
   <span class="kr">private</span> <span class="nx">location</span><span class="o">:</span> <span class="nx">Location</span>
-<span class="p">)</span> <span class="p">{}</span></code></pre></div>
+<span class="p">)</span> <span class="p">{}</span>
+</code></pre></div>
 <p>还要引入<code>switchMap</code>操作符，处理路由的参数<code>Observable</code>时要用到：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="s1">&#39;rxjs/add/operator/switchMap&#39;</span><span class="p">;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="s1">&#39;rxjs/add/operator/switchMap&#39;</span><span class="p">;</span>
+</code></pre></div>
 <p>实现<code>OnInit</code>接口：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">export</span> <span class="k">class</span> <span class="nx">HeroDetailComponent</span> <span class="kr">implements</span> <span class="nx">OnInit</span> <span class="p">{</span>
   <span class="p">...</span>
-<span class="p">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ngOnInit</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
+<span class="p">}</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ngOnInit</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">route</span><span class="p">.</span><span class="nx">params</span>
     <span class="p">.</span><span class="nx">switchMap</span><span class="p">((</span><span class="nx">params</span><span class="o">:</span> <span class="nx">Params</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">getHero</span><span class="p">(</span><span class="o">+</span><span class="nx">params</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]))</span>
     <span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">hero</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">hero</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>注意，<code>switchMap</code>操作符将路由参数observable中的id映射成一个新的<code>Observable</code>，也就是<code>HeroService.getHero</code>方法的返回值。</p>
 
 <p>如果用户重新导航到该组件个<code>getHero</code>方法还没执行完，那么<code>switchMap</code>会在重新调用<code>HeroService.getHero</code>之前取消旧的请求。</p>
@@ -551,7 +604,8 @@
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">getHero</span><span class="p">(</span><span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="o">&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">getHeroes</span><span class="p">()</span>
              <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">heroes</span> <span class="p">=&gt;</span> <span class="nx">heroes</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="nx">hero</span> <span class="p">=&gt;</span> <span class="nx">hero</span><span class="p">.</span><span class="nx">id</span> <span class="o">===</span> <span class="nx">id</span><span class="p">));</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>我们有好几种方式导航到<code>HeroDetailComponent</code>，但是当我们完成操作后想跳转到其它地方怎么办？</p>
 
 <p>一种方法是点击<code>AppComponent</code>上面的两个链接。我们还可以添加一个<code>goBack</code>方法跳转回之前的页面：</p>
@@ -559,7 +613,8 @@
 </span><span class="c1"></span>
 <span class="nx">goBack</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">back</span><span class="p">();</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>在模板中添加回退按钮：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&#34;</span><span class="na">goBack</span><span class="err">()&#34;</span><span class="p"></span><span class="p">&gt;</span>Back<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span></code></pre></div>
 <p>这里我们顺便做一下重构，将模板放到独立的文件中：</p>
@@ -580,7 +635,8 @@
   <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
   <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-hero-detail&#39;</span><span class="p">,</span>
   <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;hero-detail.component.html&#39;</span><span class="p">,</span>
-<span class="p">})</span></code></pre></div>
+<span class="p">})</span>
+</code></pre></div>
 <h4 id="dashboard跳转到详细信息视图">Dashboard跳转到详细信息视图</h4>
 
 <p>当我们在Dashboard视图中点击一个Hero时也应该跳转到对应的<code>HeroDetailComponent</code>视图。</p>
@@ -613,7 +669,8 @@
   <span class="nx">imports</span><span class="o">:</span> <span class="p">[</span> <span class="nx">RouterModule</span><span class="p">.</span><span class="nx">forRoot</span><span class="p">(</span><span class="nx">routes</span><span class="p">)</span> <span class="p">],</span>
   <span class="nx">exports</span><span class="o">:</span> <span class="p">[</span> <span class="nx">RouterModule</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppRoutingModule</span> <span class="p">{}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppRoutingModule</span> <span class="p">{}</span>
+</code></pre></div>
 <p>值得注意的地方有，一般路由模块会：</p>
 
 <ul>
@@ -649,7 +706,8 @@
   <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">HeroService</span> <span class="p">],</span>
   <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <h4 id="heroescomponent跳转到详细信息视图">HeroesComponent跳转到详细信息视图</h4>
 
 <p>跟Dashboard一样，我们要处理一下<code>HeroesComponent</code>中点击某个Hero后的跳转。</p>
@@ -666,7 +724,8 @@
 </span><span class="sb">    &lt;/li&gt;
 </span><span class="sb">  &lt;/ul&gt;
 </span><span class="sb">  &lt;my-hero-detail [hero]=&#34;selectedHero&#34;&gt;&lt;/my-hero-detail&gt;
-</span><span class="sb">`</span><span class="p">,</span></code></pre></div>
+</span><span class="sb">`</span><span class="p">,</span>
+</code></pre></div>
 <p>我们的目标是当用户决定要编辑选中的hero时跳转到详细视图。</p>
 
 <p>将顶部的<code>&lt;h1&gt;</code>标题删掉，标题移到<code>AppComponent</code>中了。删除最后一行<code>&lt;my-hero-detail&gt;</code>标签，我们不再需要在这里显示<code>HeroDetailComponent</code>了。</p>
@@ -697,17 +756,21 @@
   <span class="nx">selector</span><span class="o">:</span> <span class="s1">&#39;my-heroes&#39;</span><span class="p">,</span>
   <span class="nx">templateUrl</span><span class="o">:</span> <span class="s1">&#39;heroes.component.html&#39;</span><span class="p">,</span>
   <span class="nx">styleUrls</span><span class="o">:</span> <span class="p">[</span> <span class="s1">&#39;heroes.component.css&#39;</span> <span class="p">]</span>
-<span class="p">})</span></code></pre></div>
+<span class="p">})</span>
+</code></pre></div>
 <p><code>HeroesComponent</code>跳转到<code>HeroDetailComponent</code>是通过点击按钮的。按钮绑定了<code>gotoDetail</code>方法：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/heroes.component.ts (gotoDetail)
 </span><span class="c1"></span>
 <span class="nx">gotoDetail</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">([</span><span class="s1">&#39;/detail&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span><span class="p">.</span><span class="nx">id</span><span class="p">]);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>在这个方法之前要先引入<code>Router</code>并在构造函数中注入。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Router</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">constructor</span><span class="p">(</span>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Router</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/router&#39;</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">constructor</span><span class="p">(</span>
   <span class="kr">private</span> <span class="nx">router</span><span class="o">:</span> <span class="nx">Router</span><span class="p">,</span>
-  <span class="kr">private</span> <span class="nx">heroService</span><span class="o">:</span> <span class="nx">HeroService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+  <span class="kr">private</span> <span class="nx">heroService</span><span class="o">:</span> <span class="nx">HeroService</span><span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>注意<code>gotoDetail</code>方法中的<code>navigate</code>，我们传递的参数是包含两个元素的链接参数数组，路径和路由参数。</p>
 
 <p>到这里我们就实现了所有的需求。可以在浏览器中看一下效果。</p>
@@ -847,7 +910,8 @@
 </span><span class="sb">    &lt;a routerLink=&#34;/heroes&#34; routerLinkActive=&#34;active&#34;&gt;Heroes&lt;/a&gt;
 </span><span class="sb">  &lt;/nav&gt;
 </span><span class="sb">  &lt;router-outlet&gt;&lt;/router-outlet&gt;
-</span><span class="sb">`</span><span class="p">,</span></code></pre></div>
+</span><span class="sb">`</span><span class="p">,</span>
+</code></pre></div>
 <h4 id="全局样式">全局样式</h4>
 
 <p><code>style.css</code>：</p>
@@ -890,7 +954,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>315</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>445</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -898,7 +962,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -906,7 +970,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

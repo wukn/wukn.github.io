@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" 用一个案例学习如何构建Angular2应用。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] Case Study" />
+  <meta property="og:description" content=" 用一个案例学习如何构建Angular2应用。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2016/12/26/angular2-case-study/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/12/26/angular2-case-study/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -217,9 +249,11 @@
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">export</span> <span class="k">class</span> <span class="nx">AppComponent</span> <span class="p">{</span>
   <span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;Tour of Heroes&#39;</span><span class="p">;</span>
   <span class="nx">hero</span> <span class="o">=</span> <span class="s1">&#39;Windstorm&#39;</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>并更新模板：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero}} details!&lt;/h2&gt;&#39;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero}} details!&lt;/h2&gt;&#39;</span>
+</code></pre></div>
 <p>现在效果如下：</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/case-study/1.png" alt="" /></p>
@@ -230,14 +264,17 @@
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">export</span> <span class="k">class</span> <span class="nx">Hero</span> <span class="p">{</span>
   <span class="nx">id</span><span class="o">:</span> <span class="nx">number</span><span class="p">;</span>
   <span class="nx">name</span><span class="o">:</span> <span class="nx">string</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>将组件的<code>hero</code>属性从字符串改成<code>Hero</code>类型：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
   <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Windstorm&#39;</span>
-<span class="p">};</span></code></pre></div>
+<span class="p">};</span>
+</code></pre></div>
 <p>同时修改下模板中的绑定：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;&#39;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;&#39;</span>
+</code></pre></div>
 <p>现在<code>app.component.ts</code>代码是这样的：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Component</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;@angular/core&#39;</span><span class="p">;</span>
 
@@ -256,11 +293,13 @@
     <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Windstorm&#39;</span>
   <span class="p">};</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>浏览器中显示的效果很上面还是一样的。</p>
 
 <p>让我们来显示更多的数据。修改模板：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;&lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;&lt;div&gt;&lt;label&gt;name: &lt;/label&gt;{{hero.name}}&lt;/div&gt;&#39;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">template</span><span class="o">:</span> <span class="s1">&#39;&lt;h1&gt;{{title}}&lt;/h1&gt;&lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;&lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;&lt;div&gt;&lt;label&gt;name: &lt;/label&gt;{{hero.name}}&lt;/div&gt;&#39;</span>
+</code></pre></div>
 <p>显示效果如下：</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/case-study/2.png" alt="" /></p>
@@ -271,7 +310,8 @@
 </span><span class="sb">  &lt;h2&gt;{{hero.name}} details!&lt;/h2&gt;
 </span><span class="sb">  &lt;div&gt;&lt;label&gt;id: &lt;/label&gt;{{hero.id}}&lt;/div&gt;
 </span><span class="sb">  &lt;div&gt;&lt;label&gt;name: &lt;/label&gt;{{hero.name}}&lt;/div&gt;
-</span><span class="sb">  `</span></code></pre></div>
+</span><span class="sb">  `</span>
+</code></pre></div>
 <p>注意，模板的值用的是反引号。</p>
 
 <p>接下来我们希望可以编辑hero的name。因此在模板中将name的绑定换成input：</p>
@@ -283,7 +323,8 @@
 </span><span class="sb">    &lt;label&gt;name: &lt;/label&gt;
 </span><span class="sb">    &lt;input value=&#34;{{hero.name}}&#34; placeholder=&#34;name&#34;&gt;
 </span><span class="sb">  &lt;/div&gt;
-</span><span class="sb">  `</span></code></pre></div>
+</span><span class="sb">  `</span>
+</code></pre></div>
 <p>现在name就显示在文本框里了：</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/case-study/3.png" alt="" /></p>
@@ -305,9 +346,11 @@
   <span class="p">],</span>
   <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>将模板中的<code>input</code>改成双向数据绑定：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">input</span> <span class="p">[(</span><span class="nx">ngModel</span><span class="p">)]</span><span class="o">=</span><span class="s2">&#34;hero.name&#34;</span> <span class="nx">placeholder</span><span class="o">=</span><span class="s2">&#34;name&#34;</span><span class="o">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">input</span> <span class="p">[(</span><span class="nx">ngModel</span><span class="p">)]</span><span class="o">=</span><span class="s2">&#34;hero.name&#34;</span> <span class="nx">placeholder</span><span class="o">=</span><span class="s2">&#34;name&#34;</span><span class="o">&gt;</span>
+</code></pre></div>
 <p>现在我们修改文本框里的值，hero的name属性值也跟着变了：</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/case-study/4.png" alt="" /></p>
@@ -336,7 +379,8 @@
     <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
     <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Windstorm&#39;</span>
   <span class="p">};</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="列表">列表</h3>
 
 <p>创建一个heroes数组，后面我们会改成从web服务中获取数据，这里就先用模拟数据，暂时还放在<code>app.component.ts</code>文件内：</p>
@@ -351,9 +395,11 @@
   <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">18</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dr IQ&#39;</span> <span class="p">},</span>
   <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">19</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Magma&#39;</span> <span class="p">},</span>
   <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">20</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Tornado&#39;</span> <span class="p">}</span>
-<span class="p">];</span></code></pre></div>
+<span class="p">];</span>
+</code></pre></div>
 <p>在<code>AppComponent</code>中添加一个属性<code>heroes</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">heroes</span> <span class="o">=</span> <span class="nx">HEROES</span><span class="p">;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">heroes</span> <span class="o">=</span> <span class="nx">HEROES</span><span class="p">;</span>
+</code></pre></div>
 <p>这里我们没有定义<code>heroes</code>的类型，TypeScript会根据<code>HERROES</code>数组推断出来的。</p>
 
 <p>在模板中使用<code>ngFor</code>指令来显示heroes数组：</p>
@@ -412,7 +458,8 @@
 </span><span class="sb">    margin-right: .8em;
 </span><span class="sb">    border-radius: 4px 0 0 4px;
 </span><span class="sb">  }
-</span><span class="sb">`</span><span class="p">]</span></code></pre></div>
+</span><span class="sb">`</span><span class="p">]</span>
+</code></pre></div>
 <p>现在列表就出来了：</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/case-study/5.png" alt="" /></p>
@@ -512,17 +559,21 @@
     <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Windstorm&#39;</span>
   <span class="p">};</span>
   <span class="nx">heroes</span> <span class="o">=</span> <span class="nx">HEROES</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>现在列表和上面的详细信息视图是没有关系的。我们希望点击列表里的某一个hero时将他显示到详细信息视图中。这就需要绑定click事件，绑定到组件的<code>onSelect</code>方法。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="o">&lt;</span><span class="nx">li</span> <span class="o">*</span><span class="nx">ngFor</span><span class="o">=</span><span class="s2">&#34;let hero of heroes&#34;</span> <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">&#34;onSelect(hero)&#34;</span><span class="o">&gt;</span>
   <span class="o">&lt;</span><span class="nx">span</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;badge&#34;</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">hero</span><span class="p">.</span><span class="nx">id</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/span&gt; {{hero.name}}</span>
-<span class="o">&lt;</span><span class="err">/li&gt;</span></code></pre></div>
+<span class="o">&lt;</span><span class="err">/li&gt;</span>
+</code></pre></div>
 <p>接下来创建组件的<code>onSelect</code>方法。在这之前我们要先为组件加一个属性<code>selectedHero</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">selectedHero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">selectedHero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">;</span>
+</code></pre></div>
 <p>在<code>onSelect</code>方法中将当前点击的hero赋给<code>selectedHero</code>：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">onSelect</span><span class="p">(</span><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">;</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>同时更新详细信息视图模板里的input绑定：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h2</span><span class="p"></span><span class="p">&gt;</span>{{selectedHero.name}} details!<span class="p">&lt;</span><span class="p">/</span><span class="nt">h2</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">label</span><span class="p"></span><span class="p">&gt;</span>id: <span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>{{selectedHero.id}}<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
@@ -657,7 +708,8 @@
   <span class="nx">onSelect</span><span class="p">(</span><span class="nx">hero</span><span class="o">:</span> <span class="nx">Hero</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="nx">hero</span><span class="p">;</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <hr />
 
 <p>参考资料：</p>
@@ -676,7 +728,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>324</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>454</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -684,7 +736,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -692,7 +744,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 

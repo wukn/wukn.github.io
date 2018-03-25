@@ -13,6 +13,7 @@
 
 
 
+
   
   <meta name="author" content="wukn" />
   <meta name="description" content=" 使用TypeScript构建Angular2应用。将服务改成HTTP服务。
@@ -30,10 +31,19 @@
     <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
   
 
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[译][Angular2] Case Study -HTTP" />
+  <meta property="og:description" content=" 使用TypeScript构建Angular2应用。将服务改成HTTP服务。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2017/01/05/angular2-case-study-http/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
 
 
 
-<meta name="generator" content="Hugo 0.30.2" />
+
+<meta name="generator" content="Hugo 0.37.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/01/05/angular2-case-study-http/" />
@@ -121,13 +131,35 @@
       
       
       
-        <li class="menu-item  is-active"><a href="https://wukn.github.io/">Home</a></li>
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
       
-        <li class="menu-item "><a href="https://github.com/wukn">Works</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/tags">Tags</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
       
-        <li class="menu-item "><a href="https://wukn.github.io/about/">About</a></li>
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
       
     </ul>
   </nav>
@@ -242,7 +274,8 @@
   <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">HeroService</span> <span class="p">],</span>
   <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <h3 id="模拟web-api">模拟Web API</h3>
 
 <p>我们的应用离真实的场景还远着呢。我们都还没有可以处理请求的Web服务器呢。先模拟一个吧。</p>
@@ -284,7 +317,8 @@
   <span class="nx">providers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">HeroService</span> <span class="p">],</span>
   <span class="nx">bootstrap</span><span class="o">:</span> <span class="p">[</span> <span class="nx">AppComponent</span> <span class="p">]</span>
 <span class="p">})</span>
-<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span></code></pre></div>
+<span class="k">export</span> <span class="k">class</span> <span class="nx">AppModule</span> <span class="p">{</span> <span class="p">}</span>
+</code></pre></div>
 <p>这里是用<code>InMemoryWebApiModule</code>模拟服务器API的。<code>InMemoryWebApiModule.forRoot(InMemoryDataService)</code>中的参数<code>InMemoryDataService</code>是一个提供内存数据库初始值的类：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/in-memory-data.service.ts
 </span><span class="c1"></span>
@@ -305,7 +339,8 @@
     <span class="p">];</span>
     <span class="k">return</span> <span class="p">{</span><span class="nx">heroes</span><span class="p">};</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>现在可以删掉<code>mock-heroes.ts</code>了。</p>
 
 <h3 id="http">HTTP</h3>
@@ -313,7 +348,8 @@
 <p>看一下目前<code>HeroService</code>中的实现：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">getHeroes</span><span class="p">()</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span> <span class="p">{</span>
   <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="nx">HEROES</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>我们用模拟数据返回了一个resloved Promise。那么现在要改成从HTTP客户端异步获取数据：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/hero.service.ts (updated getHeroes and new class members)
 </span><span class="c1"></span>
@@ -331,7 +367,8 @@
 <span class="kr">private</span> <span class="nx">handleError</span><span class="p">(</span><span class="nx">error</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;An error occurred&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span> <span class="c1">// for demo purposes only
 </span><span class="c1"></span>  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="o">||</span> <span class="nx">error</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>同时还要更新下import：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/hero.service.ts (updated imports)
 </span><span class="c1"></span>
@@ -340,7 +377,8 @@
 
 <span class="k">import</span> <span class="s1">&#39;rxjs/add/operator/toPromise&#39;</span><span class="p">;</span>
 
-<span class="k">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span></code></pre></div>
+<span class="k">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
+</code></pre></div>
 <p>刷新浏览器，数据可以成功地从模拟的server中获取。</p>
 
 <h4 id="http-promise">HTTP Promise</h4>
@@ -352,18 +390,21 @@
 <h4 id="在then的回调中抽取数据">在then的回调中抽取数据</h4>
 
 <p>在promise的<code>then</code>回调中我们用HTTP <code>Response</code>的<code>json</code>方法来获取数据。</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span> <span class="nx">as</span> <span class="nx">Hero</span><span class="p">[])</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span> <span class="nx">as</span> <span class="nx">Hero</span><span class="p">[])</span>
+</code></pre></div>
 <p>响应结果JSON中有个data属性，这个属性的值就是Web API返回的值。在这里正好是我们想要的数组，所以直接将它作为resolved Promise值返回。</p>
 
 <h4 id="错误处理">错误处理</h4>
 
 <p>在<code>getHeroes()</code>方法的结尾我们<code>catch</code>了服务器的错误并提供了一个错误处理函数：</p>
-<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
+</code></pre></div>
 <p>这一步很重要。我们必须假定HTTP调用失败是很常见的。</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">private</span> <span class="nx">handleError</span><span class="p">(</span><span class="nx">error</span><span class="o">:</span> <span class="nx">any</span><span class="p">)</span><span class="o">:</span> <span class="nb">Promise</span><span class="o">&lt;</span><span class="nx">any</span><span class="o">&gt;</span> <span class="p">{</span>
   <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;An error occurred&#39;</span><span class="p">,</span> <span class="nx">error</span><span class="p">);</span> <span class="c1">// for demo purposes only
 </span><span class="c1"></span>  <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="o">||</span> <span class="nx">error</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>这里我们只是记录了错误到console中，同时返回一个rejected promise，这样调用者可以将错误显示给用户。</p>
 
 <h4 id="gethero-by-id">getHero by id</h4>
@@ -375,7 +416,8 @@
     <span class="p">.</span><span class="nx">toPromise</span><span class="p">()</span>
     <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">response</span> <span class="p">=&gt;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span> <span class="nx">as</span> <span class="nx">Hero</span><span class="p">)</span>
     <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <h3 id="保存更新后的数据">保存更新后的数据</h3>
 
 <p>现在我们可以在Hero的详细信息视图中更新数据，但是这只是在当前视图中，跳转到其它页面后更新就丢失了，因为我们的修改没有写回服务器中。</p>
@@ -390,7 +432,8 @@
 <span class="nx">save</span><span class="p">()</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">heroService</span><span class="p">.</span><span class="nx">update</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">hero</span><span class="p">)</span>
     <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">goBack</span><span class="p">());</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>service中的<code>update</code>方法如下：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/hero.service.ts (update)
 </span><span class="c1"></span>
@@ -403,7 +446,8 @@
     <span class="p">.</span><span class="nx">toPromise</span><span class="p">()</span>
     <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="nx">hero</span><span class="p">)</span>
     <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>通过URL中的id指定我们要修改的hero，把修改后的hero转换成JSON字符串放在POST请求的body中，并在请求的Herder中制定了内容的类型。</p>
 
 <p>刷新浏览器试一试，现在修改数据后可以保存了。</p>
@@ -430,7 +474,8 @@
       <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">hero</span><span class="p">);</span>
       <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
     <span class="p">});</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><code>HeroService</code>中的<code>create</code>方法：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/hero.service.ts (create)
 </span><span class="c1"></span>
@@ -440,7 +485,8 @@
     <span class="p">.</span><span class="nx">toPromise</span><span class="p">()</span>
     <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">res</span> <span class="p">=&gt;</span> <span class="nx">res</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span><span class="p">)</span>
     <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>刷新浏览器，试试效果。</p>
 
 <h3 id="删除hero">删除Hero</h3>
@@ -456,7 +502,8 @@
   <span class="o">&lt;</span><span class="nx">span</span><span class="o">&gt;</span><span class="p">{{</span><span class="nx">hero</span><span class="p">.</span><span class="nx">name</span><span class="p">}}</span><span class="o">&lt;</span><span class="err">/span&gt;</span>
   <span class="o">&lt;</span><span class="nx">button</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;delete&#34;</span>
     <span class="p">(</span><span class="nx">click</span><span class="p">)</span><span class="o">=</span><span class="s2">&#34;delete(hero); $event.stopPropagation()&#34;</span><span class="o">&gt;</span><span class="nx">x</span><span class="o">&lt;</span><span class="err">/button&gt;</span>
-<span class="o">&lt;</span><span class="err">/li&gt;</span></code></pre></div>
+<span class="o">&lt;</span><span class="err">/li&gt;</span>
+</code></pre></div>
 <p>删除按钮点击后，除了调用组件的<code>delete</code>方法，还要阻止事件往上层冒泡。我们不希望在点击删除按钮后还会出发<code>&lt;li&gt;</code>的点击事件。</p>
 
 <p>组件的<code>delete</code>方法：</p>
@@ -469,7 +516,8 @@
         <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">heroes</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">h</span> <span class="p">=&gt;</span> <span class="nx">h</span> <span class="o">!==</span> <span class="nx">hero</span><span class="p">);</span>
         <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">===</span> <span class="nx">hero</span><span class="p">)</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">selectedHero</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> <span class="p">}</span>
       <span class="p">});</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>这里调用service的<code>delete</code>方法，但是界面上的更新还是要组件自己负责，从数组中移除已删除的，并且根据需要重置<code>selectedHero</code>。</p>
 
 <p>给删除按钮加个样式，让它显示在最后面：</p>
@@ -491,7 +539,8 @@
     <span class="p">.</span><span class="nx">toPromise</span><span class="p">()</span>
     <span class="p">.</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="kc">null</span><span class="p">)</span>
     <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">handleError</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>刷新浏览器，看一下效果。</p>
 
 <h3 id="observables">Observables</h3>
@@ -531,7 +580,8 @@
                <span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="sb">`app/heroes/?name=</span><span class="si">${</span><span class="nx">term</span><span class="si">}</span><span class="sb">`</span><span class="p">)</span>
                <span class="p">.</span><span class="nx">map</span><span class="p">((</span><span class="nx">r</span><span class="o">:</span> <span class="nx">Response</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="nx">r</span><span class="p">.</span><span class="nx">json</span><span class="p">().</span><span class="nx">data</span> <span class="nx">as</span> <span class="nx">Hero</span><span class="p">[]);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>这里调用<code>http.get()</code>跟之前是类似的，只是不再调用<code>toPromise</code>了。</p>
 
 <p>创建<code>HeroSearchComponent</code>组件来调用<code>HeroSearchService</code>。</p>
@@ -613,14 +663,16 @@
     <span class="kd">let</span> <span class="nx">link</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;/detail&#39;</span><span class="p">,</span> <span class="nx">hero</span><span class="p">.</span><span class="nx">id</span><span class="p">];</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">router</span><span class="p">.</span><span class="nx">navigate</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
   <span class="p">}</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>重点看一下<code>searchTerms</code>：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="kr">private</span> <span class="nx">searchTerms</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Subject</span><span class="o">&lt;</span><span class="nx">string</span><span class="o">&gt;</span><span class="p">();</span>
 
 <span class="c1">// Push a search term into the observable stream.
 </span><span class="c1"></span><span class="nx">search</span><span class="p">(</span><span class="nx">term</span><span class="o">:</span> <span class="nx">string</span><span class="p">)</span><span class="o">:</span> <span class="k">void</span> <span class="p">{</span>
   <span class="k">this</span><span class="p">.</span><span class="nx">searchTerms</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="nx">term</span><span class="p">);</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p><code>Subject</code>是一个observable事件流的生产者。<code>searchTerms</code>产生一个字符串类型的<code>Observable</code>。</p>
 
 <p>每次调用<code>search</code>时，通过<code>next</code>方法将新的字符串放到subject的observable流中。</p>
@@ -642,7 +694,8 @@
 </span><span class="c1"></span>      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
       <span class="k">return</span> <span class="nx">Observable</span><span class="p">.</span><span class="k">of</span><span class="o">&lt;</span><span class="nx">Hero</span><span class="p">[]</span><span class="o">&gt;</span><span class="p">([]);</span>
     <span class="p">});</span>
-<span class="p">}</span></code></pre></div>
+<span class="p">}</span>
+</code></pre></div>
 <p>如果将每次的用户按键事件都直接调用<code>HeroSearchService</code>，那么会发起大量的HTTP请求。这里用了一些方法来减少请求次数同时有保证请求的相对实时性：</p>
 
 <ul>
@@ -671,9 +724,11 @@
 <span class="k">import</span> <span class="s1">&#39;rxjs/add/operator/do&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="s1">&#39;rxjs/add/operator/filter&#39;</span><span class="p">;</span>
 <span class="k">import</span> <span class="s1">&#39;rxjs/add/operator/map&#39;</span><span class="p">;</span>
-<span class="k">import</span> <span class="s1">&#39;rxjs/add/operator/switchMap&#39;</span><span class="p">;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/app.module.ts (rxjs-extensions)
+<span class="k">import</span> <span class="s1">&#39;rxjs/add/operator/switchMap&#39;</span><span class="p">;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/app.module.ts (rxjs-extensions)
 </span><span class="c1"></span>
-<span class="k">import</span> <span class="s1">&#39;./rxjs-extensions&#39;</span><span class="p">;</span></code></pre></div>
+<span class="k">import</span> <span class="s1">&#39;./rxjs-extensions&#39;</span><span class="p">;</span>
+</code></pre></div>
 <h4 id="将搜索组件添加到dashboard">将搜索组件添加到Dashboard</h4>
 
 <p>将<code>hero-search</code>标签添加到<code>DashboardComponent</code>的模板中：</p>
@@ -697,7 +752,8 @@
   <span class="nx">HeroDetailComponent</span><span class="p">,</span>
   <span class="nx">HeroesComponent</span><span class="p">,</span>
   <span class="nx">HeroSearchComponent</span>
-<span class="p">],</span></code></pre></div>
+<span class="p">],</span>
+</code></pre></div>
 <p>刷新浏览器，打开Dashboard试试效果吧。</p>
 
 <hr />
@@ -714,7 +770,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>314</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>444</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
@@ -722,7 +778,7 @@
     
   </section>
   <footer class="site-footer">
-  <p>© 2017 wukn blog</p>
+  <p>© 2017-2018 wukn blog</p>
   <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
   
 </footer>
@@ -730,7 +786,28 @@
 
 
 <script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
-
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
 
 <script src="https://wukn.github.io/js/bundle.js"></script>
 
