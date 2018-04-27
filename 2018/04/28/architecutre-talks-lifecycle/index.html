@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[精耕]认识架构——生命周期</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 人类自古以来就在研究自身的生灭问题，也就是生死问题。西方称之为生命周期。这个问题隐藏在每个人的言行举止中，人们经常为之深深地恐惧。这种恐惧的心理驱使着人们做出种种的努力，来延缓甚至避免这个结果，虽然人们明知无法避免。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[精耕]认识架构——生命周期" />
+    <meta name="twitter:description" content=" 人类自古以来就在研究自身的生灭问题，也就是生死问题。西方称之为生命周期。这个问题隐藏在每个人的言行举止中，人们经常为之深深地恐惧。这种恐惧的心理驱使着人们做出种种的努力，来延缓甚至避免这个结果，虽然人们明知无法避免。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[精耕]认识架构——生命周期" />
+  <meta property="og:description" content=" 人类自古以来就在研究自身的生灭问题，也就是生死问题。西方称之为生命周期。这个问题隐藏在每个人的言行举止中，人们经常为之深深地恐惧。这种恐惧的心理驱使着人们做出种种的努力，来延缓甚至避免这个结果，虽然人们明知无法避免。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/04/28/architecutre-talks-lifecycle/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.39" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/04/28/architecutre-talks-lifecycle/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[精耕]认识架构——生命周期</h1>
+      <p class="post-meta">@wukn · Apr 28, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>人类自古以来就在研究自身的生灭问题，也就是生死问题。西方称之为生命周期。这个问题隐藏在每个人的言行举止中，人们经常为之深深地恐惧。这种恐惧的心理驱使着人们做出种种的努力，来延缓甚至避免这个结果，虽然人们明知无法避免。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="生命周期">生命周期</h3>
+
+<p>一个事物一旦出生，就必然会长大，变异，一旦长大，就面临着衰老，接下来就是消亡了。这个过程就称为一个事物的生命周期（Life Cycle）。</p>
+
+<p>人的一生是一个生命周期，而每一天的活动也是一个生命周期。从拿起筷子吃饭，到敲击键盘打字，到眨一下眼睛，都是一个生灭，都是一个生命周期。我们一天里的所有子生命周期组成了这一天，而一辈子这个大生命周期，则是由几万个每天的子生命周期组成。一个生命周期的结束，往往又导致其他事物的生命周期的开始。</p>
+
+<p>所以生命周期并不是孤立的，生命周期里包含生命周期，一个生命周期消亡会产生另一个生命周期。我们就是这样生存在一个生灭变化的世界里。</p>
+
+<h4 id="生命周期的识别">生命周期的识别</h4>
+
+<p>生命周期里包含有各种活动，这些活动是推进这个生命周期的必要饮醋，并且这些活动之间有时间上的推进关系。比如，我们去买东西，从进入商店，到寻找、咨询、购买等活动，到离开，都是按照时间一步一步发生的。每个发生的活动，本省也是一个生命周期。</p>
+
+<p>生命周期总是有一个主体。识别出生命周期的主体是至关重要的事情。比如上面提到的购物场景，这个生命收起的主体并不是用户本身，而是用户的一次购买活动。</p>
+
+<h4 id="核心与非核心生命周期">核心与非核心生命周期</h4>
+
+<p>一个生命周期里面的活动可以进行拆分，拆分的原则就是形成若干个新的生命周期，每个新的生命周期都有自己的主体。用户购物的活动可以拆分为物品的选购和物品的购买两个小的生命周期。</p>
+
+<p>拆分后我们会发现，物品的选购这个生命周期的主体也发生了改变，变成了用户的购物意向，以用户进店为开始，以意向确定或放弃为终。物品的购买这一生命周期的主体没变，还是用户的购买活动，但是它的生命周期的内容变少了，变成了以物品确定为开始，以交易成功或失败为终。这两个小的生命周期组成了一个大的生命周期，用户的购买活动。</p>
+
+<p>拆分之后主体不变的子生命周期成为核心生命周期。主体改变的子生命周期成为非核心生命周期。寻找核心生命周期的过程实际上是一个发现内聚的过程。对于非核心生命周期，本身内部也需要寻找出它自己的核心生命周期。</p>
+
+<p>拆分出来的每个生命周期各自有各自的边界，不会影响到其他的生命周期，因为各自的变化都在自己的生命周期内确定。每个主体的生命周期活动的变化都累积在该主体本身，这就是所谓的内聚。也就是说，要做到内聚，就要先确定生命周期的主体和生命周期本身。当讨论内聚的时候，实际上就是陶村生命周期主体以及该生命周期内所有的活动。</p>
+
+<h4 id="生命周期与分工">生命周期与分工</h4>
+
+<p>把一个大的生命周期拆分成多个小的生命周期后，核心生命周期活动的执行严格地在时间上连续，而非核心生命周期的管理，则围绕着核心生命周期形成了一个树状结构。</p>
+
+<p>购物的这个例子中，物品选购结果的确定是核心生命周期需要的，但选购结果确定之前的种种行为，如逛街、进店挑选等，也就是选购生命周期的运营，完全可以交给别人来执行，比如现如今的网上购物、智能推荐等。这样选购的运营就可以和购买生命周期的执行在空间上和时间上并行。</p>
+
+<p>拆分之后，本来必须由同一个主体在时间和空间上连续执行的事情，就可以解除空间上的限制，变成油不同主体来执行，但原主体在生命周期执行上仍保持时间上的连续。也就是说，拆分生命周期可以打破空间上连续的限制。</p>
+
+<p>例如吃饭是人的核心生命周期，在没有没有产生社会分工之前，我们需要自己种粮、做饭，最后是吃饭，现在，我们将种粮和烧饭这两个都拆成非核心生命周期，交给别人来做。总的流程还是跟拆分之前一样，别人种粮和烧饭是在我们获取饭这一生命周期之前。</p>
+
+<p>当一个核心生命周期启动的时候，需要吧树上该节点的所有父生命周期启动才可以，也就是说所谓的业务流程，因为大生命周期本身内部活动还是按照时间顺序连续发生的。</p>
+
+<p>非核心生命周期处于一种服务的状态，要按需给出结果。执行时间足够短的可以在请求的时候实时执行，太长的则需要预先执行好，需要时直接给出执行结果。例如，获取粮食，获取的一定是已经种好了的，而不能等到需要拿粮食来做饭的时候才去种。烧饭的生命周期比较短，人饿了再烧都还来得及。</p>
+
+<p>当非核心子生命周期拆分出来成为服务后，这个服务就不再仅仅给一个人使用，而变成了所有人都能够共享。粮食种植者可以卖给任何人，饭馆可以提供饭给任何人。</p>
+
+<p>当大的生命周期内部所有的核心生命周期都结束的时候，大的生命周期也就结束了。而非核心生命周期则可以继续存在。</p>
+
+<p>非核心申明周期一旦拆分出来后，往往就变成了一个通用的服务，反而获得了更大的生命力，不再局限于原有的生命周期。而原有的大生命周期则变得更加精简，可以更加专注于自己的核心生命周期活动，以节省更多时间。</p>
+
+<h3 id="时间">时间</h3>
+
+<p>可以看出，生命周期和时间的关系非常紧密。时间摸不着看不到，只能通过事物的变化体现出来。事实上，生命周期的变化体现的就是时间，而时间只不过是人们对事物变化的一个度量。这里想起陈天说起的一句话，<a href="https://zhuanlan.zhihu.com/p/35616587">什么是时间？在我看来，时间是从因到果的一个度量（a measurement from a cause to a result）</a>。</p>
+
+<p>每个人都在努力于时间赛跑，尽可能地在事物消逝前多占有一会。但是，不管人们愿不愿意，事物最终都会离我们而去。过去的已去，未来的还没来，只有当下的一刻才是最真实的。</p>
+
+<p>大部分人都不愿意接受一切终将消逝的事实，总想活得更久，占有更多，享受更多。在人们短短的一生中，如何延长自身的生命呢？一个办法是尽可能做出更多的成就，能够让更多的人生活的更好。在同样的时间内创造出更多的产出，相当于吧自己的生命延长了。另一个办法就是创造下一代，在某种程度上也可以视为延长的时间，也是人类延续的动力。这个动力，也推动了人类生命周期的拆分与人类架构的发展。</p>
+
+<p>尽可能做更多的成就的办法，就是尽量做自己最擅长的事情，以期活得最大的产出，人类的社会化正由此而来。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《聊聊架构》——王概凯</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/architecture"><span class="tag">Architecture</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
