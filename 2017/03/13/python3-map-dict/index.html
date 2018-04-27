@@ -43,7 +43,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.39" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/03/13/python3-map-dict/" />
@@ -257,10 +257,10 @@
 
 <p>如果指定了关键字参数，关键字参数和它们的值将添加到由位置参数创建的字典中，如果关键字参数中出现已经存在的键，那么它对应的值将覆盖之前位置参数中的值。</p>
 <div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">one</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">two</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">three</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="sa"></span><span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;three&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="sa"></span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;three&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="sa"></span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="sa"></span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="sa"></span><span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">e</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">({</span><span class="sa"></span><span class="s1">&#39;three&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="s1">&#39;three&#39;</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="s1">&#39;two&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;one&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;three&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">e</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">({</span><span class="s1">&#39;three&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;one&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;two&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span> <span class="o">==</span> <span class="n">c</span> <span class="o">==</span> <span class="n">d</span> <span class="o">==</span> <span class="n">e</span>
 <span class="bp">True</span></code></pre></div>
 <h3 id="字典操作">字典操作</h3>
@@ -303,7 +303,7 @@
 </ul>
 
 <p>键视图跟集合很像，因为它的条目是唯一且可哈希的。如果所有值都是可哈希的，那么元素视图也是跟集合相似的。值视图由于很可能有重复的，它并不被当成集合相似的。对于集合相似的视图，抽象基类collections.abc.Set定义的操作都支持，例如<code>==</code>、<code>&lt;</code>或<code>^</code>。</p>
-<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">dishes</span> <span class="o">=</span> <span class="p">{</span><span class="sa"></span><span class="s1">&#39;eggs&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;sausage&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;bacon&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;spam&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">}</span>
+<div class="highlight"><pre class="chroma"><code class="language-python" data-lang="python"><span class="o">&gt;&gt;&gt;</span> <span class="n">dishes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;eggs&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;sausage&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;bacon&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;spam&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">}</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">keys</span> <span class="o">=</span> <span class="n">dishes</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="n">values</span> <span class="o">=</span> <span class="n">dishes</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
 
@@ -316,21 +316,21 @@
 
 <span class="o">&gt;&gt;&gt;</span> <span class="c1"># keys and values are iterated over in the same order</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
-<span class="p">[</span><span class="sa"></span><span class="s1">&#39;eggs&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;bacon&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;sausage&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;spam&#39;</span><span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;eggs&#39;</span><span class="p">,</span> <span class="s1">&#39;bacon&#39;</span><span class="p">,</span> <span class="s1">&#39;sausage&#39;</span><span class="p">,</span> <span class="s1">&#39;spam&#39;</span><span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
 <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">500</span><span class="p">]</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="c1"># view objects are dynamic and reflect dict changes</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">dishes</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;eggs&#39;</span><span class="p">]</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">dishes</span><span class="p">[</span><span class="sa"></span><span class="s1">&#39;sausage&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">dishes</span><span class="p">[</span><span class="s1">&#39;eggs&#39;</span><span class="p">]</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">del</span> <span class="n">dishes</span><span class="p">[</span><span class="s1">&#39;sausage&#39;</span><span class="p">]</span>
 <span class="o">&gt;&gt;&gt;</span> <span class="nb">list</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
-<span class="p">[</span><span class="sa"></span><span class="s1">&#39;spam&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;bacon&#39;</span><span class="p">]</span>
+<span class="p">[</span><span class="s1">&#39;spam&#39;</span><span class="p">,</span> <span class="s1">&#39;bacon&#39;</span><span class="p">]</span>
 
 <span class="o">&gt;&gt;&gt;</span> <span class="c1"># set operations</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">keys</span> <span class="o">&amp;</span> <span class="p">{</span><span class="sa"></span><span class="s1">&#39;eggs&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;bacon&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;salad&#39;</span><span class="p">}</span>
-<span class="p">{</span><span class="sa"></span><span class="s1">&#39;bacon&#39;</span><span class="p">}</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">keys</span> <span class="o">^</span> <span class="p">{</span><span class="sa"></span><span class="s1">&#39;sausage&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;juice&#39;</span><span class="p">}</span>
-<span class="p">{</span><span class="sa"></span><span class="s1">&#39;juice&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;sausage&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;bacon&#39;</span><span class="p">,</span> <span class="sa"></span><span class="s1">&#39;spam&#39;</span><span class="p">}</span></code></pre></div>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">keys</span> <span class="o">&amp;</span> <span class="p">{</span><span class="s1">&#39;eggs&#39;</span><span class="p">,</span> <span class="s1">&#39;bacon&#39;</span><span class="p">,</span> <span class="s1">&#39;salad&#39;</span><span class="p">}</span>
+<span class="p">{</span><span class="s1">&#39;bacon&#39;</span><span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">keys</span> <span class="o">^</span> <span class="p">{</span><span class="s1">&#39;sausage&#39;</span><span class="p">,</span> <span class="s1">&#39;juice&#39;</span><span class="p">}</span>
+<span class="p">{</span><span class="s1">&#39;juice&#39;</span><span class="p">,</span> <span class="s1">&#39;sausage&#39;</span><span class="p">,</span> <span class="s1">&#39;bacon&#39;</span><span class="p">,</span> <span class="s1">&#39;spam&#39;</span><span class="p">}</span></code></pre></div>
 <h3 id="稀疏矩阵">稀疏矩阵</h3>
 
 <p>使用元组作为字典的键，可以构建类似稀疏矩阵的数据结构：</p>
@@ -358,7 +358,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>377</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>410</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

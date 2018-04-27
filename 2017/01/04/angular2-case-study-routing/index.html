@@ -43,7 +43,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.39" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/01/04/angular2-case-study-routing/" />
@@ -322,8 +322,8 @@
 <h4 id="添加base标签">添加base标签</h4>
 
 <p>在文件<code>index.html</code>的<code>&lt;head&gt;</code>段的顶部添加<code>&lt;base href=&quot;/&quot;&gt;</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">head</span><span class="p"></span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">base</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/&#34;</span><span class="p"></span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">base</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;/&#34;</span><span class="p">&gt;</span></code></pre></div>
 <h4 id="配置路由">配置路由</h4>
 
 <p>现在应用里还没有路由（Route），我们先创建路由的配置。</p>
@@ -470,14 +470,14 @@
 <h4 id="为dashboard添加内容">为Dashboard添加内容</h4>
 
 <p>在Dashboard中显示最前面的四个hero。这里我们将模板放到单独的文件中，创建文件<code>dashboard.component.html</code>：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h3</span><span class="p"></span><span class="p">&gt;</span>Top Heroes<span class="p">&lt;</span><span class="p">/</span><span class="nt">h3</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;grid grid-pad&#34;</span><span class="p"></span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&#34;let hero of heroes&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-1-4&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;module hero&#34;</span><span class="p"></span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">h4</span><span class="p"></span><span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;</span><span class="p">/</span><span class="nt">h4</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Top Heroes<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;grid grid-pad&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&#34;let hero of heroes&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-1-4&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;module hero&#34;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>配置<code>DashboardComponent</code>的模板，设置<code>moduleId</code>属性，并将<code>template</code>改成<code>templateUrl</code>：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
   <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
@@ -616,20 +616,20 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>在模板中添加回退按钮：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&#34;</span><span class="na">goBack</span><span class="err">()&#34;</span><span class="p"></span><span class="p">&gt;</span>Back<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&#34;</span><span class="na">goBack</span><span class="err">()&#34;</span><span class="p">&gt;</span>Back<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span></code></pre></div>
 <p>这里我们顺便做一下重构，将模板放到独立的文件中：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- app/hero-detail.component.html --&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&#34;hero&#34;</span><span class="p"></span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">h2</span><span class="p"></span><span class="p">&gt;</span>{{hero.name}} details!<span class="p">&lt;</span><span class="p">/</span><span class="nt">h2</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">label</span><span class="p"></span><span class="p">&gt;</span>id: <span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>{{hero.id}}<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">label</span><span class="p"></span><span class="p">&gt;</span>name: <span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]=&#34;</span><span class="na">hero</span><span class="err">.</span><span class="na">name</span><span class="err">&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;name&#34;</span> <span class="p">/</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&#34;</span><span class="na">goBack</span><span class="err">()&#34;</span><span class="p"></span><span class="p">&gt;</span>Back<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&#34;hero&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>{{hero.name}} details!<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>id: <span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>{{hero.id}}<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>name: <span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="err">[(</span><span class="na">ngModel</span><span class="err">)]=&#34;</span><span class="na">hero</span><span class="err">.</span><span class="na">name</span><span class="err">&#34;</span> <span class="na">placeholder</span><span class="o">=</span><span class="s">&#34;name&#34;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&#34;</span><span class="na">goBack</span><span class="err">()&#34;</span><span class="p">&gt;</span>Back<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>配置组件元数据中的<code>moduleId</code>和<code>templateUrl</code>：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="err">@</span><span class="nx">Component</span><span class="p">({</span>
   <span class="nx">moduleId</span><span class="o">:</span> <span class="nx">module</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
@@ -642,7 +642,7 @@
 <p>当我们在Dashboard视图中点击一个Hero时也应该跳转到对应的<code>HeroDetailComponent</code>视图。</p>
 
 <p>修改<code>dashboard.component.html</code>，将<code>&lt;div *ngFor...&gt;</code>标签改成可点击的<code>&lt;a&gt;</code>标签，并为每个hero添加路由链接：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">a</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&#34;let hero of heroes&#34;</span>  <span class="err">[</span><span class="na">routerLink</span><span class="err">]=&#34;[&#39;/</span><span class="na">detail</span><span class="err">&#39;,</span> <span class="na">hero</span><span class="err">.</span><span class="na">id</span><span class="err">]&#34;</span>  <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-1-4&#34;</span><span class="p"></span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">a</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&#34;let hero of heroes&#34;</span>  <span class="err">[</span><span class="na">routerLink</span><span class="err">]=&#34;[&#39;/</span><span class="na">detail</span><span class="err">&#39;,</span> <span class="na">hero</span><span class="err">.</span><span class="na">id</span><span class="err">]&#34;</span>  <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-1-4&#34;</span><span class="p">&gt;</span></code></pre></div>
 <p>看这里的<code>[routerLink]</code>绑定。之前绑定的都是固定链接，如/dashboard&rdquo;和&rdquo;/heroes&rdquo;。这里绑定的是一个包含链接参数数组的表达式。数组包含两个元素，path是目标路由，路由参数会赋值对应的hero的id值。</p>
 
 <p>刷新浏览器可以看到效果。</p>
@@ -731,12 +731,12 @@
 <p>将顶部的<code>&lt;h1&gt;</code>标题删掉，标题移到<code>AppComponent</code>中了。删除最后一行<code>&lt;my-hero-detail&gt;</code>标签，我们不再需要在这里显示<code>HeroDetailComponent</code>了。</p>
 
 <p>我们将这个视图里的detail改成一个mini的只读的视图。将之前<code>&lt;my-hero-detail&gt;</code>的地方替换成下面的内容：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&#34;selectedHero&#34;</span><span class="p"></span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">h2</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngIf</span><span class="o">=</span><span class="s">&#34;selectedHero&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>
     {{selectedHero.name | uppercase}} is my hero
-  <span class="p">&lt;</span><span class="p">/</span><span class="nt">h2</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&#34;</span><span class="na">gotoDetail</span><span class="err">()&#34;</span><span class="p"></span><span class="p">&gt;</span>View Details<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+  <span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&#34;</span><span class="na">gotoDetail</span><span class="err">()&#34;</span><span class="p">&gt;</span>View Details<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>现在点击后的效果如下：</p>
 
 <p><img src="https://wukn.github.io/img/post/angular2/routing/mini-detail.png" alt="" /></p>
@@ -939,7 +939,7 @@
   <span class="k">font-family</span><span class="p">:</span> <span class="n">Arial</span><span class="p">,</span> <span class="n">Helvetica</span><span class="p">,</span> <span class="kc">sans-serif</span><span class="p">;</span>
 <span class="p">}</span></code></pre></div>
 <p>在<code>index.html</code>中引用：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;styles.css&#34;</span><span class="p"></span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">link</span> <span class="na">rel</span><span class="o">=</span><span class="s">&#34;stylesheet&#34;</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;styles.css&#34;</span><span class="p">&gt;</span></code></pre></div>
 <hr />
 
 <p>参考资料：</p>
@@ -954,7 +954,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>445</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>478</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

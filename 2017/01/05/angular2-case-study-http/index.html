@@ -43,7 +43,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.39" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2017/01/05/angular2-case-study-http/" />
@@ -425,7 +425,7 @@
 <p>在模板中添加一个保存按钮：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- app/hero-detail.component.html (save) --&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&#34;</span><span class="na">save</span><span class="err">()&#34;</span><span class="p"></span><span class="p">&gt;</span>Save<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&#34;</span><span class="na">save</span><span class="err">()&#34;</span><span class="p">&gt;</span>Save<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span></code></pre></div>
 <p>在<code>save</code>方法中调用service的<code>update</code>方法：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/hero-detail.component.ts (save)
 </span><span class="c1"></span>
@@ -457,12 +457,12 @@
 <p>添加一个Hero只需要知道它的name就行了，所以在<code>heroes.component.html</code>中加一个input元素和一个按钮：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- app/heroes.component.html (add) --&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">label</span><span class="p"></span><span class="p">&gt;</span>Hero name:<span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">input</span> <span class="err">#</span><span class="na">heroName</span> <span class="p">/</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&#34;</span><span class="na">add</span><span class="err">(</span><span class="na">heroName</span><span class="err">.</span><span class="na">value</span><span class="err">);</span> <span class="na">heroName</span><span class="err">.</span><span class="na">value</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="err">&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;</span>Hero name:<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="nt">input</span> <span class="err">#</span><span class="na">heroName</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">button</span> <span class="err">(</span><span class="na">click</span><span class="err">)=&#34;</span><span class="na">add</span><span class="err">(</span><span class="na">heroName</span><span class="err">.</span><span class="na">value</span><span class="err">);</span> <span class="na">heroName</span><span class="err">.</span><span class="na">value</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="err">&#34;</span><span class="p">&gt;</span>
     Add
-  <span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+  <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>点击添加按钮后调用组件的<code>add</code>方法，保存数据并晴空input文本框：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/heroes.component.ts (add)
 </span><span class="c1"></span>
@@ -589,16 +589,16 @@
 <p><code>HeroSearchComponent</code>的模板和样式：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- app/hero-search.component.html --&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;search-component&#34;</span><span class="p"></span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">h4</span><span class="p"></span><span class="p">&gt;</span>Hero Search<span class="p">&lt;</span><span class="p">/</span><span class="nt">h4</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">input</span> <span class="err">#</span><span class="na">searchBox</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;search-box&#34;</span> <span class="err">(</span><span class="na">keyup</span><span class="err">)=&#34;</span><span class="na">search</span><span class="err">(</span><span class="na">searchBox</span><span class="err">.</span><span class="na">value</span><span class="err">)&#34;</span> <span class="p">/</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;search-component&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Hero Search<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">input</span> <span class="err">#</span><span class="na">searchBox</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;search-box&#34;</span> <span class="err">(</span><span class="na">keyup</span><span class="err">)=&#34;</span><span class="na">search</span><span class="err">(</span><span class="na">searchBox</span><span class="err">.</span><span class="na">value</span><span class="err">)&#34;</span> <span class="p">/&gt;</span>
+  <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
     <span class="p">&lt;</span><span class="nt">div</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&#34;let hero of heroes | async&#34;</span>
-         <span class="err">(</span><span class="na">click</span><span class="err">)=&#34;</span><span class="na">gotoDetail</span><span class="err">(</span><span class="na">hero</span><span class="err">)&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;search-result&#34;</span> <span class="p"></span><span class="p">&gt;</span>
+         <span class="err">(</span><span class="na">click</span><span class="err">)=&#34;</span><span class="na">gotoDetail</span><span class="err">(</span><span class="na">hero</span><span class="err">)&#34;</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;search-result&#34;</span> <span class="p">&gt;</span>
       {{hero.name}}
-    <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* app/hero-search.component.css */</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-css" data-lang="css"><span class="c">/* app/hero-search.component.css */</span>
 
 <span class="p">.</span><span class="nc">search-result</span><span class="p">{</span>
   <span class="k">border-bottom</span><span class="p">:</span> <span class="mi">1</span><span class="kt">px</span> <span class="kc">solid</span> <span class="kc">gray</span><span class="p">;</span>
@@ -734,15 +734,15 @@
 <p>将<code>hero-search</code>标签添加到<code>DashboardComponent</code>的模板中：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- app/dashboard.component.html --&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">h3</span><span class="p"></span><span class="p">&gt;</span>Top Heroes<span class="p">&lt;</span><span class="p">/</span><span class="nt">h3</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;grid grid-pad&#34;</span><span class="p"></span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="nt">a</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&#34;let hero of heroes&#34;</span>  <span class="err">[</span><span class="na">routerLink</span><span class="err">]=&#34;[&#39;/</span><span class="na">detail</span><span class="err">&#39;,</span> <span class="na">hero</span><span class="err">.</span><span class="na">id</span><span class="err">]&#34;</span>  <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-1-4&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;module hero&#34;</span><span class="p"></span><span class="p">&gt;</span>
-      <span class="p">&lt;</span><span class="nt">h4</span><span class="p"></span><span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;</span><span class="p">/</span><span class="nt">h4</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-  <span class="p">&lt;</span><span class="p">/</span><span class="nt">a</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">hero-search</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">hero-search</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Top Heroes<span class="p">&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;grid grid-pad&#34;</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">a</span> <span class="err">*</span><span class="na">ngFor</span><span class="o">=</span><span class="s">&#34;let hero of heroes&#34;</span>  <span class="err">[</span><span class="na">routerLink</span><span class="err">]=&#34;[&#39;/</span><span class="na">detail</span><span class="err">&#39;,</span> <span class="na">hero</span><span class="err">.</span><span class="na">id</span><span class="err">]&#34;</span>  <span class="na">class</span><span class="o">=</span><span class="s">&#34;col-1-4&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;module hero&#34;</span><span class="p">&gt;</span>
+      <span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>{{hero.name}}<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+  <span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">hero-search</span><span class="p">&gt;&lt;/</span><span class="nt">hero-search</span><span class="p">&gt;</span></code></pre></div>
 <p>在<code>AppModule</code>中引入<code>HeroSearchComponent</code>并将它添加到<code>declarations</code>数组中：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="c1">// app/app.module.ts (search)
 </span><span class="c1"></span>
@@ -770,7 +770,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>444</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>477</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

@@ -43,7 +43,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.39" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-bindings-control-flow/" />
@@ -237,18 +237,18 @@
 
 <p>foreach对数组中的每一项复制一份html片段并与其绑定，常用于加载列表和表格。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html">table&gt;
-    <span class="p">&lt;</span><span class="nt">thead</span><span class="p"></span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">tr</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">th</span><span class="p"></span><span class="p">&gt;</span>First name<span class="p">&lt;</span><span class="p">/</span><span class="nt">th</span><span class="p">&gt;&lt;</span><span class="nt">th</span><span class="p"></span><span class="p">&gt;</span>Last name<span class="p">&lt;</span><span class="p">/</span><span class="nt">th</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">tr</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="p">/</span><span class="nt">thead</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">tbody</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: people&#34;</span><span class="p"></span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">tr</span><span class="p"></span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: firstName&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">td</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: lastName&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">td</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="p">/</span><span class="nt">tr</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="p">/</span><span class="nt">tbody</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">table</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">thead</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">th</span><span class="p">&gt;</span>First name<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Last name<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">thead</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">tbody</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: people&#34;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: firstName&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: lastName&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">tbody</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">({</span>
         <span class="nx">people</span><span class="o">:</span> <span class="p">[</span>
             <span class="p">{</span> <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Bert&#39;</span><span class="p">,</span> <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Bertington&#39;</span> <span class="p">},</span>
@@ -256,7 +256,7 @@
             <span class="p">{</span> <span class="nx">firstName</span><span class="o">:</span> <span class="s1">&#39;Denise&#39;</span><span class="p">,</span> <span class="nx">lastName</span><span class="o">:</span> <span class="s1">&#39;Dentiste&#39;</span> <span class="p">}</span>
         <span class="p">]</span>
     <span class="p">});</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>如果使用的是监控数组，那么以后对数组进行添加、删除或重新排序等，界面会自动更新。</p>
 
 <h3 id="注1-使用-data-index-parent等上下文属性">注1：使用$data、$index、$parent等上下文属性</h3>
@@ -268,36 +268,36 @@
 </ul>
 
 <p>例如，参数为js对象字面量数组时，使用$data来访问数组：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: months&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>
-        The item <span class="p">&lt;</span><span class="nt">b</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $index&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">b</span><span class="p">&gt;</span> is: <span class="p">&lt;</span><span class="nt">b</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $data&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">b</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: months&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        The item <span class="p">&lt;</span><span class="nt">b</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $index&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">b</span><span class="p">&gt;</span> is: <span class="p">&lt;</span><span class="nt">b</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $data&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">({</span>
         <span class="nx">months</span><span class="o">:</span> <span class="p">[</span> <span class="s1">&#39;Jan&#39;</span><span class="p">,</span> <span class="s1">&#39;Feb&#39;</span><span class="p">,</span> <span class="s1">&#39;Mar&#39;</span><span class="p">,</span> <span class="s1">&#39;etc&#39;</span> <span class="p">]</span>
     <span class="p">});</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>访问数组项的属性时，也可以以$data为前缀（实际上完全不必要）。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $data.firstName&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">td</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">td</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $data.firstName&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">td</span><span class="p">&gt;</span></code></pre></div>
 <p>详见<a href="http://knockoutjs.com/documentation/binding-context.html">binding context properties</a>。</p>
 
 <h3 id="注2-使用别名访问数组">注2：使用别名访问数组</h3>
 
 <p>除了使用$data，还是以使用别名来访问数组：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: { data: categories, as: &#39;category&#39; }&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: { data: items, as: &#39;item&#39; }&#34;</span><span class="p"></span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>
-                <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: category.name&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>:
-                <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: item&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>
-            <span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: { data: categories, as: &#39;category&#39; }&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: { data: items, as: &#39;item&#39; }&#34;</span><span class="p">&gt;</span>
+            <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+                <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: category.name&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>:
+                <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: item&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+            <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">categories</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span>
             <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Fruit&#39;</span><span class="p">,</span> <span class="nx">items</span><span class="o">:</span> <span class="p">[</span> <span class="s1">&#39;Apple&#39;</span><span class="p">,</span> <span class="s1">&#39;Orange&#39;</span><span class="p">,</span> <span class="s1">&#39;Banana&#39;</span> <span class="p">]</span> <span class="p">},</span>
@@ -305,32 +305,32 @@
         <span class="p">])</span>
     <span class="p">};</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>要注意的是，传递给as的是个字符串字面量，因为是给新变量命名，而不是读取已存在的变量的值。</p>
 
 <h3 id="注3-无承载元素时使用foreach">注3：无承载元素时使用foreach</h3>
 
 <p>例如希望结果如下：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;header&#34;</span><span class="p"></span><span class="p">&gt;</span>Header item<span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;header&#34;</span><span class="p">&gt;</span>Header item<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
     <span class="c">&lt;!-- The following are generated dynamically from an array --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>Item A<span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>Item B<span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>Item C<span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span></code></pre></div>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Item A<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Item B<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Item C<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span></code></pre></div>
 <p>但foreach绑定不能用于ul，否则Header item会重复，而ul里除了li不能出现其他元素。这种情形下可以使用基于标注标签的虚拟元素。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;header&#34;</span><span class="p"></span><span class="p">&gt;</span>Header item<span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">class</span><span class="o">=</span><span class="s">&#34;header&#34;</span><span class="p">&gt;</span>Header item<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
     <span class="c">&lt;!-- ko foreach: myItems --&gt;</span>
-        <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>Item <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $data&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Item <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $data&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
     <span class="c">&lt;!-- /ko --&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">({</span>
         <span class="nx">myItems</span><span class="o">:</span> <span class="p">[</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span> <span class="p">]</span>
     <span class="p">});</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <h3 id="注4-数组的变化使如何被检测和处理的">注4：数组的变化使如何被检测和处理的</h3>
 
 <p>当数组变化时，foreach绑定以一种高效的差异算法来识别变化的部分，并且只更新变化部分的DOM元素。</p>
@@ -345,20 +345,20 @@
 
 <p>有时希望数组项标记删除但仍存在于数组中时（non-destructive delete），可参考监控数组的destroy方法。
 如果想显示删除的远渡，使用includeDestroyed选项。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;foreach: { data: myArray, includeDestroyed: true }&#39;</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;foreach: { data: myArray, includeDestroyed: true }&#39;</span><span class="p">&gt;</span>
     ...
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <h3 id="注6-生成dom元素的后处理或动画">注6：生成DOM元素的后处理或动画</h3>
 
 <p>如果希望在生成DOM元素后进行一些逻辑处理，可使用回调函数afterRender、afterAdd、beforeRemove、beforeMove、afterMove。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- need jQuery Color plugin (https://github.com/jquery/jquery-color) --&gt;</span>
-<span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: { data: myItems, afterAdd: yellowFadeIn }&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $data&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: { data: myItems, afterAdd: yellowFadeIn }&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $data&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: addItem&#34;</span><span class="p"></span><span class="p">&gt;</span>Add<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: addItem&#34;</span><span class="p">&gt;</span>Add<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">({</span>
         <span class="nx">myItems</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span> <span class="s1">&#39;A&#39;</span><span class="p">,</span> <span class="s1">&#39;B&#39;</span><span class="p">,</span> <span class="s1">&#39;C&#39;</span> <span class="p">]),</span>
         <span class="nx">yellowFadeIn</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
@@ -368,52 +368,52 @@
         <span class="p">},</span>
         <span class="nx">addItem</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">myItems</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;New item&#39;</span><span class="p">);</span> <span class="p">}</span>
     <span class="p">});</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <h2 id="if">if</h2>
 
 <p>if用于控制一段html片段是否加载。</p>
 
 <p>if和visible相似，区别是使用visible时元素仍保留在DOM文档中，只是用CSS来切换其可见性，而if会根据参数值添加或移除DOM元素。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">label</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: displayMessage&#34;</span> <span class="p">/</span><span class="p">&gt;</span> Display message<span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;if: displayMessage&#34;</span><span class="p"></span><span class="p">&gt;</span>Here is a message. Astonishing.<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: displayMessage&#34;</span> <span class="p">/&gt;</span> Display message<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;if: displayMessage&#34;</span><span class="p">&gt;</span>Here is a message. Astonishing.<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
 <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">({</span>
     <span class="nx">displayMessage</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
 <span class="p">});</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>下面的例子中，div不会在Mercury中显示，而Earth中会显示。因为Mercury没有capital属性。如果不使用if，在显示Mercury时会尝试读取不存在的capital属性，会导致出错。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: planets&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>
-        Planet: <span class="p">&lt;</span><span class="nt">b</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: name&#34;</span><span class="p"></span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="p">/</span><span class="nt">b</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;if: capital&#34;</span><span class="p"></span><span class="p">&gt;</span>
-            Capital: <span class="p">&lt;</span><span class="nt">b</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: capital.cityName&#34;</span><span class="p"></span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="p">/</span><span class="nt">b</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: planets&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        Planet: <span class="p">&lt;</span><span class="nt">b</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: name&#34;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;if: capital&#34;</span><span class="p">&gt;</span>
+            Capital: <span class="p">&lt;</span><span class="nt">b</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: capital.cityName&#34;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
+        <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
 
 
-<span class="p">&lt;</span><span class="nt">script</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">({</span>
         <span class="nx">planets</span><span class="o">:</span> <span class="p">[</span>
             <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Mercury&#39;</span><span class="p">,</span> <span class="nx">capital</span><span class="o">:</span> <span class="kc">null</span> <span class="p">},</span>
             <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Earth&#39;</span><span class="p">,</span> <span class="nx">capital</span><span class="o">:</span> <span class="p">{</span> <span class="nx">cityName</span><span class="o">:</span> <span class="s1">&#39;Barnsley&#39;</span> <span class="p">}</span> <span class="p">}</span>        
         <span class="p">]</span>
     <span class="p">});</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>注：无承载元素时使用if，可使用基于标注标签的虚拟元素。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>This item always appears<span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>This item always appears<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
     <span class="c">&lt;!-- ko if: someExpressionGoesHere --&gt;</span>
-        <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>I want to make this item present/absent dynamically<span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>I want to make this item present/absent dynamically<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
     <span class="c">&lt;!-- /ko --&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span></code></pre></div>
 <h2 id="ifnot">ifnot</h2>
 
 <p>ifnot与if的相似，只是提供另一个选择，有时可以使代码更具有可读性。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;ifnot: someProperty&#34;</span><span class="p"></span><span class="p">&gt;</span>...<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;ifnot: someProperty&#34;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="c">&lt;!--… is equivalent to the following:--&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;if: !someProperty()&#34;</span><span class="p"></span><span class="p">&gt;</span>...<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;if: !someProperty()&#34;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <h2 id="with">with</h2>
 
 <p>with用于创建一个新的绑定上下文，使内部的元素绑定到指定的对象。</p>
@@ -421,13 +421,13 @@
 <p>with可嵌套使用在if、foreach等流程控制绑定中。</p>
 
 <p>例1：with内的latitude或longitude不需要coords.前缀，因为绑定上下文已切换到coords。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h1</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: city&#34;</span><span class="p"></span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="p">/</span><span class="nt">h1</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">p</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;with: coords&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    Latitude: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: latitude&#34;</span><span class="p"></span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>,
-    Longitude: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: longitude&#34;</span><span class="p"></span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h1</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: city&#34;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;with: coords&#34;</span><span class="p">&gt;</span>
+    Latitude: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: latitude&#34;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>,
+    Longitude: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: longitude&#34;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">({</span>
         <span class="nx">city</span><span class="o">:</span> <span class="s2">&#34;London&#34;</span><span class="p">,</span>
         <span class="nx">coords</span><span class="o">:</span> <span class="p">{</span>
@@ -435,24 +435,24 @@
             <span class="nx">longitude</span><span class="o">:</span> <span class="o">-</span><span class="mf">0.1262362</span>
         <span class="p">}</span>
     <span class="p">});</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>例2：使用with绑定根据参数是否为null/undefined动态添加或移除子元素。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;submit: getTweets&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;submit: getTweets&#34;</span><span class="p">&gt;</span>
     Twitter account:
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: twitterName&#34;</span> <span class="p">/</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p"></span><span class="p">&gt;</span>Get tweets<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">form</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: twitterName&#34;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p">&gt;</span>Get tweets<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;with: resultData&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">h3</span><span class="p"></span><span class="p">&gt;</span>Recent tweets fetched at <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: retrievalDate&#34;</span><span class="p"></span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">h3</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">ol</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: topTweets&#34;</span><span class="p"></span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: text&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="p">/</span><span class="nt">ol</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;with: resultData&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span><span class="p">&gt;</span>Recent tweets fetched at <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: retrievalDate&#34;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">ol</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: topTweets&#34;</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">li</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: text&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">ol</span><span class="p">&gt;</span>
 
-    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: $parent.clearResults&#34;</span><span class="p"></span><span class="p">&gt;</span>Clear tweets<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: $parent.clearResults&#34;</span><span class="p">&gt;</span>Clear tweets<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
 <span class="kd">function</span> <span class="nx">AppViewModel</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
     <span class="nx">self</span><span class="p">.</span><span class="nx">twitterName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s1">&#39;@example&#39;</span><span class="p">);</span>
@@ -475,32 +475,32 @@
 <span class="p">}</span>
 
 <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="k">new</span> <span class="nx">AppViewModel</span><span class="p">());</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>在with内部使用父绑定的数据或方法时，可使用$parent、$root等。</p>
 
 <p>注：无承载元素时使用with，可使用基于标注标签的虚拟元素。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>Header element<span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>Header element<span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
     <span class="c">&lt;!-- ko with: outboundFlight --&gt;</span>
         ...
     <span class="c">&lt;!-- /ko --&gt;</span>
     <span class="c">&lt;!-- ko with: inboundFlight --&gt;</span>
         ...
     <span class="c">&lt;!-- /ko --&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span></code></pre></div>
 <h2 id="component">component</h2>
 
 <p>component用户向DOM元素中注入自定义的组件，并可选择地传递参数。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h4</span><span class="p"></span><span class="p">&gt;</span>First instance, without parameters<span class="p">&lt;</span><span class="p">/</span><span class="nt">h4</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;component: &#34;message-editor&#34;&#39;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>First instance, without parameters<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;component: &#34;message-editor&#34;&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">h4</span><span class="p"></span><span class="p">&gt;</span>Second instance, passing parameters<span class="p">&lt;</span><span class="p">/</span><span class="nt">h4</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">h4</span><span class="p">&gt;</span>Second instance, passing parameters<span class="p">&lt;/</span><span class="nt">h4</span><span class="p">&gt;</span>
 <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;component: {
 </span><span class="s">    name: &#34;message-editor&#34;,
 </span><span class="s">    params: { initialText: &#34;Hello, world!&#34; }
-</span><span class="s">}&#39;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span class="s">}&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
 <span class="nx">ko</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;message-editor&#39;</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">viewModel</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">text</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="nx">params</span> <span class="o">&amp;&amp;</span> <span class="nx">params</span><span class="p">.</span><span class="nx">initialText</span> <span class="o">||</span> <span class="s1">&#39;&#39;</span><span class="p">);</span>
@@ -510,7 +510,7 @@
 <span class="p">});</span>
 
 <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">();</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>component绑定有两种使用方式。</p>
 
 <ul>
@@ -518,12 +518,12 @@
 <li>完整语法：绑定一个有name和params属性的对象，分别为组件名称和包含多个参数键值对的参数。参数一般由组件的视图模型的构造函数接收。</li>
 </ul>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!--shorthand syntax--&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;component: &#34;my-component&#34;&#39;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;component: observableWhoseValueIsAComponentName&#39;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!--full syntax--&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;component: &#34;my-component&#34;&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;component: observableWhoseValueIsAComponentName&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!--full syntax--&gt;</span>
 <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;component: {
 </span><span class="s">    name: &#34;shopping-cart&#34;,
 </span><span class="s">    params: { mode: &#34;detailed-list&#34;, items: productsList }
-</span><span class="s">}&#39;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+</span><span class="s">}&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>注：组件被移除时会被释放掉（disposed）。</p>
 
 <h3 id="注-组件的生命周期">注：组件的生命周期</h3>
@@ -548,9 +548,9 @@
 </code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;component: {
 </span><span class="s">     name: &#34;special-offer&#34;,
 </span><span class="s">     params: { productName: someProduct.name }
-</span><span class="s">}&#39;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+</span><span class="s">}&#39;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="c">&lt;!-- or using custom element--&gt;</span>
-special-offer params=&#39;productName: someProduct.name&#39;&gt;<span class="p">&lt;</span><span class="p">/</span><span class="nt">special-offer</span><span class="p">&gt;</span></code></pre></div>
+special-offer params=&#39;productName: someProduct.name&#39;&gt;<span class="p">&lt;/</span><span class="nt">special-offer</span><span class="p">&gt;</span></code></pre></div>
 <p>注：无承载元素时使用component，可以使用虚拟元素。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- ko component: &#34;message-editor&#34; --&gt;</span>
 <span class="c">&lt;!-- /ko --&gt;</span>
@@ -560,12 +560,12 @@ special-offer params=&#39;productName: someProduct.name&#39;&gt;<span class="p">
 </span><span class="c">} --&gt;</span>
 <span class="c">&lt;!-- /ko --&gt;</span></code></pre></div>
 <p>注：使用component绑定的元素可能包含一些额外的元素。尽管这些额外的元素会被剥离且不绑定，但它们仍然存在。组件可以根据需要决定是否加载它们。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;component: { name: &#39;my-special-list&#39;, params: { items: someArrayOfPeople } }&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;component: { name: &#39;my-special-list&#39;, params: { items: someArrayOfPeople } }&#34;</span><span class="p">&gt;</span>
     <span class="c">&lt;!-- Look, here&#39;s some arbitrary markup. By default it gets stripped out
 </span><span class="c">         and is replaced by the component output. --&gt;</span>
-    The person <span class="p">&lt;</span><span class="nt">em</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: name&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">em</span><span class="p">&gt;</span>
-    is <span class="p">&lt;</span><span class="nt">em</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: age&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">em</span><span class="p">&gt;</span> years old.
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+    The person <span class="p">&lt;</span><span class="nt">em</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: name&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">em</span><span class="p">&gt;</span>
+    is <span class="p">&lt;</span><span class="nt">em</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: age&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">em</span><span class="p">&gt;</span> years old.
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <h3 id="注-释放和内存管理">注：释放和内存管理</h3>
 
 <p>视图模型也许提供了dispose方法，当ko在移除组件时会调用它。</p>
@@ -626,7 +626,7 @@ special-offer params=&#39;productName: someProduct.name&#39;&gt;<span class="p">
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>498</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>531</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

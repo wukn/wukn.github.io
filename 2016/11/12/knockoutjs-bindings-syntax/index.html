@@ -43,7 +43,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.39" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-bindings-syntax/" />
@@ -238,13 +238,13 @@
 <h2 id="data-bind语法">data-bind语法</h2>
 
 <p>一个绑定由两部分组成，名称和值，用分号隔开。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html">Today&#39;s message is: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: myMessage&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html">Today&#39;s message is: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: myMessage&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span></code></pre></div>
 <p>一个元素可以由多个绑定，绑定之间使用逗号隔开。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- related bindings: valueUpdate is a parameter for value --&gt;</span>
-Your value: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: someValue, valueUpdate: &#39;afterkeydown&#39;&#34;</span> <span class="p">/</span><span class="p">&gt;</span>
+Your value: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: someValue, valueUpdate: &#39;afterkeydown&#39;&#34;</span> <span class="p">/&gt;</span>
 
 <span class="c">&lt;!-- unrelated bindings --&gt;</span>
-Cellphone: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: cellphoneNumber, enable: hasCellphone&#34;</span> <span class="p">/</span><span class="p">&gt;</span></code></pre></div>
+Cellphone: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: cellphoneNumber, enable: hasCellphone&#34;</span> <span class="p">/&gt;</span></code></pre></div>
 <p>绑定的名称应该与一个注册的绑定处理器（包括ko内建的和自定义的）匹配，或者是另一个绑定的参数。否则会被忽略（没有错误或警告）。</p>
 
 <p>绑定的值可以是值、变量或字面量（<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Grammar_and_types">value、variable、literal</a>），或者是任何有效的js表达式（<a href="https://developer.mozilla.org/en-US/docs/JavaScript/Guide/Expressions_and_Operators">Javacript Expression</a>）。</p>
@@ -253,34 +253,34 @@ Cellphone: <span class="p">&lt;</span><span class="nt">input</span> <span class=
 
 <p>当值是无效的js表达式或引用的是未知的变量时，ko会输出错误并停止绑定处理。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- variable (usually a property of the current view model --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: shouldShowMessage&#34;</span><span class="p"></span><span class="p">&gt;</span>...<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: shouldShowMessage&#34;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
 <span class="c">&lt;!-- comparison and conditional --&gt;</span>
-The item is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: price() &gt; 50 ? &#39;expensive&#39; : &#39;cheap&#39;&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>.
+The item is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: price() &gt; 50 ? &#39;expensive&#39; : &#39;cheap&#39;&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>.
 
 <span class="c">&lt;!-- function call and comparison --&gt;</span>
-<span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;enable: parseAreaCode(cellphoneNumber()) != &#39;555&#39;&#34;</span><span class="p"></span><span class="p">&gt;</span>...<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;enable: parseAreaCode(cellphoneNumber()) != &#39;555&#39;&#34;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 
 <span class="c">&lt;!-- function expression --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: function (data) { myFunction(&#39;param1&#39;, data) }&#34;</span><span class="p"></span><span class="p">&gt;</span>...<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: function (data) { myFunction(&#39;param1&#39;, data) }&#34;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
 <span class="c">&lt;!-- object literal (with unquoted and quoted property names) --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;with: {emotion: &#39;happy&#39;, &#39;facial-expression&#39;: &#39;smile&#39;}&#34;</span><span class="p"></span><span class="p">&gt;</span>...<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;with: {emotion: &#39;happy&#39;, &#39;facial-expression&#39;: &#39;smile&#39;}&#34;</span><span class="p">&gt;</span>...<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>绑定中可以包含任意数量的空字符（whitespace：spaces、tab、newlines），因此绑定中可以根据需要来排版。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- no spaces --&gt;</span>
-<span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;options:availableCountries,optionsText:&#39;countryName&#39;,value:selectedCountry,optionsCaption:&#39;Choose...&#39;&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">select</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;options:availableCountries,optionsText:&#39;countryName&#39;,value:selectedCountry,optionsCaption:&#39;Choose...&#39;&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
 
 <span class="c">&lt;!-- some spaces --&gt;</span>
-<span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;options : availableCountries, optionsText : &#39;countryName&#39;, value : selectedCountry, optionsCaption : &#39;Choose...&#39;&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">select</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;options : availableCountries, optionsText : &#39;countryName&#39;, value : selectedCountry, optionsCaption : &#39;Choose...&#39;&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
 
 <span class="c">&lt;!-- spaces and newlines --&gt;</span>
 <span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;
 </span><span class="s">    options: availableCountries,
 </span><span class="s">    optionsText: &#39;countryName&#39;,
 </span><span class="s">    value: selectedCountry,
-</span><span class="s">    optionsCaption: &#39;Choose...&#39;&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">select</span><span class="p">&gt;</span></code></pre></div>
+</span><span class="s">    optionsCaption: &#39;Choose...&#39;&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span></code></pre></div>
 <p>注：ko V3.0之后，可以声明没有值的绑定，值会被赋为undefined。这对绑定预处理是有很用的。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text&#34;</span><span class="p"></span><span class="p">&gt;</span>Text that will be cleared when bindings are applied.<span class="p">&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text&#34;</span><span class="p">&gt;</span>Text that will be cleared when bindings are applied.<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span></code></pre></div>
 <h2 id="绑定上下文-binding-context">绑定上下文（binding context）</h2>
 
 <p>绑定上下文是可以在绑定内引用的包含数据的对象。使用绑定时，ko会自动创建和管理绑定上下文的层级关系。层级关系的根就是应用绑定<code>ko.applyBindings(viewModel)</code>的视图viewModel。然后每使用一个流程控制绑定（如with或foreach），就会创建一个指向嵌套的视图模型数据的子绑定上下文。</p>
@@ -298,9 +298,9 @@ The item is <span class="p">&lt;</span><span class="nt">span</span> <span class=
 
 <li><p>$data 它指向当前上下文的视图模型对象。在根上下文中$data和$root是一样的。在嵌套的绑定中，该参数会被设置为当前数据项，当需要引用视图模型本身而不是视图模型的属性时，就可以用$data。</p></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: [&#39;cats&#39;, &#39;dogs&#39;, &#39;fish&#39;]&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>The value is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $data&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: [&#39;cats&#39;, &#39;dogs&#39;, &#39;fish&#39;]&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>The value is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $data&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span></code></pre></div>
 <ul>
 <li><p>$index 它是foreach绑定中当前数组项的索引（从0开始）。与其他上下文属性不同，$index是可监控的，会随着数组项索引的变化而更新。</p></li>
 
@@ -319,15 +319,15 @@ The item is <span class="p">&lt;</span><span class="nt">span</span> <span class=
 
 <li><p>element 它指向当前绑定的与元素DOM对象（element DOM object），或者虚拟元素的注释DOM对象（comment DOM object）。在需要访问当前元素的属性时很有用。</p></li>
 </ul>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;item1&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $element.id&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;item1&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $element.id&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>注：与with和foreach类似，在自定义绑定中可以改变子元素的绑定上下文，或者扩展绑定上下文对象来提供特殊的属性。</p>
 
 <h2 id="非侵入式事件绑定">非侵入式事件绑定</h2>
 
 <p>在大部分情况下，<code>data-bind</code>属性提供了一种简洁的方式来绑定视图模型。但是在绑定事件处理函数时，在<code>data-bind</code>中通常使用匿名函数来传递参数。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;#&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: function() { viewModel.items.remove($data); }&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;#&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: function() { viewModel.items.remove($data); }&#34;</span><span class="p">&gt;</span>
     remove
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">a</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span></code></pre></div>
 <p>此外，Ko还提供了两个实用函数来获取DOM元素关联的数据。</p>
 
 <ul>
@@ -346,17 +346,17 @@ The item is <span class="p">&lt;</span><span class="nt">span</span> <span class=
 <span class="p">});</span>
 </code></pre></div>
 <p>例：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;people&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;template: { name: &#34;personTmpl&#34;, foreach: people }&#39;</span><span class="p"></span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;people&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;template: { name: &#34;personTmpl&#34;, foreach: people }&#39;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;personTmpl&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;personTmpl&#34;</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span><span class="p">&gt;</span>
     <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">a</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;remove&#34;</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;#&#34;</span><span class="o">&gt;</span> <span class="nx">x</span> <span class="o">&lt;</span><span class="err">/a&gt;</span>
         <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">data</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s1">&#39;text: name&#39;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;</span>
         <span class="o">&lt;</span><span class="nx">a</span> <span class="k">class</span><span class="o">=</span><span class="s2">&#34;add&#34;</span> <span class="nx">href</span><span class="o">=</span><span class="s2">&#34;#&#34;</span><span class="o">&gt;</span> <span class="nx">add</span> <span class="nx">child</span> <span class="o">&lt;</span><span class="err">/a&gt;</span>
         <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">data</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s1">&#39;template: { name: &#34;personTmpl&#34;, foreach: children }&#39;</span><span class="o">&gt;&lt;</span><span class="err">/ul&gt;</span>
     <span class="o">&lt;</span><span class="err">/li&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="kd">var</span> <span class="nx">Person</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">children</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
     <span class="k">this</span><span class="p">.</span><span class="nx">children</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">(</span><span class="nx">children</span> <span class="o">||</span> <span class="p">[]);</span>
 <span class="p">};</span>
@@ -427,7 +427,7 @@ The item is <span class="p">&lt;</span><span class="nt">span</span> <span class=
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>498</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>531</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

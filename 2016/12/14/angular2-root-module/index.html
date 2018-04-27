@@ -43,7 +43,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.39" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/12/14/angular2-root-module/" />
@@ -298,7 +298,7 @@
 <p>启动的过程是，设置执行的环境，找到<code>AppModule</code>模块的<code>bootstrap</code>数组中的根组件<code>AppComponent</code>，创建一个组件实例并添加到这个组件的<code>selector</code>所标识的元素标签中。</p>
 
 <p>例如，<code>AppComponent</code>的selector是<code>my-app</code>，那么Angular就会在<code>index.html</code>中寻找<code>&lt;my-app&gt;</code>标签：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">my-app</span><span class="p"></span><span class="p">&gt;</span><span class="c">&lt;!-- content managed by Angular --&gt;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">my-app</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">my-app</span><span class="p">&gt;</span><span class="c">&lt;!-- content managed by Angular --&gt;</span><span class="p">&lt;/</span><span class="nt">my-app</span><span class="p">&gt;</span></code></pre></div>
 <p>然后在这个标签里显示<code>AppComponent</code>。</p>
 
 <p><code>main.ts</code>这个文件通常设置好了之后就不会再动它了。</p>
@@ -317,7 +317,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>466</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>499</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

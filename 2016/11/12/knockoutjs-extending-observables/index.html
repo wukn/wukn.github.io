@@ -43,7 +43,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.39" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-extending-observables/" />
@@ -249,8 +249,8 @@
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">this</span><span class="p">.</span><span class="nx">firstName</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s2">&#34;Bob&#34;</span><span class="p">).</span><span class="nx">extend</span><span class="p">({</span><span class="nx">logChange</span><span class="o">:</span> <span class="s2">&#34;first name&#34;</span><span class="p">});</span>
 </code></pre></div>
 <h3 id="例1-强制输入为数字">例1：强制输入为数字</h3>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: myNumberOne&#34;</span> <span class="p">/</span><span class="p">&gt;</span> (round to whole number)<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: myNumberTwo&#34;</span> <span class="p">/</span><span class="p">&gt;</span> (round to two decimals)<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">extenders</span><span class="p">.</span><span class="nx">numeric</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">precision</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: myNumberOne&#34;</span> <span class="p">/&gt;</span> (round to whole number)<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: myNumberTwo&#34;</span> <span class="p">/&gt;</span> (round to two decimals)<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">extenders</span><span class="p">.</span><span class="nx">numeric</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">precision</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">//create a writable computed observable to intercept writes to our observable
 </span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">pureComputed</span><span class="p">({</span>
         <span class="nx">read</span><span class="o">:</span> <span class="nx">target</span><span class="p">,</span>  <span class="c1">//always return the original observables value
@@ -291,14 +291,14 @@
 <h3 id="例2-为监控属性添加验证">例2：为监控属性添加验证</h3>
 
 <p>本例创建一个可以验证监控属性的扩展器。不同于返回新对象，该扩展器只是为已有的监控属性添加额外的子监控属性。由于监控属性是函数，它们可以有自己的属性。然而当视图模型转换为json时，子监控属性会被忽略。这样能很方便地添加只跟UI相关不需要与服务器交互的额外功能。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;css: { error: firstName.hasError }&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;value: firstName, valueUpdate: &#34;afterkeydown&#34;&#39;</span> <span class="p">/</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;visible: firstName.hasError, text: firstName.validationMessage&#39;</span><span class="p"></span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">p</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;css: { error: lastName.hasError }&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;value: lastName, valueUpdate: &#34;afterkeydown&#34;&#39;</span> <span class="p">/</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;visible: lastName.hasError, text: lastName.validationMessage&#39;</span><span class="p"></span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">extenders</span><span class="p">.</span><span class="nx">required</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">overrideMessage</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;css: { error: firstName.hasError }&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;value: firstName, valueUpdate: &#34;afterkeydown&#34;&#39;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;visible: firstName.hasError, text: firstName.validationMessage&#39;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;css: { error: lastName.hasError }&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;value: lastName, valueUpdate: &#34;afterkeydown&#34;&#39;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;visible: lastName.hasError, text: lastName.validationMessage&#39;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">extenders</span><span class="p">.</span><span class="nx">required</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">overrideMessage</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">//add some sub-observables to our observable
 </span><span class="c1"></span>    <span class="nx">target</span><span class="p">.</span><span class="nx">hasError</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span>
     <span class="nx">target</span><span class="p">.</span><span class="nx">validationMessage</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">();</span>
@@ -345,7 +345,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>497</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>531</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

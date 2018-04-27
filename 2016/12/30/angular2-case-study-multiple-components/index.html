@@ -43,7 +43,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.39" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/12/30/angular2-case-study-multiple-components/" />
@@ -281,7 +281,7 @@
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="k">import</span> <span class="p">{</span> <span class="nx">Hero</span> <span class="p">}</span> <span class="nx">from</span> <span class="s1">&#39;./hero&#39;</span><span class="p">;</span>
 </code></pre></div>
 <p><code>HeroDetailComponent</code>的<code>Hero</code>属性是一个输入属性，是<code>AppComponent</code>告诉它的。<code>AppComponent</code>知道用户选中的是列表中的哪个，在它的<code>selectedHero</code>属性中。所以接下来我们要在<code>AppComponent</code>的模板中将它的<code>selectedHero</code>属性绑定到<code>HeroDetailComponent</code>的<code>hero</code>属性。这个绑定可能看起来是这样的：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">my-hero-detail</span> <span class="err">[</span><span class="na">hero</span><span class="err">]=&#34;</span><span class="na">selectedHero</span><span class="err">&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">my-hero-detail</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">my-hero-detail</span> <span class="err">[</span><span class="na">hero</span><span class="err">]=&#34;</span><span class="na">selectedHero</span><span class="err">&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">my-hero-detail</span><span class="p">&gt;</span></code></pre></div>
 <p>等号左侧的是属性绑定的目标。在Angular中，我们需要将目标属性定义成输入属性（input），否则，Angular就不会绑定并且报错。</p>
 
 <p>将属性声明为input有多中方式。最常用的就是对属性使用<code>@Input</code>装饰器：</p>
@@ -464,7 +464,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>450</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>483</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

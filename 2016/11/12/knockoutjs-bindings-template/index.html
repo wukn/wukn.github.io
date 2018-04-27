@@ -43,7 +43,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.39" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-bindings-template/" />
@@ -255,32 +255,32 @@
 <p>例1：渲染一个具名模板</p>
 
 <p>使用流程控制绑定时，可以将模板隐式并匿名地定义在DOM元素的内部，这时模板就不需要name。也可以将模板提出来，放到单独的DOM元素中，并为其指定name。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h2</span><span class="p"></span><span class="p">&gt;</span>Participants<span class="p">&lt;</span><span class="p">/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Participants<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
 Here are the participants:
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;template: { name: &#39;person-template&#39;, data: buyer }&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;template: { name: &#39;person-template&#39;, data: seller }&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;template: { name: &#39;person-template&#39;, data: buyer }&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;template: { name: &#39;person-template&#39;, data: seller }&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;person-template&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;person-template&#34;</span><span class="p">&gt;</span>
     <span class="o">&lt;</span><span class="nx">h3</span> <span class="nx">data</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s2">&#34;text: name&#34;</span><span class="o">&gt;&lt;</span><span class="err">/h3&gt;</span>
     <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">Credits</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">data</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s2">&#34;text: credits&#34;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;&lt;/p&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
      <span class="kd">function</span> <span class="nx">MyViewModel</span><span class="p">()</span> <span class="p">{</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">buyer</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Franklin&#39;</span><span class="p">,</span> <span class="nx">credits</span><span class="o">:</span> <span class="mi">250</span> <span class="p">};</span>
          <span class="k">this</span><span class="p">.</span><span class="nx">seller</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Mario&#39;</span><span class="p">,</span> <span class="nx">credits</span><span class="o">:</span> <span class="mi">5800</span> <span class="p">};</span>
      <span class="p">}</span>
      <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyViewModel</span><span class="p">());</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>例2：具名模板使用foreach选项</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h2</span><span class="p"></span><span class="p">&gt;</span>Participants<span class="p">&lt;</span><span class="p">/</span><span class="nt">h2</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h2</span><span class="p">&gt;</span>Participants<span class="p">&lt;/</span><span class="nt">h2</span><span class="p">&gt;</span>
 Here are the participants:
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;template: { name: &#39;person-template&#39;, foreach: people }&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;template: { name: &#39;person-template&#39;, foreach: people }&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;person-template&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;person-template&#34;</span><span class="p">&gt;</span>
     <span class="o">&lt;</span><span class="nx">h3</span> <span class="nx">data</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s2">&#34;text: name&#34;</span><span class="o">&gt;&lt;</span><span class="err">/h3&gt;</span>
     <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span><span class="nx">Credits</span><span class="o">:</span> <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">data</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s2">&#34;text: credits&#34;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;&lt;/p&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
  function MyViewModel() {
      this.people = [
@@ -290,31 +290,31 @@ Here are the participants:
  }
  ko.applyBindings(new MyViewModel());</code></pre></div>
 <p>上面的视图与下面的是等价的：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: people&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">h3</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: name&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">h3</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Credits: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: credits&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: people&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">h3</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: name&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">h3</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Credits: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: credits&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>例3：使用as为foreach项赋别名</p>
 
 <p>在嵌套的foreach模板中，可以使用<code>$parent</code>等绑定上下文来访问更高层的对象。更简单且优雅的方式是使用as。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;template: { name: &#39;seasonTemplate&#39;, foreach: seasons, as: &#39;season&#39; }&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;template: { name: &#39;seasonTemplate&#39;, foreach: seasons, as: &#39;season&#39; }&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;seasonTemplate&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;seasonTemplate&#34;</span><span class="p">&gt;</span>
     <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">strong</span> <span class="nx">data</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s2">&#34;text: name&#34;</span><span class="o">&gt;&lt;</span><span class="err">/strong&gt;</span>
         <span class="o">&lt;</span><span class="nx">ul</span> <span class="nx">data</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s2">&#34;template: { name: &#39;monthTemplate&#39;, foreach: months, as: &#39;month&#39; }&#34;</span><span class="o">&gt;&lt;</span><span class="err">/ul&gt;</span>
     <span class="o">&lt;</span><span class="err">/li&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;monthTemplate&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;monthTemplate&#34;</span><span class="p">&gt;</span>
     <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span>
         <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">data</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s2">&#34;text: month&#34;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;</span>
         <span class="nx">is</span> <span class="k">in</span>
         <span class="o">&lt;</span><span class="nx">span</span> <span class="nx">data</span><span class="o">-</span><span class="nx">bind</span><span class="o">=</span><span class="s2">&#34;text: season.name&#34;</span><span class="o">&gt;&lt;</span><span class="err">/span&gt;</span>
     <span class="o">&lt;</span><span class="err">/li&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">seasons</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span>
             <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Spring&#39;</span><span class="p">,</span> <span class="nx">months</span><span class="o">:</span> <span class="p">[</span> <span class="s1">&#39;March&#39;</span><span class="p">,</span> <span class="s1">&#39;April&#39;</span><span class="p">,</span> <span class="s1">&#39;May&#39;</span> <span class="p">]</span> <span class="p">},</span>
@@ -324,7 +324,7 @@ Here are the participants:
         <span class="p">])</span>
     <span class="p">};</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>注意，传递给as的是一个字符串字面量而不是变量，因为这里是为一个新变量命名，而不是读取一个已存在的变量的值。</p>
 
 <p>例4：动态选择模板</p>
@@ -332,9 +332,9 @@ Here are the participants:
 <p>如果有多个具名模板，可以为<code>name</code>传递一个监控变量，当监控变量的值发生变化时，元素的内容会使用相应的模板重新渲染。也可以传递一个回调函数来决定使用哪个模板。如果时foreach模板模式，ko会对数组的每一项进行处理，将数组项的值作为唯一参数。否则，参数会是<code>data</code>的值，或回退到整个当前模型对象。函数的第二个参数是绑定上下文，因此在动态选择模板时可以使用<code>$parent</code>等绑定上下文。
 如果函数中引用了监控变量，那么变量变化时，绑定也会更新，也就是说，会根据数据和相应的模板重新渲染。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#39;template: { name: displayMode,
-</span><span class="s">                           foreach: employees }&#39;</span><span class="p"></span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span>
+</span><span class="s">                           foreach: employees }&#39;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">employees</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span>
             <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&#34;Kari&#34;</span><span class="p">,</span> <span class="nx">active</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">},</span>
@@ -349,22 +349,22 @@ Here are the participants:
 
     <span class="c1">// ... then later ...
 </span><span class="c1"></span>    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">employees</span><span class="p">()[</span><span class="mi">1</span><span class="p">].</span><span class="nx">active</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span> <span class="c1">// Now &#34;Brynn&#34; is also rendered using the &#34;active&#34; template.
-</span><span class="c1"></span><span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+</span><span class="c1"></span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>例5：使用基于字符串的外部模板引擎jQuery.tmpl</p>
 
 <p>使用jQuery.tmpl时，需要引用jQuery和jQuery.tmpl。目前jQuery.tmpl已停止更新，不建议使用。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h1</span><span class="p"></span><span class="p">&gt;</span>People<span class="p">&lt;</span><span class="p">/</span><span class="nt">h1</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;template: &#39;peopleList&#39;&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>People<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;template: &#39;peopleList&#39;&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;peopleList&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;peopleList&#34;</span><span class="p">&gt;</span>
     <span class="p">{{</span><span class="nx">each</span> <span class="nx">people</span><span class="p">}}</span>
         <span class="o">&lt;</span><span class="nx">p</span><span class="o">&gt;</span>
             <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;</span><span class="nx">$</span><span class="p">{</span><span class="nx">name</span><span class="p">}</span><span class="o">&lt;</span><span class="err">/b&gt; is ${age} years old</span>
         <span class="o">&lt;</span><span class="err">/p&gt;</span>
     <span class="p">{{</span><span class="err">/each}}</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">people</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span>
             <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Rod&#39;</span><span class="p">,</span> <span class="nx">age</span><span class="o">:</span> <span class="mi">123</span> <span class="p">},</span>
@@ -372,17 +372,17 @@ Here are the participants:
         <span class="p">])</span>
     <span class="p">}</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>例6：使用模板引擎Underscore</p>
 
 <p>Undercore默认使用“ERB-style delimiters”（<code>&lt;%= ... %&gt;</code>），也可以设置使用其他分割符。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;peopleList&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/html&#34;</span> <span class="na">id</span><span class="o">=</span><span class="s">&#34;peopleList&#34;</span><span class="p">&gt;</span>
     <span class="o">&lt;%</span> <span class="nx">_</span><span class="p">.</span><span class="nx">each</span><span class="p">(</span><span class="nx">people</span><span class="p">(),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">person</span><span class="p">)</span> <span class="p">{</span> <span class="o">%&gt;</span>
         <span class="o">&lt;</span><span class="nx">li</span><span class="o">&gt;</span>
             <span class="o">&lt;</span><span class="nx">b</span><span class="o">&gt;&lt;%=</span> <span class="nx">person</span><span class="p">.</span><span class="nx">name</span> <span class="o">%&gt;&lt;</span><span class="err">/b&gt; is &lt;%= person.age %&gt; years old</span>
         <span class="o">&lt;</span><span class="err">/li&gt;</span>
     <span class="o">&lt;%</span> <span class="p">})</span> <span class="o">%&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <hr />
 
 <p>参考资料：</p>
@@ -397,7 +397,7 @@ Here are the participants:
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>498</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>531</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

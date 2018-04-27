@@ -43,7 +43,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.39" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-bindings-work-with-form-fields/" />
@@ -239,12 +239,12 @@
 参数是想绑定到元素<code>click</code>事件的函数。</p>
 
 <p>可以绑定任意js函数（不是必须为视图模型的函数），如<code>click: someObject.someFunction</code>绑定对象<code>someObject</code>的<code>someFunction</code>函数。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>
-    You&#39;ve clicked <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: numberOfClicks&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span> times
-    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: incrementClickCounter&#34;</span><span class="p"></span><span class="p">&gt;</span>Click me<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    You&#39;ve clicked <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: numberOfClicks&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span> times
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: incrementClickCounter&#34;</span><span class="p">&gt;</span>Click me<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">numberOfClicks</span> <span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
         <span class="nx">incrementClickCounter</span> <span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -252,20 +252,20 @@
             <span class="k">this</span><span class="p">.</span><span class="nx">numberOfClicks</span><span class="p">(</span><span class="nx">previousCount</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
         <span class="p">}</span>
     <span class="p">};</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>注1：向函数传递参数&rsquo;当前项&rsquo;</p>
 
 <p>当触发点击事件调用绑定的函数时，ko会将当前模型值作为第一个参数传递。例如列表项点击时需要知道是哪个列表项点击的。</p>
 
 <p>注意，如果是在一个嵌套的绑定上下文里（如<code>foreach</code>或<code>with</code>），但绑定的函数是在根视图模型或其他父上下文中时，需要使用<code>$parent</code>或<code>$root</code>前缀。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: places&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">li</span><span class="p"></span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $data&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>
-        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: $parent.removePlace&#34;</span><span class="p"></span><span class="p">&gt;</span>Remove<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="p">/</span><span class="nt">li</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">ul</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">ul</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;foreach: places&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">li</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $data&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+        <span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: $parent.removePlace&#34;</span><span class="p">&gt;</span>Remove<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">li</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">ul</span><span class="p">&gt;</span>
 
- <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
      <span class="kd">function</span> <span class="nx">MyViewModel</span><span class="p">()</span> <span class="p">{</span>
          <span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
          <span class="nx">self</span><span class="p">.</span><span class="nx">places</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span><span class="s1">&#39;London&#39;</span><span class="p">,</span> <span class="s1">&#39;Paris&#39;</span><span class="p">,</span> <span class="s1">&#39;Tokyo&#39;</span><span class="p">]);</span>
@@ -276,15 +276,15 @@
          <span class="p">}</span>
      <span class="p">}</span>
      <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="k">new</span> <span class="nx">MyViewModel</span><span class="p">());</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>注2：访问事件对象或传递更多参数</p>
 
 <p>有些场景需要访问点击事件关联的DOM事件对象。ko将事件作为第二个参数传递。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: myFunction&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: myFunction&#34;</span><span class="p">&gt;</span>
     Click me
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 
- <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">myFunction</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">,</span> <span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
             <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">shiftKey</span><span class="p">)</span> <span class="p">{</span>
@@ -295,15 +295,15 @@
         <span class="p">}</span>
     <span class="p">};</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>如果要传递更多的参数，一种方法是将事件函数包装到一个函数字面量中，并传递额外的参数。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: function(data, event) { myFunction(&#39;param1&#39;, &#39;param2&#39;, data, event) }&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: function(data, event) { myFunction(&#39;param1&#39;, &#39;param2&#39;, data, event) }&#34;</span><span class="p">&gt;</span>
     Click me
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span></code></pre></div>
 <p>如果想避免使用函数字面量，可以使用<code>[bind](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind)</code>方法，</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: myFunction.bind($data, &#39;param1&#39;, &#39;param2&#39;)&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: myFunction.bind($data, &#39;param1&#39;, &#39;param2&#39;)&#34;</span><span class="p">&gt;</span>
     Click me
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span></code></pre></div>
 <p>注3：允许执行点击的默认行为</p>
 
 <p>默认情况下，ko会阻止点击事件的默认行为。例如，在<code>a</code>标签上使用<code>click</code>，浏览器只会触发绑定的事件函数，而不会导航到<code>a</code>的<code>href</code>。如果需要默认的点击行为也触发，只需要在点击事件函数中<code>return true</code>。</p>
@@ -311,11 +311,11 @@
 <p>注4：阻止事件冒泡</p>
 
 <p>默认情况下，ko允许点击事件冒泡到更高层的事件处理中。例如，一个元素和其父元素都有点击事件，那么它们的点击事件都会触发。可以使用额外的值为<code>false</code>的<code>clickBubble</code>绑定来阻止事件冒泡。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: myDivHandler&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: myButtonHandler, clickBubble: false&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: myDivHandler&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: myButtonHandler, clickBubble: false&#34;</span><span class="p">&gt;</span>
         Click me
-    <span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+    <span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>注5：存在jQuery时，ko会使用juery来处理事件。可以使用<code>ko.applyBindings</code>选项让ko使用原生的事件处理。</p>
 <div class="highlight"><pre class="chroma"><code class="language-javascript" data-lang="javascript"><span class="nx">ko</span><span class="p">.</span><span class="nx">options</span><span class="p">.</span><span class="nx">useOnlyNativeEvents</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
 </code></pre></div>
@@ -325,16 +325,16 @@
 绑定的参数应该是个属性名为事件名、属性值为事件处理函数的js对象。</p>
 
 <p>使用<code>event { mouseover: someObject.someFunction }</code>可以绑定任何事件处理函数，可以不是视图模型的函数。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;event: { mouseover: enableDetails, mouseout: disableDetails }&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;event: { mouseover: enableDetails, mouseout: disableDetails }&#34;</span><span class="p">&gt;</span>
         Mouse over me
-    <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: detailsEnabled&#34;</span><span class="p"></span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: detailsEnabled&#34;</span><span class="p">&gt;</span>
         Details
-    <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">detailsEnabled</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="kc">false</span><span class="p">),</span>
         <span class="nx">enableDetails</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
@@ -345,7 +345,7 @@
         <span class="p">}</span>
     <span class="p">};</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>注：事件处理函数的两个参数、如何传递更多参数、允许默认事件行为、阻止事件冒泡、使用原生的事件处理，于<code>click</code>相同。</p>
 
 <h2 id="submit">submit</h2>
@@ -357,18 +357,18 @@
 <p>绑定的函数可以为视图模型外的函数。</p>
 
 <p>调用事件树立函数时，ko将<code>form</code>元素作为参数传递。可以使用<a href="https://github.com/jzaefferer/jquery-validation">jQuery Validation</a>进行<code>if ($(formElement).valid()) { /* do something */ }</code>UI层验证。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;submit: doSomething&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">form</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;submit: doSomething&#34;</span><span class="p">&gt;</span>
     ... form contents go here ...
-    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p"></span><span class="p">&gt;</span>Submit<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">form</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;submit&#34;</span><span class="p">&gt;</span>Submit<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">form</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">doSomething</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">formElement</span><span class="p">)</span> <span class="p">{</span>
             <span class="c1">// ... now do something
 </span><span class="c1"></span>        <span class="p">}</span>
     <span class="p">};</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>注：为什么不是仅仅向<code>submit</code>按钮绑定<code>click</code>呢？</p>
 
 <p><code>submit</code>可以捕捉一些其他的表单提交方式，如在文本框中按下<code>enter</code>键。</p>
@@ -378,37 +378,37 @@
 <p>enable用于设置DOM元素是否启用。通常用于<code>input</code>、<code>select</code>、<code>textarea</code>等表单元素。</p>
 
 <p>参数为非bool值时会被尽量转换成bool处理。如<code>0</code>或<code>null</code>相当于<code>false</code>，<code>21</code>或非空数组相当于<code>true</code>。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;checkbox&#39;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: hasCellphone&#34;</span> <span class="p">/</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;checkbox&#39;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: hasCellphone&#34;</span> <span class="p">/&gt;</span>
     I have a cellphone
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
     Your cellphone number:
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text&#39;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: cellphoneNumber, enable: hasCellphone&#34;</span> <span class="p">/</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text&#39;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: cellphoneNumber, enable: hasCellphone&#34;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">hasCellphone</span> <span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="kc">false</span><span class="p">),</span>
         <span class="nx">cellphoneNumber</span><span class="o">:</span> <span class="s2">&#34;&#34;</span>
     <span class="p">};</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>参数可以使用js表达式。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;checkbox&#39;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: hasCellphone&#34;</span> <span class="p">/</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;checkbox&#39;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: hasCellphone&#34;</span> <span class="p">/&gt;</span>
     I have a cellphone
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
     Your cellphone number:
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text&#39;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: cellphoneNumber, enable: hasCellphone&#34;</span> <span class="p">/</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#39;text&#39;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: cellphoneNumber, enable: hasCellphone&#34;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">hasCellphone</span> <span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="kc">false</span><span class="p">),</span>
         <span class="nx">cellphoneNumber</span><span class="o">:</span> <span class="s2">&#34;&#34;</span>
     <span class="p">};</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <h2 id="disable">disable</h2>
 
 <p>disable与enable类似，只是值为<code>true</code>时禁用元素，值为<code>false</code>时启用元素。</p>
@@ -422,15 +422,15 @@
 <p>如果传递的参数不是数字或字符串时，显示的值则相当于<code>yourParameter.toString()</code>。</p>
 
 <p>对于<code>checkbox</code>和<code>radio button</code>，使用<code>checked</code>而不是<code>value</code>来读写其状态。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Login name: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: userName&#34;</span> <span class="p">/</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Password: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: userPassword&#34;</span> <span class="p">/</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Login name: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: userName&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Password: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: userPassword&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">userName</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">),</span>        <span class="c1">// Initially blank
 </span><span class="c1"></span>        <span class="nx">userPassword</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s2">&#34;abc&#34;</span><span class="p">),</span> <span class="c1">// Prepopulate
 </span><span class="c1"></span>    <span class="p">};</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>ko会在表单控件失去焦点时（如<code>change</code>事件）更新视图模型中的值。可以用<code>valueUpdate</code>参数来指定触发更新的事件。</p>
 
 <ul>
@@ -451,20 +451,20 @@
 <p>通常对<code>&lt;select&gt;</code>使用<code>value</code>绑定是希望用关联的模型值来描述<code>select</code>的选中项。但是如果模型的值不在列表中呢？默认ko是用当前下拉列表的选中项覆盖模型的值从而避免模型和视图不同步。</p>
 
 <p>如果希望视图模型能够拥有<code>select</code>中没有的值，可以指定<code>valueAllowUnset: true</code>，这样，当模型的值不存在于<code>select</code>中时，<code>&lt;select&gt;</code>将没有选中值。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
     Select a country:
     <span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;options: countries,
 </span><span class="s">                       optionsCaption: &#39;Choose one...&#39;,
 </span><span class="s">                       value: selectedCountry,
-</span><span class="s">                       valueAllowUnset: true&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">select</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="s">                       valueAllowUnset: true&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">countries</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;Japan&#39;</span><span class="p">,</span> <span class="s1">&#39;Bolivia&#39;</span><span class="p">,</span> <span class="s1">&#39;New Zealand&#39;</span><span class="p">],</span>
         <span class="nx">selectedCountry</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s1">&#39;Latvia&#39;</span><span class="p">)</span>
     <span class="p">};</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>上例中，如果没有启用<code>valueAllowUnset</code>，ko会用值<code>undefined</code>覆盖<code>selectedCountry</code>，与<code>Choose one...</code>选项匹配。</p>
 
 <p>注3：更新监控属性和非监控属性的值</p>
@@ -478,20 +478,20 @@
 <li>如果引用的不是简单属性，如函数的返回值等，ko会将该值作为元素初始状态值，但是当表单元素被编辑时，值不会被回写。这时是一次性绑定（one-time-only value setter）。</li>
 </ul>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- Two-way binding. Populates textbox; syncs both ways. --&gt;</span>
-<span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>First value: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: firstValue&#34;</span> <span class="p">/</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>First value: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: firstValue&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
 <span class="c">&lt;!-- One-way binding. Populates textbox; syncs only from textbox to model. --&gt;</span>
-<span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Second value: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: secondValue&#34;</span> <span class="p">/</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Second value: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: secondValue&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
 <span class="c">&lt;!-- No binding. Populates textbox, but doesn&#39;t react to any changes. --&gt;</span>
-<span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Third value: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: secondValue.length &gt; 8&#34;</span> <span class="p">/</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Third value: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: secondValue.length &gt; 8&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">firstValue</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s2">&#34;hello&#34;</span><span class="p">),</span> <span class="c1">// Observable
 </span><span class="c1"></span>        <span class="nx">secondValue</span><span class="o">:</span> <span class="s2">&#34;hello, again&#34;</span>         <span class="c1">// Not observable
 </span><span class="c1"></span>    <span class="p">};</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>注4：同时使用<code>checked</code>和<code>value</code></p>
 
 <p><code>checked</code>绑定用于chechbox<code>&lt;input type='checkbox'&gt;</code>和radio button<code>&lt;input type='radio'&gt;</code>。如果在使用<code>checked</code>时也使用<code>value</code>，那么<code>value</code>的作用和<code>checkedValue</code>相同。</p>
@@ -501,40 +501,40 @@
 <h2 id="textinput">textInput</h2>
 
 <p>textnput用于链接<code>&lt;input&gt;</code>或<code>&lt;textarea&gt;</code>到视图模型的属性，提供双向更新。与<code>value</code>不同的是，它会在所用类型的用户输入时即时更新，包括autocomplete、drag-and-drop和clipboard事件。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Login name: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;textInput: userName&#34;</span> <span class="p">/</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Password: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;textInput: userPassword&#34;</span> <span class="p">/</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Login name: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;textInput: userName&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Password: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;password&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;textInput: userPassword&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">pre</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: ko.toJSON($root, null, 2)&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">pre</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">pre</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: ko.toJSON($root, null, 2)&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">pre</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">({</span>
         <span class="nx">userName</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s2">&#34;&#34;</span><span class="p">),</span>        <span class="c1">// Initially blank
 </span><span class="c1"></span>        <span class="nx">userPassword</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s2">&#34;abc&#34;</span><span class="p">)</span>  <span class="c1">// Prepopulate
 </span><span class="c1"></span>    <span class="p">});</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <h2 id="hasfocus">hasFocus</h2>
 
 <p>hasFocus用于链接视图模型属性和DOM元素的焦点状态（focus state）。它是双向绑定的。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;hasFocus: isSelected&#34;</span> <span class="p">/</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: setIsSelected&#34;</span><span class="p"></span><span class="p">&gt;</span>Focus programmatically<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: isSelected&#34;</span><span class="p"></span><span class="p">&gt;</span>The textbox has focus<span class="p">&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;hasFocus: isSelected&#34;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: setIsSelected&#34;</span><span class="p">&gt;</span>Focus programmatically<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: isSelected&#34;</span><span class="p">&gt;</span>The textbox has focus<span class="p">&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
 <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">isSelected</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="kc">false</span><span class="p">),</span>
     <span class="nx">setIsSelected</span><span class="o">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span> <span class="k">this</span><span class="p">.</span><span class="nx">isSelected</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">};</span>
 <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>例：click-to-edit，使用<code>hasFocus</code>来切换编辑状态</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
     Name:
-    <span class="p">&lt;</span><span class="nt">b</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: !editing(), text: name, click: edit&#34;</span><span class="p"></span><span class="p">&gt;</span><span class="ni">&amp;nbsp;</span><span class="p">&lt;</span><span class="p">/</span><span class="nt">b</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: editing, value: name, hasFocus: editing&#34;</span> <span class="p">/</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">em</span><span class="p"></span><span class="p">&gt;</span>Click the name to edit it; click elsewhere to apply changes.<span class="p">&lt;</span><span class="p">/</span><span class="nt">em</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">b</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: !editing(), text: name, click: edit&#34;</span><span class="p">&gt;</span><span class="ni">&amp;nbsp;</span><span class="p">&lt;/</span><span class="nt">b</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: editing, value: name, hasFocus: editing&#34;</span> <span class="p">/&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;&lt;</span><span class="nt">em</span><span class="p">&gt;</span>Click the name to edit it; click elsewhere to apply changes.<span class="p">&lt;/</span><span class="nt">em</span><span class="p">&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
 <span class="kd">function</span> <span class="nx">PersonViewModel</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// Data
 </span><span class="c1"></span>    <span class="k">this</span><span class="p">.</span><span class="nx">name</span> <span class="o">=</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="nx">name</span><span class="p">);</span>
@@ -545,30 +545,30 @@
 <span class="p">}</span>
 
 <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="k">new</span> <span class="nx">PersonViewModel</span><span class="p">(</span><span class="s2">&#34;Bert Bertington&#34;</span><span class="p">));</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <h2 id="checked">checked</h2>
 
 <p>checked用于复选框<code>&lt;input type='checkbox'&gt;</code>和单选框<code>&lt;input type='radio'&gt;</code>。</p>
 
 <p>对于checkbox，如果参数值为bool型，那么值为true时设置<code>checked</code>，值为false时设置<code>unchecked</code>。如果参数是数组，那么checkbox的值在数组中设置<code>checked</code>，不在数组中设置<code>unchecked</code>。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Send me spam: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: wantsSpam&#34;</span> <span class="p">/</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Send me spam: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: wantsSpam&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">wantsSpam</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="c1">// Initially checked
 </span><span class="c1"></span>    <span class="p">};</span>
 
     <span class="c1">// ... then later ...
 </span><span class="c1"></span>    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">wantsSpam</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span> <span class="c1">// The checkbox becomes unchecked
-</span><span class="c1"></span><span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Send me spam: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: wantsSpam&#34;</span> <span class="p">/</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: wantsSpam&#34;</span><span class="p"></span><span class="p">&gt;</span>
+</span><span class="c1"></span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Send me spam: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: wantsSpam&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: wantsSpam&#34;</span><span class="p">&gt;</span>
     Preferred flavors of spam:
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;cherry&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: spamFlavors&#34;</span> <span class="p">/</span><span class="p">&gt;</span> Cherry<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;almond&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: spamFlavors&#34;</span> <span class="p">/</span><span class="p">&gt;</span> Almond<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;msg&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: spamFlavors&#34;</span> <span class="p">/</span><span class="p">&gt;</span> Monosodium Glutamate<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;cherry&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: spamFlavors&#34;</span> <span class="p">/&gt;</span> Cherry<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;almond&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: spamFlavors&#34;</span> <span class="p">/&gt;</span> Almond<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;msg&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: spamFlavors&#34;</span> <span class="p">/&gt;</span> Monosodium Glutamate<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">wantsSpam</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
         <span class="nx">spamFlavors</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span><span class="s2">&#34;cherry&#34;</span><span class="p">,</span><span class="s2">&#34;almond&#34;</span><span class="p">])</span> <span class="c1">// Initially checks the Cherry and Almond checkboxes
@@ -576,17 +576,17 @@
 
     <span class="c1">// ... then later ...
 </span><span class="c1"></span>    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">spamFlavors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s2">&#34;msg&#34;</span><span class="p">);</span> <span class="c1">// Now additionally checks the Monosodium Glutamate checkbox
-</span><span class="c1"></span><span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+</span><span class="c1"></span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>对于radio button，只有value属性或checkedValue指定的值与参数值相等的radio button选项设置为<code>checked</code>。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Send me spam: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: wantsSpam&#34;</span> <span class="p">/</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: wantsSpam&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Send me spam: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: wantsSpam&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: wantsSpam&#34;</span><span class="p">&gt;</span>
     Preferred flavor of spam:
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;flavorGroup&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;cherry&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: spamFlavor&#34;</span> <span class="p">/</span><span class="p">&gt;</span> Cherry<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;flavorGroup&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;almond&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: spamFlavor&#34;</span> <span class="p">/</span><span class="p">&gt;</span> Almond<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;flavorGroup&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;msg&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: spamFlavor&#34;</span> <span class="p">/</span><span class="p">&gt;</span> Monosodium Glutamate<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;flavorGroup&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;cherry&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: spamFlavor&#34;</span> <span class="p">/&gt;</span> Cherry<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;flavorGroup&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;almond&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: spamFlavor&#34;</span> <span class="p">/&gt;</span> Almond<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;radio&#34;</span> <span class="na">name</span><span class="o">=</span><span class="s">&#34;flavorGroup&#34;</span> <span class="na">value</span><span class="o">=</span><span class="s">&#34;msg&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: spamFlavor&#34;</span> <span class="p">/&gt;</span> Monosodium Glutamate<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">wantsSpam</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="kc">true</span><span class="p">),</span>
         <span class="nx">spamFlavor</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="s2">&#34;almond&#34;</span><span class="p">)</span> <span class="c1">// Initially selects only the Almond radio button
@@ -594,16 +594,16 @@
 
     <span class="c1">// ... then later ...
 </span><span class="c1"></span>    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">spamFlavor</span><span class="p">(</span><span class="s2">&#34;msg&#34;</span><span class="p">);</span> <span class="c1">// Now only Monosodium Glutamate is checked
-</span><span class="c1"></span><span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+</span><span class="c1"></span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>注：<code>checkedValue</code>参数</p>
 
 <p><code>checkedValue</code>用于替代<code>value</code>属性，这设置值为非字符串或动态设置值在时是很有用的。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- ko foreach: items --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checkedValue: $data, checked: $root.chosenItems&#34;</span> <span class="p">/</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: itemName&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checkedValue: $data, checked: $root.chosenItems&#34;</span> <span class="p">/&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: itemName&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
 <span class="c">&lt;!-- /ko --&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">items</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span>
             <span class="p">{</span> <span class="nx">itemName</span><span class="o">:</span> <span class="s1">&#39;Choice 1&#39;</span> <span class="p">},</span>
@@ -611,7 +611,7 @@
         <span class="p">]),</span>
         <span class="nx">chosenItems</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">()</span>
     <span class="p">};</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <h2 id="options">options</h2>
 
 <p>options用于控制下拉列表（drop-down list）<code>&lt;select&gt;</code>或多选列表（multi-select list）<code>&lt;select size='6'&gt;</code>显示的选项。</p>
@@ -633,12 +633,12 @@
 <p>注：当options绑定更新<code>&lt;select&gt;</code>的选项时，ko会尽量保持用户的选中项（除非它们被移除了）。</p>
 
 <p>例1：下拉列表</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
     Destination country:
-    <span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;options: availableCountries&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">select</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;options: availableCountries&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="c1">// These are the initial options
 </span><span class="c1"></span>        <span class="nx">availableCountries</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span><span class="s1">&#39;France&#39;</span><span class="p">,</span> <span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="s1">&#39;Spain&#39;</span><span class="p">])</span>
@@ -646,33 +646,33 @@
 
     <span class="c1">// ... then later ...
 </span><span class="c1"></span>    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">availableCountries</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;China&#39;</span><span class="p">);</span> <span class="c1">// Adds another option
-</span><span class="c1"></span><span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+</span><span class="c1"></span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>例2：多选列表</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
     Choose some countries you would like to visit:
-    <span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;options: availableCountries&#34;</span> <span class="na">size</span><span class="o">=</span><span class="s">&#34;5&#34;</span> <span class="na">multiple</span><span class="o">=</span><span class="s">&#34;true&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">select</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;options: availableCountries&#34;</span> <span class="na">size</span><span class="o">=</span><span class="s">&#34;5&#34;</span> <span class="na">multiple</span><span class="o">=</span><span class="s">&#34;true&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">availableCountries</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span><span class="s1">&#39;France&#39;</span><span class="p">,</span> <span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="s1">&#39;Spain&#39;</span><span class="p">])</span>
     <span class="p">};</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>例3：使用任意js对象的下拉列表</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
     Your country:
     <span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;options: availableCountries,
 </span><span class="s">                       optionsText: &#39;countryName&#39;,
 </span><span class="s">                       value: selectedCountry,
-</span><span class="s">                       optionsCaption: &#39;Choose...&#39;&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">select</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+</span><span class="s">                       optionsCaption: &#39;Choose...&#39;&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: selectedCountry&#34;</span><span class="p"></span><span class="p">&gt;</span> <span class="c">&lt;!-- Appears when you select something --&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: selectedCountry&#34;</span><span class="p">&gt;</span> <span class="c">&lt;!-- Appears when you select something --&gt;</span>
     You have chosen a country with population
-    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: selectedCountry() ? selectedCountry().countryPopulation : &#39;unknown&#39;&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>.
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: selectedCountry() ? selectedCountry().countryPopulation : &#39;unknown&#39;&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>.
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="c1">// Constructor for an object with two properties
 </span><span class="c1"></span>    <span class="kd">var</span> <span class="nx">Country</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">population</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">this</span><span class="p">.</span><span class="nx">countryName</span> <span class="o">=</span> <span class="nx">name</span><span class="p">;</span>
@@ -687,7 +687,7 @@
         <span class="p">]),</span>
         <span class="nx">selectedCountry</span> <span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">()</span> <span class="c1">// Nothing selected by default
 </span><span class="c1"></span>    <span class="p">};</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>例4：使用任意js对象的下拉列表，且显示经过函数计算的文本</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- Same as example 3, except the &lt;select&gt; box expressed as follows: --&gt;</span>
 <span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;options: availableCountries,
@@ -695,16 +695,16 @@
 </span><span class="s">                       return item.countryName + &#39; (pop: &#39; + item.countryPopulation + &#39;)&#39;
 </span><span class="s">                   },
 </span><span class="s">                   value: selectedCountry,
-</span><span class="s">                   optionsCaption: &#39;Choose...&#39;&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">select</span><span class="p">&gt;</span></code></pre></div>
+</span><span class="s">                   optionsCaption: &#39;Choose...&#39;&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span></code></pre></div>
 <p>例5：渲染option元素的后处理（optionsAfterRender）</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">select</span> <span class="na">size</span><span class="o">=</span><span class="s">3</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;
 </span><span class="s">    options: myItems,
 </span><span class="s">    optionsText: &#39;name&#39;,
 </span><span class="s">    optionsValue: &#39;id&#39;,
-</span><span class="s">    optionsAfterRender: setOptionDisable&#34;</span><span class="p"></span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">select</span><span class="p">&gt;</span>
+</span><span class="s">    optionsAfterRender: setOptionDisable&#34;</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">vm</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">myItems</span><span class="o">:</span> <span class="p">[</span>
             <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Item 1&#39;</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">disable</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="kc">false</span><span class="p">)},</span>
@@ -716,18 +716,18 @@
         <span class="p">}</span>
     <span class="p">};</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="nx">vm</span><span class="p">);</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <h2 id="selectedoptions">selectedOptions</h2>
 
 <p>selectedOptions用于控制多选列表的当前选中项。和<code>&lt;select&gt;</code>元素的<code>options</code>绑定同时使用。</p>
 
 <p>如果绑定的不是监控数组，那么会是单向绑定，ko会将用户在界面选中的项更新到数组中。也就是说，始终可以读取到选中项。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>
     Choose some countries you&#39;d like to visit:
-    <span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;options: availableCountries, selectedOptions: chosenCountries&#34;</span> <span class="na">size</span><span class="o">=</span><span class="s">&#34;5&#34;</span> <span class="na">multiple</span><span class="o">=</span><span class="s">&#34;true&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">select</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">select</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;options: availableCountries, selectedOptions: chosenCountries&#34;</span> <span class="na">size</span><span class="o">=</span><span class="s">&#34;5&#34;</span> <span class="na">multiple</span><span class="o">=</span><span class="s">&#34;true&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">select</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">availableCountries</span> <span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span><span class="s1">&#39;France&#39;</span><span class="p">,</span> <span class="s1">&#39;Germany&#39;</span><span class="p">,</span> <span class="s1">&#39;Spain&#39;</span><span class="p">]),</span>
         <span class="nx">chosenCountries</span> <span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observableArray</span><span class="p">([</span><span class="s1">&#39;Germany&#39;</span><span class="p">])</span> <span class="c1">// Initially, only Germany is selected
@@ -735,7 +735,7 @@
 
     <span class="c1">// ... then later ...
 </span><span class="c1"></span>    <span class="nx">viewModel</span><span class="p">.</span><span class="nx">chosenCountries</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="s1">&#39;France&#39;</span><span class="p">);</span> <span class="c1">// Now France is selected too
-</span><span class="c1"></span><span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+</span><span class="c1"></span><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <h2 id="uniquename">uniqueName</h2>
 
 <p>uniqueName可以保证关联的DOM元素具有非空的name属性。</p>
@@ -743,7 +743,7 @@
 <p>一般很少使用该绑定。例外情况有：
 * jQuery Validation只验证有name的元素。
 * IE6不允许选中没有name的radio button。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: someModelProperty, uniqueName: true&#34;</span> <span class="p">/</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: someModelProperty, uniqueName: true&#34;</span> <span class="p">/&gt;</span></code></pre></div>
 <hr />
 
 <p>参考资料：</p>
@@ -758,7 +758,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>498</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>531</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     

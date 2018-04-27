@@ -43,7 +43,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.37.1" />
+<meta name="generator" content="Hugo 0.39" />
 
 
 <link rel="canonical" href="https://wukn.github.io/2016/11/12/knockoutjs-bindings-creating-custom-binding/" />
@@ -251,7 +251,7 @@
 <span class="p">};</span>
 </code></pre></div>
 <p>然后就可以向DOM元素使用它了。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;yourBindingName: someValue&#34;</span><span class="p"></span><span class="p">&gt;</span> <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;yourBindingName: someValue&#34;</span><span class="p">&gt;</span> <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <h3 id="回调函数">回调函数</h3>
 
 <p>创建自定义绑定时需要提供回调函数<code>init</code>和<code>update</code>，可以只提供其中一个。</p>
@@ -285,15 +285,15 @@
             <span class="nx">$</span><span class="p">(</span><span class="nx">element</span><span class="p">).</span><span class="nx">slideUp</span><span class="p">(</span><span class="nx">duration</span><span class="p">);</span>   <span class="c1">// Make the element invisible
 </span><span class="c1"></span>    <span class="p">}</span>
 <span class="p">};</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;slideVisible: giftWrap, slideDuration:600&#34;</span><span class="p"></span><span class="p">&gt;</span>You have selected the option<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">label</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: giftWrap&#34;</span> <span class="p">/</span><span class="p">&gt;</span> Gift wrap<span class="p">&lt;</span><span class="p">/</span><span class="nt">label</span><span class="p">&gt;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;slideVisible: giftWrap, slideDuration:600&#34;</span><span class="p">&gt;</span>You have selected the option<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">label</span><span class="p">&gt;&lt;</span><span class="nt">input</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;checkbox&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;checked: giftWrap&#34;</span> <span class="p">/&gt;</span> Gift wrap<span class="p">&lt;/</span><span class="nt">label</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">giftWrap</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
     <span class="p">};</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <p>如果希望<code>slideVisible</code>在页面第一次加载时不使用动画，只是在用户改变模型状态时才出现动画，可以添加<code>init</code>方法:</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">bindingHandlers</span><span class="p">.</span><span class="nx">slideVisible</span> <span class="o">=</span> <span class="p">{</span>
     <span class="nx">init</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">element</span><span class="p">,</span> <span class="nx">valueAccessor</span><span class="p">)</span> <span class="p">{</span>
@@ -328,18 +328,18 @@
             <span class="nx">element</span><span class="p">.</span><span class="nx">blur</span><span class="p">();</span>
     <span class="p">}</span>
 <span class="p">};</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p"></span><span class="p">&gt;</span>Name: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;hasFocus: editingName&#34;</span> <span class="p">/</span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">p</span><span class="p">&gt;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">p</span><span class="p">&gt;</span>Name: <span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;hasFocus: editingName&#34;</span> <span class="p">/&gt;&lt;/</span><span class="nt">p</span><span class="p">&gt;</span>
 
 <span class="c">&lt;!-- Showing that we can both read and write the focus state --&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: editingName&#34;</span><span class="p"></span><span class="p">&gt;</span>You&#39;re editing the name<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;enable: !editingName(), click:function() { editingName(true) }&#34;</span><span class="p"></span><span class="p">&gt;</span>Edit name<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;visible: editingName&#34;</span><span class="p">&gt;</span>You&#39;re editing the name<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">button</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;enable: !editingName(), click:function() { editingName(true) }&#34;</span><span class="p">&gt;</span>Edit name<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">script</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;text/javascript&#34;</span><span class="p">&gt;</span>
     <span class="kd">var</span> <span class="nx">viewModel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="nx">editingName</span><span class="o">:</span> <span class="nx">ko</span><span class="p">.</span><span class="nx">observable</span><span class="p">()</span>
     <span class="p">};</span>
     <span class="nx">ko</span><span class="p">.</span><span class="nx">applyBindings</span><span class="p">(</span><span class="nx">viewModel</span><span class="p">);</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
+<span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span></code></pre></div>
 <h2 id="控制后代的自定义绑定">控制后代的自定义绑定</h2>
 
 <p>默认情况下，绑定只会作用于应用它的元素。如果希望作用于所有后代元素，只需在<code>init</code>中<code>return { controlsDescendantBindings: true }</code>。</p>
@@ -350,15 +350,15 @@
         <span class="k">return</span> <span class="p">{</span> <span class="nx">controlsDescendantBindings</span><span class="o">:</span> <span class="o">!</span><span class="nx">shouldAllowBindings</span> <span class="p">};</span>
     <span class="p">}</span>
 <span class="p">};</span>
-</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;allowBindings: true&#34;</span><span class="p"></span><span class="p">&gt;</span>
+</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;allowBindings: true&#34;</span><span class="p">&gt;</span>
     <span class="c">&lt;!-- This will display Replacement, because bindings are applied --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: &#39;Replacement&#39;&#34;</span><span class="p"></span><span class="p">&gt;</span>Original<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: &#39;Replacement&#39;&#34;</span><span class="p">&gt;</span>Original<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;allowBindings: false&#34;</span><span class="p"></span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;allowBindings: false&#34;</span><span class="p">&gt;</span>
     <span class="c">&lt;!-- This will display Original, because bindings are not applied --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: &#39;Replacement&#39;&#34;</span><span class="p"></span><span class="p">&gt;</span>Original<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: &#39;Replacement&#39;&#34;</span><span class="p">&gt;</span>Original<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <h3 id="向后代绑定传递额外参数">向后代绑定传递额外参数</h3>
 
 <p>通常使用<code>controlsDescendantBindings</code>的绑定也会调用<code>ko.applyBindingsToDescendants(someBindingContext, element)</code>，使后代绑定应用于一些修改的上下文。</p>
@@ -376,12 +376,12 @@
 <span class="p">};</span>
 </code></pre></div>
 <p>可以看到，绑定上下文有个<code>extend</code>方法，返回一个复制的并带有额外属性的上下文。<code>extend</code>方法接受的参数要么是一个带有属性的对象，要么是能返回这样的对象的函数。建议使用函数作为参数，这样后续的绑定值变化也会更新到绑定上下文中，并且不影响当前的绑定上下文，也就是说不影响兄弟层级的元素，只会影响后代元素。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;withProperties: { emotion: &#39;happy&#39; }&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    Today I feel <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: emotion&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>. <span class="c">&lt;!-- Displays: happy --&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;withProperties: { emotion: &#39;whimsical&#39; }&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    Today I feel <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: emotion&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>. <span class="c">&lt;!-- Displays: whimsical --&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;withProperties: { emotion: &#39;happy&#39; }&#34;</span><span class="p">&gt;</span>
+    Today I feel <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: emotion&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>. <span class="c">&lt;!-- Displays: happy --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;withProperties: { emotion: &#39;whimsical&#39; }&#34;</span><span class="p">&gt;</span>
+    Today I feel <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: emotion&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>. <span class="c">&lt;!-- Displays: whimsical --&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <h3 id="在绑定上下文中添加额外的层级">在绑定上下文中添加额外的层级</h3>
 
 <p><code>with</code>和<code>foreach</code>绑定会在绑定上下文中添加额外的层级。这意味着它们的后代能够使用<code>$parent</code>、<code>$parents</code>、<code>$root</code>或<code>$parentContext</code>来访问外层数据。</p>
@@ -404,13 +404,13 @@
 <span class="p">};</span>
 </code></pre></div>
 <p>这样，<code>withProperties</code>绑定就可以嵌套使用了，并且每个嵌套层级可以通过<code>$parentContext</code>访问父层。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;withProperties: { displayMode: &#39;twoColumn&#39; }&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    The outer display mode is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: displayMode&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>.
-    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;withProperties: { displayMode: &#39;doubleWidth&#39; }&#34;</span><span class="p"></span><span class="p">&gt;</span>
-        The inner display mode is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: displayMode&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>, but I haven&#39;t forgotten
-        that the outer display mode is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $parentContext.displayMode&#34;</span><span class="p"></span><span class="p">&gt;&lt;</span><span class="p">/</span><span class="nt">span</span><span class="p">&gt;</span>.
-    <span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;withProperties: { displayMode: &#39;twoColumn&#39; }&#34;</span><span class="p">&gt;</span>
+    The outer display mode is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: displayMode&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>.
+    <span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;withProperties: { displayMode: &#39;doubleWidth&#39; }&#34;</span><span class="p">&gt;</span>
+        The inner display mode is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: displayMode&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>, but I haven&#39;t forgotten
+        that the outer display mode is <span class="p">&lt;</span><span class="nt">span</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;text: $parentContext.displayMode&#34;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>.
+    <span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <h2 id="支持虚拟元素的自定义绑定">支持虚拟元素的自定义绑定</h2>
 
 <p>使用<code>ko.virtualElements.allowedBindings</code>告诉ko自定义绑定能够识别虚拟元素。</p>
@@ -433,16 +433,16 @@
 <span class="p">};</span>
 </code></pre></div>
 <p>这对普通DOM元素是可用的：</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;randomOrder: true&#34;</span><span class="p"></span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>First<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>Second<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>Third<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">div</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;randomOrder: true&#34;</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>First<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Second<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Third<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span></code></pre></div>
 <p>但是对虚拟元素却不起作用，会报错“The binding &lsquo;randomOrder&rsquo; cannot be used with virtual elements”：</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="c">&lt;!-- ko randomOrder: true --&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>First<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>Second<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
-    <span class="p">&lt;</span><span class="nt">div</span><span class="p"></span><span class="p">&gt;</span>Third<span class="p">&lt;</span><span class="p">/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>First<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Second<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">div</span><span class="p">&gt;</span>Third<span class="p">&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
 <span class="c">&lt;!-- /ko --&gt;</span></code></pre></div>
 <p>要想<code>randomOrder</code>支持虚拟元素，需要配置ko：</p>
 <div class="highlight"><pre class="chroma"><code class="language-js" data-lang="js"><span class="nx">ko</span><span class="p">.</span><span class="nx">virtualElements</span><span class="p">.</span><span class="nx">allowedBindings</span><span class="p">.</span><span class="nx">randomOrder</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
@@ -564,13 +564,13 @@
 <span class="p">}</span>
 </code></pre></div>
 <p><code>uniqueName</code>将允许绑定时不指定value，而默认为<code>true</code>。</p>
-<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: someModelProperty, uniqueName&#34;</span> <span class="p">/</span><span class="p">&gt;</span></code></pre></div>
+<div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">input</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;value: someModelProperty, uniqueName&#34;</span> <span class="p">/&gt;</span></code></pre></div>
 <h3 id="例2-为事件绑定表达式">例2：为事件绑定表达式</h3>
 
 <p>如果希望为<code>click</code>事件绑定表达式（而不是ko期望的函数引用），可以使用预处理器。</p>
 <div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html">ko.bindingHandlers.click.preprocess = function(val) {
     return &#39;function($data,$event){ &#39; + val + &#39; }&#39;;
-}</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: myCount(myCount()+1)&#34;</span><span class="p"></span><span class="p">&gt;</span>Increment<span class="p">&lt;</span><span class="p">/</span><span class="nt">button</span><span class="p">&gt;</span></code></pre></div>
+}</code></pre></div><div class="highlight"><pre class="chroma"><code class="language-html" data-lang="html"><span class="p">&lt;</span><span class="nt">button</span> <span class="na">type</span><span class="o">=</span><span class="s">&#34;button&#34;</span> <span class="na">data-bind</span><span class="o">=</span><span class="s">&#34;click: myCount(myCount()+1)&#34;</span><span class="p">&gt;</span>Increment<span class="p">&lt;/</span><span class="nt">button</span><span class="p">&gt;</span></code></pre></div>
 <h3 id="绑定预处理器">绑定预处理器</h3>
 
 <p>ko.bindingHandlers.<name>.preprocess(value, name, addBindingCallback)</p>
@@ -639,7 +639,7 @@
       </ul>
       
       <p class="post-copyright">
-        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>497</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
+        © Creative Commons Attribution-NonCommercial 4.0 International License.This post was published <strong>531</strong> days ago, content in the post may be inaccurate, even wrong now, please take risk yourself.
       </p>
     </footer>
     
