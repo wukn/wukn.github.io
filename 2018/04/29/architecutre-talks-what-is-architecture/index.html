@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[精耕]认识架构——什么是架构</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 正如我们的生命周期，除了那些别人无法替代必须要由自己来完成的核心生命周期活动（吃饭、睡觉等）外，把其他的生命周期活动并行起来，在同样多的时间内做更多的事情。如何做到这一点呢？
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[精耕]认识架构——什么是架构" />
+    <meta name="twitter:description" content=" 正如我们的生命周期，除了那些别人无法替代必须要由自己来完成的核心生命周期活动（吃饭、睡觉等）外，把其他的生命周期活动并行起来，在同样多的时间内做更多的事情。如何做到这一点呢？
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[精耕]认识架构——什么是架构" />
+  <meta property="og:description" content=" 正如我们的生命周期，除了那些别人无法替代必须要由自己来完成的核心生命周期活动（吃饭、睡觉等）外，把其他的生命周期活动并行起来，在同样多的时间内做更多的事情。如何做到这一点呢？
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/04/29/architecutre-talks-what-is-architecture/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.39" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/04/29/architecutre-talks-what-is-architecture/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[精耕]认识架构——什么是架构</h1>
+      <p class="post-meta">@wukn · Apr 29, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>正如我们的生命周期，除了那些别人无法替代必须要由自己来完成的核心生命周期活动（吃饭、睡觉等）外，把其他的生命周期活动并行起来，在同样多的时间内做更多的事情。如何做到这一点呢？</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="为什么会产生架构">为什么会产生架构</h3>
+
+<h4 id="分工">分工</h4>
+
+<p>将一个大的生命周期拆分成小的核心生命周期和非核心生命周期后，分工就出现了。非核心生命周期可以在时间和空间上并行地进行了。参与分工的角色就可以专心地做好自己擅长的事情。</p>
+
+<p>当一个角色必须完成自己的生命周期中所有相关的活动时，是没有架构的。一旦产生了分工，就把非核心生命周期工作切分成由不同的角色分别来完成，最后通过不同角色之间的交易，使得大的生命周期得以完成。每个角色只需要做好自己擅长的事情，并具备一定的交易能力即可。</p>
+
+<h4 id="分工和生命周期">分工和生命周期</h4>
+
+<p>从生命周期上看，原来需要一个人完成所有的事情，生命周期被细分为很多小的非核心生命周期。这些小的非核心生命周期就可以由另外一个人来负责，在空间和时间上都得以并行，原来的那个人只需要获得另一个人的结果就可以了。</p>
+
+<p>比如，一个人必须先种田，完成粮食的产生，并消费粮食，结束粮食的生命周期才能完成自己的能量获取，以维持生命。此时，粮食的生命周期和人的生命周期都是由一个人来管理，本来可以并行的事情，由于人本身的限制变成了串行。当生命周期切分后，粮食生产的生命周期就分解为粮食的产生生命周期和粮食的消费生命周期。人就不必只依赖于自己生产的粮食，大大拓宽了获取的渠道，而人本身的生命周期并没有受到影响，可是却大大地节省了时间。</p>
+
+<h3 id="什么是架构">什么是架构</h3>
+
+<h4 id="架构产生的条件">架构产生的条件</h4>
+
+<p>细分一下架构产生的动力，有一下几点：</p>
+
+<ol>
+<li><p>必须由人执行的工作。不需要人介入，就意味着不需要改造，不需要节省时间，也就不需要另外再产生架构了。</p></li>
+
+<li><p>每个人的时间有限。每个人都有自己的强项，个人的产出受限于最短板，并且由于人的结构限制，同时只能专注于做好一件事情。人们为了减少自身生命周期活动的投入，必然会把自己不擅长的非核心生命周期工作分解出去，给擅长于这些工作的角色去完成，从而缩短自己所花的时间。</p></li>
+
+<li><p>对目标系统有更高的要求。如果满足于现状，没有时间压力，也就不需要进行架构了。</p></li>
+
+<li><p>目标系统的复杂性使得单个人完成这个系统时会受限于时间。如果自己就可以完成系统的提高，不需要其他人参与，也就不需要架构的设计，这样的人只能算是工匠。复杂系统促使产生分工的思考和尝试。</p></li>
+</ol>
+
+<p>盖房子是个典型的架构活动。建筑的本质就是从自然环境中划出一块独占的空间，但是仍然能够通过门窗等和自然环境保持沟通。建筑架构按照人类生命周期的需求，对地球上的空间进行切分，并通过门窗、地基等技术，保持和地球以及空间的有机的沟通。建筑架构师的目标和责任就是，提升质量，减少时间浪费，更有效率地切分空间，并让空间之间更加有机地进行沟通，以满足人类越来越高的需求，让人类可以更好地享受生命，享受时间，完成核心生命周期活动。</p>
+
+<h4 id="什么是架构-1">什么是架构</h4>
+
+<p>总结一下人类架构，主要包含一下几个要点：</p>
+
+<ol>
+<li><p>根据要解决的人类的问题，对目标系统的边界进行界定。问题主体的确定一般就能够确定边界，问题的确定可以明确核心生命周期。</p></li>
+
+<li><p>围绕目标系统核心生命周期进行切分。切分的原则是要让非核心生命周期独立出来，便于不同的角色并行地开展工作。首先在空间上进行拆分，使得空间上的管理可以并行，而时间执行上串行。因为只有空间上并行才能减少每个人的执行时间。达到空间上的并行后，进一步可以通过预先执行好结果，达到时间上并行的效果，缩短整个生命周期的执行时间。</p></li>
+
+<li><p>对切分出来的部分，确立各自的生命周期及其主体，以及负责的角色。不同角色对其所负责的生命周期负全责，并享受该生命周期推动带来的利益，达到权责对等。每个切分出来的生命周期都应该是完整的，活动的结果都累积在该生命周期的主体上，也就是内聚。</p></li>
+
+<li><p>在拆分出来的非核心生命周期和核心生命周期之间设立沟通机制，使得这些非核心生命周期能够围绕核心生命周期，通过树状架构组装起来成为一个整体，共同为核心生命周期做出贡献。为什么是树状架构呢？因为核心生命周期本身是按照时间线性推进的，拆分后非核心生命周期会围绕核心生命周期形成树状的架构。</p></li>
+</ol>
+
+<p>前面都是以人类为例讨论生命周期，实际上人类只是自然界的一种生命而已，古称“倮虫之长”。自然界各种生命都有自己的生命周期，组成了地球。地球则形成了生命体，有自己的生命周期。不同的星球有形成一个个星系，进而组成整个宇宙。这就是大自然的架构。老子云：“人法地，地法天，天法道，道法自然”。大自然的架构是人类学习的榜样啊。</p>
+
+<p>大自然的架构又是如何推进的呢？靠的就是生存在其中的每种生命，自生自灭，遵从每种生命自身的规律。而每种生命的活动，在得到自身生命周期活动利益的同时也要承担自身生命周期活动的责任，支撑生态链，权责对等。</p>
+
+<p>人类架构实际上就是人们根据自己对世界的认识，为解决某个问题，主动地、有目的地去识别问题，并根据核心生命周期进行分解、合并，以解决这个问题的实践活动。人类架构的产出物，就是对核心问题的提炼和分析，对核心生命周期的识别，以及解决问题的方案。它包括拆分的原则和理由，沟通合并的原则和理由，拆分出来的各个部分的生命周期的确立，以及所对应的推动角色和角色所需要的核心能力，还有对这些拆分的落地等。</p>
+
+<h4 id="架构的生命周期">架构的生命周期</h4>
+
+<p>从架构本身来看，架构也是人类活动的一种分工，人类架构的体现就是组织架构。因此，架构本身也有其自身的生命周期，有其自身的规律。人类的架构总是在人类的业务遇到瓶颈的过程中产生，在瓶颈的解决中应用，在业务消亡时，它也跟着消亡。</p>
+
+<p>架构的生命周期可以被拆分成两个子生命周期：架构设计生命周期、架构实施生命周期。实施是核心生命周期，设计是为实施服务的。架构只有方案是没有意义的，最重要的是把架构落地执行。</p>
+
+<p>架构的设计生命周期，主要工作就是研究业务本身的生命周期。再根据业务面对的问题，发现瓶颈，进行架构的拆分。拆分的原则是把非核心生命周期拆分出来，由不同的角色来负责。每个角色达到权责的对等，并形成不同角色的激励机制。架构的目的并非产生一个业务之外的新的东西出来，只是为了让业务长的更高大强壮，服务于更多人。</p>
+
+<p>架构的实施生命周期，则是为了把架构的拆分落实到组织架构上，让每一个人能够按照架构的职责拆分，并行工作，执行各自的生命周期。这些角色按照树状架构协调相互之间的沟通，使得每个拆分出来的非核心生命周期的增长，都贡献给核心生命周期，同时自己也能够受益。</p>
+
+<p>在架构落地之后，架构就具备了生命。人们在这个架构下有条不紊地协作，共同完成业务的核心目标。</p>
+
+<h3 id="架构和树">架构和树</h3>
+
+<p>树是自然界中非常常见的一种结构。树有主干，有枝叶。主干就相当于核心生命周期，决定了树的生死。枝叶是非核心生命周期，负责为主干获取太阳的能量。同时树根也是一个树状结构，负责从地球获取营养，自身也往下生长。</p>
+
+<h4 id="树与增长">树与增长</h4>
+
+<p>树状结构有什么好处呢？树状结构特别适合增长。如果按照直线往上增长，长的越高就越容易失控，沟通成本越高，风一吹就折。如果按照水平增长，则很难获取阳光，容易被周围高的物体遮挡阳光。而树状的增长，在成本方面最低，沟通的路径也没有显著的增长，带来的效果最好。架构恰恰是为了应对增长的，自然而然架构都是树状的。</p>
+
+<p>从这个角度看，围绕着核心生命周期，把非核心生命周期剥离，也可以使得核心生命周期更加精简、轻量化，更容易应对周围环境的变化，树干也更容易长的壮实。即使某些非核心生命周期发生问题，也不会造成系统性的问题。</p>
+
+<p>谈到树，就必须要提分层，分层实际上就是架构树状拆分的结果。当采用分层的时候，心中要有一个树的概念。如果直接参用分层的方式，最终可能违背了树的原则，导致很多复杂问题，例如跨层访问，就形成了图。</p>
+
+<h4 id="架构和树-1">架构和树</h4>
+
+<p>当业务增长到一等的程度，新的瓶颈出现了。架构发生新的拆分，新的非核心生命周期从业务生命周期中拆分出来，但架构仍是树状的。树干仍然是核心业务决定的，只是架构树长高了，枝叶增多了。</p>
+
+<p>树的高度是有上限的。这个高度是由业务本身决定的，由业务所生存的周边环境提供的能量的多少决定的。架构的目的是要让树能够按照自己的规律长大，而不是在业务中加入架构自己的材料，干扰核心业务，这样反而会阻碍业务的长大。</p>
+
+<p>架构是顺应业务生命周期规律的一种拆分，这个拆分始终是围绕着业务的核心生命周期的，结果只有一种，就是一颗树。只有树的结构，才能保证权责对等。只有权责对等才能够保证参与人能从自身的工作汇总获利，才能保障参与人能持续不断地推进业务的生命周期。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《聊聊架构》——王概凯</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/architecture"><span class="tag">Architecture</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
