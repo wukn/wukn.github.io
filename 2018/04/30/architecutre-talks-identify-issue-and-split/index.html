@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[精耕]认识架构——识别问题和切分的原则</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 做好架构首先需要做的就是识别出需要解决的问题，也就是核心生命周期。一般来说，如果把真正的问题找到，把核心生命周期找到，问题就已经解决八成了。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[精耕]认识架构——识别问题和切分的原则" />
+    <meta name="twitter:description" content=" 做好架构首先需要做的就是识别出需要解决的问题，也就是核心生命周期。一般来说，如果把真正的问题找到，把核心生命周期找到，问题就已经解决八成了。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[精耕]认识架构——识别问题和切分的原则" />
+  <meta property="og:description" content=" 做好架构首先需要做的就是识别出需要解决的问题，也就是核心生命周期。一般来说，如果把真正的问题找到，把核心生命周期找到，问题就已经解决八成了。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/04/30/architecutre-talks-identify-issue-and-split/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.39" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/04/30/architecutre-talks-identify-issue-and-split/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[精耕]认识架构——识别问题和切分的原则</h1>
+      <p class="post-meta">@wukn · Apr 30, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>做好架构首先需要做的就是识别出需要解决的问题，也就是核心生命周期。一般来说，如果把真正的问题找到，把核心生命周期找到，问题就已经解决八成了。</p>
+</blockquote>
+
+<p></p>
+
+<p>在正是讨论架构之前，先聊一聊概念与抽象。大部分人对每天的概念都自以为明白了，但实际上都是下意识的而不是主动的认识。概念是人相互沟通并认识世界的基础。</p>
+
+<h3 id="概念">概念</h3>
+
+<p>“概念”在古代称之为“名相”。一般我们认为：看到一个杯子，“杯子”就是一个名字，指代的看到的东西就是相，就是事物的相状。我们听到“杯子”这个词，脑海里就会浮现出一个杯子的形象。而“杯子”这个词，是用来指代这个相状的，叫做名。合起来就叫做“名相”。</p>
+
+<h4 id="何谓之相">何谓之相</h4>
+
+<p>“相”表达的不是一个具体的东西，例如瓷器杯子，并不是指这个瓷器，而是这个瓷器所起的作用：一手可握，敞口（一般不超过底的大小，否则就是碗了），并且内部有一个空间可盛东西。我们从电视上看到一个杯子的时候，就知道这是杯子，但实际上看到的只是光影而已，只是一个视觉作用。所以相实际上代表的是这个影像，以及这个影像背后所产生的作用，是人对这个作用的认识，并不是具体的某个东西。而名是用来标识这个影像和作用，用来沟通交流的。</p>
+
+<h4 id="概念是沟通的基础">概念是沟通的基础</h4>
+
+<p>为什么需要给杯子的这个作用起一个名字呢？其实是为了解决“人需要一个可单手握持，而且希望避免直接接触所盛物体”这个问题。</p>
+
+<p>所以说，每个概念实际上所解决的，还是人们遇到的某个特定的问题，人们把解决问题的解决方案，给定了一个名字，这个名字就是对应的某个特定的概念。</p>
+
+<p>对于概念这个词本身，为了统一指代这些名字，人们把起这类作用的名字成为“概念”。</p>
+
+<p>回过头来，根据架构的定义，要做好架构首先必须具备的能力就是要能够正确地认识概念，能够发现概念背后所代表的问题，找出核心生命周期，这样才能为做好结构打好基础。</p>
+
+<h3 id="抽象">抽象</h3>
+
+<h4 id="个性与共性">个性与共性</h4>
+
+<p>每个事物本身都有其独特的地方，称之为事物的个性。玫瑰花的红是非常独特的，只有亲自看到的人才能感受到它的魅力，这就是它的个性。一旦我们用“红色”来表述它，那么这个红色就变成了大家所共同认识的红色。这就是共性。抽象只能表达事物的共性，无法表达事物的个性。例如桌子，大部分人关注的共性，有几条腿，桌面形状等，但是具备同样共性的事物有很多，怎么能从这些共性中推导出具备这些共性的一定是桌子呢？</p>
+
+<p>所以要定义一个事物只能用它的个性。抽象恰恰主要关注在共性上，不具备这个能力。但要找出事物的个性，就必须要深入分析和理解这个事物的核心生命周期。核心生命周期明确了，事物的个性也就明确了。</p>
+
+<p>还是桌子，桌子的产生是为了解决人类坐在椅子上可以继续展开活动的问题。一旦这个问题不存在了，桌子的生命周期就结束了。古人席地而坐，那时的桌子就很低。现代人坐椅子上，古代桌子的生命周期到现代就结束了。日本还保留席地而坐的习惯，所以日本的桌子比中国的矮。这就是事物的特性。可是日本的桌子跟中国的有一点是一样的，桌子下面一定是空的，给腿留有伸展的空间，所以都叫桌子。这一个桌子的共性是由人体的结构决定的，坐时一定会屈腿向前。</p>
+
+<p>软件行业很喜欢用抽象来定义一个概念。可抽象实际上是把不同概念的相似部分合并在一起，形成一个新的概念。这里面有个很严重的问题，首先“相似的部分”在不同的人看来并不一定那么相似，导致不同的人定义出来的概念不一样；其次，抽象之后形成的是一个新的概念，有着自己的个性，和原来那个概念所代表的个性并不一样，比如，用容器来定义杯子、碗等。</p>
+
+<p>因为所解决的问题不一样，两个概念的个性是完全不一样的，所以不能用抽象来定义一个事物。抽象实际上是一个分类的过程，抽取出事物中人所关心的一些特征，并且不同的人抽取的侧重点是不一样的。</p>
+
+<p>比如杯子和容器，很多人认为容器是杯子的抽象，但实际上杯子就是杯子，容器就是容器，它们的个性，也就是所解决的问题不一样。当人们需要解决装东西的问题的时候会说要一个容器；当人们需要解决单手持握且要装东西的问题的时候会说要一个杯子。容器没办法代表杯子，只能够作为杯子的一个分类。</p>
+
+<p>要做好架构首先要具备识别个性的能力，也就是要有发现独特问题的能力。而个性是无法用语言表达的。这就意味着，做架构的人必须亲自体验业务，感受业务，才能真正认识业务的个性，真正认识业务所面临的问题。在理解业务个性的基础上，才能够谈共性。</p>
+
+<h3 id="识别问题">识别问题</h3>
+
+<p>做好架构首先需要做的就是是辈出需要解决的问题，也就是核心生命周期。</p>
+
+<h4 id="面对问题有哪些困难">面对问题有哪些困难</h4>
+
+<p>先看一个笑话。一位女士对老公说：把袋子里的土豆削一般下锅。结果所有的土豆都下锅了，并且锅里煮的每一个土豆都被削了一半皮。</p>
+
+<p>可能很多人会认为这只是沟通问题，然后一笑了之。其实，之所以出现这类问题，是由于人们大多数时候都在急于解决问题，担心自己的时间不够而焦虑，恨不得马上完成别人交给自己的工作，尽可能地减少问题对自己时间的占用，而不关心“真正的问题是什么”。</p>
+
+<p>当我们去解决一个问题的时候，一定要克服对时间的焦虑，耐心地先把问题搞清楚。</p>
+
+<p>人们处理问题一般会面临这两种情况。一是被告知要解决一个问题，但移交过来的实际上是一个解决方案，而不是问题本身，此时往往容易不经过思考就直接去执行了。而是被告知要解决一个问题，此时往往急于解决问题，未经过仔细分析，通过直觉或网上搜索就找到一个解决方案，然后马上考虑该解决方案如何落地，或者有集中解决方案，自行挑选一个自认为比较合适的，还为自己的反应快而沾沾自喜。</p>
+
+<h4 id="如何识别问题">如何识别问题</h4>
+
+<p>沟通中很容易出现的一个问题是：缺乏主语。互相认为对方都能听懂自己所说的主语是谁，结果大家都一起犯错误。识别问题的一个最重要的前提就是要弄清楚：是谁的问题，也就是要先明确问题的主体是谁。主体弄清楚了，问题的边界也就跟着确定了，再去讨论问题才有意义。</p>
+
+<p>架构时应该问的第一个正确的问题就是：目标问题是谁的问题。在削土豆这个故事中，女主人给出了一个煮土豆的解决方案，而男主人得到一个任务，尽职尽责的完成了。而男主人要解决的实际上是家庭晚餐需要吃土豆的问题。</p>
+
+<p>明确了问题的主体，这个主体自然会带来很多边界约束。因为识别了问题的主体，就附带出了一些隐含信息。削土豆下锅这个问题是要解决晚餐的问题，隐含这后续怎么煮，放多少水，煮多长时间等问题，说不定还能识别出女主人给出的解决方案可能是有问题的。这个时候才算真正地明白了问题。可以想像，这样下去最后的结果一定是大家都满意的，因为真正的问题被发现并解决了。</p>
+
+<p>当我们处理问题的时候，如果发现自己正在致力于吧自己的工作完成，就要马上警惕起来，因为这样下去会演变成没有主人翁精神（Ownership）的工作态度。</p>
+
+<p>架构师要有这个自觉：发现问题永远都比解决问题更加重要。</p>
+
+<h4 id="寻找问题主体">寻找问题主体</h4>
+
+<p>明白了问题的主体，人们才可能真正地认识问题是什么。因为问题的主体是问题的隐含边界，边界不确定下来，问题就是不确定的。一旦确定了问题的主体，剩下的就是去弄明白主体有哪些问题。通常的方式就是直接面对主体进行访谈，深入到主体的工作生活当中，体验并感受这些问题，识别出关键生命周期。在此基础上做架构就容易了。</p>
+
+<p>总结一下，要想正确地认识问题，需要问两个问题：</p>
+
+<p>（1）这是谁的问题？</p>
+
+<p>（2）有什么问题？</p>
+
+<h3 id="切分的原则">切分的原则</h3>
+
+<p>在识别出是谁的问题之后，在大部分情况下，问题都迎刃而解。很多时候问题的产生都是因为沟通的误解，或者主观上有过多不必要的利益诉求导致的。但总还是有一部分确实是有问题的，此时需要做调整，那么就必须要有所动作，以进行相应的解决，而解决的方式就是架构切分。</p>
+
+<h4 id="切分就是利益的调整">切分就是利益的调整</h4>
+
+<p>架构师要非常清楚，所有的切分调整，都是对相关人的利益进行调整。</p>
+
+<p>随着社会的发展，产生了人类的分工，分工背后的动力来自于每个人寻求自己的利益最大化的冲动。每个人的时间和能力有限，因此需要放弃一些自己不善长的事情，用自己擅长生产的东西去换取别人生产的东西。分工的结果是让大家都能够得到更多。这就是人类社会自然而然产生的架构切分。</p>
+
+<h4 id="为什么需要切分">为什么需要切分</h4>
+
+<p>当人们认识到要主动地去切分一个系统的时候，就不能忘掉利益这个原动力。所有的切分决策都不能违背这一点。一旦确定了问题的主体，那么系统的利益相关人（Stakeholder）就确定下来了。所发现的问题基本上有两种：</p>
+
+<p>a. 某个或某些利益相关人时间或空间上的负载太重</p>
+
+<p>b. 某个或某些利益相关人的权力和义务不对等</p>
+
+<h4 id="切分的原则-1">切分的原则</h4>
+
+<p>利益相关人负载太重是导致切分的原因，权责不对等是切分不合理而导致的新问题。权责不对等的问题最终还是要回到利益相关人的负载太重来解决。对于负载太重的问题，本质上都是时间上的负载太重，有限的时间无法得到期望的产出。如何在有限的时间做出更多的事情呢？只有把利益相关人在时间上连续的动作切分成时间或空间上可以并行的动作，在时间或空间上横向扩展。</p>
+
+<p>进行切分的话，就要遵循架构切分的原则：</p>
+
+<ol>
+<li><p>被切分的生命周期，如果必须要生命周期的主体在连续时间内持续执行，而且不能够被打断并更换生命周期主体的话，就不能切分出去。这类生命周期是切分的最小粒度，受限于当前技术水平无法进一步切分。就像十月怀胎不能拆分成十个人一个月完成一样。</p></li>
+
+<li><p>每个生命周期的负责人，对所负责生命周期的权力和义务必须是对等的。如果负责人无法从他负责的生命周期的活动推进中获利，就违反了分工交换原则，这导致每个个体的利益受到了伤害，最终切分的生命周期无法顺利进行。</p></li>
+
+<li><p>切分出来的生命周期，不应该超出一个自然人的承载。切分出来的只能是非核心生命周期，其主体和核心生命周期可以不一致。并且这些非核心生命周期是完整的，也就是内聚的。</p></li>
+
+<li><p>切分是内部活动，内部无论怎么切，对整个系统的外部都应该是透明的。如果因为切分导致整个系统解决的问题发生了变化，那么这个变化就不属于架构的活动，或者说这个切分是不符合业务的。</p></li>
+</ol>
+
+<h4 id="树和分层">树和分层</h4>
+
+<p>权责对等的原则确保我们不能违反人性。从权责对等的原则可以看出，所有的架构拆分都应该形成树状的结果。不应该变成有向图，更不应该是无向图。很多人一谈架构就必谈分层，实际上分层的前提是把一个生命周期的连续过程拆分成了一棵树，因为有了树才有了层的出现。从根节点下来，深度相同的是一层。</p>
+
+<p>同样，对于一个组织架构，可以做一个粗略的判断：如果一个企业的组织架构出现了图，如多线汇报，一定是对利益相关人的利益分析出现了问题，必定会导致权责不对等的情况发生。这时需要快速调整利益相关人的职责，消除权责不对等的问题，让组织架构恢复树状。树的层次越深，沟通的损失就越大，效率就越低。</p>
+
+<h4 id="切分与建模">切分与建模</h4>
+
+<p>架构切分的过程就是建模的过程。早期的时候一个系统往往会做很多事情。在用户量增大后系统很快就达到瓶颈，这时候就不得不拆分了。拆分就需要识别核心生命周期和非核心生命周期，把非核心生命周期切分出来。切分出来的不同子生命周期就形成了不同的概念。所以每个概念背后就是一个生命周期，每个生命周期都是一个模型。核心生命周期模型把所有的模型通过 树组织起来，形成了一个新的模型。</p>
+
+<p>这些不同的概念，大部分时候人们已经自发地建好了，架构师更多的是要去理解这些概念，识别概念背后所代表的问题，以及该概念对应的人的利益。</p>
+
+<h4 id="切分的输出和组织架构">切分的输出和组织架构</h4>
+
+<p>架构切分的输出实际上就是一个系统的模型，一颗以业务生命周期为树干的树。对于这颗树，要识别出有多少个相关方，每个相关方需要承担哪些权力和义务，不同的相关方是以什么方式组合起来完成整个系统。有的时候从上往下切，有的时候从下往上合并，有的时候两个方向皆有之。</p>
+
+<p>架构切分的结果最终都会体现在组织架构上。因为架构的切分是对人利益的重新分配。另一方面，架构切分需要组织架构来保障实施。负担重的利益相关人要减轻职责和权力；负担轻的利益相关人要增加职责和权力；所有人负担都很重，就要增加人，形成新的架构切分，或者引进新的技术，提升大家的生产力，以形成新的架构切分。所以架构切分的时候往往是组织长大的时候。</p>
+
+<p>总结一下：</p>
+
+<ol>
+<li><p>架构的切分的导火索是人的负担太重，也就是时间不够。</p></li>
+
+<li><p>架构的切分实际就是对利益相关人的利益进行切分或合并，使得每个利益相关人的权责是对等的，每个利益相关人可以为自己的利益负责。</p></li>
+
+<li><p>架构切分的最终结果都会体现在组织架构上，只有这样才能让架构落地并推进。</p></li>
+
+<li><p>架构切分的结果一定是一个树状，这也是为什么会产生分层。层数越多沟通越多，效率越低，分层要越少越好。尽可能变成一颗平衡树，才能让整个系统的效率最大化。</p></li>
+</ol>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《聊聊架构》——王概凯</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/architecture"><span class="tag">Architecture</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
