@@ -3,8 +3,8 @@ title: "[精耕]认识架构——生命周期"
 author: "wukn"
 tags: ["Architecture"]
 catalog: true
-date: 2018-04-27T22:49:51+08:00
-url: /2017/01/01/architecutre-talks-lifecycle/
+date: 2018-04-28T00:24:00+08:00
+url: /2018/04/28/architecutre-talks-lifecycle/
 
 ---
 
