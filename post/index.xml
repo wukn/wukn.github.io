@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 06 May 2018 10:24:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 07 May 2018 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[精耕]软件架构——业务、架构和技术三者的关系</title>
+      <link>https://wukn.github.io/2018/05/07/architecutre-talks-business-architeture-technology/</link>
+      <pubDate>Mon, 07 May 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/05/07/architecutre-talks-business-architeture-technology/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;在软件设计开发的过程中经常会看到，很多所谓的架构讨论实际上只是在讨论某些技术。有些人，特别是软件工程师，认为架构和技术实际上是等同的。多学会了几种技术，就觉得可以做架构师了。或者学会的技术越多，就觉得自己的架构水平越高。往往还看不上业务。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[精耕]软件架构——软件的生命周期与软件架构</title>

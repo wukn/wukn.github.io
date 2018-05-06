@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[精耕]软件架构——业务、架构和技术三者的关系</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 在软件设计开发的过程中经常会看到，很多所谓的架构讨论实际上只是在讨论某些技术。有些人，特别是软件工程师，认为架构和技术实际上是等同的。多学会了几种技术，就觉得可以做架构师了。或者学会的技术越多，就觉得自己的架构水平越高。往往还看不上业务。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[精耕]软件架构——业务、架构和技术三者的关系" />
+    <meta name="twitter:description" content=" 在软件设计开发的过程中经常会看到，很多所谓的架构讨论实际上只是在讨论某些技术。有些人，特别是软件工程师，认为架构和技术实际上是等同的。多学会了几种技术，就觉得可以做架构师了。或者学会的技术越多，就觉得自己的架构水平越高。往往还看不上业务。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[精耕]软件架构——业务、架构和技术三者的关系" />
+  <meta property="og:description" content=" 在软件设计开发的过程中经常会看到，很多所谓的架构讨论实际上只是在讨论某些技术。有些人，特别是软件工程师，认为架构和技术实际上是等同的。多学会了几种技术，就觉得可以做架构师了。或者学会的技术越多，就觉得自己的架构水平越高。往往还看不上业务。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/05/07/architecutre-talks-business-architeture-technology/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.2" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/05/07/architecutre-talks-business-architeture-technology/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[精耕]软件架构——业务、架构和技术三者的关系</h1>
+      <p class="post-meta">@wukn · May 7, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>在软件设计开发的过程中经常会看到，很多所谓的架构讨论实际上只是在讨论某些技术。有些人，特别是软件工程师，认为架构和技术实际上是等同的。多学会了几种技术，就觉得可以做架构师了。或者学会的技术越多，就觉得自己的架构水平越高。往往还看不上业务。</p>
+</blockquote>
+
+<p></p>
+
+<p>针对架构和技术是等同的这一观点，任何技术都是为了解决某种问题而存在的，学会了很多技术，并不代表能够利用这些技术来解决问题。学会技术的多少，所带来的差别只是解决问题的手段多了些而已。但是手段多了就一定是好事吗？学会的技术越多，很多时候就会陷入选择的困境中。</p>
+
+<p>另一种普遍现象，做技术的软件工程师往往看不上业务。觉得技术更高端，而业务太平凡、太低端，并且业务人员总是给技术挖坑。而业务人员则觉得做技术的眼光高，但总是理解有偏差。技术人员往往对业务一知半解，业务问题总是解决得不圆满。</p>
+
+<h3 id="什么是技术">什么是技术</h3>
+
+<p>当我们一无所有、或者什么都不会的时候，是谈不上什么技术的。通过人为创造条件，让指定的规律按照人类的意愿发生，这就是技术。</p>
+
+<p>技术的背后是规律。技术出现以后就会形成相应的工具，把技术实体化，以方便人们应用技术。如钻木取火，人类使用弓弦来取代双手搓木棍。</p>
+
+<h3 id="业务和架构以及技术之间的联系">业务和架构以及技术之间的联系</h3>
+
+<p>技术总是在人类对业务目标要求不断提高的情况下产生，其目的是为了获取更大的利益。所以：技术是为了解决业务问题而产生的，没有了业务，技术也就没有了存在的前提。有了更好的技术后，效率较差的技术就会慢慢被淘汰，直至消失。</p>
+
+<p>先有业务问题，才会有技术来解决业务问题。而业务的长大要求，提高了对技术的要求，导致了对业务生命周期的拆分，以并行的方式提升效率，形成了架构，也形成了新的技术。所以三者的关系是：业务是核心，技术是解决业务问题的工具，而架构是让业务长大的组织方法。架构需要用技术来实现拆分，而技术需要架构来合理组织，以提升效率。形象一点说，业务是硬币，架构和技术是硬币的两面。</p>
+
+<h3 id="重新发明轮子">重新发明轮子</h3>
+
+<p>当现有已经存在很多技术，而这些技术所解决的问题，和业务所要解决的问题，并没有直接对应的时候，就需要有意识地拆分业务的生命周期。当拆分出来的非核心生命周期足够小时，慢慢就会出现符合要求的技术，直接采用即可。可是当拆分还不是那么确定，但是业务的问题又亟待解决，那么应该采用哪些技术，还是自己重新发明轮子呢？</p>
+
+<p>（1）当技术所要解决的问题和拆分出来要解决的问题完全匹配时，这是最完美的。使用现有的技术就能很好的解决问题。</p>
+
+<p>（2）当技术所提供的能力远远超过需要解决的问题时，往往掌握技术和维护技术就会成为负担。越复杂的技术，成本越高，带来的问题也会越多。如果自己实现一个仅仅是解决当前问题的技术，可能成本反而更低。</p>
+
+<p>（3）当技术所提供的能力和我们所要解决的问题部门匹配时，要判断是否要采用，最终还是看成本。拿手机砸核桃。</p>
+
+<p>所以，在架构拆分的基础上，识别并平衡技术的能力，也是架构师所要具备的能力之一。考虑的主要因素是长期的成本和收益。</p>
+
+<h3 id="开源技术">开源技术</h3>
+
+<p>软件行业有太多人们没有遇到过的问题，比如用户的访问流量疯涨就是其中之一。这也是为什么很多大型的互联网公司不断地开发出新技术的原因：他们所遇到的问题并没有现成的技术框架能够解决，其他公司也不一定遇到过。这些公司会把他们所创造的新技术开源出来，贡献给社区。</p>
+
+<p>代码的开源就类似很多人写书来阐述自己的理念。拿到了别人的代码，就相当于拿到了别人写的书，并不代表就能理解别人的代码。即便理解了，也不代表就能把软件运用好。</p>
+
+<p>要想采用开源技术，就要理解这些开源技术往往都有其特定的使用场景。比如针对大流量的技术，对其他小公司来说，大多时候是过于复杂的，采用之前必须了解这些技术原本是用来解决谁的问题的。小公司采用针对大流量的新技术，仅仅维护和监控就足以让人头疼。若环境配套跟不上，则技术是无法发挥作用的。而和新技术最重要的配套就是人的配套，以及人的观念的配套。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《聊聊架构》——王概凯</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/architecture"><span class="tag">Architecture</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
