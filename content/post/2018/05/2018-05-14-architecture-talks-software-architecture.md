@@ -4,7 +4,7 @@ author: "wukn"
 tags: ["Architecture"]
 catalog: true
 date: 2018-05-14T00:00:00+08:00
-url: /2018/05/014/architecutre-talks-software-architeture/
+url: /2018/05/14/architecutre-talks-software-architeture/
 
 ---
 
