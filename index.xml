@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Mon, 07 May 2018 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 14 May 2018 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[精耕]软件架构——软件的架构拆分</title>
+      <link>https://wukn.github.io/2018/05/014/architecutre-talks-software-architeture/</link>
+      <pubDate>Mon, 14 May 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/05/014/architecutre-talks-software-architeture/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;众所周知软件需要拆分。但是如何拆分，根据什么原则拆分，却众说纷纭，各有各的道理。有人甚至会问，把架构一步到位做好是不是更好？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[精耕]软件架构——业务、架构和技术三者的关系</title>
