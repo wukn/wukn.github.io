@@ -242,6 +242,23 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-master/" class="post-link">[k8s] 部署kubernetes集群——（三）部署Master节点</a></h3>
+    <p class="post-meta">@wukn · Oct 8, 2017 · 2 min read</p>
+  </header>
+  
+  <p class="post-summary"> Kubernetes master节点上需要kube-apiserver、kube-scheduler、kube-controller-manager。
+ 同一时刻只有一个kube-scheduler和kube-controller-manager实例处于工作状态。为了master的高可用，我们会在每个master节点上都部署一套kube-scheduler和kube-controller-manager，它们之间通过选举产生一个leader。
+master节点与node节点上的Pods通过pod网络通信，因此需要在master节点上部署flannel网络。上一篇已经说了。
+
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://wukn.github.io/2017/10/08/install-kubernetes-cluster-v1.8.0-deploy-master/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://wukn.github.io/2017/10/01/install-kubernetes-cluster-v1.8.0-deploy-master/" class="post-link">[k8s] 部署kubernetes集群——（二）部署etcd和flannel</a></h3>
     <p class="post-meta">@wukn · Oct 2, 2017 · 2 min read</p>
   </header>
@@ -357,22 +374,6 @@ Kubernetes集群的Pod之前需要能相互通信，这里使用flannel搭建vxl
 </p>
   <footer class="post-footer">
     <a class="read-more" href="https://wukn.github.io/2017/03/29/oo-design-pattern-structure/">Read More →</a>
-  </footer>
-</article>
-
-      
-        <article class="post-entry">
-  <header class="post-header">
-    <h3 class="post-title"><a href="https://wukn.github.io/2017/03/24/oo-design-pattern-create/" class="post-link">[设计模式]创建型模式</a></h3>
-    <p class="post-meta">@wukn · Mar 24, 2017 · 1 min read</p>
-  </header>
-  
-  <p class="post-summary"> 创建型模式用于处理对象的创建。
-创建型模式用各种方法创建或组合各种类型的对象,并向对象的使用者隐藏对象的创建过程。
- 
-</p>
-  <footer class="post-footer">
-    <a class="read-more" href="https://wukn.github.io/2017/03/24/oo-design-pattern-create/">Read More →</a>
   </footer>
 </article>
 
