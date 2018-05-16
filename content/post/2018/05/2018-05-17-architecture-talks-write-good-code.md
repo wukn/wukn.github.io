@@ -3,8 +3,8 @@ title: "[精耕]软件架构——如何写好代码"
 author: "wukn"
 tags: ["Architecture"]
 catalog: true
-date: 2018-05-17T00:00:00+08:00
-url: /2018/05/17/architecutre-talks-write-good-code/
+date: 2018-05-16T23:00:00+08:00
+url: /2018/05/11/architecutre-talks-write-good-code/
 
 ---
 
