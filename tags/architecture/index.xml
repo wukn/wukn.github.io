@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 16 May 2018 23:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 23 May 2018 23:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/tags/architecture/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[精耕]软件架构——软件架构和面向对象</title>
+      <link>https://wukn.github.io/2018/05/23/architecutre-talks-software-architecture-and-object-oriented/</link>
+      <pubDate>Wed, 23 May 2018 23:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/05/23/architecutre-talks-software-architecture-and-object-oriented/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;大部分人讨论面向对象其实是面向对象编程语言的特性。和面向对象相对的是面向过程。可是面向对象和面向过程不仅仅是编程语言，还是两种不同的思维方式。这两种不同的思维方式也不是相互对立的，就如同硬币的正反面缺一不可。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[精耕]软件架构——如何写好代码</title>
