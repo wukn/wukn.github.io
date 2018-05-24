@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[精耕]软件架构——软件架构和设计模式、系统框架</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 软件工程师做着做着就会接触到设计模式。初学设计模式会惊为天人，然后以为设计模式就是架构。但慢慢到一定阶段后就开始习以为常，不再谈设计模式，而是开始孜孜不倦地学习架构。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[精耕]软件架构——软件架构和设计模式、系统框架" />
+    <meta name="twitter:description" content=" 软件工程师做着做着就会接触到设计模式。初学设计模式会惊为天人，然后以为设计模式就是架构。但慢慢到一定阶段后就开始习以为常，不再谈设计模式，而是开始孜孜不倦地学习架构。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[精耕]软件架构——软件架构和设计模式、系统框架" />
+  <meta property="og:description" content=" 软件工程师做着做着就会接触到设计模式。初学设计模式会惊为天人，然后以为设计模式就是架构。但慢慢到一定阶段后就开始习以为常，不再谈设计模式，而是开始孜孜不倦地学习架构。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/05/25/architecutre-talks-software-architecture-and-design-pattern-and-frame/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.3" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/05/25/architecutre-talks-software-architecture-and-design-pattern-and-frame/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[精耕]软件架构——软件架构和设计模式、系统框架</h1>
+      <p class="post-meta">@wukn · May 25, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>软件工程师做着做着就会接触到设计模式。初学设计模式会惊为天人，然后以为设计模式就是架构。但慢慢到一定阶段后就开始习以为常，不再谈设计模式，而是开始孜孜不倦地学习架构。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="模式以及模式的意义">模式以及模式的意义</h3>
+
+<p>什么叫做模式（Pattern）？模式在古代指的是事物标准的样式。Pattern在WikiPedia中的定义是，is a discernible regularity in the world or in a manmade design，也就是在自然界或者人类设计中产生的一种可识别的规律。其重要的特征是重复性和周期性。能够产生模式的一般被成为模板（Template）。</p>
+
+<p>要想得到模式，得有抽象的思维。通过分析不同事物的共性，去掉差异，提取共同点，从而得到类似的规律。</p>
+
+<h3 id="什么是设计模式">什么是设计模式</h3>
+
+<p>设计模式是把模式的范围缩小限定在设计的范围。那什么是设计？设为布置、安排，计为谋划、策略。设计可以理解为一种有计划、有目的的活动，针对问题，通过对人或物进行合适的摆放，做出一个解决方案，并且还要考虑实现的成本。第一，设计是用来解决人的问题的。第二，设计往往要借助已有的东西，对她们重新进行合适的定位和组合，来达到或满足人的目标。</p>
+
+<p>一旦把某个设计作为模式，那么这个设计一定是可以落地实现，而且很可能已经实现了，并具有良好的效果。这个设计就会被当作模板，作为被解决问题的一个典型解决方案。这类设计被称为设计模式。</p>
+
+<p>当一个解决方案已经成为模式的时候，解决方案就变成了一种技巧、技术。所以当人们在使用一个设计模式的时候，实际上就是在使用一种已经存在的技术来解决现实的问题。</p>
+
+<h3 id="软件设计模式">软件设计模式</h3>
+
+<p>受到建筑学中设计模式的启发，GoF总结了23个通用的设计模式，来指导面向对象语言代码的编写。书中主要描述了面向对象软件开发中的三类设计模式：创建型（Creational）、结构型（Structural）、行为型（Behavioral）。要想理解这些设计模式，还是要回归到为人服务的角度，才能够比较容易地理解这些模式。</p>
+
+<h3 id="设计模式和架构">设计模式和架构</h3>
+
+<p>创建型的模式用生命周期来理解，就是把产生对象的生命周期单独拆分出来，即发生了架构拆分。结构型的模式则专注于对象的不同组合方式，而行为型则主要针对对象之间的沟通。</p>
+
+<p>这些设计模式无一例外的都是把原有对象的访问生命周期拉长，增加了环节，在不修改原有对象的基础上，添加新的能力或者获得新的自由度。</p>
+
+<p>站在原有对象的角度来看，设计模式基本都是组合现有对象的能力，通过对原有对象访问生命周期进行架构拆分，形成一个新的解决方案来解决特定的问题。站在业务的角度，人们创造一个事物的过程总是先建设好事物本身，再考虑如何把业务和用户联系起来。设计模式正好契合了连接用户和业务的这个需要。</p>
+
+<p>因此，设计模式要解决的问题和原有对象所要解决的问题并不相同。站在组合的角度，设计模式是集合现有对象的能力，针对要解决的问题，通过某种方式的组合来形成问题的解决方案。从设计模式的分工角度来看，设计模式需要不同的对象结合起来完成一个目标。也就是说一个设计模式是有一个很清晰的内部对象的分工。设计模式内部的分工往往是抽象、简化的。</p>
+
+<p>设计模式本身就是一个架构拆分的结果，只是这个拆分被标准化了，可以被重复使用。</p>
+
+<h3 id="软件框架">软件框架</h3>
+
+<p>在设计模式实现的过程中会发现，经常需要修改的部分输入输出部分的扩张，核心部分则是实现设计模式本身，并未输入输出扩张的简化提供支持。同时为输入输出提供数据传输和转换的通道。</p>
+
+<p>比如MVC框架（Model-View-Controller），就是基于MVC设计模式的一个成熟的解决方案。其核心是为了方便用户对内部业务逻辑的访问，提供给用户视图来做交互，并分别对视图和模型的变化提供支持，通过简单的声明或配置就可以很容易地更改。控制器进行了封装，作为其自身的核心业务，对用户不可见。在开发用户访问界面时只需关注视图和模型即可。用户的访问生命周期被MVC做了切分，把控制器拆分了出来，也就是说发生了架构拆分。MVC中的模型不是业务模型，它更多的是对视图的数据支持，一般用DTO（Data Transfer Object）来表达。DTO和业务模型之间需要使用适配器模式来做转换。</p>
+
+<p>再比如ORM框架Hibernate，它要解决的问题是：数据库存储是关系型的，和面向对象 并不一致，如何保存对象的状态。这就需要一个转换，需要使用类似适配器的模式来解决问题。</p>
+
+<p>什么是框架？框架基本上都是根据也业务模型或设计模式等，把模型中稳定的部分进行封装，形成一个大的边界，但是具体内容仍留有余地。框架对业务模型中变化的部分，一般会提供很容易的扩展方式，使得框架使用者可以根据自己的业务特殊性对框架进行扩展。</p>
+
+<p>框架的背后总有一个模式存在，背后的原因是因为有一个大家普遍都会遇到的共同问题。框架的目的是方便让其他软件在内部解决问题，引用了框架就能获得这个框架所提供的能力。而想要用好这个框架，首先需要理解好设个框架所能解决的问题，然后才能理解这个框架本身的业务模型和架构的拆分方式，最终才能用好这个框架。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《聊聊架构》——王概凯</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/architecture"><span class="tag">Architecture</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
