@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[精耕]代码整洁之道——整洁代码</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 细节之中自有天地，整洁成就卓越代码。代码质量与其整洁度成正比。干净的代码，既在质量上较为可靠，也为后期维护、升级奠定了良好了基础。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[精耕]代码整洁之道——整洁代码" />
+    <meta name="twitter:description" content=" 细节之中自有天地，整洁成就卓越代码。代码质量与其整洁度成正比。干净的代码，既在质量上较为可靠，也为后期维护、升级奠定了良好了基础。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[精耕]代码整洁之道——整洁代码" />
+  <meta property="og:description" content=" 细节之中自有天地，整洁成就卓越代码。代码质量与其整洁度成正比。干净的代码，既在质量上较为可靠，也为后期维护、升级奠定了良好了基础。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/05/27/clean-code-clean-code/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.3" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/05/27/clean-code-clean-code/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[精耕]代码整洁之道——整洁代码</h1>
+      <p class="post-meta">@wukn · May 27, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>细节之中自有天地，整洁成就卓越代码。代码质量与其整洁度成正比。干净的代码，既在质量上较为可靠，也为后期维护、升级奠定了良好了基础。</p>
+</blockquote>
+
+<p></p>
+
+<p>架构是软件开发用到的借喻之一，主要用在那种等同于建筑师交付毛坯房一般交付初始软件产品的场合。在Scrum和Agile的日子里，人们关注的是快速将产品推向市场。我们要求工厂全速运转、生产软件。我们从产品备忘或用户故事开始创造产品。来自制造业的借喻在这种场合大行其道。Scrum就从装配线式的日本汽车生产方式中获益良多。即便是汽车工业里，大量的工作也并不在于生产而是维护——或避免维护。一种名为“全员生产维护”（Total Productive Maintenance，TPM）的质量保证手段在日本出现。它关注维护甚于关注生产。TPM的主要支柱之一就是5S原则体系。5S原则是精益的基石所在。良好的软件实践遵循这些规程：专注、镇定和思考。5S哲学包括以下概念：</p>
+
+<ul>
+<li><p><strong>整理</strong>（Seiri），或谓组织（英文中的sort）。搞清楚事物所在至关重要，例如通过恰当地命名之类的手段。</p></li>
+
+<li><p><strong>整顿</strong>（Seiton），或谓整齐（英文中的systematize，系统化）。物皆有其位，而后物尽归其位（A place for everything, and everything in its place）。每段代码都该在你希望它所在的地方，如果不在那里，就需要重构了。</p></li>
+
+<li><p><strong>清楚</strong>（Seiso），或谓清洁（英文中的shine，锃亮）。对于那种四处遗弃的带注视的代码及反映过往或期望的无注视代码，除之而后快。</p></li>
+
+<li><p><strong>清洁</strong>（Seiketsu），或谓标准化。保持工作地清洁的组内共识。在开发组内使用一贯的代码风格和实践手段。</p></li>
+
+<li><p><strong>身美</strong>（Shitsuke），或谓纪律，亦谓素养。在实践中贯彻规程，并时时体现于个人工作上，而且要乐于改进。</p></li>
+</ul>
+
+<p>衡量代码质量的唯一有效标准： WTF/min。</p>
+
+<h3 id="糟糕的代码">糟糕的代码</h3>
+
+<p>有点经验的程序员定然遇到过曾为糟糕的代码所深深困扰的情景。有一个专门形容这事的词：沼泽（wading）。我们趟过代码的水域，穿过灌木密布、瀑布暗藏的沼泽地，我们拼命想找到出路，期望有点什么线索能启发我们我们到底发生了什么事，但目光所及，只是越来越多死气沉沉的代码。</p>
+
+<p>为什么要写糟糕的代码呢？是想赶时间快点完成吗？有可能。或许是觉得要干好所需的时间不够，没有时间来清理代码。或许是不想再弄这个程序了，期望早点结束。或许是看了看自己承诺要做的其他事，意识到得赶紧弄完手上的事情，好接着做下一件工作。这种事我们都做过。</p>
+
+<p>我们都曾经瞟一眼自己亲手造成的混乱，决定弃之而不顾，走向新一天。我们都曾经看到自己的烂程序居然还能运行，然后断言能运行的烂程序总比什么都没有强。我们都曾经说过有朝一日再回头清理。当然，那时，我们都没通过LeBlanc法则：Later equals never。</p>
+
+<h3 id="混乱的代价">混乱的代价</h3>
+
+<p>我们总有过被混乱的代码绊倒过的经历。进度的延缓很严重，对代码的每次修改都影响到其他两三处代码。，每次修改时都得对那堆代码了然于心，在能往上面堆更多的代码。这团乱麻越来越大，再也无法理清，最后束手无策。随着混欢混乱的增加，团队生产力也持续下降。这是管理层就只有一件事可做：增加更多人手到项目中，期望提高生产力。殊不知，新人并不熟悉系统的设计，他们搞不清楚什么样的修改符合设计意图，什么样的修改违背设计意图，最终制造出更多的混乱，驱动生产力不断向零靠近。</p>
+
+<p>终于，开发团队造反了，他们告诉管理层，再也无法在这令人生厌的代码基础上做开发。他们要做全新的设计。管理层虽不愿意投入资源，但是也不能否认生产力低得可怕。于是一批最优秀、最聪明的家伙被选中，从零开始做一个新系统，要实现老系统的所有功能。同时还有一只队伍要继续维护老系统。在新系统功能足以抗衡老系统之前，管理层不会替换掉老系统。</p>
+
+<p>经过漫长的时间，新系统终于完成了，此时新团队的老成员早已不知去向，而现有成员则要求重新设计一套新系统，因为这套系统太烂了。</p>
+
+<p>程序员面临着一种基础价值谜题。有几年经验的开发者都知道 ，之前的混乱拖了自己的后腿。但开发者们背负期限的压力，只好制造混乱。简言之，他们没花时间让自己做得更快。然而真正专业的人知道，制造混乱无助于赶上期限。混乱只会立刻托慢你。赶上期限的唯一办法就是始终尽可能保持代码整洁。</p>
+
+<p>写整洁代码就像是绘画。多数人知道一幅画是好还是坏。但能分辨优劣并不表示懂得绘画。能分辨整洁代码和肮脏代码，也不意味着会写整洁代码。写整洁代码，需要遵循大量的小技巧，贯彻刻苦习得的“整洁感”。这种“代码感”就是关键所在。</p>
+
+<h3 id="什么是整洁代码">什么是整洁代码</h3>
+
+<p>有多少程序员，就有多少定义。</p>
+
+<blockquote>
+<p>我喜欢优雅和高效的代码。代码逻辑应直截了当，叫缺陷难以隐藏；尽量减少依赖关系，使之便于维护；依据某种分层战略完善错误处理代码；性能调至最优，省得引诱别人做没规矩的优化，搞出一堆混乱出来。整洁的代码只做好一件事。——Bjarne Stroustrup（C++语言的作者）</p>
+</blockquote>
+
+<p>Bjarne用了优雅一词。他认为整洁的代码读起来令人愉悦。还注意到描述那种不雅观的结果时用了引诱这个词。诚然，如破窗理论所言，糟糕的代码引发混乱。Bjarne以“整洁的代码只做好一件事”结束论断。毋庸置疑，软件设计的许多原则最终都会归结为这句警语。糟糕的代码试图做很多事，它意图混乱，目的含混。整洁的代码力求集中。每个函数、每个类和每个模块都全神贯注于一事。完全不受四周细节的干扰和污染。</p>
+
+<blockquote>
+<p>整洁的代码简单直接。整洁的代码犹如优美的散文。整洁的代码从不隐藏设计者的意图，充满了干净利落的抽象和直截了当的控制语句。——Grady Booch（《面向对象分析与设计》作者）</p>
+</blockquote>
+
+<p>Grady的观点与Bjarne有类似之处，但他从可读性的角度来定义。如同一本好的小说一般，整洁的代码应当明确地展现出要解决问题的张力，使读者发出“本应如此”的感叹。“干净利落的抽象（crisp abstraction）”是个绝妙的矛盾修辞法。crisp几乎就是具体（concrete）的同义词。代码应当讲述事实，不引人猜测，它只包涵必需之物，读者应当感受到我们的果断决绝。</p>
+
+<blockquote>
+<p>整洁的代码应可由作者之外的开发者阅读和增补。它应当有单元测试和验收测试。它使用有意义的命名。它只提供一种而非多种做一件事的途径。它只有尽量少的依赖关系，而且要明确地定义和提供清晰、尽量少的API。代码应通过其字面表达含义，因为不同的语言导致并非所有必需信息均可通过代码自身清晰表达。——Dave Thomas（Eclipse战略教父）</p>
+</blockquote>
+
+<p>Dave在可读性上和Grady持相同的观点，但有一个不同之处。Dave断言，整洁的代码便于其他人加以增补。这看似显而易见，但也不能过分强调，毕竟易读的代码和易修改的代码之间还是有区别的。Dave将整洁系于测试之上。TDD在行业已经造成了深远影响。没有测试的代码不干净。还两次提到了“尽量少”，也就是说他推崇小块的代码。</p>
+
+<blockquote>
+<p>整洁的代码总是看起来像是某位特别在意它的人写的。几乎没有改进的余地。代码作者什么都想到了，如果你企图改进它，总会回到原点，赞叹某人留给你的代码，全心投入的某人留下的代码。——Michael Feathers（《修改代码的艺术》作者）</p>
+</blockquote>
+
+<p>一言以蔽之：在意。整洁的代码就是作者着力照料的代码。有人曾花时间让它保持简单有序，他们适当地关注到了细节。他们在意过。</p>
+
+<blockquote>
+<p>简单代码，依其重要顺序：能通过所有测试；没有重复代码；体现系统中的全部设计理念；包括尽量少的实体，如类、方法、函数等。在以上诸项中，我最在意代码重复。&hellip;有意义的命名是体现表达力的一种方式。&hellip;表达力不知体现在命名上。我也会检查对象或方法是否想做的事太多。如果对象功能太多，最好切分为两个或多个对象。如果方法功能太多，我总是抽取方法以重构之，从而得到一个能较为清晰地说明自身功能的方法，以及另外数个说明如何实现这些功能的方法。&hellip;减少重复代码，提高表达力，尽早构建简单抽象，这就是我写整洁代码的方法。——Ron Jeffries（《极限编程实施》作者）</p>
+</blockquote>
+
+<p>不要重复代码，只做一件事，表达力，小规模抽象。</p>
+
+<blockquote>
+<p>如果每个例程都让你感到深合己意，那就是整洁代码。如果代码让编程语言看起来像是专门为了解决那个问题而存在，就可以称之为漂亮的代码。——Ward Cunningham（Wiki发明者，极限编程创始人之一，Smalltalk语言和面向对象思想的领袖，所有在意代码者的教父）</p>
+</blockquote>
+
+<p>Ward期望你不会为整洁代码所震惊。你无需花太多力气，那代码就是深合你意。它明确、简单、有力。每个模块都为下一个模块做好准备。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《代码整洁之道》——Robert C. Martin</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/code"><span class="tag">Code</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

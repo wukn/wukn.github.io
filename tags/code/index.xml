@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Code on wukn blog</title>
+    <link>https://wukn.github.io/tags/code/</link>
+    <description>Recent content in Code on wukn blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Sun, 27 May 2018 00:00:00 +0800</lastBuildDate>
+    
+	<atom:link href="https://wukn.github.io/tags/code/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[精耕]代码整洁之道——整洁代码</title>
+      <link>https://wukn.github.io/2018/05/27/clean-code-clean-code/</link>
+      <pubDate>Sun, 27 May 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/05/27/clean-code-clean-code/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;细节之中自有天地，整洁成就卓越代码。代码质量与其整洁度成正比。干净的代码，既在质量上较为可靠，也为后期维护、升级奠定了良好了基础。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

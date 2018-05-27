@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://wukn.github.io/2018/05/27/clean-code-clean-code/</loc>
+    <lastmod>2018-05-27T00:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://wukn.github.io/2018/05/26/architecutre-talks-software-operation/</loc>
     <lastmod>2018-05-26T22:00:00+08:00</lastmod>
   </url>
@@ -466,6 +471,12 @@
   </url>
   
   <url>
+    <loc>https://wukn.github.io/tags/code/</loc>
+    <lastmod>2018-05-27T00:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://wukn.github.io/tags/k8s/</loc>
     <lastmod>2017-10-18T00:00:00+08:00</lastmod>
     <priority>0</priority>
@@ -491,7 +502,7 @@
   
   <url>
     <loc>https://wukn.github.io/post/</loc>
-    <lastmod>2018-05-26T22:00:00+08:00</lastmod>
+    <lastmod>2018-05-27T00:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -521,7 +532,7 @@
   
   <url>
     <loc>https://wukn.github.io/</loc>
-    <lastmod>2018-05-26T22:00:00+08:00</lastmod>
+    <lastmod>2018-05-27T00:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
