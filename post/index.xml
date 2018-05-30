@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 27 May 2018 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 30 May 2018 23:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[精耕]代码整洁之道——有意义的命名</title>
+      <link>https://wukn.github.io/2018/05/30/clean-code-meaningful-names/</link>
+      <pubDate>Wed, 30 May 2018 23:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/05/30/clean-code-meaningful-names/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;软件之中随处可见命名。我们给变量、函数、参数、类和包命名。我们给源代码及源代码所在目录命名。我们给jar文件命名。既然有那么多命名要做，不妨做好它。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[精耕]代码整洁之道——整洁代码</title>

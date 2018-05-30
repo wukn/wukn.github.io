@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[精耕]代码整洁之道——有意义的命名</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 软件之中随处可见命名。我们给变量、函数、参数、类和包命名。我们给源代码及源代码所在目录命名。我们给jar文件命名。既然有那么多命名要做，不妨做好它。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[精耕]代码整洁之道——有意义的命名" />
+    <meta name="twitter:description" content=" 软件之中随处可见命名。我们给变量、函数、参数、类和包命名。我们给源代码及源代码所在目录命名。我们给jar文件命名。既然有那么多命名要做，不妨做好它。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[精耕]代码整洁之道——有意义的命名" />
+  <meta property="og:description" content=" 软件之中随处可见命名。我们给变量、函数、参数、类和包命名。我们给源代码及源代码所在目录命名。我们给jar文件命名。既然有那么多命名要做，不妨做好它。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/05/30/clean-code-meaningful-names/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.3" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/05/30/clean-code-meaningful-names/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[精耕]代码整洁之道——有意义的命名</h1>
+      <p class="post-meta">@wukn · May 30, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>软件之中随处可见命名。我们给变量、函数、参数、类和包命名。我们给源代码及源代码所在目录命名。我们给jar文件命名。既然有那么多命名要做，不妨做好它。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="名副其实">名副其实</h3>
+
+<p>选个好名字要花时间，但省下来的时间比花掉的多。注意命名，一旦发现有更好的命名就换掉旧的。</p>
+
+<p>变量、函数或类的名称应该已经答复的所有的大问题。它应该告诉你，它为什么会存在，它做什么事，应该怎么用。如果名称需要注释来补充，那就不算是名副其实。</p>
+
+<p>选择体现本意的名称能让人更容易理解和修改代码。</p>
+
+<p>看这段代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="nf">getThem</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">list1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">x</span> <span class="o">:</span> <span class="n">theList</span><span class="o">)</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">x</span><span class="o">[</span><span class="n">0</span><span class="o">]</span> <span class="o">==</span> <span class="n">4</span><span class="o">)</span>
+            <span class="n">list1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">x</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">list1</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div>
+<p>难以看出这段代码要做什么事。里面没有复杂的表达式，空格和缩进中规中矩，只用到两三个变量，也没有涉及其他类或多态方法。问题不在于代码的简洁度，而在于代码的模糊度：上下文在代码中未被明确体现的程度。theList是什么东西？theList的0下标条目的意义是什么？值4的意义是什么？怎么使用返回的列表？这些问题的答案没有体现在代码段中。比如这是一个扫雷游戏中的代码，那可以这样改进：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="nf">getFlaggedCells</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;</span> <span class="n">flaggedCells</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span><span class="o">[]</span> <span class="n">cell</span> <span class="o">:</span> <span class="n">gameBoard</span><span class="o">)</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">cell</span><span class="o">[</span><span class="n">STATUS_VALUE</span><span class="o">]</span> <span class="o">==</span> <span class="n">FLAGGED</span><span class="o">)</span>
+            <span class="n">flaggedCells</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">cell</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">flaggedCells</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div>
+<p>代码的简洁性并未被触及。运算符和常量的数量没变，嵌套数量也没变。但代码变得明确多了。</p>
+
+<p>更进一步，不用int数组表示单元格，而是另写一个类。类中包含一个名副其实的函数（isFlagged），从而掩盖住那个魔数。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Cell</span><span class="o">&gt;</span> <span class="nf">getFlaggedCells</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">Cell</span><span class="o">&gt;</span> <span class="n">flaggedCells</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">[]&gt;();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">Cell</span> <span class="n">cell</span> <span class="o">:</span> <span class="n">gameBoard</span><span class="o">)</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">cell</span><span class="o">.</span><span class="na">isFlagged</span><span class="o">())</span>
+            <span class="n">flaggedCells</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">cell</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">flaggedCells</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div>
+<h3 id="避免误导">避免误导</h3>
+
+<p>程序员必须避免留下掩藏代码本意的错误线索。避免使用与本意相悖的词。例如一些平台的专有名词。</p>
+
+<p>别用accountList来指称一组帐号，除非它真的是List类型。List一词对程序员有特殊的意义。使用accountGroup或bunchOfAccounts甚至accounts都会好一些。</p>
+
+<p>提防使用不同之处较小的名称。如XYZControllerForEfficientHandlingOfStrings和XYZControllerForEfficientStorageOfStrings。这两个词外形实在太相似了。</p>
+
+<p>误导性名称真正可怕的历史是用小写字母l和大些字母O作为变量名，尤其实在组合使用的时候。它们看起来太像数字1和0了。</p>
+
+<h3 id="做有意义的区分">做有意义的区分</h3>
+
+<p>如果程序员只是为了满足编译器或解释器的需要而写代码，就会制造麻烦。</p>
+
+<p>以数字系列命名（a1、a2、&hellip;、aN）是依义命名的对立面。这样的名称纯属误导，完全没有提供正确的信息，没有提供导向作者意图的线索。</p>
+
+<p>废话是另一种没有意义的去扥。Product、ProductInfo和ProductData虽然名称不同，意思却无区别。Info和Data就像a、an、the一样，是意义含混的废话。注意，只要体现出有意义的区分，使用a和the这样的前缀就没错。如把a用在域内变量，而把the用于函数参数。</p>
+
+<p>废话都是冗余。Variable一词永远不应当出现在变量名中。Table一词永远不应当出现在表名中。加入有个Customer类，还有一个名为CustomerObject类，区别何在呢？</p>
+
+<p>如果缺少明确约定，变量moneyAmount就与money没有区别，customerInfo与customer没区别，theMessage与message没区别。要区分名称，就要以读者能鉴别不同之处的方式来区分。</p>
+
+<h3 id="使用读得出来的名称">使用读得出来的名称</h3>
+
+<p>人类长于记忆和使用单词。如果名称读不出来，讨论的时候就会像个傻鸟。“哎，这儿，鼻涕阿三喜摁踢（BCR3CNT）上面，有个皮挨死极翘（PSZQ）整数，看见没？”是不是很傻。</p>
+
+<p>有个程序里写了个genymdhms（生成日期，年月日时分秒），这个就后面的ymdhms只能一个字母一个字母地读了。改成generationTimestamp就能随口读出了。</p>
+
+<h3 id="使用可搜索的名称">使用可搜索的名称</h3>
+
+<p>单字母名称和数字常量有个问题，就是很难在一大篇文字中找出来。窃以为单字母名称仅用于短方法中的本地变量。名称长短应与其作用域大小相对应。若变量或常量可能在代码中多出使用，应赋其以便于搜索的名称。比较一下这两段代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">0</span><span class="o">;</span> <span class="n">j</span><span class="o">&lt;</span><span class="n">34</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="n">s</span> <span class="o">+=</span> <span class="o">(</span><span class="n">t</span><span class="o">[</span><span class="n">j</span><span class="o">]*</span><span class="n">4</span><span class="o">)/</span><span class="n">5</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kt">int</span> <span class="n">realDaysPerIdealDay</span> <span class="o">=</span> <span class="n">4</span><span class="o">;</span>
+<span class="kd">const</span> <span class="kt">int</span> <span class="n">WORK_DAYS_PER_WEEK</span> <span class="o">=</span> <span class="n">5</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">j</span><span class="o">=</span><span class="n">0</span><span class="o">;</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">NUMBER_OF_TASKS</span><span class="o">;</span> <span class="n">j</span><span class="o">++)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">realDays</span> <span class="o">=</span> <span class="n">taskEstimate</span><span class="o">[</span><span class="n">j</span><span class="o">]</span> <span class="o">*</span> <span class="n">realDaysPerIdealDay</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">realTaskWeeks</span> <span class="o">=</span> <span class="o">(</span><span class="n">realDays</span> <span class="o">/</span> <span class="n">WORK_DAYS_PER_WEEK</span><span class="o">);</span>
+    <span class="n">sum</span> <span class="o">+=</span> <span class="n">realTaskWeeks</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div>
+<p>上面代码中的sum并非特别有用的名称，但它至少搜得到。采用能表达意图的名称，貌似拉长了函数代码，但是WORK_DAYS_PER_WEEK要比数字5好找得多。</p>
+
+<h3 id="避免使用编码">避免使用编码</h3>
+
+<p>把类型或者作用域编进名称里面，徒然增加了解码的负担。</p>
+
+<h4 id="匈牙利语标记法">匈牙利语标记法</h4>
+
+<p>匈牙利语标记法实在Windows的C语言API的时代使用的，由于那时候编译器不做类型检查，这可以方便程序员记住类型。Java程序员不需要类型编码。对象是强类型的。IDE已经先进到在编译开始前就侦测到类型的错误。如今HN和其它类型编码形式都属于多余。它们增加了修改变量、函数、或类的名称或类型的难度。它们增加了阅读代码的难度。</p>
+
+<h4 id="成员前缀">成员前缀</h4>
+
+<p>不必使用m_前缀来标明成员变量。应当把类和函数做的足够小，消除对成员前缀的需要。现在的IDE可以高亮或者用颜色标识出成员变量。</p>
+
+<h4 id="接口和实现">接口和实现</h4>
+
+<p>有时也会出现采用编码的特殊情形。假如有个抽象工厂和具体类，该怎么命名呢？IShapeFactory和ShapeFactory吗？我喜欢不加修饰的接口，我也不想让用户知道我给他们的是接口。如果接口和实现必须选一个的话，ShapeFactory和ShapeFactoryImpl我觉得更好。甚至是丑陋的CShapeFactory都比对接口名称编码好。</p>
+
+<h3 id="避免映射思维">避免映射思维</h3>
+
+<p>不应当让读者在脑中把你的名称翻译成他们熟知的名称。这种问题经常出现在选择是使用问题领域术语还是解决方案领域术语时。</p>
+
+<p>单字母变量名就是个问题。在作用域较小且没有名称冲突时，循环技术及可以使用i或j或k之类。这是因为传统上惯用单字母名称做循环计数器。然而，在多数其他情况下，单字母名称不是个好选择，读者必须在脑中将它映射为真实概念。</p>
+
+<h3 id="类名">类名</h3>
+
+<p>类名和对象名应该是名词或名词短语。如，Customer、WikiPage、Account和AddressParser。避免使用Manager、Processor、Data或Info这样的类名。</p>
+
+<p>类名不应当是动词。</p>
+
+<h3 id="方法名">方法名</h3>
+
+<p>方法名应当是动词或动词短语。如，postPayment、deletePage或save。属性访问器、修改器和断言应该根据其值命名，并依Javabean标准加上get、set、is前缀。</p>
+
+<p>重载构造器时，使用描述了参数的静态工厂方法名。例如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Complex</span> <span class="n">fulcrumPoint</span> <span class="o">=</span> <span class="n">Complex</span><span class="o">.</span><span class="na">FromRealNumber</span><span class="o">(</span><span class="n">23</span><span class="o">.</span><span class="na">0</span><span class="o">);</span></code></pre></div>
+<p>通常好于：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Complex</span> <span class="n">fulcrumPoint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Complex</span><span class="o">(</span><span class="n">23</span><span class="o">.</span><span class="na">0</span><span class="o">);</span></code></pre></div>
+<h3 id="每个概念对应一个词">每个概念对应一个词</h3>
+
+<p>给每个抽象概念选一个词，并且一以贯之。例如，使用fetch、retrieve、get给多个类中的同种方法命名。同样，在一堆代码中有controller，又有manager就会令人困惑。这样的名称让人觉得这两种对象是不同类型的，也分属不同的类。</p>
+
+<h3 id="别用双关语">别用双关语</h3>
+
+<p>避免将同一单词用于不同目的。例如许多类中都有add方法，加入要写一个类，其中有个方法是把单个参数添加到集合中，该把这个方法叫做add吗？这样做貌似和其他add方法保持了一致，但实际上语义却不同，应该用insert或append之类的词命名。把该方法命名为add，就是双关语了。</p>
+
+<h3 id="使用解决方案领域名称">使用解决方案领域名称</h3>
+
+<p>记住，只有程序员才会读你的代码。所以尽管用那些CS术语、算法名、模式名和数学术语。</p>
+
+<p>对于熟悉访问者模式的程序员来说，名称AccountVisitor富有意义。每个程序员看到JobQueue都会知道它的意思。</p>
+
+<h3 id="使用源自所涉问题领域的名称">使用源自所涉问题领域的名称</h3>
+
+<p>如果不能用程序员熟悉的术语给手头的工作命名，就采用从所涉问题领域而来的名称。至少，维护代码的程序员就能去请教领域专家了。</p>
+
+<p>优秀的程序员和设计师，其工作之一就是分离解决方案领域和问题领域的概念。与所涉问题领域更为贴近的代码，应当采用源自问题领域的名称。</p>
+
+<h3 id="添加有意义的语境">添加有意义的语境</h3>
+
+<p>很少有名称是能自我说明的，多数都不能。反之，你需要用良好命名的类、函数或命名空间来放置名称，给读者提供语境。如果没有这么做，给名称添加前缀就是最后一招了。</p>
+
+<p>设想你看到名为firstName、lastName、street、houseNumber、city、state和zipcode的变量。当它们放在一起的时候，很明确构成了一个地址。但是如果只看到一个孤零零的state变量呢？可以添加前缀addrFirstName、addrLastName、addrState等，以此提供语境。但是，更好的方法是创建名为Address的类。</p>
+
+<h3 id="不要添加没用的语境">不要添加没用的语境</h3>
+
+<p>只要短名称足够清楚，就要比长名称好。别给名称添加不必要的语境。</p>
+
+<p>对于Address类的实体来说，accountAddress和customerAddress都是不错的名称，但是用在类名上就不太好了。Address是个好类名。如果需要去MAC地址、端口地址和Web地址相区别，可以考虑使用PostalAddress、MAC和URI。这样的名称更为精确，而精确正是命名的要点。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《代码整洁之道》——Robert C. Martin</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/code"><span class="tag">Code</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
