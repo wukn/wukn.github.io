@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[精耕]代码整洁之道——函数</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 函数是所有程序中的第一组代码。一起看看如何写好函数。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[精耕]代码整洁之道——函数" />
+    <meta name="twitter:description" content=" 函数是所有程序中的第一组代码。一起看看如何写好函数。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[精耕]代码整洁之道——函数" />
+  <meta property="og:description" content=" 函数是所有程序中的第一组代码。一起看看如何写好函数。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/06/02/clean-code-function/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.3" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/06/02/clean-code-function/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[精耕]代码整洁之道——函数</h1>
+      <p class="post-meta">@wukn · Jun 2, 2018 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>函数是所有程序中的第一组代码。一起看看如何写好函数。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="短小">短小</h3>
+
+<p>函数的第一规则是要短小。第二条规则是<strong>还要更短小</strong>。作者的意见是20行封顶最佳。函数越小，每个函数就能一目了然。每个函数都只说一件事。而且，每个函数都依序把读者带到下一个函数。这就是函数应该达到的短小程度。</p>
+
+<p>if语句、else语句、while语句等，其中的代码块应该只有一行。该行应该就是一个函数调用语句。这样不但能保持函数短小，而且，因为块内调用的函数拥有较具说明性的名称，从而增加了文档上的价值。</p>
+
+<p>这也意味着函数不应该大到足以容纳嵌套结构。所以，函数的缩进层级不该多于一层或两层。这样的函数易于阅读和理解。</p>
+
+<h3 id="只做一件事">只做一件事</h3>
+
+<p><strong>函数应该做一件事。做好这件事。只做这一件事。</strong>问题在于很难知道那件该做的事是什么。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">renderPageWithSetupsAndTeardowns</span><span class="o">(</span>
+    <span class="n">PageData</span> <span class="n">pageData</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">isSuite</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">isTestPage</span><span class="o">(</span><span class="n">pageData</span><span class="o">))</span>
+        <span class="n">includeSetupAndTeardownPages</span><span class="o">(</span><span class="n">pageData</span><span class="o">,</span> <span class="n">isSuite</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">pageData</span><span class="o">.</span><span class="na">getHtml</span><span class="o">();</span>
+<span class="o">}</span></code></pre></div>
+<p>上述代码只做了一件事。但是也容易看成是三件事：判断是否为测试页面；如果是，添加设置和销毁步骤；渲染成HTML。注意这三个步骤均在该函数名下的同一抽象层上。可以用简洁的TO语句来描述它：要RenderPageWithSetupsAndTeardowns，检查页面是否为测试页，如果是测试页，就添加设置和销毁步骤，无论是否测试页，都渲染成HTML。</p>
+
+<p>如果函数只是做了该函数名下同一抽象层上的步骤，则函数还是只做了一件事。编写函数毕竟是为了把大一些的概念（也就是函数的名称）拆分为另一抽象层上的一系列步骤。</p>
+
+<p>如果一个函数被切分为多个区段，那就明显它做了太多的事。只做一件事的函数无法被合理地切分为多个区段。</p>
+
+<h3 id="每个函数一个抽象层级">每个函数一个抽象层级</h3>
+
+<p>要确保函数只做一件事，函数中的语句都要在同一抽象层级上。函数中混杂不同抽象层级，往往让人迷惑。读者可能无法判断某个表达式是基础概念还是细节。更恶劣的是，就像破损的窗户，一旦细节与基础概念混杂，更多的细节就会在函数中纠结起来。</p>
+
+<p>我们想让代码拥有自顶向下的阅读顺序。我们想要让每个函数后面都跟着位于下一抽象层级的函数，这样一来，在查看函数列表时，就能循抽象层级向下阅读了。这叫做向下规则。</p>
+
+<h3 id="switch语句">switch语句</h3>
+
+<p>写出短小的switch语句很难。即便是只有两种条件的switch语句也要比单个代码块或函数大得多。写出只做一件事的switch语句也很难，switch天生要做N件事。不幸的是我们总无法避开switch语句，不过还是能够确保每个switch都埋藏在较低的抽象层级，而且永远不重复。当然，我们利用多态来实现这一点。</p>
+
+<p>看这段代码，它呈现了可能依赖于员工类型的仅仅一种操作。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="n">Money</span> <span class="nf">calculatePay</span><span class="o">(</span><span class="n">Employee</span> <span class="n">e</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InvalidEmployeeType</span> <span class="o">{</span>
+    <span class="k">switch</span> <span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">type</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="nl">COMMISSIONED:</span>
+            <span class="k">return</span> <span class="n">calculateCommissionedPay</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="k">case</span> <span class="nl">HOURLY:</span>
+            <span class="k">return</span> <span class="n">calculateHourlyPay</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="k">case</span> <span class="nl">SALARIED:</span>
+            <span class="k">return</span> <span class="n">calculateSalariedPay</span><span class="o">(</span><span class="n">e</span><span class="o">);</span><span class="nl">
+</span><span class="nl">        default:</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">InvalidEmployeeType</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">type</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<p>这个函数有几个问题。首先，它太长，出现新的员工类型的时候还会变得更长。其次，它明显做了不止一件事。第三，它违反了单一职责原则，因为有好几个修改它的理由。第四，它违反了开放闭合原则，因为每当添加新类型时，就必须修改它。最麻烦的是在很多地方都可能需要用到类似的结构，如<code>isPayday(Employee e, Date date)</code>或<code>deliverPay(Employee e, Money pay)</code>。</p>
+
+<p>这个问题的解决方案是将switch语句埋到抽象工厂底下，不让任何人看到。该工厂使用switch为Employee的派生类创建适当的实体，而不同的函数则由Employee接口多态地接受调用。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Employee</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">boolean</span> <span class="nf">isPayday</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Money</span> <span class="nf">calculatePay</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">deliverPay</span><span class="o">(</span><span class="n">Money</span> <span class="n">pay</span><span class="o">);</span>
+<span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">EmployeeFactory</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Employee</span> <span class="nf">makeEmployee</span><span class="o">(</span><span class="n">EmployeeRecord</span> <span class="n">r</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InvalidEmployeeType</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EmployeeFactoryImpl</span> <span class="kd">implements</span> <span class="n">EmployeeFactory</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Employee</span> <span class="nf">makeEmployee</span><span class="o">(</span><span class="n">EmployeeRecord</span> <span class="n">r</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InvalidEmployeeType</span> <span class="o">{</span>
+        <span class="k">switch</span> <span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">type</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="nl">COMMISSIONED:</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="n">CommissionenEmployee</span><span class="o">(</span><span class="n">r</span><span class="o">);</span>
+        <span class="k">case</span> <span class="nl">HOURLY:</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="n">HourlyEmployee</span><span class="o">(</span><span class="n">r</span><span class="o">);</span>
+        <span class="k">case</span> <span class="nl">SALARIED:</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="n">SalariedEmployee</span><span class="o">(</span><span class="n">r</span><span class="o">);</span><span class="nl">
+</span><span class="nl">        default:</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="n">InvalidEmployeeType</span><span class="o">(</span><span class="n">r</span><span class="o">.</span><span class="na">type</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<h3 id="使用描述性名称">使用描述性名称</h3>
+
+<p>给函数名和方法取个具有描述性的名何曾，能较好地描述要做的事情。记住沃德原则：“如果每个例程都让你感到深合己意，那就是整洁代码”。函数越短小，功能越集中，就越便于取个好名字。</p>
+
+<p>别害怕长名称。长而具有描述性的名称要比短而令人费解的名称好，也比描述性的长注释好</p>
+
+<p>命名方式要保持一致。使用与模块名一脉相承的短语、名词和动词给函数命名。</p>
+
+<h3 id="函数参数">函数参数</h3>
+
+<p>最理想的参数数量是0，其次是1，再次是2，应尽量避免3。有足够特殊的理由才能用三个以上参数（这一条好苛刻啊，回忆了一下以往工作，太多三个以上参数的函数了）。参数与函数名处在不同的抽象层级，它要求读者了解目前并不特别重要的细节。</p>
+
+<p>从测试的角度看，要编写能确保参数的各种组合运行正常的测试用例是很难的事。参数越多，问题就越麻烦。</p>
+
+<p>输出参数比输入参数还要难以理解。读函数时，我们习惯于认为信息通过参数输入函数，通过返回值从函数中输出。我们不太期望信息通过参数输出。</p>
+
+<h4 id="一元函数">一元函数</h4>
+
+<p>向函数传入单个参数有两种普遍的理由。可能是问关于那个参数的问题，就像<code>boolean fileExists(&quot;MyFile&quot;)</code>。也可能是操作该参数，将其转换为其他什么东西，再输出。如<code>InputStream fileOpen(&quot;MyFile&quot;)</code>。</p>
+
+<p>还有一种不普遍但极有用的单参数函数形式，那就是事件。它只有输入参数而无输出参数。程序将函数看作是一个事件，使用该参数修改系统状态。应该让读者很清楚地了解它是个事件。谨慎地选用名称和上下文语境。</p>
+
+<h4 id="标识参数">标识参数</h4>
+
+<p>标识参数丑陋不堪。想函数传入布尔值简直就是骇人听闻的做法。这本身就在大声宣布函数做了不止一件事。</p>
+
+<h4 id="二元函数">二元函数</h4>
+
+<p>有两个参数的函数要比一元函数难懂。当然，也有两个参数正好的时候，如<code>Point p = new Point(0,0);</code>。这个例子中两个参数其实是单个值的有序组成部分。</p>
+
+<p>像<code>assertEquals(expected, actual)</code>这样的函数，多少次我们呢会搞错actual和expected的位置呢？这两个参数没有自然的顺序，是一种需要学习的约定罢了。</p>
+
+<p>二元函数还不算恶劣。但也应该尽量利用一些机制将其转化为一元函数。例如将其中一个参数写成类的成员，从而无需传递它。</p>
+
+<h4 id="参数对象">参数对象</h4>
+
+<p>如果函数看来需要两个、三个或三个以上参数，就说明其中一些参数应该封装成类了。例如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Circle</span> <span class="nf">makeCircle</span><span class="o">(</span><span class="kt">double</span> <span class="n">x</span><span class="o">,</span> <span class="kt">double</span> <span class="n">y</span><span class="o">,</span> <span class="kt">double</span> <span class="n">radius</span><span class="o">);</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Circle</span> <span class="nf">makeClrcle</span><span class="o">(</span><span class="n">Point</span> <span class="n">center</span><span class="o">,</span> <span class="kt">double</span> <span class="n">radius</span><span class="o">);</span></code></pre></div>
+<p>当一组参数被同时传递，往往就是该有自己名称的某个概念的一部分。</p>
+
+<h4 id="动词与关键字">动词与关键字</h4>
+
+<p>给函数取个好名字，能较好地解释函数的意图，以及参数的顺序和意图。对于一元函数，函数和参数应当形成一种非常良好的动词/名词对形式。例如<code>write(name)</code>，更好的大概是<code>writeField(name)</code>，它告诉我们，name是一个field。</p>
+
+<p>将参数的名称编码进函数名，这被称作函数名称的关键字形式。例如，将assertEqual改成assertExpectedEqualsActual就会好些，能大大减轻记忆参数顺序的负担。</p>
+
+<h3 id="无副作用">无副作用</h3>
+
+<p>副作用是谎言。函数承诺只做一件事，但是还是会做其他被藏起来的事。有时它会对自己类中的变量做出未能预期的改动。有时会把变量弄成系统全局变量。这些操作都是具有破坏性的，会导致古怪的时序性耦合及顺序依赖。</p>
+
+<h3 id="分隔指令与询问">分隔指令与询问</h3>
+
+<p>函数要么做什么事，要么回答什么事，二者不可得兼。两样都干常会导致混乱。例如：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">set</span><span class="o">(</span><span class="n">String</span> <span class="n">attribute</span><span class="o">,</span> <span class="n">String</span> <span class="n">value</span><span class="o">);</span></code></pre></div>
+<p>该函数设置某个指定属性，如果成功就返回true，如果不存在那个属性就返回false。这就导致了这样的语句<code>if (set(&quot;username&quot;, &quot;wukn&quot;)) ...</code>。这是在询问username属性值是否之前已设置为wukn吗？还是问username属性值是否成功设置为wukn呢？从这行调用中难判断其义。因为set是动词还是形容词并不清楚。作者本意set是动词，但在if语句的上下文中感觉它像个形容词。要解决这个问题，可以将set函数重命名为setAndCheckIfExists，但这对提高if语句的可读性帮助不大。真正的解决方案是把指令与询问分隔开来，防止混淆发生：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">attributeExists</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">))</span> <span class="o">{</span>
+    <span class="n">setAttribute</span><span class="o">(</span><span class="s">&#34;username&#34;</span><span class="o">,</span> <span class="s">&#34;wukn&#34;</span><span class="o">);</span>
+<span class="o">}</span></code></pre></div>
+<h3 id="使用异常替代返回错误码">使用异常替代返回错误码</h3>
+
+<p>从指令式函数返回错误码轻微违反了指令与询问分隔的原则。它鼓励了在if语句判断中把指令当作表达式使用。如<code>if (deletePage(page) == E_OK)</code>。这不会引起动词/形容词混淆，但却导致更深层次的嵌套结构。当返回错误码时，就是在要求调用者立刻处理错误。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">deletePage</span><span class="o">(</span><span class="n">page</span><span class="o">)</span> <span class="o">==</span> <span class="n">E_OK</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">registry</span><span class="o">.</span><span class="na">deleteReference</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">name</span><span class="o">)</span> <span class="o">==</span> <span class="n">E_OK</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">configKeys</span><span class="o">.</span><span class="na">deleteKey</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">name</span><span class="o">.</span><span class="na">makeKey</span><span class="o">())</span> <span class="o">==</span> <span class="n">E_OK</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="s">&#34;page deleted&#34;</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="s">&#34;configKey not deleted&#34;</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="s">&#34;deleteReference from registry failed&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="s">&#34;delete failed&#34;</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">E_ERROR</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div>
+<p>如果使用异常代替返回错误码，错误处理代码就能从主路径代码中分离出来，得到简化：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">try</span> <span class="o">{</span>
+    <span class="n">deletePage</span><span class="o">(</span><span class="n">page</span><span class="o">);</span>
+    <span class="n">registry</span><span class="o">.</span><span class="na">deleteReference</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+    <span class="n">configKeys</span><span class="o">.</span><span class="na">deleteKey</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">name</span><span class="o">.</span><span class="na">makeKey</span><span class="o">());</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+<span class="o">}</span></code></pre></div>
+<h4 id="抽离try-catch代码块">抽离try/catch代码块</h4>
+
+<p>try/catch代码块丑陋不堪。它们搞乱了代码结构，把错误处理与正常流程混为一谈。最好把try和catch代码块的主体部分抽离出来，另外形成函数。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">delete</span><span class="o">(</span><span class="n">Page</span> <span class="n">page</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+        <span class="n">deletePageAndAllReferences</span><span class="o">(</span><span class="n">page</span><span class="o">);</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">logError</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">deletePageAndAllReferences</span><span class="o">(</span><span class="n">Page</span> <span class="n">page</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">deletePage</span><span class="o">(</span><span class="n">page</span><span class="o">);</span>
+    <span class="n">registry</span><span class="o">.</span><span class="na">deleteReference</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>
+    <span class="n">configKeys</span><span class="o">.</span><span class="na">deleteKey</span><span class="o">(</span><span class="n">page</span><span class="o">.</span><span class="na">name</span><span class="o">.</span><span class="na">makeKey</span><span class="o">());</span>
+<span class="o">}</span>
+
+<span class="kd">private</span> <span class="kt">void</span> <span class="nf">logError</span><span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+<span class="o">}</span><span class="n">错误</span><span class="err">`</span></code></pre></div>
+<p>上面的代码中，delete函数只与错误处理有关，可以很容易理解然后就忽略掉。deletePageAndAllReferences函数只与删除page有关，错误处理可以忽略掉。通过这样的区分，代码更易于理解和修改。</p>
+
+<h4 id="错误处理就是一件事">错误处理就是一件事</h4>
+
+<p>函数应该只做一件事。错误处理就是一件事。因此，处理错误的函数不该做其他事。这意味着，如果关键字try在某个函数中存在，它就应该是这个函数的第一个单词，而且在catch/finally代码块后面也不该有其他内容。</p>
+
+<h4 id="依赖磁铁">依赖磁铁</h4>
+
+<p>返回错误码通常暗示某处有个类或是枚举，它定义了所有错误码。这样的类就是一块依赖磁铁（dependency magnet），其他许多类都得导入和使用它。当其进行修改时，所有其他的类都要重新编译和部署。这会导致开发者不愿增加新的错误代码，就不断复用旧的错误码。</p>
+
+<p>使用异常代替错误码，新异常就可以从异常类派生出来，无需重新编译或重新部署。（这也是开放闭合原则的一个范例）</p>
+
+<h3 id="别重复自己-dry">别重复自己（DRY）</h3>
+
+<p>重复会导致代码臃肿，且当发生变化时需要修改多处。整体代码的可读性因为重复的消除而得到提升。</p>
+
+<p>许多原则和实践规则都是为了控制与消除重复而创建。如关系数据库范式是为了消灭数据重复而服务。面向对象变成将代码集中到基类从而避免冗余。面向切面变成也是消除重复的一种策略。</p>
+
+<h3 id="结构化编程">结构化编程</h3>
+
+<p>有些程序员遵循结构化编程规则。Dijkstra认为，每个函数、函数中的每个代码块都应该只有一个入口、一个出口。遵循这个规则意味着在每个函数中只该有一个return语句，循环中不能有break或continue，而且永远不能有任何goto语句。</p>
+
+<p>我们赞成结构化编程的目标和规范，但是对于小函数这些规则助益不大。只有在大函数中，这些规则才会有明显的好处。所以只要保持函数短小。偶尔出现的return、break和continue语句没有坏处，甚至还比单入单出原则更具有表达力。另一方面，goto只在大函数中才有道理，所以应该尽量避免使用。</p>
+
+<h3 id="如何写出这样的函数">如何写出这样的函数</h3>
+
+<p>写代码和写论文或文章很像，先想写什么就些什么，然后再打磨它，斟酌推敲，直至到达心目中的样子。</p>
+
+<p>写函数时，一开始都冗长而复杂。有太多缩进和嵌套循环。有过长的参数列表。名称是随意取的，也会有重复代码。但最好还是配上一套单元测试，覆盖每一行丑陋的代码。</p>
+
+<p>然后打磨这些代码，分解函数、修改名称、消除重复。缩短和重新安置方法。有时还拆散类。同时保持测试通过。</p>
+
+<p>最后，遵循上述的规则，组装好这些函数。</p>
+
+<h3 id="小结">小结</h3>
+
+<p>每个系统都是使用某种领域特定语言搭建，而这种语言是程序员设计来描述那个系统的。函数是语言的动词，类是名词。</p>
+
+<p>大师级程序员吧系统当作故事来讲，而不是当作程序来写。他们使用选定编程语言提供的工具构建一种更为丰富且更具表达力的语言，用来讲那个故事。那种领域特定语言的一个部分，就是描述在系统中发生的各种行为的函数层级。在一种精妙的递归操作中，这些行为使用它们定义的与领域紧密相关的语言讲述自己那个小故事。</p>
+
+<p>如果遵循上述的这些规则，函数就会短小，有个好名字，而且被很好地归置。不过永远别忘记，真正的目标在于讲述系统的故事，而你编写的函数必须干净利落地拼装到一起，形成一种精确而清晰的语言，帮助你讲故事。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《代码整洁之道》——Robert C. Martin</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/code"><span class="tag">Code</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
