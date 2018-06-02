@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[精耕]代码整洁之道——注释</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 什么也比不上放置良好的注释来得有用。什么也不会比乱七八糟的注释更有本事搞乱一个模块。什么也不会比陈旧、提出错误信息的注释更有破坏性。若变成语言足够有表达力，或者我们长于用这些语言来表达意图，就不那么需要注释了。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[精耕]代码整洁之道——注释" />
+    <meta name="twitter:description" content=" 什么也比不上放置良好的注释来得有用。什么也不会比乱七八糟的注释更有本事搞乱一个模块。什么也不会比陈旧、提出错误信息的注释更有破坏性。若变成语言足够有表达力，或者我们长于用这些语言来表达意图，就不那么需要注释了。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[精耕]代码整洁之道——注释" />
+  <meta property="og:description" content=" 什么也比不上放置良好的注释来得有用。什么也不会比乱七八糟的注释更有本事搞乱一个模块。什么也不会比陈旧、提出错误信息的注释更有破坏性。若变成语言足够有表达力，或者我们长于用这些语言来表达意图，就不那么需要注释了。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/06/03/clean-code-comment/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.3" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/06/03/clean-code-comment/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[精耕]代码整洁之道——注释</h1>
+      <p class="post-meta">@wukn · Jun 3, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>什么也比不上放置良好的注释来得有用。什么也不会比乱七八糟的注释更有本事搞乱一个模块。什么也不会比陈旧、提出错误信息的注释更有破坏性。若变成语言足够有表达力，或者我们长于用这些语言来表达意图，就不那么需要注释了。</p>
+</blockquote>
+
+<p></p>
+
+<p>注释的恰当用法是弥补我们在代码表达意图时遭遇的失败。注意<strong>失败</strong>一词。注释总是一种失败，我们总无法找到不用注释就能表达自我的方法，所以总要有注释。如果发现需要写注释，那就要再想想看有没有办法翻盘，用代码来表达。</p>
+
+<p>为何如此贬低注释？因为注释会撒谎。注释存在的时间越久，就离其所描述的代码越远，越来越变得全然错误。原因很简单，程序员不能坚持维护注释。代码在变动，在演化，在不断地重构。注释并不总是随之变动。注释常常会与其所描述的代码分隔开来，孑然飘零，越来越不准确。</p>
+
+<p>程序员应当负责将注释保持在可维护、有关联、精确的高度。但更重要的是把力气用在写清楚的代码上，直接保证无须编写注释。</p>
+
+<p>不准确的注释要比没有注释坏的多。它们满口胡言。真实只存在于代码中。只有代码能忠实地告诉读者它做的事。那是唯一真正准确的信息来源。所以，尽管有时也需要注释，我们也该多花心思尽量减少注释量。</p>
+
+<h3 id="注释不能美化糟糕的代码">注释不能美化糟糕的代码</h3>
+
+<p>写注释的常见动机之一是糟糕的代码的存在。带有少量注释的整洁而有表达力的代码，要比带有大量注释的零碎而复杂的代码好的多。与其花时间编写解释这糟糕代码的注释，不如花时间清洁那堆糟糕的代码。</p>
+
+<h3 id="用代码来阐述">用代码来阐述</h3>
+
+<p>有时，代码本身不足以解释其行为。不幸的是，许多程序员据此以为代码很少——如果有的话——能做好解释工作。这种观点纯属错误。比较一下这两段代码：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="c1">//Check to see if the employee is eligible for full benefits
+</span><span class="c1"></span><span class="k">if</span> <span class="o">(</span> <span class="o">(</span><span class="n">employee</span><span class="o">.</span><span class="na">flags</span> <span class="o">&amp;</span> <span class="n">HOURLY_FLAG</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">(</span><span class="n">employee</span><span class="o">.</span><span class="na">age</span> <span class="o">&gt;</span> <span class="n">65</span><span class="o">))</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">if</span> <span class="o">(</span><span class="n">employee</span><span class="o">.</span><span class="na">isEligibleForFullBenefits</span><span class="o">())</span></code></pre></div>
+<p>只要想上那个几秒钟，就能用代码解释大部分的意图。很多时候，简单到只需要创建一个描述与注释所言同一事物的函数即可。</p>
+
+<h3 id="好注释">好注释</h3>
+
+<p>有些注释是必须的，也是有利的。</p>
+
+<ul>
+<li><p><strong>法律信息</strong>：有时，公司代码规范要求编写与法律有关的注释。例如，版权及著作权声明就是必须和有理由在每个源文件开头注释处放置的内容。这类注释不应是合同或法典。只要有可能，就指向一份标准许可或其他外部文档，而不是要把所有条款放到注释中。</p></li>
+
+<li><p><strong>提供信息的注释</strong>：不可否认，有时候用注释来提供基本信息也有其用处。</p></li>
+
+<li><p><strong>对意图的解释</strong>：有时，注释不仅提供了有关实现的有用信息，而且还提供了某个决定后面的意图。</p></li>
+
+<li><p><strong>阐释</strong>：有时，注释把某些晦涩难明的参数或返回者的意义翻译为某种可读形式，也会是有用的。通常更好的办法是尽量让参数或返回值自身就足够清楚，但如果参数或返回值是某个标准库的一部分，或是你不能修改的代码，帮助阐释其含义的注释就会有用。但这也会冒着注释本身就不正确的风险。</p></li>
+
+<li><p><strong>警示</strong>：有时，用于警告其他程序员会出现某种后果的注释也是有用的。例如“//SimpleDateFormat is not thread safe, so we need to create each instance independently.”，它能阻止某些急切的程序员以效率之名使用静态初始器。</p></li>
+
+<li><p><strong>TODO注释</strong>：有时，有理由用//TODO形式在源代码中放置要做的工作列表。TODO是一种程序员认为应该做，但由于某些原因目前还没做的工作。</p></li>
+
+<li><p><strong>放大</strong>：注释可以用来放大某种看来不合理之物的重要性。</p></li>
+
+<li><p><strong>公共API中的Javadoc</strong>：没有什么比被良好描述的公共API更有用和令人满意了。如果在编写API，就该为它编写良好的Javadoc。不过要考虑也其他建议。就像其他注释一样，Javadoc也可能误导、不适用或者提供错误信息。</p></li>
+</ul>
+
+<h3 id="坏注释">坏注释</h3>
+
+<p>大多数注释都属此类。通常，坏注释都是糟糕的代码的支撑或借口，或者对错误决策的修正，基本上等于程序员自说自话。</p>
+
+<ul>
+<li><p><strong>喃喃自语</strong>：如果决定写注释，就要花必要的时间确保写出最好的注释。</p></li>
+
+<li><p><strong>多余的注释</strong>：有的函数已足够短小简单，读其注释花的时间可能比读代码花的时间还长。有的注释不能比代码提供更多的信息。事实上，它不如代码精确，误导读者接受不精确的信息，而不是正确地理解代码。</p></li>
+
+<li><p><strong>误导性注释</strong>：有时，尽管初衷可嘉，程序员还是会写出不够精确的注释。注释描述的与代码本身存在细微差异，这会误导其他程序员对其的调用，达不到期望的结果。</p></li>
+
+<li><p><strong>循规式注释</strong>：所谓每个函数都要有Javadoc或每个变量都要有注释的规矩是愚蠢可笑的。例如构造函数和get/set函数为何要有Javadoc描述呢？</p></li>
+
+<li><p><strong>日志式注释</strong>：在没有源代码管理系统的年代，在每个模块开始处维护修改日志还算有道理。如今，这种冗长的记录只会让模块变得凌乱不堪，应当全部删除。</p></li>
+
+<li><p><strong>废话注释</strong>：如<code>/** The day of the month. */ private int dayOfMonth;</code>，这类注释废话连篇，我们都学会了视而不见。最终，当代码修改之后，这类注释就变做了谎言一堆。Javadoc也可能是废话。</p></li>
+
+<li><p><strong>能用函数或变量时就别用注释</strong>：使用函数名或变量名来表明意图是最好的。</p></li>
+
+<li><p><strong>括号后面的注释</strong>：有的程序员会在while/try/catch等右大括号后面添加如“//while”或“//try”、&rdquo;//catch&rdquo;这类的注释。这对于深度嵌套结构的长函数有意义，但实际上应该做的是缩短函数。</p></li>
+
+<li><p><strong>归属与署名</strong>：源代码管理系统善于记住谁在何时添加了什么。没有必要在代码中用那些签名来搞脏代码。也许你认为这种注释大概有助于他人了解该和谁讨论这段代码。然而事实是，注释在那放了一年又一年，越来越不准确，越来越和原作者没有关系。</p></li>
+
+<li><p><strong>注释掉的代码</strong>：直接把代码注释掉是很令人讨厌的做法。其他人不敢删除，他们对象，代码依然放在那儿，一定有其原因，而且这段代码很重要，不能删除。现在我们都是用源代码管理系统，无门无需使用注释来标记那些不要的代码，删掉即可。</p></li>
+
+<li><p><strong>HTML注释</strong>：源代码注释中的HTML注释也是令人讨厌的。本来代码是易于阅读的，却因为HTML注释的存在而变得难以卒读。如果注释将由某种工具（如Javadoc）抽取出来，呈现到网页，那么该是工具而非程序员来负责给注释加上何时的HTML标签。</p></li>
+
+<li><p><strong>非本地信息</strong>：假如要写注释，请确保它描述了离它最近的代码。</p></li>
+
+<li><p><strong>信息过多</strong>：别在注释中添加有趣的历史性话题或者无关细节的描述。“有一天，Alice和Bob讨论到关于xx的实现，&hellip;最终选择这种实现方式。”</p></li>
+
+<li><p><strong>不明显的联系</strong>：注释及其代码之间的联系应该显而易见。如果要不嫌麻烦写注释，至少让读者看着注释和代码，能理解注释所谈何物。</p></li>
+
+<li><p><strong>非公共代码中的Javadoc</strong>：虽然Javadoc对于生成公共API非常有用，但对于不打算作公共用途的代码就令人厌恶了。</p></li>
+</ul>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《代码整洁之道》——Robert C. Martin</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/code"><span class="tag">Code</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
