@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 03 Jun 2018 10:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 04 Jun 2018 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[精耕]代码整洁之道——对象和数据结构</title>
+      <link>https://wukn.github.io/2018/06/04/clean-code-object-and-data-structure/</link>
+      <pubDate>Mon, 04 Jun 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/06/04/clean-code-object-and-data-structure/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;将变量设置为private有一个理由：我们不想让其他人依赖这些变量。我们还想在心血来潮时能自由修改其类型或实现。那么，为什么还有那么多程序员给对象自动添加赋值器和取值器，将私有变量公之于众、如同它们根本就是公共变量一般呢？&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[精耕]代码整洁之道——格式</title>

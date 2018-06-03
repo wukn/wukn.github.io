@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[精耕]代码整洁之道——对象和数据结构</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 将变量设置为private有一个理由：我们不想让其他人依赖这些变量。我们还想在心血来潮时能自由修改其类型或实现。那么，为什么还有那么多程序员给对象自动添加赋值器和取值器，将私有变量公之于众、如同它们根本就是公共变量一般呢？
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[精耕]代码整洁之道——对象和数据结构" />
+    <meta name="twitter:description" content=" 将变量设置为private有一个理由：我们不想让其他人依赖这些变量。我们还想在心血来潮时能自由修改其类型或实现。那么，为什么还有那么多程序员给对象自动添加赋值器和取值器，将私有变量公之于众、如同它们根本就是公共变量一般呢？
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[精耕]代码整洁之道——对象和数据结构" />
+  <meta property="og:description" content=" 将变量设置为private有一个理由：我们不想让其他人依赖这些变量。我们还想在心血来潮时能自由修改其类型或实现。那么，为什么还有那么多程序员给对象自动添加赋值器和取值器，将私有变量公之于众、如同它们根本就是公共变量一般呢？
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/06/04/clean-code-object-and-data-structure/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.3" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/06/04/clean-code-object-and-data-structure/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[精耕]代码整洁之道——对象和数据结构</h1>
+      <p class="post-meta">@wukn · Jun 4, 2018 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>将变量设置为private有一个理由：我们不想让其他人依赖这些变量。我们还想在心血来潮时能自由修改其类型或实现。那么，为什么还有那么多程序员给对象自动添加赋值器和取值器，将私有变量公之于众、如同它们根本就是公共变量一般呢？</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="数据抽象">数据抽象</h3>
+
+<p>看这两段代码之间的区别。每段代码都表示笛卡尔平面上的一个点。</p>
+
+<p>不过，其中一个暴露了其实现，另一个则完全隐藏了其实现。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Point</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="n">x</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="n">y</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Point</span> <span class="o">{</span>
+    <span class="kt">double</span> <span class="nf">getX</span><span class="o">();</span>
+    <span class="kt">double</span> <span class="nf">getY</span><span class="o">();</span>
+    <span class="kt">void</span> <span class="nf">setCartesian</span><span class="o">(</span><span class="kt">double</span> <span class="n">x</span><span class="o">,</span> <span class="kt">double</span> <span class="n">y</span><span class="o">);</span>
+    <span class="kt">double</span> <span class="nf">getR</span><span class="o">();</span>
+    <span class="kt">double</span> <span class="nf">getTheta</span><span class="o">();</span>
+    <span class="kt">void</span> <span class="nf">setPolar</span><span class="o">(</span><span class="kt">double</span> <span class="n">r</span><span class="o">,</span> <span class="kt">double</span> <span class="n">theta</span><span class="o">);</span>
+<span class="o">}</span></code></pre></div>
+<p>第二段代码的漂亮之处在于，你不知道该实现会是在矩形坐标系中还是在极坐标系中，也可能两个都不是。然而，该接口还是明白无误地呈现了一种数据结构。不止如此，那些方法固定了一套存取策略。你可以单独读取某个坐标，但必须通过一次原子操作设定所有坐标。</p>
+
+<p>第一段代码非常清楚地表明是在矩形坐标系中实现，并要求我们单个操作那些坐标。这就暴露了实现。实际上，即便变量都是私有，而且我们也通过变量取值器和赋值器使用变量，其实现依然暴露了。</p>
+
+<p>隐藏实现并非只在变量之间放上一个函数层那么简单。隐藏实现关乎抽象。类并不简单地用取值器和赋值器将其变量推向外部，而是暴露抽象接口，以便用户无需了解数据结构的实现就能操作数据本体。</p>
+
+<h3 id="数据-对象的反对称性">数据、对象的反对称性</h3>
+
+<p>对象把数据隐藏于抽象之后，暴露操作数据的函数。数据结构暴露其数据，没有提供有意义的函数。</p>
+
+<p>例如，下面这段过程式代码案例。Geometry类操作三个形状类。形状类都是简单的数据结构，没有任何行为，所有行为都在Geometry中。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Square</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Point</span> <span class="n">topoLeft</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="n">side</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rectangle</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Point</span> <span class="n">topoLeft</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="n">height</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="n">width</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Circle</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="n">Point</span> <span class="n">center</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="n">radius</span><span class="o">;</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Gerometry</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">PI</span> <span class="o">=</span> <span class="n">3</span><span class="o">.</span><span class="na">141592653589793</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">area</span><span class="o">(</span><span class="n">Object</span> <span class="n">shape</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">NoSuchShapeException</span>
+    <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">shape</span> <span class="k">instanceof</span> <span class="n">Square</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Square</span> <span class="n">s</span> <span class="o">=</span> <span class="o">(</span><span class="n">Square</span><span class="o">)</span><span class="n">shape</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="na">side</span> <span class="o">*</span> <span class="n">s</span><span class="o">.</span><span class="na">side</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">shape</span> <span class="k">instanceof</span> <span class="n">Rectangle</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Rectangle</span> <span class="n">r</span> <span class="o">=</span> <span class="o">(</span><span class="n">Rectangle</span><span class="o">)</span><span class="n">shape</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="na">height</span> <span class="o">*</span> <span class="n">r</span><span class="o">.</span><span class="na">width</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">shape</span> <span class="k">instanceof</span> <span class="n">Circle</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Circle</span> <span class="n">c</span> <span class="o">=</span> <span class="o">(</span><span class="n">Circle</span><span class="o">)</span><span class="n">shape</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">PI</span> <span class="o">*</span> <span class="n">c</span><span class="o">.</span><span class="na">radius</span> <span class="o">*</span> <span class="n">r</span><span class="o">.</span><span class="na">radius</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="n">NoSuchShapeException</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<p>面向对象程序员可能会对此嗤之以鼻，抱怨说这是过程式代码——他们大概是对的，但也不完全正确。试想如果给Geometry类添加一个primeter函数会怎样，这些形状类根本不会因此而受影响。但如果添加一个新形状，就得修改Geometry中的所有函数来处理它。</p>
+
+<p>现在来看一看使用面向对象方案。area方法是多态的。不需要有Geometry类。如果添加一个新形状，现有的函数一个也不会受到影响，而当添加新函数时所有的形状都得修改！</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Square</span> <span class="kd">implements</span> <span class="n">Shape</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Point</span> <span class="n">topoLeft</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">side</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">area</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">side</span> <span class="o">*</span> <span class="n">side</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Rectangle</span> <span class="kd">implements</span> <span class="n">Shape</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Point</span> <span class="n">topoLeft</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">height</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">width</span><span class="o">;</span>
+
+    <span class="kd">private</span> <span class="kt">double</span> <span class="nf">area</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">height</span> <span class="o">*</span> <span class="n">width</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Circle</span> <span class="kd">implements</span> <span class="n">Shape</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Point</span> <span class="n">center</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">double</span> <span class="n">radius</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">final</span> <span class="kt">double</span> <span class="n">PI</span> <span class="o">=</span> <span class="n">3</span><span class="o">.</span><span class="na">141592653589793</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">double</span> <span class="nf">area</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">PI</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">radius</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<p>这两种方式的本质是对立的，这说明了对象与数据结构之间的二分原理：过程式代码（使用数据结构的代码）便于在不改动既有数据结构的前提下添加新函数，面向对象代码便于在不改动既有函数的前提下添加新类。反过来说就是，过程式代码难以添加新数据结构，因为必须修改所有函数。面向对象代码难以添加新函数，因为必须修改所有类。</p>
+
+<p>有经验的程序员知道，一切都是对象只是一个传说。过程式代码也有其适用的场景。</p>
+
+<h3 id="demeter定律">Demeter定律</h3>
+
+<p>Demeter定律认为，模块不应了解它所操作对象的内部情形。如上所示，对象隐藏数据，暴露操作。这意味着对象不应通过存取器暴露其内部结构，因为这样更像是暴露而非隐藏其内部结构。</p>
+
+<p>更准确地说，Demeter定律认为，类C的方法f只应该调用以下对象的方法：C自身；由f创建的对象；作为参数传递给f的对象；由C的实体变量持有的对象。</p>
+
+<p>方法不应调用由任何函数返回的对象的方法。换言之，只跟朋友谈话，不与陌生人谈话。举个反例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">final</span> <span class="n">String</span> <span class="n">outputDir</span> <span class="o">=</span> <span class="n">ctxt</span><span class="o">.</span><span class="na">getOptions</span><span class="o">().</span><span class="na">getScratchDir</span><span class="o">().</span><span class="na">getAbsolutePath</span><span class="o">();</span></code></pre></div>
+<h4 id="火车失事">火车失事</h4>
+
+<p>这类代码常被称做<strong>火车失事</strong>，因为它看起来就像是一列火车。这类连串的调用通常被认为是肮脏的风格，应该避免。最好做类似如下的切分：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Options</span> <span class="n">opts</span> <span class="o">=</span> <span class="n">ctxt</span><span class="o">.</span><span class="na">getOptions</span><span class="o">();</span>
+<span class="n">File</span> <span class="n">scratchDir</span> <span class="o">=</span> <span class="n">opts</span><span class="o">.</span><span class="na">getScratchDir</span><span class="o">();</span>
+<span class="kd">final</span> <span class="n">String</span> <span class="n">outputDir</span> <span class="o">=</span> <span class="n">scratchDir</span><span class="o">.</span><span class="na">getAbsolutePath</span><span class="o">();</span></code></pre></div>
+<p>上述代码是否违反了Demeter定律呢？模块知道ctxt对象包含多个option，每个option都有一个临时目录，而每个临时目录都有一个绝对路径。对于一个函数，这些知识真够丰富的。</p>
+
+<p>这些代码是否违反Demeter定律取决于ctxt、Options和ScratchDir是对象还是数据结构。如果是对象，则它们的内部结构应当隐藏而不暴露，而有关其内部细节的知识就明显违反了Demeter定律。如果ctxt、Options和ScratchDir只是数据结构，没有任何行为，则它们自然会暴露其内部结构，Demeter定律就不适用了。</p>
+
+<p>属性访问器函数的使用把问题搞复杂了。如果这样写<code>final String outputDir = ctxt.options.scratchDir.absolutePath;</code>，我们大概就不会提及对Demeter定律的违反。</p>
+
+<p>如果数据结构只简单地拥有公共变量，没有函数，而对象则拥有私有变量和公共函数，这个问题就不那么混淆。然而，有些框架和标准甚至要求最简单的数据结构都要有访问器和赋值器。</p>
+
+<h4 id="混杂">混杂</h4>
+
+<p>这种混淆有时会不幸导致混合结构，一半是对象，一半是数据结构。这种结构拥有执行操作的函数，也有公共变量或公共访问器及赋值器。无论出于怎样的初衷，公共访问器及赋值器都把私有变量公开化，诱导外部函数以过程式程序使用数据结构的方式使用这些变量。有时这种情况称作特性依恋（Feature Envy）。</p>
+
+<p>此类混杂增加了添加新函数的难度，也增加了添加新数据结构的难度，两面不讨好。应避免创造这种结构。</p>
+
+<h4 id="隐藏结构">隐藏结构</h4>
+
+<p>假使ctxt、Options和ScratchDir是拥有真实行为的对象又怎样呢？由于对象应隐藏其内部结构，我们就不该能够看到内部结构。这样依赖该如何实现呢？</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">ctxt</span><span class="o">.</span><span class="na">getAbsolutePathOfScratchDirectoryOption</span><span class="o">()</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">ctxt</span><span class="o">.</span><span class="na">getScratchDirectoryOption</span><span class="o">().</span><span class="na">getAbsolutePath</span><span class="o">()</span></code></pre></div>
+<p>第一种方案可能导致ctxt对象中方法的暴露。第二种方案是在假设getScratchDirectoryOption返回一个数据结构而非对象。这两种方案感觉都不好。</p>
+
+<p>如果ctxt是个对象，就应该要求它做点什么。不该要求它给出内部情形。那为什么还要得到临时目录的绝对路径呢？看代码发现，取得临时目录绝对路径的初衷是为了创建指定名称的临时文件。所以，直接让ctxt对象来做这件事如何？</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">BufferedOutputStream</span> <span class="n">bos</span> <span class="o">=</span> <span class="n">ctxt</span><span class="o">.</span><span class="na">createScratchFileStream</span><span class="o">(</span><span class="n">classFileName</span><span class="o">)</span></code></pre></div>
+<p>这下看起来像是个对象做的事了。ctxt隐藏了其内部结构，放置当前函数因浏览它不该知道的对象而违反Demeter定律。</p>
+
+<h3 id="数据传送对象">数据传送对象</h3>
+
+<p>最为精炼的数据结构，是一个只有公共变量、没有函数的类。这种数据结构有时被成为数据传送对象（DTO）。DTO在与数据库通信、解析Socket传递的消息之类的场景中很常见。</p>
+
+<p>更常见的是Bean结构。Bean结构拥有赋值器和取值器操作的私有变量，对Bean结构的半封装会让某些OO纯化论着感觉舒服些，不过通常没有其它好处。</p>
+
+<p>Active Record是一种特殊的DTO形式。它们是拥有公共（或可Bean式访问的）变量的数据结构，但通常也会拥有类似save和find这样的方法。Active Record一般是对数据库表或其它数据源的直接翻译。不幸的是，开发者经常往这类数据结构中塞进业务规则方法，把这类数据结构当成对象来用。这是不智的行为，因为塔导致了数据结构和对象的混杂体。解决方案是把Active Record当作数据结构，并创建包含业务规则、隐藏内部数据的独立对象。</p>
+
+<h3 id="小结">小结</h3>
+
+<p>对象暴露结构，隐藏数据。便于添加新对象类型而无需修改既有行为，同时也难以在既有对象中添加新行为。数据结构暴露数据，没有明显的行为。便于向既有数据结构添加新行为，同时也难以向既有函数添加新数据结构。</p>
+
+<p>当我们希望能够灵活地添加新数据类型，那就使用对象。另外一些时候，我们希望能灵活地添加新行为，就使用数据结构和过程。视场景而定。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《代码整洁之道》——Robert C. Martin</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/code"><span class="tag">Code</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
