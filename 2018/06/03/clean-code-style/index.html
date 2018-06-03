@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[精耕]代码整洁之道——格式</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 你应该保持良好的代码格式。应该选用一套管理代码格式的简单规则，然后贯彻这些规则。格式很重要。代码格式关乎沟通，而沟通是专业开发者的头等大事。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[精耕]代码整洁之道——格式" />
+    <meta name="twitter:description" content=" 你应该保持良好的代码格式。应该选用一套管理代码格式的简单规则，然后贯彻这些规则。格式很重要。代码格式关乎沟通，而沟通是专业开发者的头等大事。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[精耕]代码整洁之道——格式" />
+  <meta property="og:description" content=" 你应该保持良好的代码格式。应该选用一套管理代码格式的简单规则，然后贯彻这些规则。格式很重要。代码格式关乎沟通，而沟通是专业开发者的头等大事。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/06/03/clean-code-style/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.3" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/06/03/clean-code-style/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[精耕]代码整洁之道——格式</h1>
+      <p class="post-meta">@wukn · Jun 3, 2018 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>你应该保持良好的代码格式。应该选用一套管理代码格式的简单规则，然后贯彻这些规则。格式很重要。代码格式关乎沟通，而沟通是专业开发者的头等大事。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="垂直格式">垂直格式</h3>
+
+<p>源代码文件该有多大？根据统计Junit、FitNesse、testNG、TimeAndMoney、JDepend、Ant和Tomcat代码发现，很多文件少于200行，绝大多数文件不超过500行，但也有一些文件达数千行。这意味着有可能用大多数为200行、最长500行的单个文件构造出出色的系统。短文件通常比长文件易于理解。</p>
+
+<h4 id="向报纸学习">向报纸学习</h4>
+
+<p>想想看写得好的报纸文章。我们从上到下阅读。在顶部，我们期望有个头条，告诉我们故事主题，好让我们决定是否要读下去。第一段是整个故事的大纲，给出粗线条描述，但隐藏了故事细节。接着读下去，细节渐次增加，直到我们了解所有的日期、名字、引语、说法及其他细节。</p>
+
+<p>源代码也应该这样。名称应当简单且一目了然。名字本身应该足够告诉我们是否在正确的模块中。源文件最顶部应该给出高层次概念和算法。细节应该往下渐次展开，直到找到源文件中最底层的函数和细节。</p>
+
+<h4 id="概念间垂直方向上的区隔">概念间垂直方向上的区隔</h4>
+
+<p>几乎所有的代码都是从上往下读，从左往右读。每行展现一个表达式或一个子句，每组代码展示一条完整的思路。这些思路用空白行区隔开来。</p>
+
+<p>例如，在package声明、import声明和每个函数之间都用空行隔开。每个空白行都是一条线索，标识出新的独立的概念。</p>
+
+<h4 id="垂直方向上的靠近">垂直方向上的靠近</h4>
+
+<p>如果说空白行隔开了概念，那么靠近的代码行则暗示了它们之间的紧密关系/所以，紧密相关的代码应该相互靠近。</p>
+
+<h4 id="垂直距离">垂直距离</h4>
+
+<p>你是否曾经在某个类中摸索，从一个函数跳到另一个函数，上下求索，想要弄清楚这些函数如何操作，如何相互相关，最后却被高糊涂了？是否曾经苦苦追索某个变量或函数的继承链条？这令人沮丧，因为你想要理解系统<strong>做什么</strong>，却花时间和精力在找到和记住那些代码碎片<strong>在哪里</strong>。</p>
+
+<p>关系密切的概念应该互相靠近。显然，这条规则并不适用于分布在不同文件中的概念。除非有很好的理由，否则就不要把关系密切的概念放到不同的文件中。</p>
+
+<p>对于那些关系密切、放置于同一源文件中的概念，它们之间的区隔应该成为对相互的易懂度有多重要的衡量标准。</p>
+
+<p><strong>变量声明</strong>应尽可能靠近其使用位置。因为函数很短，本地变量应该在函数的顶部出现。循环中的控制变量应该总是在循环语句中声明。</p>
+
+<p><strong>实体变量</strong>应该在类的顶部声明。出现在代码的两个函数中间的实体变量就非常不明显，读者只能在无意中看到这些声明。</p>
+
+<p><strong>相关函数</strong>。若某个函数调用了另外一个，就应该把它们放到一起，而且调用者应该尽可能放在被调用者上面。这样就能轻易找到被调用的函数，极大地增强了整个模块的可读性。</p>
+
+<p><strong>概念相关</strong>：概念相关的代码应该放到一起。相关性越强，彼此之间的距离就该越短。</p>
+
+<h4 id="垂直顺序">垂直顺序</h4>
+
+<p>一般而言，我们想自上而下展示函数调用依赖顺序。也就是说，被调用的函数应该放在执行调用的函数下面。这样就建立了一种自顶向下贯穿代码模块的良好信息流。</p>
+
+<p>像报纸文章一般，我们指望最重要的概念先出来，指望以包括最少细节的方式表述它们。我们指望底层细节最后出来。这样，我们就能扫过源代码文件，自最前面的几个函数获知要旨，而不至于沉溺到细节中。</p>
+
+<h3 id="横向格式">横向格式</h3>
+
+<p>一行代码应该有多宽？依旧统计的是上述7个项目。一行字符数在20到60之间的占40%，长于80字符的较少。程序员们显然更喜爱短代码行。</p>
+
+<p>这说明，应该尽力保持代码行短小。但也无需死守80个字符这个上限，达到100或120个字符完全是可以的。再多的话，就有点肆意妄为了。尽量遵循无需拖动滚动条的原则。虽然现在显示器越来越宽，字符可以缩小到屏幕能容纳200个字符的宽度，但是还是建议别超过120个字符。</p>
+
+<h4 id="水平方向上的区隔与靠近">水平方向上的区隔与靠近</h4>
+
+<p>我们使用空格字符将彼此紧密相关的事物连接到一起，也用空格字符吧相关性较弱的事物分隔开来。</p>
+
+<p>在赋值操作符周围加上空格字符，以此达到强调目的。赋值语句有两个确定而重要的要素：左边和右边。空格字符加强了分隔效果。</p>
+
+<p>另一方面，不在函数名和左圆括号之间加空格。这是因为函数与其参数密切相关，如果隔开，就会显得互无关系。函数调用括号中的参数一一隔开，强调逗号，表示参数是互相分离的。</p>
+
+<p>空格字符的另一种用法是强调其前面的运算符。例如<code>return b*b - 4*a*c</code>，这样的等式看起来多舒服，然而多数代码格式化工具都会漠视运算符优先级，从头到尾采用同样的空格方式。</p>
+
+<h4 id="水平对齐">水平对齐</h4>
+
+<p>有的人喜欢使用这种对齐方式：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">FitNesseExpediter</span><span class="o">(</span><span class="n">Socket</span>          <span class="n">s</span><span class="o">,</span>
+                         <span class="n">FitNesseContext</span> <span class="n">context</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span>
+<span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">context</span> <span class="o">=</span>            <span class="n">context</span><span class="o">;</span>
+    <span class="n">socket</span> <span class="o">=</span>                  <span class="n">s</span><span class="o">;</span>
+    <span class="n">input</span> <span class="o">=</span>                   <span class="n">s</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+    <span class="n">output</span> <span class="o">=</span>                  <span class="n">s</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">();</span>
+    <span class="n">requestParsingTimeLimit</span> <span class="o">=</span> <span class="n">10000</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div>
+<p>这种对齐方式没什么用。对齐，像是在强调不重要的东西，把读者的目光从真正的意义上拉开。看到上面的声明列表，我们会从上往下阅读变量名，而忽视了它们的类型。赋值语句也一样，我们会从上往下阅读右值，而对赋值运算符视而不见。更烦的是，代码格式化工具会把这类对齐消除掉。相比之下，我更喜欢使用不对齐的声明和赋值。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="nf">FitNesseExpediter</span><span class="o">(</span><span class="n">Socket</span> <span class="n">s</span><span class="o">,</span> <span class="n">FitNesseContext</span> <span class="n">context</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span>
+<span class="o">{</span>
+    <span class="k">this</span><span class="o">.</span><span class="na">context</span> <span class="o">=</span> <span class="n">context</span><span class="o">;</span>
+    <span class="n">socket</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>
+    <span class="n">input</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">();</span>
+    <span class="n">output</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">();</span>
+    <span class="n">requestParsingTimeLimit</span> <span class="o">=</span> <span class="n">10000</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div>
+<h4 id="缩进">缩进</h4>
+
+<p>源文件是一种继承结构，而不是一种大纲结构。其中的信息设计整个文件、文件中每个类、类中的方法、方法中的代码块。也涉及代码块中的代码块，这种继承结构中的每一层级都圈处一个范围，名称可以在其中声明，而声明和执行语句也可以在其中解释。</p>
+
+<p>要让这种范围式继承结构可见，我们依赖源代码行在继承结构中的位置对源代码行做缩进处理。在文件的顶层语句，如大多数类的声明，根本不缩进。类中的方法相对该类缩进一个层级。方法的实现相对方法声明缩进一个层级。代码块的实现相对于其容器代码块缩进一个层级，以此类推。</p>
+
+<p>有缩进结构的文件可以很快地辨别出变量、构造器、存取器、方法等。</p>
+
+<p>有时候，会忍不住想要短小的if语句、while循环或小函数中违反缩进规则。一旦这么做了，多数时候还是会回头家伙丧缩进。这样就避免了出现范围层级坍塌到一行的情况。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CommentWidget</span> <span class="kd">extends</span> <span class="n">TextWidget</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">REGXEP</span> <span class="o">=</span> <span class="s">&#34;^#[^\r\n]*(?:(?:\r\n)|\n|\r)?&#34;</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">CommentWidget</span><span class="o">(</span><span class="n">ParentWidget</span> <span class="n">parent</span><span class="o">,</span> <span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span><span class="kd">super</span><span class="o">()</span><span class="n">parent</span><span class="o">,</span> <span class="n">text</span><span class="o">;}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">render</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span><span class="k">return</span> <span class="s">&#34;&#34;</span><span class="o">;}</span>
+<span class="o">}</span></code></pre></div><div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CommentWidget</span> <span class="kd">extends</span> <span class="n">TextWidget</span>
+<span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">REGXEP</span> <span class="o">=</span> <span class="s">&#34;^#[^\r\n]*(?:(?:\r\n)|\n|\r)?&#34;</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">CommentWidget</span><span class="o">(</span><span class="n">ParentWidget</span> <span class="n">parent</span><span class="o">,</span> <span class="n">String</span> <span class="n">text</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">()</span><span class="n">parent</span><span class="o">,</span> <span class="n">text</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">render</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<h4 id="空范围">空范围</h4>
+
+<p>有时，while或for语句的语句体为空，如下所示。这种结构最好尽量不使用。如果无法避免，就确保空范围体的缩进，用括号包围起来。如果把这个分号放在while语句同一行末尾，那就十分具有欺骗性。除非把那个分号放到另一行再加以缩进，否则就很难看到它。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="k">while</span> <span class="o">(</span><span class="n">dis</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buf</span><span class="o">,</span> <span class="n">0</span><span class="o">,</span> <span class="n">readBufferSize</span><span class="o">)</span> <span class="o">!=</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span>
+<span class="o">;</span></code></pre></div>
+<h3 id="团队规则">团队规则</h3>
+
+<p>每个程序员都有自己喜欢的格式规则，但如果在一个团队中工作，就是团队说了算。</p>
+
+<p>一组开发者应当认同一种格式风格，每个成员都应该采用那种风格。我们想要让软件拥有一以贯之的风格。</p>
+
+<h3 id="uncle-bob的格式规则">Uncle Bob的格式规则</h3>
+
+<p>看一下作者给出的他个人所使用规则的一个标准范例：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CodeAnalzer</span> <span class="kd">implements</span> <span class="n">JavaFileAnalysis</span> <span class="o">{</span>
+  <span class="kd">private</span> <span class="kt">int</span> <span class="n">lineCount</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kt">int</span> <span class="n">maxLineWidth</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kt">int</span> <span class="n">widestLineNumber</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="n">LineWidthHistogram</span> <span class="n">lineWidthHistogram</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="kt">int</span> <span class="n">totalChars</span><span class="o">;</span>
+
+  <span class="kd">public</span> <span class="nf">CodeAnalzer</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">lineWidthHistogram</span> <span class="o">-</span> <span class="k">new</span> <span class="n">LineWidthHistogram</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">File</span><span class="o">&gt;</span> <span class="nf">findJavaFiles</span><span class="o">(</span><span class="n">File</span> <span class="n">parentDirectory</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">File</span><span class="o">&gt;</span> <span class="n">files</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">File</span><span class="o">&gt;();</span>
+    <span class="n">findJavaFiles</span><span class="o">(</span><span class="n">parentDirectory</span><span class="o">,</span> <span class="n">files</span><span class="o">);</span>
+    <span class="k">return</span> <span class="k">this</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">findJavaFiles</span><span class="o">(</span><span class="n">File</span> <span class="n">parentDirectory</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">File</span><span class="o">&gt;</span> <span class="n">files</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">for</span><span class="o">(</span><span class="n">File</span> <span class="n">file</span> <span class="o">:</span> <span class="n">parentDirectory</span><span class="o">.</span><span class="na">listFiles</span><span class="o">())</span> <span class="o">{</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">file</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">endsWith</span><span class="o">(</span><span class="s">&#34;.java&#34;</span><span class="o">))</span>
+        <span class="n">files</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">file</span><span class="o">);</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">file</span><span class="o">.</span><span class="na">isDirectory</span><span class="o">())</span>
+        <span class="n">findJavaFiles</span><span class="o">(</span><span class="n">file</span><span class="o">,</span> <span class="n">files</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">analyzeFile</span><span class="o">(</span><span class="n">File</span> <span class="n">javaFile</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="n">javaFile</span><span class="o">));</span>
+    <span class="n">String</span> <span class="n">line</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">(</span><span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span>
+      <span class="n">measureLine</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">measureLine</span><span class="o">(</span><span class="n">String</span> <span class="n">line</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">lineCount</span><span class="o">++;</span>
+    <span class="kt">int</span> <span class="n">lineSize</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="na">length</span><span class="o">();</span>
+    <span class="n">totalChars</span> <span class="o">+=</span> <span class="n">lineSize</span><span class="o">;</span>
+    <span class="n">lineWidthHistogram</span><span class="o">.</span><span class="na">addLine</span><span class="o">(</span><span class="n">lineSize</span><span class="o">,</span> <span class="n">lineCount</span><span class="o">);</span>
+    <span class="n">recordWidestLine</span><span class="o">(</span><span class="n">lineSize</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kt">void</span> <span class="nf">recordWidestLine</span><span class="o">(</span><span class="kt">int</span> <span class="n">lineSize</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">lineSize</span> <span class="o">&gt;</span> <span class="n">maxLineWidth</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">maxLineWidth</span> <span class="o">=</span> <span class="n">lineSize</span><span class="o">;</span>
+      <span class="n">widestLineNumber</span> <span class="o">=</span> <span class="n">lineCount</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getLineCount</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">lineCount</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getMaxLineWidth</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">maxLineWidth</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getWidestLineNumber</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">widestLineNumber</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="n">LineWidthHistogram</span> <span class="n">getLineWidthHistogram</span><span class="o">)()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">lineWidthHistogram</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">double</span> <span class="nf">getMeanLineWidth</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span> <span class="n">totalChars</span> <span class="o">/</span> <span class="n">lineCount</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getMedianLineWidth</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Integer</span><span class="o">[]</span> <span class="n">sortedWidths</span> <span class="o">=</span> <span class="n">getSortedWidths</span><span class="o">();</span>
+    <span class="kt">int</span> <span class="n">cumulativeLineCount</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+    <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">width</span> <span class="o">:</span> <span class="n">sortedWidths</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">cumulativeLineCount</span> <span class="o">+=</span> <span class="n">lineCountForWidth</span><span class="o">(</span><span class="n">width</span><span class="o">);</span>
+      <span class="k">if</span> <span class="o">(</span><span class="n">cumulativeLineCount</span> <span class="o">&gt;</span> <span class="n">lineCount</span> <span class="o">/</span> <span class="n">2</span><span class="o">)</span>
+        <span class="k">return</span> <span class="n">width</span><span class="o">;</span>
+    <span class="o">}</span>
+    <span class="k">throw</span> <span class="k">new</span> <span class="n">Error</span><span class="o">(</span><span class="s">&#34;Cannot get here&#34;</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="kt">int</span> <span class="nf">lineCountForWidth</span><span class="o">(</span><span class="kt">int</span> <span class="n">width</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">lineWidthHistogram</span><span class="o">.</span><span class="na">getLinesforWidth</span><span class="o">(</span><span class="n">width</span><span class="o">).</span><span class="na">size</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="kd">private</span> <span class="n">Integer</span><span class="o">[]</span> <span class="nf">getSortedWidths</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Set</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">widths</span> <span class="o">=</span> <span class="n">lineWidthHistogram</span><span class="o">.</span><span class="na">getWidths</span><span class="o">();</span>
+    <span class="n">Integer</span><span class="o">[]</span> <span class="n">sortedWidths</span> <span class="o">=</span> <span class="o">(</span><span class="n">widths</span><span class="o">.</span><span class="na">toArray</span><span class="o">(</span><span class="k">new</span> <span class="n">Integer</span><span class="o">[</span><span class="n">0</span><span class="o">]));</span>
+    <span class="n">Arrays</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">sortedWidths</span><span class="o">);</span>
+    <span class="k">return</span> <span class="n">sortedWidths</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<hr />
+
+<p>参考资料：</p>
+
+<p>《代码整洁之道》——Robert C. Martin</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/code"><span class="tag">Code</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
