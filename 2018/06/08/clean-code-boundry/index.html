@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[精耕]代码整洁之道——边界</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 在软件中，我们通常会使用第三方程序包或使用开源代码，有时候还会使用公司中其他团队打造的组件或子系统。不管哪种情况，我们都得将外来代码干净利落地整合进自己的代码中。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[精耕]代码整洁之道——边界" />
+    <meta name="twitter:description" content=" 在软件中，我们通常会使用第三方程序包或使用开源代码，有时候还会使用公司中其他团队打造的组件或子系统。不管哪种情况，我们都得将外来代码干净利落地整合进自己的代码中。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[精耕]代码整洁之道——边界" />
+  <meta property="og:description" content=" 在软件中，我们通常会使用第三方程序包或使用开源代码，有时候还会使用公司中其他团队打造的组件或子系统。不管哪种情况，我们都得将外来代码干净利落地整合进自己的代码中。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/06/08/clean-code-boundry/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.40.3" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/06/08/clean-code-boundry/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[精耕]代码整洁之道——边界</h1>
+      <p class="post-meta">@wukn · Jun 8, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>在软件中，我们通常会使用第三方程序包或使用开源代码，有时候还会使用公司中其他团队打造的组件或子系统。不管哪种情况，我们都得将外来代码干净利落地整合进自己的代码中。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="使用第三方代码">使用第三方代码</h3>
+
+<p>以java.util.Map为例，如果应用程序中需要一个放置Sensor类对象的Map，大概会是这样：<code>Map sensors = new HashMap()</code>。当代码中需要访问其中的元素时，就会这样：<code>Sensor s = (Sensor)sensors.get(sensorId)</code>。这行代码会反复出现，它承担了取对象并转换类型的职责。而且这行代码并未说明自己的用途。通过使用泛型，这段代码可读性可以大大提高。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">Map</span><span class="o">&lt;</span><span class="n">Sensor</span><span class="o">&gt;</span> <span class="n">sensors</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">Sensor</span><span class="o">&gt;();</span>
+<span class="o">...</span>
+<span class="n">Sensor</span> <span class="n">s</span> <span class="o">=</span> <span class="n">sensors</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">sensorId</span><span class="o">);</span></code></pre></div>
+<p>不过，Map&lt;&gt;提供了超出所需的功能的问题还是没有解决。更整洁的方式大致如下：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Sensors</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Map</span> <span class="n">sensors</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+
+    <span class="kd">public</span> <span class="n">Sensor</span> <span class="nf">getById</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">(</span><span class="n">Sensor</span><span class="o">)</span> <span class="n">sensors</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<p>边界上的接口是隐藏的。如果Map的接口发生修改（Java 5加入泛型支持时的确发生了改动），那么只需要修改该类就行了。同时对泛型的使用也不再是大问题，因为转换和类型管理都在这个类内部处理的。</p>
+
+<h3 id="浏览和学习边界">浏览和学习边界</h3>
+
+<p>第三方代码帮助我们在更少时间内发布更丰富的功能。在使用第三方程序包时，该从何入手呢？我们没有测试第三方代码的职责，但为要使用的第三方代码编写测试，可能最符合我们的利益。</p>
+
+<p>设想第三方代码库的使用方法并不清楚。我们可能会花上一两天或更多时间去阅读文档，决定如何使用。然后开始编写使用第三方代码的代码，看是否如我们愿的工作。陷入长时间的调试、找我们或他们代码中的bug，这是常有的事。</p>
+
+<p>学习第三方代码很难。整个第三方死啊嘛也很难。两件事加一起更难。那该怎么做呢？不要在生产代码中试验新东西，而是编写测试来浏览和理解第三方赛马。这叫做<strong>学习性测试</strong>。在学习性测试中，我们如在应用中那样调用代码。通过核对试验来检测自己对那个API的理解程度。测试聚焦于我们想从API得到的东西。</p>
+
+<h3 id="学习log4j">学习log4j</h3>
+
+<p>比如，我们想使用log4j来代替自定义的日志代码。我们下载了log4j，打开文档介绍页。无需看太久，就编写了第一个测试用例，希望它能向控制台输出hello字样。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testLogCreate</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">&#34;MyLogger&#34;</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">);</span>
+<span class="o">}</span></code></pre></div>
+<p>运行，logger发生了一个错误，告诉我们需要用Appender。再读一点文档，发现有个ConsoleAppender。于是我们创建了一个。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testLogCreate</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">&#34;MyLogger&#34;</span><span class="o">);</span>
+    <span class="n">ConsoleAppender</span> <span class="n">appender</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConsoleAppender</span><span class="o">();</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">addAppender</span><span class="o">(</span><span class="n">appender</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">);</span>
+<span class="o">}</span></code></pre></div>
+<p>这回，我们发现Appender没有输出流。Google一下之后，写出以下代码。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="nd">@Test</span>
+<span class="kd">public</span> <span class="kt">void</span> <span class="nf">testLogCreate</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">Logger</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">&#34;MyLogger&#34;</span><span class="o">);</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">removeAllAppender</span><span class="o">();</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">addAppender</span><span class="o">(</span><span class="k">new</span> <span class="n">ConsoleAppender</span><span class="o">(</span>
+        <span class="k">new</span> <span class="n">PatternLayout</span><span class="o">(</span><span class="s">&#34;%p %t %m%n&#34;</span><span class="o">),</span>
+        <span class="n">ConsoleAppender</span><span class="o">.</span><span class="na">SYSTEM_OUT</span><span class="o">));</span>
+    <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;hello&#34;</span><span class="o">);</span>
+<span class="o">}</span></code></pre></div>
+<p>这回行了。当我们一处ConsoleAppender.SYSTEM_OUT参数时，仍然能输出hello字样。但是如果取走PatternLayout就会出现没有输出流的错误信息。</p>
+
+<p>再搜索、阅读、测试，最终我们得到如下代码清单。我们极大地发掘了log4j的工作方式，也将得到的知识融入了一系列简单的单元测试中。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LogTest</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Logger</span> <span class="n">logger</span><span class="o">;</span>
+
+    <span class="nd">@Before</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">initialize</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="s">&#34;logger&#34;</span><span class="o">);</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">removeAllAppender</span><span class="o">();</span>
+        <span class="n">Logger</span><span class="o">.</span><span class="na">getRootLogger</span><span class="o">().</span><span class="na">removeAllAppender</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">basicLogger</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">BasicConfigurator</span><span class="o">.</span><span class="na">configure</span><span class="o">();</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;basicLogger&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addAppenderWithStream</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">addAppender</span><span class="o">(</span><span class="k">new</span> <span class="n">ConsoleAppender</span><span class="o">(</span>
+            <span class="k">new</span> <span class="n">PatternLayout</span><span class="o">(</span><span class="s">&#34;%p %t %m%n&#34;</span><span class="o">),</span>
+            <span class="n">ConsoleAppender</span><span class="o">.</span><span class="na">SYSTEM_OUT</span><span class="o">));</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;addAppenderWithStream&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Test</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addAppenderWithoutStream</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">addAppender</span><span class="o">(</span><span class="k">new</span> <span class="n">ConsoleAppender</span><span class="o">(</span>
+            <span class="k">new</span> <span class="n">PatternLayout</span><span class="o">(</span><span class="s">&#34;%p %t %m%n&#34;</span><span class="o">)));</span>
+        <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;addAppenderWithoutStream&#34;</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<h3 id="学习性测试的好处不只是免费">学习性测试的好处不只是免费</h3>
+
+<p>学习性测试毫无成本。无论如何我们都要学习要使用的API，而编写测试是获得这些知识的容易而不会影响其他工作的途径。学习性测试是一种精确试验，帮助我们增进对API的理解。</p>
+
+<p>当第三方包发布了新版本，通过运行学习性测试，就可以知道程序的行为有没有改变。学习性测试确保第三方程序包按照我们想要的方式工作。如果第三方程序包的修改与测试不兼容，我们能立马发现。</p>
+
+<h3 id="使用尚不存在的代码">使用尚不存在的代码</h3>
+
+<p>还有一种边界，那种将已知和未知分隔开的边界。有时候我们需要的接口是第三方代码还没有提供的。于是我们定义了自己使用的接口，也就是我们希望得到的接口。这样的好处是它在我们控制之下。一旦第三方的API被定义出来，我们就编写一个Adapter来跨接。这个方案为测试提供了极大的方便。在拿到第三方API之前，我们可以使用Mock对象来测试我们的代码。（适配器模式）</p>
+
+<h3 id="整洁的边界">整洁的边界</h3>
+
+<p>边界上的代码需要清晰的分割和定义了期望的测试。应该避免我们的代码过多地了解第三方代码中的特定信息。依靠我们能控制的东西，好过依靠我们控制不了的东西，免得以后受它控制。</p>
+
+<p>我们通过代码中少数几处引用第三方边界接口的位置来管理第三方边界。像对待Map那样包装它们，或者使用适配器模式将我们的接口转换为第三方提供的接口。采用这两种方式，代码都能更好地与我们沟通。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《代码整洁之道》——Robert C. Martin</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/code"><span class="tag">Code</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-XXXXXXXX-X', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='//www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

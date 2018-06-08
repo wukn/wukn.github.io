@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 06 Jun 2018 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 08 Jun 2018 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/tags/code/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[精耕]代码整洁之道——边界</title>
+      <link>https://wukn.github.io/2018/06/08/clean-code-boundry/</link>
+      <pubDate>Fri, 08 Jun 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/06/08/clean-code-boundry/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;在软件中，我们通常会使用第三方程序包或使用开源代码，有时候还会使用公司中其他团队打造的组件或子系统。不管哪种情况，我们都得将外来代码干净利落地整合进自己的代码中。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[精耕]代码整洁之道——错误处理</title>
