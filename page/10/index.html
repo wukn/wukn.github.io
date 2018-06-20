@@ -35,7 +35,7 @@
 
 
 
-<meta name="generator" content="Hugo 0.40.3" />
+<meta name="generator" content="Hugo 0.42.1" />
 
 
 <link rel="canonical" href="https://wukn.github.io/" />
@@ -219,6 +219,22 @@
       
         <article class="post-entry">
   <header class="post-header">
+    <h3 class="post-title"><a href="https://wukn.github.io/2016/10/21/space-based-architecture/" class="post-link">[译][软件架构模式]-基于空间的架构Space-based Architecture</a></h3>
+    <p class="post-meta">@wukn · Oct 21, 2016 · 1 min read</p>
+  </header>
+  
+  <p class="post-summary"> 大部分Web应用的处理流程为：浏览器发起的请求精经过Web服务器、应用服务器和数据库服务器的处理。当用户量不大时这样的模式没有任何问题。但随着用户访问量的增加，系统开始出现性能瓶颈，首先是Web服务器层，其次是应用服务器层，最后是数据库服务器层。处理的措施通常是水平扩展Web服务器。这是比较容易实现的。但是用户量过大时，水平扩展Web服务层后，瓶颈会转移到应用服务层。应用服务层的水平扩展相对比较复杂一些了，也会导致瓶颈转移到数据库服务层。而数据库服务层扩展起来代价更高。
+对于有大量用户并发访问的应用，通常数据库的并发处理事务量是关键的限制因素。尽管有很多缓存技术和数据库扩展工具可以解决该问题，但事实上扩展出可承受极端负载的应用是很难的。
+ 
+</p>
+  <footer class="post-footer">
+    <a class="read-more" href="https://wukn.github.io/2016/10/21/space-based-architecture/">Read More →</a>
+  </footer>
+</article>
+
+      
+        <article class="post-entry">
+  <header class="post-header">
     <h3 class="post-title"><a href="https://wukn.github.io/2016/10/21/microservices-architecture/" class="post-link">[译][软件架构模式]-微服务架构Microservices Architecture</a></h3>
     <p class="post-meta">@wukn · Oct 21, 2016 · 1 min read</p>
   </header>
@@ -317,11 +333,15 @@
 
 
 <script>
-window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-ga('create', 'UA-XXXXXXXX-X', 'auto');
-ga('send', 'pageview');
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
 </script>
-<script async src='//www.google-analytics.com/analytics.js'></script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 

@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://wukn.github.io/2018/06/20/clean-code-unit-test/</loc>
+    <lastmod>2018-06-20T22:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://wukn.github.io/2018/06/08/clean-code-boundry/</loc>
     <lastmod>2018-06-08T00:00:00+08:00</lastmod>
   </url>
@@ -507,7 +512,7 @@
   
   <url>
     <loc>https://wukn.github.io/tags/code/</loc>
-    <lastmod>2018-06-08T00:00:00+08:00</lastmod>
+    <lastmod>2018-06-20T22:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -537,7 +542,7 @@
   
   <url>
     <loc>https://wukn.github.io/post/</loc>
-    <lastmod>2018-06-08T00:00:00+08:00</lastmod>
+    <lastmod>2018-06-20T22:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -567,7 +572,7 @@
   
   <url>
     <loc>https://wukn.github.io/</loc>
-    <lastmod>2018-06-08T00:00:00+08:00</lastmod>
+    <lastmod>2018-06-20T22:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
