@@ -13,7 +13,7 @@
     
     
     <item>
-      <title>[精耕]代码整洁之道——单元测试</title>
+      <title>[代码整洁之道]单元测试</title>
       <link>https://wukn.github.io/2018/06/20/clean-code-unit-test/</link>
       <pubDate>Wed, 20 Jun 2018 22:00:00 +0800</pubDate>
       
@@ -26,7 +26,7 @@
     </item>
     
     <item>
-      <title>[精耕]代码整洁之道——边界</title>
+      <title>[代码整洁之道]边界</title>
       <link>https://wukn.github.io/2018/06/08/clean-code-boundry/</link>
       <pubDate>Fri, 08 Jun 2018 00:00:00 +0800</pubDate>
       
@@ -39,7 +39,7 @@
     </item>
     
     <item>
-      <title>[精耕]代码整洁之道——错误处理</title>
+      <title>[代码整洁之道]错误处理</title>
       <link>https://wukn.github.io/2018/06/06/clean-code-error-handling/</link>
       <pubDate>Wed, 06 Jun 2018 00:00:00 +0800</pubDate>
       
@@ -52,7 +52,7 @@
     </item>
     
     <item>
-      <title>[精耕]代码整洁之道——对象和数据结构</title>
+      <title>[代码整洁之道]对象和数据结构</title>
       <link>https://wukn.github.io/2018/06/04/clean-code-object-and-data-structure/</link>
       <pubDate>Mon, 04 Jun 2018 00:00:00 +0800</pubDate>
       
@@ -65,7 +65,7 @@
     </item>
     
     <item>
-      <title>[精耕]代码整洁之道——格式</title>
+      <title>[代码整洁之道]格式</title>
       <link>https://wukn.github.io/2018/06/03/clean-code-style/</link>
       <pubDate>Sun, 03 Jun 2018 10:00:00 +0800</pubDate>
       
@@ -78,7 +78,7 @@
     </item>
     
     <item>
-      <title>[精耕]代码整洁之道——注释</title>
+      <title>[代码整洁之道]注释</title>
       <link>https://wukn.github.io/2018/06/03/clean-code-comment/</link>
       <pubDate>Sun, 03 Jun 2018 00:00:00 +0800</pubDate>
       
@@ -91,7 +91,7 @@
     </item>
     
     <item>
-      <title>[精耕]代码整洁之道——函数</title>
+      <title>[代码整洁之道]函数</title>
       <link>https://wukn.github.io/2018/06/02/clean-code-function/</link>
       <pubDate>Sat, 02 Jun 2018 00:00:00 +0800</pubDate>
       
@@ -104,7 +104,7 @@
     </item>
     
     <item>
-      <title>[精耕]代码整洁之道——有意义的命名</title>
+      <title>[代码整洁之道]有意义的命名</title>
       <link>https://wukn.github.io/2018/05/30/clean-code-meaningful-names/</link>
       <pubDate>Wed, 30 May 2018 23:00:00 +0800</pubDate>
       
@@ -117,7 +117,7 @@
     </item>
     
     <item>
-      <title>[精耕]代码整洁之道——整洁代码</title>
+      <title>[代码整洁之道]整洁代码</title>
       <link>https://wukn.github.io/2018/05/27/clean-code-clean-code/</link>
       <pubDate>Sun, 27 May 2018 00:00:00 +0800</pubDate>
       
