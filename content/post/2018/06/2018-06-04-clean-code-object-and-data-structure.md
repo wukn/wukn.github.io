@@ -1,5 +1,5 @@
 ---
-title: "[精耕]代码整洁之道——对象和数据结构"
+title: "[代码整洁之道]对象和数据结构"
 author: "wukn"
 tags: ["Code"]
 catalog: true

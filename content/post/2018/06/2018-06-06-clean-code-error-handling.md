@@ -1,5 +1,5 @@
 ---
-title: "[精耕]代码整洁之道——错误处理"
+title: "[代码整洁之道]错误处理"
 author: "wukn"
 tags: ["Code"]
 catalog: true

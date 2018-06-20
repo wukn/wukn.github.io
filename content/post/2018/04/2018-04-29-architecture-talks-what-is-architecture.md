@@ -1,5 +1,5 @@
 ---
-title: "[精耕]认识架构——什么是架构"
+title: "[聊聊架构]认识架构——什么是架构"
 author: "wukn"
 tags: ["Architecture"]
 catalog: true

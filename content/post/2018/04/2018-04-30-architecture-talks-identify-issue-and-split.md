@@ -1,5 +1,5 @@
 ---
-title: "[精耕]认识架构——识别问题和切分的原则"
+title: "[聊聊架构]认识架构——识别问题和切分的原则"
 author: "wukn"
 tags: ["Architecture"]
 catalog: true

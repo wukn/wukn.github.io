@@ -1,5 +1,5 @@
 ---
-title: "[精耕]软件架构——软件的生命周期与软件架构"
+title: "[聊聊架构]软件架构——软件的生命周期与软件架构"
 author: "wukn"
 tags: ["Architecture"]
 catalog: true

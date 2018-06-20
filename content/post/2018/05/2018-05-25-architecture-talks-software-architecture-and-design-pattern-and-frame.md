@@ -1,5 +1,5 @@
 ---
-title: "[精耕]软件架构——软件架构和设计模式、系统框架"
+title: "[聊聊架构]软件架构——软件架构和设计模式、系统框架"
 author: "wukn"
 tags: ["Architecture"]
 catalog: true

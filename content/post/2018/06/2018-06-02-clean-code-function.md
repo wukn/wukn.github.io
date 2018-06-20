@@ -1,5 +1,5 @@
 ---
-title: "[精耕]代码整洁之道——函数"
+title: "[代码整洁之道]函数"
 author: "wukn"
 tags: ["Code"]
 catalog: true

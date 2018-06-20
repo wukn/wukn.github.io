@@ -1,5 +1,5 @@
 ---
-title: "[精耕]软件架构——业务、架构和技术三者的关系"
+title: "[聊聊架构]软件架构——业务、架构和技术三者的关系"
 author: "wukn"
 tags: ["Architecture"]
 catalog: true

@@ -1,5 +1,5 @@
 ---
-title: "[精耕]代码整洁之道——边界"
+title: "[代码整洁之道]边界"
 author: "wukn"
 tags: ["Code"]
 catalog: true

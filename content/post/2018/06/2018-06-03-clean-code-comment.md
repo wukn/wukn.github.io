@@ -1,5 +1,5 @@
 ---
-title: "[精耕]代码整洁之道——注释"
+title: "[代码整洁之道]注释"
 author: "wukn"
 tags: ["Code"]
 catalog: true

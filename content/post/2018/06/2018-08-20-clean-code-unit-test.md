@@ -1,5 +1,5 @@
 ---
-title: "[精耕]代码整洁之道——单元测试"
+title: "[代码整洁之道]单元测试"
 author: "wukn"
 tags: ["Code"]
 catalog: true

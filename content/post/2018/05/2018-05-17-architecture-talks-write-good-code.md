@@ -1,5 +1,5 @@
 ---
-title: "[精耕]软件架构——如何写好代码"
+title: "[聊聊架构]软件架构——如何写好代码"
 author: "wukn"
 tags: ["Architecture"]
 catalog: true

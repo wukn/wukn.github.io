@@ -1,5 +1,5 @@
 ---
-title: "[精耕]软件架构——软件运维"
+title: "[聊聊架构]软件架构——软件运维"
 author: "wukn"
 tags: ["Architecture"]
 catalog: true

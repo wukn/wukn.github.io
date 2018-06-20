@@ -1,5 +1,5 @@
 ---
-title: "[精耕]软件架构——软件架构和面向对象"
+title: "[聊聊架构]软件架构——软件架构和面向对象"
 author: "wukn"
 tags: ["Architecture"]
 catalog: true
