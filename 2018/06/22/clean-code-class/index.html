@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[代码整洁之道]类</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 除了代码语句及由代码语句构成的函数的表达力，我们还需要关注一下代码组织的更高层面，否则始终得不到整洁的代码。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[代码整洁之道]类" />
+    <meta name="twitter:description" content=" 除了代码语句及由代码语句构成的函数的表达力，我们还需要关注一下代码组织的更高层面，否则始终得不到整洁的代码。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[代码整洁之道]类" />
+  <meta property="og:description" content=" 除了代码语句及由代码语句构成的函数的表达力，我们还需要关注一下代码组织的更高层面，否则始终得不到整洁的代码。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/06/22/clean-code-class/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.42.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/06/22/clean-code-class/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[代码整洁之道]类</h1>
+      <p class="post-meta">@wukn · Jun 22, 2018 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>除了代码语句及由代码语句构成的函数的表达力，我们还需要关注一下代码组织的更高层面，否则始终得不到整洁的代码。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="类的组织">类的组织</h3>
+
+<p>遵循标准的Java约定，类应该从一组变量列表开始。如果有公共静态常量，应该先出现。然后是私有静态变量，以及私有实体变量。很少会有公共变量。</p>
+
+<p>公共函数应跟在变量列表之后。我们喜欢把由某个公共函数调用的私有工具函数紧随在该公共函数后面。这符合了自顶向下原则，让程序读起来就像一篇报纸文章。</p>
+
+<p>我们喜欢保持变量和工具函数的私有性，但并不执着于此。有时，我们也需要用到protected变量或工具函数，好让测试可以访问到。</p>
+
+<h3 id="类应该短小">类应该短小</h3>
+
+<p>关于类的第一条规则是类应该短小。第二条规则是还要更短小。这条规则跟函数是类似的。那么，多小合适呢？</p>
+
+<p>对于函数，我们通过计算代码行数衡量大小。对于类，我们采用不同的衡量方法，计算<strong>权责</strong>（responsibility）。</p>
+
+<p>类的名称应当描述其权责。如果无法为某个类找到一个精确的名称，这个类大概就太长了。类名越含混，该类越有可能拥有过多权责。例如，如果类名中包括含义模糊的词，如Processor或Manager或Super，这种现象往往说明有不恰当的权责聚集情况存在。</p>
+
+<p>我们也应该能够用大概25个单词描述一个类且不用if、and、or、but等词汇。</p>
+
+<h4 id="单一权责原则">单一权责原则</h4>
+
+<p>单一权责原则（SRP）认为，类或模块应有且只有一条<strong>加以修改的理由</strong>。该原则既给出了权责的定义，又是关于类的长度的指导方针。鉴别权责（修改的理由）常常帮助我们在代码中认识到并创建出更好的抽象。</p>
+
+<p>系统应该由许多短小的类而不是少量巨大的类组成。每个小类封装一个权责，只有一个修改的原因，并与少数其他类一起协同达成期望的系统行为。</p>
+
+<h4 id="内聚">内聚</h4>
+
+<p>类应该只有少量实体变量。类中的每个方法都应该操作一个或者多个这种变量。通常而言，方法操作的变量越多，就越黏聚到类上。如果一个类中的每个变量都被每个方法所使用，则该类具有最大的内聚性。</p>
+
+<p>一般创建这种极大化内聚类是既不可取也不可能的。另一方面，我们希望内聚性保持在较高位置。内聚性高，意味着类中的方法和变量互相依赖、互相结合成一个逻辑整体。</p>
+
+<p>保持函数和参数列表短小的策略，有时会导致为一组子集方法所使用的实体变量数量增加。出现这种情况时，往往意味着至少有一个类要从大类中挣扎出来。应当尝试将这些变量和方法分拆到两个或多个类中，让新的类更为内聚。</p>
+
+<h3 id="保持内聚性就会得到许多短小的类">保持内聚性就会得到许多短小的类</h3>
+
+<p>仅仅是将较大的函数切割为小函数，就将导致更多的类出现。想想看一个有许多变量的大函数。如果想把该函数中某一小部分拆解成单独的函数，但想要拆出的代码使用了该函数中声明的4个变量。是否必须将这4个变量都作为参数传递到新函数中去呢？</p>
+
+<p>完全没必要！只要将4个变量提升为类的实体变量，完全无需传递任何变量就能拆解代码了。应该很容易将函数拆分为小块。</p>
+
+<p>可惜这也意味着类丧失了内聚性，因为堆积了越来越多只为允许少量函数共享而存在的实体变量。那么，如果有些函数想要共享某些变量，为什么不让它们拥有自己的类呢？当类丧失了内聚性，就拆分它！</p>
+
+<p>所以，将大函数拆分为许多小函数，往往也是将类拆分为多个小类的时机。程序会更加有组织，也会拥有更为透明的结构。</p>
+
+<h3 id="为了修改而组织">为了修改而组织</h3>
+
+<p>对于多数系统，修改将一直持续。每处修改都让我们冒着系统其他部分不唔唔如期运行的风险。在整洁的系统中，我们对类加以组织，以降低修改的风险。</p>
+
+<p>下面这个Sql类还没写完，暂时不支持update功能。当需要支持update功能时，我们就得“打开”这个类进行修改。对类的任何修改都有可能破坏类中的其他代码。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Sql</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Sql</span><span class="o">(</span><span class="n">String</span> <span class="n">table</span><span class="o">,</span> <span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">create</span><span class="o">()</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">insert</span><span class="o">(</span><span class="n">Object</span><span class="o">[]</span> <span class="n">fields</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">selectAll</span><span class="o">()</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">findByKey</span><span class="o">(</span><span class="n">String</span> <span class="n">keyColumn</span><span class="o">,</span> <span class="n">String</span> <span class="n">keyValue</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">select</span><span class="o">(</span><span class="n">Column</span> <span class="n">column</span><span class="o">,</span> <span class="n">String</span> <span class="n">pattern</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">select</span><span class="o">(</span><span class="n">Criteria</span> <span class="n">criteria</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">preparedInsert</span><span class="o">()</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="nf">columnList</span><span class="o">(</span><span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="nf">valueList</span><span class="o">(</span><span class="n">Object</span><span class="o">[]</span> <span class="n">fields</span><span class="o">,</span> <span class="kd">final</span> <span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="nf">selectWithCriteria</span><span class="o">(</span><span class="n">String</span> <span class="n">criteria</span><span class="o">)</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="nf">placeholderList</span><span class="o">(</span><span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">)</span>
+<span class="o">}</span></code></pre></div>
+<p>当增加一种新语句类型，就要修改Sql类。改动单个语句类型也要进行修改，如让select功能支持子查询。存在两个修改的理由，说明Sql类违反了SRP原则。</p>
+
+<p>可以从一条简单的组织性观点发现对SRP的违反。Sql的方法大纲显示，存在类似selectWithCriteria等只与select语句有关的私有方法。这意味着存在改进空间。</p>
+
+<p>如何解决这些问题呢？将Sql类中的每个接口方法重构到从Sql派生出来的类中。那些私有方法，如valuesList，直接移到需要用它们的地方。公共私有行为划分到独立的两个工具类Where和ColumnList中。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">abstract</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Sql</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Sql</span><span class="o">(</span><span class="n">String</span> <span class="n">table</span><span class="o">,</span> <span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">)</span>
+    <span class="kd">abstract</span> <span class="kd">public</span> <span class="n">String</span> <span class="nf">generate</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CreateSql</span> <span class="kd">extends</span> <span class="n">Sql</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">CreateSql</span><span class="o">(</span><span class="n">String</span> <span class="n">table</span><span class="o">,</span> <span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">)</span>
+    <span class="nd">@override</span> <span class="kd">public</span> <span class="n">String</span> <span class="nf">generate</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SelectSql</span> <span class="kd">extends</span> <span class="n">Sql</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">SelectSql</span><span class="o">(</span><span class="n">String</span> <span class="n">table</span><span class="o">,</span> <span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">)</span>
+    <span class="nd">@override</span> <span class="kd">public</span> <span class="n">String</span> <span class="nf">generate</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">InsertSql</span> <span class="kd">extends</span> <span class="n">Sql</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">InsertSql</span><span class="o">(</span><span class="n">String</span> <span class="n">table</span><span class="o">,</span> <span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">fields</span><span class="o">)</span>
+    <span class="nd">@override</span> <span class="kd">public</span> <span class="n">String</span> <span class="nf">generate</span><span class="o">()</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="nf">valueList</span><span class="o">(</span><span class="n">Object</span><span class="o">[]</span> <span class="n">fields</span><span class="o">,</span> <span class="kd">final</span> <span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SelectWithCriteriaSql</span> <span class="kd">extends</span> <span class="n">Sql</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">SelectWithCriteriaSql</span><span class="o">(</span><span class="n">String</span> <span class="n">table</span><span class="o">,</span> <span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">,</span> <span class="n">Criteria</span> <span class="n">criteria</span><span class="o">)</span>
+    <span class="nd">@override</span> <span class="kd">public</span> <span class="n">String</span> <span class="nf">generate</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SelectWithMatchSql</span> <span class="kd">extends</span> <span class="n">Sql</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">SelectWithMatchSql</span><span class="o">(</span><span class="n">String</span> <span class="n">table</span><span class="o">,</span> <span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">,</span> <span class="n">Column</span> <span class="n">column</span><span class="o">,</span> <span class="n">String</span> <span class="n">pattern</span><span class="o">)</span>
+    <span class="nd">@override</span> <span class="kd">public</span> <span class="n">String</span> <span class="nf">generate</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FindByKeySql</span> <span class="kd">extends</span> <span class="n">Sql</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">FindByKeySql</span><span class="o">(</span><span class="n">String</span> <span class="n">table</span><span class="o">,</span> <span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">,</span> <span class="n">String</span> <span class="n">keyColumn</span><span class="o">,</span> <span class="n">String</span> <span class="n">keyValue</span><span class="o">)</span>
+    <span class="nd">@override</span> <span class="kd">public</span> <span class="n">String</span> <span class="nf">generate</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">preparedInsertSql</span> <span class="kd">extends</span> <span class="n">Sql</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">preparedInsertSql</span><span class="o">(</span><span class="n">String</span> <span class="n">table</span><span class="o">,</span> <span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">)</span>
+    <span class="nd">@override</span> <span class="kd">public</span> <span class="n">String</span> <span class="nf">generate</span><span class="o">()</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="nf">placeholderList</span><span class="o">(</span><span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">)</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Where</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Where</span><span class="o">(</span><span class="n">String</span> <span class="n">criteria</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">generate</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ColumnList</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">ColumnList</span><span class="o">(</span><span class="n">Column</span><span class="o">[]</span> <span class="n">columns</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">generate</span><span class="o">()</span>
+<span class="o">}</span></code></pre></div>
+<p>每个类中的代码都变得极为简单。理解每个类花费的时间缩减到近乎为零。函数对其他函数造成毁坏的风险也变得几近于无。从测试的角度看，验证方案中每一处逻辑都成了极为简单的任务，因为类与类之间互相隔离了。另外，当需要增加update语句时，现存类无需修改。</p>
+
+<p>重构后的代码符合SRP，同时也符合了开放闭合原则（OCP）：类应当对扩展开放，对修改封闭。</p>
+
+<h4 id="隔离修改">隔离修改</h4>
+
+<p>需求会改变，所以代码也会改变。具体类包含实现细节，而抽象类则只呈现概念。依赖于具体细节的类，当细节改变时，就会有风险。另一方面，对细节的依赖给对系统的测试带来了挑战。我们借助接口和抽象类来隔离这些细节带来的影响。</p>
+
+<p>通过降低连接度，类遵循了另一条类设计原则，依赖倒置原则（DIP）。本质而言，DIP认为类应当依赖于抽象而不是依赖于具体细节。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《代码整洁之道》——Robert C. Martin</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/code"><span class="tag">Code</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 20 Jun 2018 22:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 22 Jun 2018 22:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[代码整洁之道]类</title>
+      <link>https://wukn.github.io/2018/06/22/clean-code-class/</link>
+      <pubDate>Fri, 22 Jun 2018 22:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/06/22/clean-code-class/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;除了代码语句及由代码语句构成的函数的表达力，我们还需要关注一下代码组织的更高层面，否则始终得不到整洁的代码。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[代码整洁之道]单元测试</title>
