@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[代码整洁之道]并发编程</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 对象是过程的抽象。线程是调度的抽象。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[代码整洁之道]并发编程" />
+    <meta name="twitter:description" content=" 对象是过程的抽象。线程是调度的抽象。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[代码整洁之道]并发编程" />
+  <meta property="og:description" content=" 对象是过程的抽象。线程是调度的抽象。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/06/24/clean-code-concurrent-programming/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.42.1" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/06/24/clean-code-concurrent-programming/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[代码整洁之道]并发编程</h1>
+      <p class="post-meta">@wukn · Jun 24, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>对象是过程的抽象。线程是调度的抽象。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="为什么要并发">为什么要并发</h3>
+
+<p>并发是一种解耦策略。它帮助我们把做<strong>什么（目的）</strong>和<strong>何时（时机）</strong>做分解开。在单线程应用中，目的与时机紧密耦合，很多时候只要查看堆栈跟踪即可断定程序的状态。调试它可以通过断点来了解系统状态。</p>
+
+<p>解耦目的与时机能明显地改进应用程序的吞吐量和结构。从结构的角度来看，应用程序看起来更像是许多台协同工作的计算机，而不是一个大循环。系统因此会更易于被理解，给出了很多切分关注面的手段。</p>
+
+<p>例如，Web应用的Servlet标准模式，这类系统运行于Web容器之中，容器为我们部分地处理并发问题。当有Web请求时，servlet就会异步执行。程序员无需管理所有的请求。原则上，每次servlet实在自己的小世界中执行，与其他servlet的执行是分离的。只是实际上没这么简单，Web容器提供的解耦手段还不是十分完美。但Servlet模式的结构性好处还是很明显。</p>
+
+<p>除了结构性好处，还有一些系统对响应时间和吞吐量有要求，需要手工编写并发解决方案。</p>
+
+<p>关于编写并发软件的一些中肯的说法：</p>
+
+<ul>
+<li><p>并发会在性能和编写额外代码上<strong>增加一些开销</strong></p></li>
+
+<li><p><strong>正确的并发是复杂的</strong>，即便对于简单的问题也是如此</p></li>
+
+<li><p>并发缺陷并非总能重现，所以常被看作偶发事件而忽略，未被当作真的缺陷看待</p></li>
+
+<li><p><strong>并发常常需要对设计策略的根本性修改</strong></p></li>
+</ul>
+
+<h3 id="挑战">挑战</h3>
+
+<p>并发编程为何如此之难？先看一个小例子：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">X</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">lastIdUsed</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getNextId</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="o">++</span><span class="n">lastIdUsed</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span></code></pre></div>
+<p>创建一个X的实例，将lastIdUsed设置为42,在两个线程中共享这个实例。假设这两个线程都调用getNextId方法，结果可能有三种输出：</p>
+
+<ul>
+<li><p>线程一得到43,线程二得到44,lastIdUsed为44</p></li>
+
+<li><p>线程一得到44,线程二得到43,lastIdUsed为44</p></li>
+
+<li><p>线程一得到43,线程二得到43,lastIdUsed为43</p></li>
+</ul>
+
+<p>第三种结果令人诧异，当线程互相影响时就会出现这种情况。</p>
+
+<h3 id="并发防御原则">并发防御原则</h3>
+
+<h4 id="单一权责原则">单一权责原则</h4>
+
+<p>单一权责认为，方法/类/组件应当只有一个修改的理由。并发设计自身足够复杂到成为修改的理由，所以也应该从其他代码中分离出来。不幸的是，并发实现细节常常直接嵌入到其他生产代码中。需要考虑一些问题：</p>
+
+<ul>
+<li><p>并发相关代码有自己的开发、修改和调优生命周期</p></li>
+
+<li><p>并发相关代码有自己要对付的挑战，和非并发相关代码不同，而且往往更为困难</p></li>
+
+<li><p>即便没有周边应用程序增加的负担，写的不好的并发代码可能的出错方式数量也已经足具挑战性。</p></li>
+</ul>
+
+<p>建议：分离并发相关代码与其他代码。</p>
+
+<h4 id="推论-限制数据作用域">推论：限制数据作用域</h4>
+
+<p>如我们所见，两个线程修改共享对象的同一字段时，可能互相干扰。方案之一是采用synchronized关键字在代码中保护一块使用共享对象的临界区。限制临界区的数量很重要。更新共享数据的地方越多，就越可能：</p>
+
+<ul>
+<li><p>忘记保护一个或多个临界区——破坏了修改共享数据的代码</p></li>
+
+<li><p>得花很多力气保证一切都受到有效防护（破坏了DRY原则）</p></li>
+
+<li><p>很难找到错误源，也很难判断错误源</p></li>
+</ul>
+
+<p>建议：谨记数据封装；严格限制对可能被共享的数据的访问。</p>
+
+<h4 id="推论-使用数据复本">推论：使用数据复本</h4>
+
+<p>避免共享数据的好方法之一就是一开始就避免共享数据。在某些情形下，有可能复制对象并以只读方式对待。在其他情况下，有可能复制对象，从多个线程收集所有复本的结果，并在单个线程中合并这些结果。</p>
+
+<p>如果有避免共享数据的简易手段，代码就会大大减少导致错误的可能。你可能会关心创建额外对象的成本。这个值得试验一下看看效果。假使使用对象复本能避免代码同步执行，则因避免了锁定而省下的价值有可能补偿得上额外的创建成本和垃圾收集开销。</p>
+
+<h4 id="推论-线程应尽可能地独立">推论：线程应尽可能地独立</h4>
+
+<p>让每个线程在自己的世界中存在，不与其他线程共享数据。每个线程处理一个客户端请求，从不共享的源头接纳所有请求数据，存储为本地变量。这样以来，每个线程都像是世界中的唯一线程，没有同步需要。</p>
+
+<p>建议：尝试将数据分解到可被独立线程（可能在不同处理器上）操作的独立子集。</p>
+
+<h3 id="了解java库">了解Java库</h3>
+
+<p>Java中提供许多并发开发方面的功能。使用时要注意：</p>
+
+<ul>
+<li><p>使用类库提供的线程安全群集（java.util.concurrent）</p></li>
+
+<li><p>使用executer框架执行无关任务</p></li>
+
+<li><p>尽可能使用非锁定解决方案</p></li>
+
+<li><p>有几个类并不是线程安全的</p></li>
+</ul>
+
+<p>例如，ConcurrentHashMap在几乎所有情况下都比HashMap表现要好，它还支持同步并发读写，也拥有支持非线程安全的合成操作的方法。还有几个支持高级并发设计的类，如ReentrantLock、Semaphore、CountDownLatch。</p>
+
+<p>建议：检读可用的类。掌握java.util.concurrent、java.util.concurrent.atomic、java.util.concurrent.locks。</p>
+
+<h3 id="了解执行模型">了解执行模型</h3>
+
+<p>有几种在并发应用中切分行为的途径。首先看一些基础定义：</p>
+
+<ul>
+<li><p>限定资源：并发环境中有着固定尺寸或数量的资源。例如数据库连接和固定尺寸读/写缓存等</p></li>
+
+<li><p>互斥：每一时刻仅有一个线程能访问共享数据或共享资源</p></li>
+
+<li><p>线程饥饿：一个或一组线程在很长时间内或永久被禁止。例如，总是让执行的快的线程先运行，假如执行的快的线程没完没了，则执行时间长的线程就会“挨饿”</p></li>
+
+<li><p>死锁：两个或多个线程互相等待执行结束。每个线程都拥有其他线程需要的资源，得不到其他线程拥有的资源，就无法终止</p></li>
+
+<li><p>活锁：执行次序一致的线程，每个都想要起步，但发现其他线程已经“在路上”。由于竞步的原因，线程会持续尝试起步，但在很长时间内却无法如愿，甚至永远无法启动</p></li>
+</ul>
+
+<h4 id="生产者-消费者模型">生产者——消费者模型</h4>
+
+<p>一个或多个生产者线程创建某些工作，并置于缓存或队列中。一个或多个消费者线程从队列中获取并完成这些工作。生产者和消费者之间的队列是一种限定资源。</p>
+
+<h4 id="读者-作者模型">读者——作者模型</h4>
+
+<p>当存在一个主要为读者线程提供信息源，但只偶尔被作者线程更新的共享资源，吞吐量就会是个问题。增加吞吐量，会导致线程饥饿和过时的信息累积。更新会影响吞吐量。协调读者线程，不去读作者线程正在更新的信息（反之亦然），这是一种辛苦的平衡工作。作者线程倾向于长期锁定许多读者线程，从而导致吞吐量问题。</p>
+
+<p>挑战之处在于平衡读者线程和作者线程的需求，实现正确操作，提供合理的吞吐量，避免线程饥饿。</p>
+
+<h4 id="宴席哲学家">宴席哲学家</h4>
+
+<p>一群哲学家环坐在圆桌旁。每个哲学家的左手边放了一把叉子。桌面中央摆着一大碗意大利面。哲学家们思索良久，知道肚子饿了。每个人都要拿起叉子吃饭。但除非手上有两把叉子，否则就没法进食。如果左边或右边的哲学家已经取用一把叉子，中间这位就得等到别人吃完、放回叉子。每位哲学家吃完后，就将两把叉子放回桌面，知道肚子再饿。</p>
+
+<p>用线程代替哲学家，用资源代替叉子，就变成许多应用中进程竞争资源的情形。如果没有用心设计，这种竞争式系统就会遭遇死锁、活锁、吞吐量和效率降低等问题。</p>
+
+<p>建议：我们可能遇到的并发问题大多数是这三个问题的变种，研究这些基础算法，理解其解决方案。</p>
+
+<h3 id="警惕同步方法之间的依赖">警惕同步方法之间的依赖</h3>
+
+<p>同步方法之间的依赖会导致并发代码中的难以捕捉的缺陷。Java中有synchronized概念，可以用来保护单个方法。然而，如果在同一共享类中有多个同步方法，系统就可能写的不太正确了。</p>
+
+<p>建议：避免是哟过一个共享对象的多个方法。</p>
+
+<p>有时必须使用一个共享对象的多个方法。在这种情况发生时，有3种写对代码的手段：</p>
+
+<ul>
+<li><p>基于客户端的锁定：客户端代码在调用第一个方法前锁定服务器端，确保锁的范围覆盖了调用最后一个方法的代码</p></li>
+
+<li><p>基于服务端的锁定：在服务端内创建锁定服务端的方法，调用所有方法，然后解锁。让客户端代码调用新方法</p></li>
+
+<li><p>适配服务端：创建执行锁定的中间层。这是只用基于服务端的锁定的例子，但不修改原始服务端代码。</p></li>
+</ul>
+
+<h3 id="保持同步区域微小">保持同步区域微小</h3>
+
+<p>关键字synchronized制造了锁。同一个锁维护的所有代码区域在任一时刻保证只有一个线程执行。锁是昂贵的，因为它带来了延迟和额外开销。所以我们不愿将代码扔给synchronized语句了事。另一方面，临界区应该被保护起来。所以，应该尽可能少地设计临界区。</p>
+
+<h3 id="测试线程代码">测试线程代码</h3>
+
+<p>证明代码的正确性不切实际。测试并不能确保正确性。然而好的测试却能尽量降低风险。只是在并发的场景下测试这件事变得更加复杂。</p>
+
+<p>建议：编写有潜力暴露问题的测试，在不同的编程配置、系统配置和负载条件下频繁运行。如果测试失败，跟踪错误。不能因为后来测试通过了就忽略掉。</p>
+
+<h4 id="将伪失败看作可能的线程问题">将伪失败看作可能的线程问题</h4>
+
+<p>线程代码中的缺陷可能运行很多次才会显现一次。想要复现问题很难。开发者常常将其归咎于宇宙射线、硬件错误或其他“偶发事件”。但是最好假设这种偶发事件根本不存在。“偶发事件”被忽略得越久，代码就越可能搭建于不完善的基础之上。</p>
+
+<p>建议：不要将系统错误归咎于偶发事件。</p>
+
+<h4 id="先使非线程代码可工作">先使非线程代码可工作</h4>
+
+<p>建议：不要同时跟踪非线程缺陷和线程缺陷，确保线程之外的代码可工作。</p>
+
+<h4 id="编写可插拔的线程代码">编写可插拔的线程代码</h4>
+
+<p>编写可在数个配置环境下运行的线程代码：</p>
+
+<ul>
+<li><p>单线程于多个线程在执行时不同的情况</p></li>
+
+<li><p>线程代码与实物或测试替身互动</p></li>
+
+<li><p>用运行快速、缓慢和有变动的测试替身执行</p></li>
+
+<li><p>将测试配置为能运行数量的迭代</p></li>
+</ul>
+
+<p>建议：编写可插拔的线程代码，这样就能在不同的配置环境下运行。</p>
+
+<h4 id="编写可调整的线程代码">编写可调整的线程代码</h4>
+
+<p>要获得良好的线程平衡，常常需要试错。一开始，在不同的配置环境下监测系统性能。要允许线程数量可调整。在系统运行时运行线程发生变动。允许线程依据吞吐量和系统使用率自我调整。</p>
+
+<h4 id="运行于多处理器数量的线程">运行于多处理器数量的线程</h4>
+
+<p>系统在切换任务时会发生一些事。为了促使任务交换的发生，运行于多处理器或处理器核心数量的线程。任务交换越频繁，越有可能找到错过临界区或导致死锁的代码。</p>
+
+<h4 id="在不同的平台上运行">在不同的平台上运行</h4>
+
+<p>不同的操作系统有着不同的线程策略。在不同的环境，多线程代码的行为也不一样。应该在所有可能部署的环境中运行测试。</p>
+
+<h4 id="装置试错代码">装置试错代码</h4>
+
+<p>并发代码中藏有缺陷时，往往简单的测试无法使其暴露。可能很久才会出现一次。线程中的缺陷之所以如此不频繁、偶发、难以重现，是因为在几千个穿过脆弱区域的可能路径当中，只有少数路径会真的导致失败。所以，侦测于调试也非常之难。</p>
+
+<p>怎样增加捕捉住如此罕见之物的机会呢？通过装置代码，增加对Object.wait()、Object.sleep()、Object.yield()、Object.priority()等方法的调用，改变代码执行顺序。这些方法都会影响执行顺序，从而增加了侦测到缺陷的可能性。</p>
+
+<p>有两种装置代码的方式：一种是硬编码，手工想代码中插入wait、sleep、yield、priority的调用。手工方式的缺点是需要人工找到合适的地方来插入方法调用、需要知道在哪里插入调用以及插入什么调用、在代码中留下这类代码会托慢执行速度、这是一种无地放矢的手段。另一种方法是使用工具，如Aspect-Oriented Framework、CGLIB或ASM等工具。</p>
+
+<p>要点是让代码“异动”，从而使线程以不同次序执行。编写良好的测试与“异动”，想结合，能有效地增加发现错误的机会。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《代码整洁之道》——Robert C. Martin</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/code"><span class="tag">Code</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
