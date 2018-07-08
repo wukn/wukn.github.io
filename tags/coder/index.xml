@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 08 Jul 2018 22:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Mon, 09 Jul 2018 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/tags/coder/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[代码整洁之道]说不</title>
+      <link>https://wukn.github.io/2018/07/09/clean-coder-say-no/</link>
+      <pubDate>Mon, 09 Jul 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/07/09/clean-coder-say-no/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;能就是能，不能就是不能。不要说”试试看“。专业人士敢于说明真相而不屈从于权势。专业人士有勇气对他们的上级说”不“。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[代码整洁之道]专业主义</title>
