@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[代码整洁之道]说是</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 口头上说。心里认真。付诸行动。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[代码整洁之道]说是" />
+    <meta name="twitter:description" content=" 口头上说。心里认真。付诸行动。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[代码整洁之道]说是" />
+  <meta property="og:description" content=" 口头上说。心里认真。付诸行动。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/07/10/clean-coder-say-yes/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.42.2" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/07/10/clean-coder-say-yes/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[代码整洁之道]说是</h1>
+      <p class="post-meta">@wukn · Jul 10, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>口头上说。心里认真。付诸行动。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="承诺用语">承诺用语</h3>
+
+<p>口头上说。心里认真。付诸行动。</p>
+
+<p>做出承诺，包含三个步骤：</p>
+
+<p>（1）口头上说自己将会去做。</p>
+
+<p>（2）心里认真对待做出的承诺。</p>
+
+<p>（3）真正付诸行动。</p>
+
+<p>很少有人会认真对待自己说的话，并且说到做到。有些人在说话时是认真的，但从来都不会说到做到。而更多的人在做出承诺后，几乎不会认真去履行诺言。</p>
+
+<p>更糟糕的是，我们常常会因为直觉摔跟头。有时我们轻信他人会说话算话说到做到，但事实上他并没有像承诺的那样去做。</p>
+
+<h4 id="识别-缺乏承诺-的征兆">识别“缺乏承诺”的征兆</h4>
+
+<p>在承诺做某事时，应当留意自己的用词，因为这些用词透露了我们对待承诺的认真程度。以下几个词或短语会透露“缺乏承诺”的蛛丝马迹：</p>
+
+<ul>
+<li><p><strong>需要/应当</strong>：“我们要把这活做完。”“有人应当负责去推动这件事。”</p></li>
+
+<li><p><strong>希望/但愿</strong>：“希望明天我能完成这个任务。”但愿我有时间做这件事。”</p></li>
+
+<li><p><strong>让我们</strong>（而不是“让我”）：“让我们回头再见。”“让我们把这事做完。”</p></li>
+</ul>
+
+<p>你会发现，我们有竭力逃避承担责任的倾向。</p>
+
+<h4 id="真正的承诺听起来是怎样的">真正的承诺听起来是怎样的</h4>
+
+<p>上面所列措辞的共同点是，说话的人要么显得事情不在“我”的掌控范围之内，要么不愿意承担个人责任。而事实是，你，你自己，<strong>始终都能</strong>掌控某些事情，也就是说，总<strong>有些事</strong>是你可以承诺做到的。</p>
+
+<p>识别真正承诺的诀窍在于，要去搜寻与下列相似的语句：我将在&hellip;之前&hellip;。这句话的关键在于，你对自己将会做某件事做了清晰的事实陈述，而且还明确说明了完成期限。你谈的是自己会去做的一项行动，而且，你不是可能去做，或是可能做到，而是必须做到。</p>
+
+<p>当你在别人面前做出承诺，那么你已经把自己放在必须做到某事的情势之下。接下来要做的就是，言必信，行必果。</p>
+
+<p>下面是一些没能做到“言必信，行必果”的可能原因，以及一些应对方法。</p>
+
+<p>（1）之所以没成功，是因为我寄希望于某某去做这件事。</p>
+
+<p>你只能承诺自己能完全掌控的事。例如目标是完成一个还依赖于另一团队的模块，那么你无法承诺自己既能够完成这个模块，还能实现该模块与其他团队所负责模块间的无缝集成。但你能承诺自己会采取一些具体行动来达成最终目标。你可以承诺以下内容：</p>
+
+<p>和其他组的某某成员坐下来，花一个小时，彻底理清模块间的依赖关系。</p>
+
+<p>创建一个接口，对模块与其他团队负责的模块之间的依赖关系进行抽象。</p>
+
+<p>在本周内，至少和负责构建的同时碰头三次，确保你对代码的改动没有影响整个构建系统。</p>
+
+<p>编写自用的构建脚本，对模块进行集成测试。</p>
+
+<p>可以看出，如果最终目标依赖于他人，那么你就应该采取某些行动，接近最终目标。</p>
+
+<p>（2）之所以没成功，是因为我不太确信是否真的能完成得了。</p>
+
+<p>即使目标无法完成，你仍能全力前进，离目标更近些。而弄清楚目标能否达成这件事，便是你可以采取的努力行动之一。</p>
+
+<p>（3）之所以没成功，是因为有些时候我真的无能为力。</p>
+
+<p>这样的事情时有发生，有些事情先前你可能没预料到，这很现实。但如果你仍然希望自己能够不负众望，那就赶紧去调整别人对你的预期，越快越好！</p>
+
+<p>你越早向各利益相关方发出预警信号，整个团队就越有可能抓住机会，中止并重新评估当前的活动，并决定是否采取些措施或做出些改变（比如调整优先级等）。这样，你仍有可能达成之前的承诺，或者用另一个承诺来代替先前的承诺。</p>
+
+<h3 id="学习如何说-是">学习如何说“是”</h3>
+
+<p>学会如何说“是”也同样重要。</p>
+
+<h4 id="试试-的另一面">“试试”的另一面</h4>
+
+<p>“小A，这周五能完成xx模块的修改吗？”“我想应该可以。”“包括文档吗？”“我会试试看尽力把文档也写完。”</p>
+
+<p>“试试”透露出犹豫不决，这不是一个明确的承诺。前面我们说到试试意味着仍有余力可施。但在这里，卻是“可能做得到，也可能做不到”的意思。</p>
+
+<p>如果这样回答则更好一些：</p>
+
+<p>“小A，这周五能完成xx模块的修改吗？”“可能可以，但也可能得到下周一。”“包括文档吗？”“写文档要再多花以及小时，这样的花，可能下周一可以完成，不过也可能会到下周二。”</p>
+
+<p>这样清楚地表达了自己的不确定感。领导或许能够应付得了这种不确定，但也可能无法接受。</p>
+
+<h4 id="坚守原则">坚守原则</h4>
+
+<p>如果领导对进度不满意，而提出想按他的计划交付，那么作为一个专业开发人员，就不会放弃底线。也许我们可以不写测试，不做重构，省掉完整的回归测试，但这些仍然无法更快完成任务。经验告诉我们，打破这些纪律和原则，必然会托慢进度。作为专业开发人员，要遵循和捍卫这些标准。</p>
+
+<p>如果领导接受了并开始寻找其他解决办法，那就没问题了。但是如果你是最后的希望所在，那么可以考虑是否通过加班来追赶进度。对此，你必须切实地考虑自己的精力储备。口头上说自己会在周末搞定这些事情是很容易的，但真要花精力高质量地完成工作会困难许多。</p>
+
+<p>专业认识对自己的能力极限了如指掌。他们十分清楚自己还能保持效率加班多长时间，也明白要付出的代价。</p>
+
+<h3 id="总结">总结</h3>
+
+<p>专业人士不需要对所有请求都回答“是”。不过，他们应该努力寻找创新的方法，尽可能做到有求必应。当专业人士给出肯定回答时，他们会使用正式的承诺，以确保各方能明白无误地理解承诺的内容。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《代码整洁之道-程序员的职业素养》——Robert C. Martin</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/coder"><span class="tag">Coder</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

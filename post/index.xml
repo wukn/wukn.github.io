@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Mon, 09 Jul 2018 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 10 Jul 2018 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[代码整洁之道]说是</title>
+      <link>https://wukn.github.io/2018/07/10/clean-coder-say-yes/</link>
+      <pubDate>Tue, 10 Jul 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/07/10/clean-coder-say-yes/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;口头上说。心里认真。付诸行动。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[代码整洁之道]说不</title>
