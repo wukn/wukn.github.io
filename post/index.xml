@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Tue, 10 Jul 2018 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 11 Jul 2018 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[代码整洁之道]编码</title>
+      <link>https://wukn.github.io/2018/07/11/clean-coder-coding/</link>
+      <pubDate>Wed, 11 Jul 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/07/11/clean-coder-coding/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Bob大叔介绍了他关于编码的一套规则与原则。这些规则与原则并非关于代码本身，而是描述在编码时的行为、情绪与态度。这些是“信心”和“出错感知”的源泉。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[代码整洁之道]说是</title>

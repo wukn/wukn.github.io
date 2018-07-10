@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[代码整洁之道]编码</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" Bob大叔介绍了他关于编码的一套规则与原则。这些规则与原则并非关于代码本身，而是描述在编码时的行为、情绪与态度。这些是“信心”和“出错感知”的源泉。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[代码整洁之道]编码" />
+    <meta name="twitter:description" content=" Bob大叔介绍了他关于编码的一套规则与原则。这些规则与原则并非关于代码本身，而是描述在编码时的行为、情绪与态度。这些是“信心”和“出错感知”的源泉。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[代码整洁之道]编码" />
+  <meta property="og:description" content=" Bob大叔介绍了他关于编码的一套规则与原则。这些规则与原则并非关于代码本身，而是描述在编码时的行为、情绪与态度。这些是“信心”和“出错感知”的源泉。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/07/11/clean-coder-coding/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.42.2" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/07/11/clean-coder-coding/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[代码整洁之道]编码</h1>
+      <p class="post-meta">@wukn · Jul 11, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>Bob大叔介绍了他关于编码的一套规则与原则。这些规则与原则并非关于代码本身，而是描述在编码时的行为、情绪与态度。这些是“信心”和“出错感知”的源泉。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="做好准备">做好准备</h3>
+
+<p>编码是一项颇具挑战性也十分累人的活动。相比其他类型的活动，编码要求更加聚精会神。因为在编码时你必须平衡相互牵制的多种因素。</p>
+
+<p>（1）首先，代码必须能够正常工作。必须理解当前要解决的是什么问题以及该如何解决。必须确保编写的代码忠实遵循解决方案。</p>
+
+<p>（2）代码必须能够帮你解决客户提出的问题。有时客户提出的需求没能真正解决他们自己的问题，这有赖于你去发现这些问题并与客户交流，以确保代码能够满足客户的真是需求。</p>
+
+<p>（3）代码必须要能和现有系统结合得天衣无缝。你的代码不能让系统变得僵硬、更脆弱、更晦涩，必须妥善管理好各种依赖关系。简而言之，编写代码时必须遵循稳健的工程原则。</p>
+
+<p>（4）其他程序员必须能读懂你的代码。这不仅包括要写好注释。还要精心锤炼代码，使它能够表达你的编程意图。这可能是程序员最难精通的一件事。</p>
+
+<p>编码时无可避免地会受到各种干扰。当你无法全神关注地编码时，所写代码就可能出错。错误的结构、模糊晦涩、令人费解、无法解决客户的实际问题。导致最终返工修改代码甚至重写。在心烦意乱的状态下工作，只会造成严重的浪费。</p>
+
+<p>如果感到疲劳或心烦意乱，千万不要编码。强而为之，最终只能再回头返工。相反，要找到一种方法来消除干扰，让心绪平静下来。</p>
+
+<h4 id="凌晨3点写出的代码">凌晨3点写出的代码</h4>
+
+<p>疲劳的时候，千万不要写代码。奉献精神和职业素养，更多意义上指要遵循纪律原则而非成为长时间工作的工作狂。要确保自己已经将睡眠、健康和生活方式调整到最佳状况，这样才能做到在每天的8小时（有待商榷）时间内全力以赴。</p>
+
+<h4 id="焦虑时写下的代码">焦虑时写下的代码</h4>
+
+<p>焦虑时根本不应唉写代码。这时产出的任何代码都是垃圾。此时要做的就是先解除焦虑情绪。</p>
+
+<p>有些焦虑无法在一两个小时内解决，这是关键所在就是要学会如何关闭后台进程，或至少要能降低其优先级，这样焦虑就不会造成持续的干扰。如果发现自己虽然坐在办公室，但内心的焦虑正在不断削弱工作效率，那么最好还是花上一个小时让它们先安静下来，这要好过硬逼自己去写代码，因为这样憋出来的代码以后也将不得不抛弃。</p>
+
+<h3 id="流态区">流态区</h3>
+
+<p>高效率状态通常被称为“流态”。这是程序员在编写代码时会进入的一种意识高度专注但思维视野却会收拢到狭窄的状态。在这种状态下，他们会感到效率极高，他们会感到“绝无错误”。因此他们一直苦苦追求进入这种状态。</p>
+
+<p>一些曾进入这种状态但终又从中摆脱出来的人给出了一点忠告：<strong>避免进入流态区</strong>。这种意识状态并非真的极为高效，也绝非毫无错误。这其实是一种“浅层冥想”状态，在这种状态下，为了追求所谓的速度，理性思考的能力会下降。</p>
+
+<p>结对编程最大的一个好处在于，结对中的任一方都不可能进入流态区。</p>
+
+<p>不过，有时候流态区正是你希望进入的状态。这个时候就是当你潜心练习的时候。</p>
+
+<h4 id="音乐">音乐</h4>
+
+<p>有的人喜欢边听音乐边写代码。听音乐会消耗一部分宝贵的脑力资源，而这写资源本该用于编写设计良好的整洁代码。也许对有的人来说，音乐有助于他们编写代码，但是也许音乐正带领他们进入流态区。</p>
+
+<h4 id="中断">中断</h4>
+
+<p>假设你正在专心工作，此时有人过来问你问题，你会怎么回应呢？你会粗暴对待吗？或者你会停下手中的活，礼貌帮助那些碰到苦难的人吗？你会以自己碰到困难时期望他人对待你的方式来对待他们吗？</p>
+
+<p>粗暴相对的回应方式通常都是因为流态区所致。有时则是你正在努力理解一些十分复杂的问题，这要求你全神贯注。有一些办法可以应对这种情况。</p>
+
+<p>结对是应对中断的一种好方法。当你回答别人问题时，结对搭档能够维护住中断处的上下文。等你重新回去和结对搭档一起工作时，他能很快帮你恢复被打断前的思维。</p>
+
+<p>另一种很有帮助的方法便是采用TDD。失败的测试帮你维护住编码进度的上下文。当你处理完中断重新回去时，你很清楚下一步认识便是让这个失败的测试通过。</p>
+
+<p>当然，中断无法避免。要记住一点，也许下次也会轮到你去打断别人请求帮助。因此，礼貌地表现出乐于助人的态度才是专业的态度。</p>
+
+<h3 id="阻塞">阻塞</h3>
+
+<p>有的时候，死活就是写不出代码来。干坐在电脑面前，但什么都写不出来。</p>
+
+<p>这时候，通常你会去找一些其他事情做。查看邮件，翻翻微博，翻两页书，或者找别人交流。你回去做各种事情，这样便不必盯着屏幕，干坐在那里。</p>
+
+<p>哪些原因会导致这些阻塞呢？睡眠、焦虑、恐惧和沮丧等。</p>
+
+<p>有一个方法可以解决这个问题，那就是找一个搭档结对编程。结对能够帮你重新激活思维。</p>
+
+<h3 id="调试">调试</h3>
+
+<p>出于某些原因，软件开发人员会认为调试时间并非编码时间。他们认为存在调试时间是天经地义的，调试不等于编码。但是对于公司来讲，调试时间和编码时间是一样昂贵的，因此如果我们能够做些事情避免或消除调试活动，那是最为理想不过的。</p>
+
+<p>有个显著降低调试时间的方法是，采用“测试驱动开发”这一实践。</p>
+
+<p>绝对的零调试时间是一个理想化的目标，无法达到，但要将之作为努力方向。</p>
+
+<h3 id="保持节奏">保持节奏</h3>
+
+<p>软件开发是一场马拉松，而不是短跑冲刺。你无法全程一直以最快的速度冲刺来赢得比赛，只有通过保存体力和维持稳定节奏来取胜。</p>
+
+<p>没解决这个问题就不能回家？不，你可以回家，而且你应该回家。创造力和智力来自于大脑的高速运转。当你感到疲劳时，它们就不翼而飞了。当碰到困难而受阻时，当你感到疲倦时，就离开一会儿，让富有创造力的潜意识接管问题。精力分配得当，你将能在更短的时间内以更少的精力完成更多的事情。也许在开车回家路上或者洗澡的时候问题的解决方案就突然浮现在脑海中。</p>
+
+<h3 id="进度延迟">进度延迟</h3>
+
+<p>你总有一天会遭遇延迟的情况。这是不可避免的。有时候只是因为我们预估时过于乐观夸下了海口，最后延迟的情况无可避免。</p>
+
+<p>管理延迟的诀窍，就是早期检测和保持透明。最糟糕的情况是，你一直在告诉每个人你会按时完成工作，到最后期限来临前你还在这样说，但最终只能让他们大失所望。</p>
+
+<p>要根据目标定期衡量进度，使用三个考虑到多种因素的期限：乐观预估、标称预估、悲观预估。尽量严守这三个时间点。不要吧预估和期望混淆在一起。吧这三个数字呈现给团队和利益相关者，并每天修正这些数字。</p>
+
+<h4 id="盲目冲刺">盲目冲刺</h4>
+
+<p>如果领导要求你尽力赶上最后截止期限，那该怎么办？<strong>坚持维持你的估算</strong>！告诉领导你已经考虑过所有情况（因为你确实已经这么做了），唯一加快进度的方法便是缩减范围。<strong>不要经受不住诱惑盲目冲刺</strong>。</p>
+
+<p>快速冲刺是做不到的。你无法更快地写完代码。你无法更快地解决问题。如果试图这么做，最终只会让自己变得更慢，同时也只能制造出一堆混乱，让其他人也慢下来。</p>
+
+<p>因此，必须告诉领导、团队和利益相关方，让他们不要抱有这种期望。</p>
+
+<h4 id="加班加点">加班加点</h4>
+
+<p>加班确实有用，而且有时也有必要。有时候，通过一天工作10小时再加上周末加班一两天，你确实能够达成原本不可能的进度，但这么做的风险也很高。在额外加班20%的工作时间内，其实你并不能完成20%额外的工作。</p>
+
+<p>因此，不应该采用额外加班加点工作的方案，除非以下三个条件都能满足：（1）你个人能挤出这些时间；（2）短期加班，最多加班两周；（3）领导有后备预案，以防万一加班措施失败了。</p>
+
+<p>最后一条至为关键。如果领导无法说明清楚后备预案，那你就不该同意接受加班方案。</p>
+
+<h4 id="交付失误">交付失误</h4>
+
+<p>在程序员所能表现的各种不专业的行为中，最糟糕的是明知道还没有完成任务却宣称已经完成。但是，如果试图对“完成”做出一种新的合理化建议，潜在的危险是很大的。我们自欺欺人地认为任务已完成的足够好，然后转入下一项任务。我们自己找借口说等有更充裕的时间再来处理。</p>
+
+<p>可以通过创建一个确切定义的“完成”标准来避免交付失误。最好的方法是让业务分析师和测试人员创建一个自动化的验收测试，只有完全通过这些验收测试，开发任务才能算已经完成。利益相关这和业务人员应该也能轻松理解这些测试，并且要经常运行这些测试。</p>
+
+<h3 id="帮助">帮助</h3>
+
+<p>编程并非易事。刚开始可能没什么感觉，毕竟代码只是一堆if和for语句而已。随着经验增长，你会开始意识到把这些if和for语句组装在一起的方式十分重要。不能期望将它们简单混在一起就能得到最好的代码。相反，必须小心谨慎地将系统分解为易于理解的小单元，同时使这些单元之间的关系越少越好，这并非易事。</p>
+
+<p>编程很难，事实上，仅凭一己之力无法写出优秀的代码。即使你的技能格外高超，也肯定能从另外一名程序员的思考和想法中获益。</p>
+
+<p>帮助他人。接受他人的帮助。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《代码整洁之道-程序员的职业素养》——Robert C. Martin</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/coder"><span class="tag">Coder</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
