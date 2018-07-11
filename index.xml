@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Wed, 11 Jul 2018 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 12 Jul 2018 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[代码整洁之道]测试驱动开发</title>
+      <link>https://wukn.github.io/2018/07/12/clean-coder-tdd/</link>
+      <pubDate>Thu, 12 Jul 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/07/12/clean-coder-tdd/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;测试驱动开发最早是极限编程（XP）运动的一部分，但此后已经被Scrum和几乎所有其他敏捷方法所采纳。即使是非敏捷团队也在实践TDD。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[代码整洁之道]编码</title>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[代码整洁之道]测试驱动开发</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 测试驱动开发最早是极限编程（XP）运动的一部分，但此后已经被Scrum和几乎所有其他敏捷方法所采纳。即使是非敏捷团队也在实践TDD。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[代码整洁之道]测试驱动开发" />
+    <meta name="twitter:description" content=" 测试驱动开发最早是极限编程（XP）运动的一部分，但此后已经被Scrum和几乎所有其他敏捷方法所采纳。即使是非敏捷团队也在实践TDD。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[代码整洁之道]测试驱动开发" />
+  <meta property="og:description" content=" 测试驱动开发最早是极限编程（XP）运动的一部分，但此后已经被Scrum和几乎所有其他敏捷方法所采纳。即使是非敏捷团队也在实践TDD。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/07/12/clean-coder-tdd/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.42.2" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/07/12/clean-coder-tdd/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[代码整洁之道]测试驱动开发</h1>
+      <p class="post-meta">@wukn · Jul 12, 2018 · 1 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>测试驱动开发最早是极限编程（XP）运动的一部分，但此后已经被Scrum和几乎所有其他敏捷方法所采纳。即使是非敏捷团队也在实践TDD。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="此时已有定论">此时已有定论</h3>
+
+<p>过去数年间人们对TDD颇有争议，如今争议依旧很多。不同的是，以前他们是认真尝试着去批判和理解TDD，而现在只有夸夸其谈而已。结论很清楚，TDD确实可行，并且，每个开发人员都要适应和掌握TDD。</p>
+
+<p>如果连所有代码是否都可以正常运行都不知道，还算什么专业人士？如果每次修改代码后没有测试，如何能够知道所有代码可以正常运行？如果缺乏极高覆盖率的自动化单元测试，如何能够做到每次修改代码后都对代码进行测试？如果不采用TDD，如何能够获得极高覆盖率的自动化单元测试？</p>
+
+<h3 id="tdd的三项法则">TDD的三项法则</h3>
+
+<ul>
+<li><p>在编写好失败单元测试之前，不要编写任何产品代码。</p></li>
+
+<li><p>只要有一个单元测试失败了，就不要再写测试代码；无法通过贬义也是一种失败情况。</p></li>
+
+<li><p>产品代码恰好能够让当前失败的单元测试成功通过即可，不要多写。</p></li>
+</ul>
+
+<p>遵循这三项法则的话，大概30秒钟就要运行一次代码。先写好一个单元测试的一小部分，很快，你会发现去少一些类或函数，所以单元测试无法编译。因此必须编写产品代码，让这些测试能够编译成功。产品代码够用即可，然后再回头接着写单元测试代码。这个循环不断反复。</p>
+
+<h3 id="tdd的优势">TDD的优势</h3>
+
+<h4 id="确定性">确定性</h4>
+
+<p>遵循TDD的编码，将产生非常多的与产品代码相伴的单元测试代码。任何时刻，代码有任何修改，都必须运行手头有的全部测试。如果单元测试全部通过，差不多就可以确信修改没有破坏任何东西。这个“差不多确信”足以交付产品了！</p>
+
+<h4 id="缺陷注入率">缺陷注入率</h4>
+
+<p>很多公司实践后都发现TDD能够显著降低缺陷，包括IBM、微软等等。</p>
+
+<h4 id="勇气">勇气</h4>
+
+<p>看到糟糕代码时，你为什么不修改呢？看到混乱的函数时，你的第一反应是：真是一团糟，这个函数需要整理。而第二反应是：我不会去碰它。为什么？因为你知道，如果去动她，就要冒破坏它的风险。</p>
+
+<p>但是如果你能确信自己的整理工作没有破坏任何东西，那又会是怎样一种情况？这就是TDD最强大之处。拥有一套值得信赖的测试，便可以完全打消对修改代码的全部恐惧。当程序员不再惧怕整理代码时，他们便会动手整理。整洁的代码更易于理解，更易于修改，也易于扩展。代码更简洁了，缺陷也更少了。整个代码库也会随之稳步改善，彻底杜绝业界常见的放任代码劣化而视若不见的状况。</p>
+
+<p>专业程序员怎么能够容忍代码持续劣化呢？</p>
+
+<h4 id="文档">文档</h4>
+
+<p>遵循TDD三项法则的话，所编写的每个单元测试都是一个示例，用代码描述系统的用法。</p>
+
+<p>单元测试即是文档。它们描述了系统设计的最底层设计细节。它们清晰准确，以读者能够理解的语言写成，并且形式规整可以运行。</p>
+
+<h4 id="设计">设计</h4>
+
+<p>当你遵循三项法则并且做到了测试先行时，还会感到进退维谷。通常情况下，你对于想要写的代码十分清楚，但是三项法则却要求你先写出目前无法通过的单元测试，因为要测试的代码尚未诞生。这意味着必须测试将要编写的代码。</p>
+
+<p>测试代码的一个问题是必须隔离出待测试的代码。如果一个函数调用了其他函数，单独测试它通常会比较困难。为了编写测试，你必须找出将这个函数与其他函数解耦的办法。换言之，测试先行的需要，会迫使你去考虑什么是好的设计。</p>
+
+<p>如果不先写测试，就可能出现各个函数耦合在一起最终变成无法测试的一大团问题。如果后面再写测试，你也许能够测试整个大块的输入和输出，但是很难测试单个函数。</p>
+
+<p>因此，遵循三项法则并且测试先行，便能够产生一种驱动力，促使你做出松耦合的设计。</p>
+
+<p>事后写测试只是一种防守，而先行编写的测试则是进攻，事后编写测试的作者已经受制于已有代码，他已经知道问题是如何解决的。与采用测试先行的方式编写的测试代码比起来，后写的测试在深度和捕获错误的灵敏度方面要逊色很多。</p>
+
+<h4 id="专业人士的选择">专业人士的选择</h4>
+
+<p>总而言之，TDD是专业人士的选择。它是一项能够提升代码确定性、给程序员鼓励、降低代码缺陷率、优化文档和设计的原则。对TDD的各项尝试表明，不使用TDD就说明你可能还不够专业。</p>
+
+<h3 id="tdd的局限">TDD的局限</h3>
+
+<p>尽管TDD有诸多优点，但它也并非完全可靠的魔法。遵循这三项法则并不能担保一定会带来上述好处。即使做到了测试先行，仍有可能写出糟糕的代码，因为写出的测试代码可能就很糟糕。</p>
+
+<p>另外，在某些场合照这三项法则去做会显得不切实际或不合适。这种情况很少，但确实存在。如果遵循某项法则会弊大于利，专业的开发人员就当然不会选用它。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《代码整洁之道-程序员的职业素养》——Robert C. Martin</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/coder"><span class="tag">Coder</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>
