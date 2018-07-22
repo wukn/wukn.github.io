@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sat, 21 Jul 2018 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 22 Jul 2018 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/tags/microservice/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[微服务]分布式服务调用跟踪系统</title>
+      <link>https://wukn.github.io/2018/07/22/microservice-distribute-invoke-tracking-system/</link>
+      <pubDate>Sun, 22 Jul 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/07/22/microservice-distribute-invoke-tracking-system/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;在大规模服务调用场景下，服务之间的依赖关系错综复杂，甚至连架构师都无法在短时间内理清服务之间具体的依赖和调用顺序。此外，用户的一次请求可能涉及后端多个服务之间的调用，那些分散在各个机器上的孤立日志对于排查问题显然是不利的。这就是构建分布式调用跟踪系统的意义。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[微服务]基于Dubbo的分布式服务</title>
