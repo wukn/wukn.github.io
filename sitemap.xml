@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://wukn.github.io/2018/07/21/microservice-dubbo-based-distribute-service/</loc>
+    <lastmod>2018-07-21T00:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://wukn.github.io/2018/07/14/clean-coder-test-strategy/</loc>
     <lastmod>2018-07-14T00:00:00+08:00</lastmod>
   </url>
@@ -568,6 +573,12 @@
   </url>
   
   <url>
+    <loc>https://wukn.github.io/tags/dubbo/</loc>
+    <lastmod>2018-07-21T00:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://wukn.github.io/tags/k8s/</loc>
     <lastmod>2017-10-18T00:00:00+08:00</lastmod>
     <priority>0</priority>
@@ -586,6 +597,12 @@
   </url>
   
   <url>
+    <loc>https://wukn.github.io/tags/microservice/</loc>
+    <lastmod>2018-07-21T00:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://wukn.github.io/tags/microservices/</loc>
     <lastmod>2017-08-20T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -593,7 +610,7 @@
   
   <url>
     <loc>https://wukn.github.io/post/</loc>
-    <lastmod>2018-07-14T00:00:00+08:00</lastmod>
+    <lastmod>2018-07-21T00:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -623,7 +640,7 @@
   
   <url>
     <loc>https://wukn.github.io/</loc>
-    <lastmod>2018-07-14T00:00:00+08:00</lastmod>
+    <lastmod>2018-07-21T00:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   

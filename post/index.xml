@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sat, 14 Jul 2018 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 21 Jul 2018 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[微服务]基于Dubbo的分布式服务</title>
+      <link>https://wukn.github.io/2018/07/21/microservice-dubbo-based-distribute-service/</link>
+      <pubDate>Sat, 21 Jul 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/07/21/microservice-dubbo-based-distribute-service/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;在互联网场景下应对大流量、高并发，服务化架构改造必不可少。一个拥有较低侵入性的分布式调用跟踪系统来实现服务治理是很重要的，这有助于我们梳理清楚服务或服务之间的依赖关系、调用顺序，以及服务的执行耗时等。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[代码整洁之道]测试策略</title>
