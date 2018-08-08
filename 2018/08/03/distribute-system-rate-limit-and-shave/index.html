@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+
+  
+  <title>[分布式系统]大流量的限流与消峰</title>
+
+  
+  
+
+
+
+
+
+  
+  <meta name="author" content="wukn" />
+  <meta name="description" content=" 大型互联网网站的主要技术挑战在于用户请求的大流量和高并发。如果部队流量进行合理管制，那么有可能出现一些资源被耗尽、分布式缓存容量被撑爆、数据库吞吐量降低等情况，最终导致系统产生雪崩效应。流量管制的目的是保护系统，让系统的负载处于一个比较平衡的水位。
+ 
+" />
+
+  
+  
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@gohugoio" />
+    <meta name="twitter:title" content="[分布式系统]大流量的限流与消峰" />
+    <meta name="twitter:description" content=" 大型互联网网站的主要技术挑战在于用户请求的大流量和高并发。如果部队流量进行合理管制，那么有可能出现一些资源被耗尽、分布式缓存容量被撑爆、数据库吞吐量降低等情况，最终导致系统产生雪崩效应。流量管制的目的是保护系统，让系统的负载处于一个比较平衡的水位。
+ 
+" />
+    <meta name="twitter:image" content="https://wukn.github.io/img/avatar.jpg" />
+  
+
+  
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="[分布式系统]大流量的限流与消峰" />
+  <meta property="og:description" content=" 大型互联网网站的主要技术挑战在于用户请求的大流量和高并发。如果部队流量进行合理管制，那么有可能出现一些资源被耗尽、分布式缓存容量被撑爆、数据库吞吐量降低等情况，最终导致系统产生雪崩效应。流量管制的目的是保护系统，让系统的负载处于一个比较平衡的水位。
+ 
+" />
+  <meta property="og:url" content="https://wukn.github.io/2018/08/03/distribute-system-rate-limit-and-shave/" />
+  <meta property="og:image" content="https://wukn.github.io/img/avatar.jpg" />
+
+
+
+
+<meta name="generator" content="Hugo 0.46" />
+
+
+<link rel="canonical" href="https://wukn.github.io/2018/08/03/distribute-system-rate-limit-and-shave/" />
+<link rel="alternative" href="https://wukn.github.io/index.xml" title="wukn blog" type="application/atom+xml" />
+
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="format-detection" content="telephone=no,email=no,adress=no" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+
+
+<meta name="robots" content="index,follow" />
+<meta name="referrer" content="origin-when-cross-origin" />
+
+
+
+
+
+
+
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="wukn blog" />
+<meta name="msapplication-tooltip" content="wukn blog" />
+<meta name='msapplication-navbutton-color' content="#5fbf5e" />
+<meta name="msapplication-TileColor" content="#5fbf5e" />
+<meta name="msapplication-TileImage" content="/img/tile-image-windows.png" />
+<link rel="icon" href="https://wukn.github.io/img/favicon.ico" />
+<link rel="icon" type="image/png" sizes="16x16" href="https://wukn.github.io/img/favicon-16x16.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="https://wukn.github.io/img/favicon-32x32.png" />
+<link rel="icon" sizes="192x192" href="https://wukn.github.io/img/touch-icon-android.png" />
+<link rel="apple-touch-icon" href="https://wukn.github.io/img/touch-icon-apple.png" />
+<link rel="mask-icon" href="https://wukn.github.io/img/safari-pinned-tab.svg" color="#5fbf5e" />
+
+
+
+<link rel="stylesheet" href="//cdn.bootcss.com/video.js/6.2.8/alt/video-js-cdn.min.css" />
+
+<link rel="stylesheet" href="https://wukn.github.io/css/bundle.css" />
+
+
+  
+  <!--[if lt IE 9]>
+    <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <script src="//cdn.bootcss.com/video.js/6.2.8/ie8/videojs-ie8.min.js"></script>
+  <![endif]-->
+
+<!--[if lte IE 11]>
+    <script src="//cdn.bootcss.com/classlist/1.1.20170427/classList.min.js"></script>
+  <![endif]-->
+
+
+<script src="//cdn.bootcss.com/object-fit-images/3.2.3/ofi.min.js"></script>
+
+
+<script src="//cdn.bootcss.com/smooth-scroll/12.1.4/js/smooth-scroll.polyfills.min.js"></script>
+
+
+</head>
+  <body>
+    
+    <div class="suspension">
+      <a title="Go to top" class="to-top is-hide"><span class="icon icon-up"></span></a>
+      
+        
+      
+    </div>
+    
+    
+  <header class="site-header">
+  <img class="avatar" src="https://wukn.github.io/img/avatar.jpg" alt="Avatar">
+  
+  <h2 class="title">wukn blog</h2>
+  
+  <p class="subtitle">~ Stay Hungry, Stay Foolish ~</p>
+  <button class="menu-toggle" type="button">
+    <span class="icon icon-menu"></span>
+  </button>
+  <nav class="site-menu collapsed">
+    <h2 class="offscreen">Main Menu</h2>
+    <ul class="menu-list">
+      
+      
+      
+      
+        <li class="menu-item
+            
+            
+            
+              is-active
+            ">
+            <a href="https://wukn.github.io/">Home</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://github.com/wukn">Works</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/tags">Tags</a>
+          </li>
+      
+        <li class="menu-item
+            
+            
+            ">
+            <a href="https://wukn.github.io/about/">About</a>
+          </li>
+      
+    </ul>
+  </nav>
+  <nav class="social-menu collapsed">
+    <h2 class="offscreen">Social Networks</h2>
+    <ul class="social-list">
+
+      
+
+      
+      <li class="social-item">
+        <a href="//github.com/wukn" title="GitHub"><span class="icon icon-github"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/img/wechat_qrcode.png" title="Wechat"><span class="icon icon-wechat"></span></a>
+      </li>
+
+      
+
+      
+
+      
+
+      
+
+      <li class="social-item">
+        <a href="https://wukn.github.io/index.xml"><span class="icon icon-rss" title="RSS"></span></a>
+      </li>
+
+    </ul>
+  </nav>
+</header>
+
+  <section class="main post-detail">
+    <header class="post-header">
+      <h1 class="post-title">[分布式系统]大流量的限流与消峰</h1>
+      <p class="post-meta">@wukn · Aug 3, 2018 · 2 min read</p>
+    </header>
+    <article class="post-content"><blockquote>
+<p>大型互联网网站的主要技术挑战在于用户请求的大流量和高并发。如果部队流量进行合理管制，那么有可能出现一些资源被耗尽、分布式缓存容量被撑爆、数据库吞吐量降低等情况，最终导致系统产生雪崩效应。流量管制的目的是保护系统，让系统的负载处于一个比较平衡的水位。</p>
+</blockquote>
+
+<p></p>
+
+<h3 id="分布式系统应对大流量高并发的常规手段">分布式系统应对大流量高并发的常规手段</h3>
+
+<p>常规的应对高并发、大流量的手段有：</p>
+
+<ul>
+<li><p>扩容：单台服务器的处理能力有限，当其负载接近或已超出上限时，采用集群技术对服务器进行扩容，可以提升系统整体的并行处理能力</p></li>
+
+<li><p>动静分离：将静态数据缓存到CDN，避免用户请求直接落到企业的数据中心，可以加速系统的响应速度</p></li>
+
+<li><p>缓存：缓存的读写效率胜过关系数据库，合适使用缓存技术可以让系统的吞吐量得到质的提升</p></li>
+
+<li><p>服务降级：当系统容量难以支撑核心业务时，将部分服务降级以换取核心服务不受影响</p></li>
+
+<li><p>限流：大流量场景下的写服务是没法通过缓存和服务降级就能控制的，合理有效的限流手段才能对系统做好保护</p></li>
+</ul>
+
+<h3 id="常见的限流算法">常见的限流算法</h3>
+
+<p>我们平常使用的池化资源技术（数据库连接池、线程池、对象池）就是一种限流技术。例如数据库连接是一种很昂贵而且数量有限的底层资源，为了避免并发环境下连接数超过数据库所能承载的上限，合理地运用连接池技术，可以有效限制单个进程内能够申请到的最大连接数，确保在并发环境下连接数不会超过资源阈值。池化资源技术的限流是通过计数器算法来控制全局的总并发数。除了基于计数器的限流算法，还有两种常见的限流算法，那就是令牌桶算法和漏桶算法。</p>
+
+<h4 id="令牌桶算法">令牌桶算法</h4>
+
+<p>令牌桶算法主要用于限制流量的平均流入速率，并且还允许出现一定程度上的突发流量。Nginx的限流模块使用的就是令牌桶算法。</p>
+
+<p>令牌桶算法限流的基本流程如下：</p>
+
+<ul>
+<li><p>每秒放r个令牌到桶内，也就是会以1/r秒的平均速率想桶中依次放入令牌</p></li>
+
+<li><p>桶的容量固定不变，假设桶中最多只允许存放b个令牌，如果桶满了再放入令牌则溢出（新添加的令牌被丢弃）</p></li>
+
+<li><p>当一个n字节的请求包到达时，将消耗n个令牌，然后再发送该数据包</p></li>
+
+<li><p>若桶中的可用令牌数小于n，则该数据包将会被执行限流处理（被丢弃或缓存）</p></li>
+</ul>
+
+<p><img src="https://wukn.github.io/img/post/rate-limit/token-bucket.svg" alt="令牌桶算法流程" /></p>
+
+<h4 id="漏桶算法">漏桶算法</h4>
+
+<p>漏桶算法也可以实现流量管制。其限流的基本流程如下：</p>
+
+<ul>
+<li><p>可以以任意速率向桶中流入水滴</p></li>
+
+<li><p>桶的容量固定不变，如果桶满了则溢出（新流入的水滴被丢弃）</p></li>
+
+<li><p>按照固定速率从桶中流出水滴</p></li>
+</ul>
+
+<p><img src="https://wukn.github.io/img/post/rate-limit/leaky-bucket.svg" alt="漏桶算法流程" /></p>
+
+<p>从本质上来说，两种算法都可以用于在高并发大流量场景下对流量实施管制，让系统的负载处于比较均衡的水位，不会因为峰值流量过大导致系统被压垮。但这两种算法的限流方向是完全相反的。令牌桶算法限制的是流量的平均流入速率，并且可以允许出现一定程度上的突发流量，当桶中令牌数量不足以扣减时，新的请求将被执行限流处理；而漏桶算法限制的是流量的流出速率，并且这种流出速率是保持固定不变的，不允许像令牌桶算法那样出现突发流量，当流入的水滴超过桶的容量时，新的请求将被执行限流处理。</p>
+
+<h4 id="使用guava实现平均速率限流">使用Guava实现平均速率限流</h4>
+
+<p>Google的提供的Guava工具包里的RateLimiter提供了令牌桶算法的实现，使得我们可以方便地在程序中实现流量的平均流入速率限流。</p>
+
+<p>首先在pom.xml中添加依赖：</p>
+<div class="highlight"><pre class="chroma"><code class="language-xml" data-lang="xml">        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>com.google.guava<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>guava<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>25.1-jre<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span></code></pre></div>
+<p>接下来看如何使用RateLimiter提供的限流功能：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">limit</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 每秒向桶中放入5个Token
+</span><span class="c1"></span>        <span class="kd">final</span> <span class="n">RateLimiter</span> <span class="n">limiter</span> <span class="o">=</span> <span class="n">RateLimiter</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">5</span><span class="o">);</span>
+
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">10</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="c1">// 从桶中获取1个Token
+</span><span class="c1"></span>            <span class="kt">double</span> <span class="n">waitTime</span> <span class="o">=</span> <span class="n">limiter</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">waitTime</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span></code></pre></div>
+<p>通过调用RateLimiter的<code>create(double permitsPerSecond)</code>方法创建了一个RateLimiter实例，参数<code>permitsPerSecond</code>设置了每秒向桶中放入5个Token。如果每次请求都只从桶中获取1个Token，那么大约需要2秒才可以从桶中获取10个Token，也就是说系统每秒只允许5个并发请求。</p>
+
+<p>运行程序后打印的结果为：</p>
+
+<pre><code>0.0
+0.198551
+0.198587
+0.199385
+0.20004
+0.199505
+0.199144
+0.19972
+0.199554
+0.199228
+</code></pre>
+
+<p>为了应对突发流量，RateLimiter也支持请求一次从桶中获取多个Token：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">limit2</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 每秒向桶中放入5个Token
+</span><span class="c1"></span>        <span class="kd">final</span> <span class="n">RateLimiter</span> <span class="n">limiter</span> <span class="o">=</span> <span class="n">RateLimiter</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">5</span><span class="o">);</span>
+
+        <span class="c1">// 产生突发流量时，一次从桶中获取5个Token
+</span><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">limiter</span><span class="o">.</span><span class="na">acquire</span><span class="o">(</span><span class="n">5</span><span class="o">));</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">limiter</span><span class="o">.</span><span class="na">acquire</span><span class="o">());</span>
+    <span class="o">}</span></code></pre></div>
+<p>模拟突发流量的情况，当请求一次性拿完桶中仅有的5个Token之后，大约等待1秒之后，后续请求才能继续从桶中获取Token。因为TOken放入的速率为0.2秒一个，需要在偿还完之前因突发流量提前透支的Token数量后，才能允许请求进行消费。</p>
+
+<p>运行程序后打印的结果为：</p>
+
+<pre><code>0.0
+0.999895
+</code></pre>
+
+<p>如果在<code>limiter.acquire(5)</code>之前休眠1秒，那限流效果将发生变化，因为程序在休眠时，桶中已经被放入了足够数量的Token。</p>
+
+<p>除了标准的平均限流速率，如果希望系统在启动时的限流速率从慢速逐渐过渡到平均速率，给系统一个缓冲时间，RateLimiter也提供了相应的支持，在create方法中设置从慢速过渡到平均速率的缓冲时间和单位即可。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="n">RateLimiter</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="n">5</span><span class="o">,</span> <span class="n">1</span><span class="o">,</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span></code></pre></div>
+<p>此时如果请求被执行限流后，如果不希望请求一直处于等待状态获取Token，而是直接丢弃或短暂等待，那么便需要使用<code>tryAcquire()</code>方法：</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"></code></pre></div>
+<h4 id="计数器算法">计数器算法</h4>
+
+<p>技术器算法能达到不错的限流效果。例如限时抢购场景中，当用户成功下单后需要扣减指定商品的库存数量，但是大量的并发请求对数据库中同一行记录进行更新会导致数据库出现较大的负载压力。</p>
+
+<p>抢购限流指的就是指定的商品在单位时间内允许被抢购的次数，如果超过设定的阈值则系统拒绝后续用户的抢购请求。例如某商品的限流规则为10秒5000次，如果10秒内这个商品抢购次数达到了5000次，则拒绝后续的抢购请求；10秒之后限流逻辑可以对这个商品的可抢购次数（计数器）进行重置，确保之前没有抢购成功的用户可以继续正常参与抢购。</p>
+<div class="highlight"><pre class="chroma"><code class="language-java" data-lang="java"><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">limit</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">skus</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">isLimitOpen</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 检测限流开关是否打开
+</span><span class="c1"></span>        <span class="k">if</span> <span class="o">(</span><span class="n">skus</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">skus</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="c1">// key为SKU，value为可抢购的剩余次数
+</span><span class="c1"></span>            <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Integer</span><span class="o">&gt;</span> <span class="n">skuMap</span> <span class="o">=</span> <span class="n">getLimitedSkuList</span><span class="o">();</span> <span class="c1">// 获取被限流的SKU名单
+</span><span class="c1"></span>            <span class="kd">synchronized</span> <span class="o">(</span><span class="n">skuMap</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">try</span> <span class="o">{</span>
+                    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">sku</span> <span class="o">:</span> <span class="n">skus</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="k">if</span> <span class="o">(</span><span class="n">skuMap</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">sku</span><span class="o">))</span> <span class="o">{</span> <span class="c1">// 检查目标SKU是否在限流名单中
+</span><span class="c1"></span>                            <span class="n">while_skus</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">sku</span><span class="o">);</span>
+                            <span class="k">if</span> <span class="o">(</span><span class="n">skuMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">sku</span><span class="o">)</span> <span class="o">&lt;=</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// 抢购次数达到阈值则不允许下单
+</span><span class="c1"></span>                                <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+                            <span class="o">}</span>
+                        <span class="o">}</span>
+                    <span class="o">}</span>
+
+                    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">sku</span> <span class="o">:</span> <span class="n">while_skus</span><span class="o">)</span> <span class="o">{</span>
+                        <span class="n">skuMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">sku</span><span class="o">,</span> <span class="n">skuMap</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">sku</span><span class="o">)</span> <span class="o">-</span> <span class="n">1</span><span class="o">);</span> <span class="c1">// 扣减可抢购次数
+</span><span class="c1"></span>                    <span class="o">}</span>
+                <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+                    <span class="k">if</span> <span class="o">(!</span><span class="n">while_skus</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+                        <span class="n">while_skus</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+                    <span class="o">}</span>
+                <span class="o">}</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+<span class="o">}</span></code></pre></div>
+<p>在实际使用中，一般将限流规则放在配置中心里，以便于对限流开关进行动态调整和变更不同商品的限流规则。可抢购次数的扣减操作，既可以在Redis中进行，也可以在本地进行。假设集群有10台机器，某商品限流为10秒5000次，如果本地扣减可抢购次数，那么每个节点的限流规则就可以设置为10秒500次，这样就能很好地控制单机的并发写流量。</p>
+
+<h3 id="基于时间分片的消峰方案">基于时间分片的消峰方案</h3>
+
+<p>消峰指的是对峰值流量进行分散处理，避免在同一时间段内产生大量的流量，从而降低系统的负载压力。</p>
+
+<h4 id="活动分时段进行实现消峰">活动分时段进行实现消峰</h4>
+
+<p>一些大促活动整点的峰值流量会很大，如果将整点促销活动调整到多个时段进行，例如某商品的数量为5000,抢购时段分为10次，每个时段开放500个，这样同一时段聚集的用户流量将会被分散，系统的的负载压力会有所降低。</p>
+
+<p>在业务上做调整来对流量进行消峰也能获得很好的限流效果。</p>
+
+<h4 id="通过答题验证实现消峰">通过答题验证实现消峰</h4>
+
+<p>就像12306的验证码那样，用户在下单前需要经历答题验证环节，那么峰值的下单请求会被拉长，并且靠后的请求也会因为没有库存而无法完成下单，因此同一时间对系统的并发写流量将会非常有限。</p>
+
+<h3 id="异步调用请求">异步调用请求</h3>
+
+<p>通过消息中间件实现异步调用也是在分布式环境下解决系统之间的耦合及大流量消峰的重要手段。</p>
+
+<p>小规模的系统可以使用遵循JMS规范的ActiveMQ甚至是Redis提供的Publish/Subscribe模型，而互联网场景下则需要考虑使用Kafka、RocketMQ这类产品，因为这时更多要考虑的是MQ的吞吐量、可用性和扩展性等因素。</p>
+
+<h4 id="activemq">ActiveMQ</h4>
+
+<p>ActiveMQ是一个遵循了JMS规范的开源消息中间件实现。首先看一下JMS规范。根据JMS的架构模型来看，JMS主要由JMS Provider、Provider和Consumer三个角色构成。JMS Provider的主要任务是负责消息路由和消息传递；Provider和Consumer都属于JMS客户端，前者负责向消息队列写入消息，后者负责订阅消息。</p>
+
+<p>JMS的消息模型有两种，P2P模型和pub/sub模型。</p>
+
+<p>P2P模型就是一对一的消息推送/消费模式。如果有多个消费者都在监听消息队列上的消息，那么JMS Provider会根据先到先得的原则确定唯一的消费者，然后由指定的消费者对目标消息进行消费，如果当前没有任何消费者在监听队列，那么未被消费的消息会暂时积压在消息队列中，直到被消费。P2P模型是一个典型的Pull模式，由消费者主动从消息队列中获取消息。</p>
+
+<p>pub/sub模型是一对多或者广播形式的消息模型，对于订阅了目标Topic的所有消费者，JMS Provider都会将指定的消息Push给它们进行消费。</p>
+
+<h4 id="rocketmq">RocketMQ</h4>
+
+<p>互联网场景下，大型网站需要面对的主要问题是高并发和海量数据。通过集群技术可以很好地提升系统的并行处理能力，落地服务化结构可以实现分而治之的管理。但遵循JMS规范的消息中间件对分布式特性的支持较弱。另外在某些场景下，需要考虑顺序消息、事务处理、高吞吐量、高可用性及扩展性等。因此在互联网场景下建议使用Kafka或RocketMQ等产品。</p>
+
+<p>RocketMQ是阿里开源的一款分布式消息中间件。它支持顺序消息、支持事务消息、支持集群与广播模式、能够支撑亿级消息堆积能力、具有完善的分布式特性、支持Push与Pull两种消息订阅模式。</p>
+
+<p>RocketMQ由NameServer、Broker、Producer和Consumer四部分构成，每个部分都可以集群部署，在最大程度上保证了消息服务整体的高可用性。</p>
+
+<p><img src="https://wukn.github.io/img/post/rocketmq/rocketmq-architecture.svg" alt="RocketMQ系统架构" /></p>
+
+<p>NamerServer就是一个注册中心，Broker、Producer和Consumer在启动时都会向其进行注册，它的主要功能是负责客户端的寻址操作。NameServer集群中的各个节点都是无状态的。NameServer并不会存在特别频繁的读写操作，负载压力不大，因此部署集群时不需要太多的节点。</p>
+
+<p>Broker为消息服务端，提供消息的管理、存储及分发等功能。一个Topic会被均匀分布到集群中的所有Broker节点上。在RocketMQ中实际负责消息存储的是Queue，它在Topic内部。换句话说，Queue是消息存储的最小逻辑单元。当每个Broker节点启动时会和NameServer集群中的所有节点建立长连接，并定时轮询发送心跳和Topic信息，由NameServer负责定时检查当前的存活连接，如果在指定的时间内没有受到心跳，那么这个Broker节点的会话连接将会被NameServer主动关闭。</p>
+
+<p>Producer为消息生产者，用于向Broker推送消息；而Consumer为消息消费者，负责消费Broker中的消息。单个Producer和Consumer在启动时会和集群中的某一个NameServer节点建立长连接，定时轮询Topic信息，如果当前所连接的NameServer不可用，则自动重连到其他NameServer节点上。此外，Producer和Consumer会定时向Broker发送心跳，由Broker负责定时检查当前的存活连接，如果在指定时间内没有收到心跳，那么客户端的会话连接将被Broker主动关闭。</p>
+
+<hr />
+
+<p>参考资料：</p>
+
+<p>《人人都是架构师——分布式系统架构落地与瓶颈突破》——高翔龙</p></article>
+    <footer class="post-footer">
+      
+      <ul class="post-tags">
+        
+          <li><a href="https://wukn.github.io/tags/distribute"><span class="tag">Distribute</span></a></li>
+        
+      </ul>
+      
+      <p class="post-copyright">
+        © Creative Commons Attribution-NonCommercial 4.0 International License.
+      </p>
+    </footer>
+    
+      
+    
+  </section>
+  <footer class="site-footer">
+  <p>© 2017-2018 wukn blog</p>
+  <p>Powered by <a href="https://gohugo.io/" target="_blank">Hugo</a> with theme <a href="https://github.com/laozhu/hugo-nuo" target="_blank">Nuo</a>.</p>
+  
+</footer>
+
+
+
+<script async src="//cdn.bootcss.com/video.js/6.2.8/alt/video.novtt.min.js"></script>
+<script async src="//cdn.bootcss.com/mathjax/2.7.2/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      displayMath: [['$$','$$'], ['\\[','\\]']],
+      processEscapes: true,
+      processEnvironments: true,
+      skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+      TeX: { equationNumbers: { autoNumber: "AMS" },
+      extensions: ["AMSmath.js", "AMSsymbols.js"] }
+    }
+  });
+</script>
+<script type="text/x-mathjax-config">
+  // Fix <code> tags after MathJax finishes running. This is a
+  // hack to overcome a shortcoming of Markdown. Discussion at
+  // https://github.com/mojombo/jekyll/issues/199
+  MathJax.Hub.Queue(() => {
+    MathJax.Hub.getAllJax().map(v => v.SourceElement().parentNode.className += ' has-jax');
+  });
+</script>
+
+<script src="https://wukn.github.io/js/bundle.js"></script>
+
+
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-XXXXXXXX-X', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+  </body>
+</html>

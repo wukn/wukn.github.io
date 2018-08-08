@@ -7,10 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Sun, 22 Jul 2018 00:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 03 Aug 2018 00:00:00 +0800</lastBuildDate>
     
 	<atom:link href="https://wukn.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[分布式系统]大流量的限流与消峰</title>
+      <link>https://wukn.github.io/2018/08/03/distribute-system-rate-limit-and-shave/</link>
+      <pubDate>Fri, 03 Aug 2018 00:00:00 +0800</pubDate>
+      
+      <guid>https://wukn.github.io/2018/08/03/distribute-system-rate-limit-and-shave/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;大型互联网网站的主要技术挑战在于用户请求的大流量和高并发。如果部队流量进行合理管制，那么有可能出现一些资源被耗尽、分布式缓存容量被撑爆、数据库吞吐量降低等情况，最终导致系统产生雪崩效应。流量管制的目的是保护系统，让系统的负载处于一个比较平衡的水位。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>[微服务]分布式服务调用跟踪系统</title>

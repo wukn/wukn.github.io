@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://wukn.github.io/2018/08/03/distribute-system-rate-limit-and-shave/</loc>
+    <lastmod>2018-08-03T00:00:00+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://wukn.github.io/2018/07/22/microservice-distribute-invoke-tracking-system/</loc>
     <lastmod>2018-07-22T00:00:00+08:00</lastmod>
   </url>
@@ -578,6 +583,12 @@
   </url>
   
   <url>
+    <loc>https://wukn.github.io/tags/distribute/</loc>
+    <lastmod>2018-08-03T00:00:00+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://wukn.github.io/tags/dubbo/</loc>
     <lastmod>2018-07-22T00:00:00+08:00</lastmod>
     <priority>0</priority>
@@ -615,7 +626,7 @@
   
   <url>
     <loc>https://wukn.github.io/post/</loc>
-    <lastmod>2018-07-22T00:00:00+08:00</lastmod>
+    <lastmod>2018-08-03T00:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -645,7 +656,7 @@
   
   <url>
     <loc>https://wukn.github.io/</loc>
-    <lastmod>2018-07-22T00:00:00+08:00</lastmod>
+    <lastmod>2018-08-03T00:00:00+08:00</lastmod>
     <priority>0</priority>
   </url>
   
